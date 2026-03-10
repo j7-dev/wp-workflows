@@ -11,7 +11,7 @@ mcp-servers:
       - "git+https://github.com/oraios/serena"
       - "serena"
       - "start-mcp-server"
-      - "--help"
+    tools: ["*"]
 ---
 
 # 文件同步 Agent
