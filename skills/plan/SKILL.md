@@ -1,217 +1,223 @@
 ---
-description: Restate requirements, research risks, critique gaps, clarify ambiguities, and create step-by-step implementation plan. WAIT for user CONFIRM before touching any code.
+name: plan
+description: 重述需求、研究風險、審視缺口、澄清疑點，並建立逐步實作計劃。在撰寫任何程式碼之前，必須等待使用者確認。
 ---
 
-# Plan Command
+# /plan 指令
 
-This command invokes the **planner** agent to create a comprehensive implementation plan before writing any code.
+此指令呼叫 **planner** agent，在撰寫任何程式碼之前，建立完整的實作計劃。
 
-## What This Command Does
+## 指令功能
 
-1. **Restate Requirements** - Clarify what needs to be built
-2. **Research Known Risks** - Proactively surface pitfalls and known failure cases
-3. **Critique for Gaps** - Check for missing context, error handling, constraints
-4. **Clarify Ambiguities** - Ask targeted questions (only for gaps found)
-5. **Create Step Plan** - Break down implementation into phases
-6. **Wait for Confirmation** - MUST receive user approval before proceeding
+1. **認識當前專案** — 讀取專案指引、Skills、Spec 文件，掌握架構與慣例
+2. **重述需求** — 明確說明要建構的內容
+3. **研究已知風險** — 主動揭示潛在問題與已知的失敗情境
+4. **審視缺口** — 檢查遺漏的情境、錯誤處理、限制條件
+5. **澄清疑點** — 僅針對發現的缺口提問（每次最多 2 個問題）
+6. **建立計劃** — 拆解為具體可執行的階段，每個步驟附上風險等級
+7. **等待確認** — **必須**獲得使用者明確確認後才繼續執行
 
-## When to Use
+## 使用時機
 
-Use `/plan` when:
-- Starting a new feature
-- Making significant architectural changes
-- Working on complex refactoring
-- Multiple files/components will be affected
-- Requirements are unclear or ambiguous
+以下情境適合使用 `/plan`：
+- 開始開發新功能
+- 進行重大架構調整
+- 複雜的重構作業
+- 將影響多個檔案或元件
+- 需求不明確或有歧義
 
-## How It Works
+---
 
-The planner agent will execute these steps **sequentially without interruption** unless a clarification is needed:
+## 運作方式
 
-### Step 1 — Restate
-Analyze the request and restate requirements in clear terms: what is being built, who it serves, and what success looks like.
+Planner agent 將依序執行下列步驟，除非需要澄清否則**不中斷**：
 
-### Step 2 — Research (主動搜尋潛在風險)
-Before planning, **proactively search** for:
-- Known pitfalls and failure cases for this type of task
-- Tool/library version compatibility issues
-- Security or performance concerns reported by the community
-- Any constraints inherent to the target tech stack
+### 步驟 0 — 認識當前專案（首要步驟）
 
-List found risks with their sources, flagging which ones are **not yet addressed** in the requirements.
-> If no specific risks found, note "No additional known risks found" and continue.
+在開始規劃之前，**必須**先完成：
 
-### Step 3 — Critique (審視缺口)
-Check each item — unresolved ones become clarification questions:
-- [ ] **Context Scope** — project boundaries and affected components
-- [ ] **Acceptance Criteria** — how do we know the task is complete?
-- [ ] **Error Handling** — what happens when things go wrong?
-- [ ] **Environment / OS** — deployment target or infrastructure constraints
-- [ ] **Output Format** — expected artifacts (files, APIs, UI components)
+1. 閱讀 `.github/copilot-instructions.md`（如存在），瞭解命名空間、架構、text_domain、建構指令
+2. 閱讀 `.github/instructions/*.instructions.md`（如存在）
+3. 閱讀 `.github/skills/{專案名稱}/SKILL.md`、`spec/*`、`spec/erm.dbml`（如存在）
+4. 快速瀏覽 `composer.json`、`plugin.php`、`inc/src/` 或主要原始碼目錄，掌握架構風格
+5. 檢查是否有可用的 Skills（如 `/wordpress-router`、`/wp-abilities-api` 等），優先善加利用
 
-### Step 4 — Clarify (針對缺口提問)
-Ask **only** about the gaps found in Step 3. Provide option choices where possible and mark the recommended option:
+> ⚠️ 若無法讀取相關檔案，應明確告知使用者缺少哪些資訊，再繼續規劃。
 
-**Q: Acceptance criteria?** (Recommended: A)
-- A. All tests pass + task demonstrably works end-to-end
-- B. Unit tests pass only
-- C. Manual verification by user
+### 步驟 1 — 重述需求
 
-**Q: Error handling strategy?** (Recommended: B)
-- A. Fail Fast — stop immediately on first error
-- B. Retry + Escalate — auto-retry 3×, then surface for manual review
-- C. Skip & Continue — log error, proceed to next item
-- D. Log Only — record errors, never interrupt
+分析請求，以清楚的語言重述需求：正在建構什麼、服務對象是誰、成功的樣子是什麼。
 
-**Q: For large tasks — progress tracking?** (Recommended: B)
-- A. Not needed, task is small enough to restart from scratch
-- B. Write checkpoint to `.progress.json`, resume from last completed step on failure
-- C. Log file only, manual checkpoint management
+### 步驟 2 — 研究已知風險（主動搜尋潛在問題）
 
-> Skip any question whose answer is already clear from the user's request.
+規劃之前，**主動搜尋**：
+- 此類任務的已知陷阱與失敗情境
+- 工具或函式庫的版本相容性問題
+- 社群回報的安全性或效能疑慮
+- 目標技術堆疊固有的限制
 
-### Step 5 — Plan
-Break down implementation into phases with:
-1. **Specific, actionable steps** per phase
-2. **Dependencies** between phases and external services
-3. **Risk rating** (HIGH / MEDIUM / LOW) with mitigation per risk
-4. **Acceptance criteria** per phase
-5. **Estimated complexity** (High / Medium / Low)
-6. **Error handling spec** covering the most likely failure modes
-7. **Constraints** — what this plan will NOT do
+列出已找到的風險及其來源，標記哪些在需求中**尚未處理**。
 
-Then **present the plan and wait** for explicit confirmation.
+> 若未找到特定風險，備註「未發現額外已知風險」並繼續。
 
-## Plan Output Structure
+### 步驟 3 — 審視缺口
 
-```
-# Implementation Plan: [Feature Name]
+逐一檢查下列項目，未解決的項目將成為澄清問題：
+- [ ] **Context Scope** — 專案邊界與受影響的元件
+- [ ] **成功標準** — 如何判斷任務已完成？
+- [ ] **錯誤處理** — 發生錯誤時如何應對？
+- [ ] **環境 / OS** — 部署目標或基礎架構限制
+- [ ] **輸出格式** — 預期的產出物（檔案、API、UI 元件）
 
-## Requirements Restatement
-[Clear restatement of what's being built]
+### 步驟 4 — 澄清疑點（針對缺口提問）
 
-## Known Risks (from Research)
-- RISK: [description] — Mitigation: [strategy]
+**僅針對**步驟 3 發現的缺口提問，每次最多 2 個問題。盡量提供選項並標示建議選項：
 
-## Implementation Phases
+**Q：成功標準？**（建議：A）
+- A. 所有測試通過 + 功能可端對端驗證
+- B. 僅單元測試通過
+- C. 使用者手動驗證
 
-### Phase N: [Name]
-Steps...
-Acceptance criteria for this phase
+**Q：錯誤處理策略？**（建議：B）
+- A. 快速失敗 — 第一個錯誤即停止
+- B. 重試 + 升級 — 自動重試 3 次，之後通知手動處理
+- C. 跳過並繼續 — 記錄錯誤，繼續下一項
+- D. 僅記錄 — 記錄錯誤，永不中斷流程
 
-## Dependencies
-[External tools, services, libraries]
+**Q：大型任務 — 進度追蹤？**（建議：B）
+- A. 不需要，任務小到可以從頭重來
+- B. 寫入檢查點至 `.progress.json`，失敗時從最後完成的步驟恢復
+- C. 僅記錄日誌，手動管理檢查點
 
-## Risks
-- HIGH/MEDIUM/LOW: [risk] — [mitigation]
+> 若答案已在使用者的請求中明確，跳過對應問題。
 
-## Error Handling Strategy
-[Selected approach from Step 4, and how it applies to this task]
+### 步驟 5 — 建立計劃
 
-## Constraints
-[What this plan will NOT do; boundaries; forbidden approaches]
+將實作拆解為各階段，每個階段包含：
+1. **具體可執行的步驟**，附帶精確檔案路徑
+2. **步驟間的依賴關係**與外部服務依賴
+3. **風險等級**（高 / 中 / 低）與對應緩解措施
+4. **各階段的成功標準**
+5. **預估複雜度**（高 / 中 / 低）
+6. **錯誤處理規格**，涵蓋最可能的失敗模式
+7. **限制條件** — 此計劃**不會**做的事
 
-## Estimated Complexity: HIGH/MEDIUM/LOW
+計劃完成後，**呈現計劃並等待**使用者明確確認。
 
-**WAITING FOR CONFIRMATION**: Proceed with this plan? (yes/no/modify)
-```
+---
 
-## Example
+## 計劃輸出格式
 
-```
-User: /plan I need to add real-time notifications when markets resolve
+```markdown
+# 實作計劃：[功能名稱]
 
-Agent (planner):
-# Implementation Plan: Real-Time Market Resolution Notifications
+## 概述
+[2-3 句摘要，說明要建構什麼與為什麼]
 
-## Requirements Restatement
-- Send notifications to users when markets they are watching resolve
-- Support multiple notification channels (in-app, email, webhook)
-- Ensure notifications are delivered reliably
-- Include market outcome and user's position result
+## 需求重述
+[清楚重述正在建構的內容]
 
-## Known Risks (from Research)
-- RISK: Email deliverability requires SPF/DKIM — Mitigation: configure DNS before launch
-- RISK: BullMQ requires Redis 6+ — Mitigation: verify Redis version in deployment env
-- RISK: Supabase real-time has connection limits per plan — Mitigation: check plan tier
+## 已知風險（來自研究）
+- 風險：[描述] — 緩解措施：[策略]
 
-## Implementation Phases
+## 架構變更
+- [變更 1：檔案路徑與說明]
+- [變更 2：檔案路徑與說明]
 
-### Phase 1: Database Schema
-- Add notifications table: id, user_id, market_id, type, status, created_at
-- Add user_notification_preferences table for channel preferences
-- Create indexes on user_id and market_id for performance
-- Acceptance: migrations run cleanly, schema matches spec
+## 實作步驟
 
-### Phase 2: Notification Service
-- Create notification service in lib/notifications.ts
-- Implement notification queue using BullMQ/Redis
-- Add retry logic for failed deliveries (3x with exponential backoff)
-- Create notification templates
-- Acceptance: unit tests cover queue enqueue, retry, and failure paths
+### 第一階段：[階段名稱]
+1. **[步驟名稱]**（檔案：path/to/file.ts）
+   - 行動：要執行的具體操作
+   - 原因：此步驟的理由
+   - 依賴：無 / 需要步驟 X
+   - 風險：低 / 中 / 高
 
-### Phase 3: Integration Points
-- Hook into market resolution logic (when status changes to "resolved")
-- Query all users with positions in market
-- Enqueue notifications for each user
-- Acceptance: integration test confirms notification enqueued on resolution
+### 第二階段：[階段名稱]
+...
 
-### Phase 4: Frontend Components
-- Create NotificationBell component in header
-- Add NotificationList modal
-- Implement real-time updates via Supabase subscriptions
-- Add notification preferences page
-- Acceptance: Playwright E2E test — bell updates within 2s of resolution event
+## 測試策略
+- 單元測試：[待測試的檔案]
+- 整合測試：[待測試的流程]
+- E2E 測試：[待測試的使用者旅程]
 
-## Dependencies
-- Redis 6+ (for queue)
-- Email service (SendGrid/Resend)
-- Supabase real-time subscriptions
+## 依賴項目
+[外部工具、服務、函式庫]
 
-## Risks
-- HIGH: Email deliverability (SPF/DKIM required)
-- MEDIUM: Performance with 1000+ users per market
-- MEDIUM: Notification spam if markets resolve frequently
-- LOW: Real-time subscription overhead
+## 風險與緩解措施
+- **高**：[風險描述] — [緩解方法]
+- **中**：[風險描述] — [緩解方法]
+- **低**：[風險描述] — [緩解方法]
 
-## Error Handling Strategy
-Retry + Escalate — notification delivery retries 3x with exponential backoff;
-after 3 failures, status set to "failed" and surfaced in admin dashboard.
+## 錯誤處理策略
+[從步驟 4 選定的方法，以及如何應用於此任務]
 
-## Constraints
-- Will NOT implement push (mobile) notifications in this phase
-- Will NOT build notification analytics or open-rate tracking
+## 限制條件
+[此計劃不會做的事；邊界；禁止的做法]
 
-## Estimated Complexity: MEDIUM
+## 預估複雜度：高 / 中 / 低
 
-**WAITING FOR CONFIRMATION**: Proceed with this plan? (yes/no/modify)
+**等待確認**：是否依此計劃執行？（yes / no / modify）
 ```
 
-## Special Handling: Large-Scale Tasks
+---
 
-For tasks involving full-project refactors, bulk file modifications, or multi-stage pipelines, the plan **must include**:
+## 大規模任務的特殊處理
 
-- **Checkpointing** — split into batches (20 files or 1 module per batch); write progress state after each batch
-- **State Preservation** — on crash or timeout, read `.progress.json` and resume from last checkpoint, skipping completed items
-- **Verification Gate** — after each batch, run a verification step (e.g., `npm test`, `pytest`, `eslint`); block the next batch on failure
+對於涉及全專案重構、批次檔案修改或多階段流水線的任務，計劃**必須包含**：
 
-## Important Notes
+- **檢查點機制** — 拆分為批次（每批 20 個檔案或 1 個模組）；每批完成後寫入進度狀態
+- **狀態保存** — 若發生崩潰或逾時，讀取 `.progress.json` 並從最後一個檢查點恢復，跳過已完成項目
+- **驗證關卡** — 每批完成後執行驗證步驟（如 `npm test`、`phpunit`、`eslint`）；驗證失敗則阻止下一批執行
 
-**CRITICAL**: The planner agent will **NOT** write any code until you explicitly confirm the plan with "yes" or "proceed" or similar affirmative response.
+---
 
-If you want changes, respond with:
-- "modify: [your changes]"
-- "different approach: [alternative]"
-- "skip phase 2 and do phase 3 first"
+## 規模拆分策略
 
-## Integration with Other Commands
+當功能規模較大時，拆解為可獨立交付的階段：
 
-After planning:
-- Use `/tdd` to implement with test-driven development
-- Use `/build-fix` if build errors occur
-- Use `/code-review` to review completed implementation
+- **第一階段**：最小可行版本 — 能提供價值的最小切片
+- **第二階段**：核心體驗 — 完整的主要流程
+- **第三階段**：邊界情況 — 錯誤處理、邊界情況、細節打磨
+- **第四階段**：優化 — 效能、監控、分析
 
-## Related Agents
+每個階段都應可獨立合併。避免所有階段都完成才能運作的計劃。
 
-This command invokes the `planner` agent located at:
-`~/.copilot/agents/planner.agent.md`
+---
+
+## 重要說明
+
+**重要**：Planner agent **不會**撰寫任何程式碼，直到你以「yes」、「proceed」或類似的肯定回應明確確認計劃。
+
+若需修改，請回覆：
+- `modify: [你的修改內容]`
+- `different approach: [替代方案]`
+- `skip phase 2, do phase 3 first`
+
+---
+
+## 計劃品質檢查
+
+計劃呈現前，planner agent 應自我檢查下列警示訊號：
+
+- 步驟缺少明確的檔案路徑
+- 無法獨立交付的階段
+- 沒有測試策略
+- 缺少錯誤處理
+- 遺漏依賴項目說明
+- 未列出限制條件
+
+---
+
+## 整合其他指令
+
+計劃確認後：
+- 使用 `/wp-e2e-playwright` 建立 WordPress E2E 測試
+- 使用 `/code-review` 審查完成的實作
+
+---
+
+## 相關 Agent
+
+此指令呼叫位於以下路徑的 `planner` agent：
+`agents/doc/planner.agent.md`
