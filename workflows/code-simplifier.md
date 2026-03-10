@@ -16,10 +16,8 @@ imports:
   - shared/mood.md
   - shared/reporting.md
   - ../copilot-instructions.md
-  - ../instructions/architecture.instructions.md
   # TODO: 請替換為您的專案技能路徑，例如：
-  # - ../skills/wp-plugin-development/SKILL.md
-  # - ../instructions/your-project-architecture.md
+  # - ../skills/{project-name}/SKILL.md
 
 safe-outputs:
   create-pull-request:

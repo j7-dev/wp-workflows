@@ -12,8 +12,8 @@ permissions:
 
 imports:
   - ../copilot-instructions.md
-  - ../instructions/architecture.instructions.md
-  - ../skills/power-course/SKILL.md
+  # TODO: 請替換為您的專案技能路徑，例如：
+  # - ../skills/{project-name}/SKILL.md
 
 safe-outputs:
   create-pull-request:
