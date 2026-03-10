@@ -1,73 +1,73 @@
 ---
-# Report formatting guidelines
+# 報告格式指南
 ---
 
-## Report Structure Guidelines
+## 報告結構指南
 
-### 1. Header Levels
-**Use h3 (###) or lower for all headers in your issue report to maintain proper document hierarchy.**
+### 1. 標題層級
+**在 issue 報告中，所有標題一律使用 h3（###）或更低層級，以維護正確的文件層次結構。**
 
-When creating GitHub issues or discussions:
-- Use `###` (h3) for main sections (e.g., "### Test Summary")
-- Use `####` (h4) for subsections (e.g., "#### Device-Specific Results")
-- Never use `##` (h2) or `#` (h1) in reports - these are reserved for titles
+在建立 GitHub issue 或 discussion 時：
+- 主要區段使用 `###`（h3），例如「### 測試摘要」
+- 子區段使用 `####`（h4），例如「#### 裝置特定結果」
+- 報告中絕不使用 `##`（h2）或 `#`（h1）— 這些保留給標題使用
 
-### 2. Progressive Disclosure
-**Wrap detailed test results in `<details><summary><b>Section Name</b></summary>` tags to improve readability and reduce scrolling.**
+### 2. 漸進式揭露
+**將詳細的測試結果包裹在 `<details><summary><b>區段名稱</b></summary>` 標籤中，以提升可讀性並減少捲動。**
 
-Use collapsible sections for:
-- Verbose details (full test logs, raw data)
-- Secondary information (minor warnings, extra context)
-- Per-item breakdowns when there are many items
+以下情況使用可摺疊區段：
+- 詳細內容（完整測試日誌、原始資料）
+- 次要資訊（輕微警告、額外上下文）
+- 項目較多時的逐項明細
 
-Always keep critical information visible (summary, critical issues, key metrics).
+始終保持關鍵資訊可見（摘要、關鍵問題、重要指標）。
 
-### 3. Report Structure Pattern
+### 3. 報告結構模式
 
-1. **Overview**: 1-2 paragraphs summarizing key findings
-2. **Critical Information**: Show immediately (summary stats, critical issues)
-3. **Details**: Use `<details><summary><b>Section Name</b></summary>` for expanded content
-4. **Context**: Add helpful metadata (workflow run, date, trigger)
+1. **概述**：1-2 段概述關鍵發現
+2. **關鍵資訊**：立即顯示（摘要統計、關鍵問題）
+3. **詳情**：使用 `<details><summary><b>區段名稱</b></summary>` 展開內容
+4. **上下文**：加入有用的元資料（workflow 執行、日期、觸發原因）
 
-### Design Principles (Airbnb-Inspired)
+### 設計原則（Airbnb 風格啟發）
 
-Reports should:
-- **Build trust through clarity**: Most important info immediately visible
-- **Exceed expectations**: Add helpful context like trends, comparisons
-- **Create delight**: Use progressive disclosure to reduce overwhelm
-- **Maintain consistency**: Follow patterns across all reports
+報告應該：
+- **透過清晰建立信任**：最重要的資訊立即可見
+- **超越期望**：加入有用的上下文，例如趨勢、比較
+- **帶來愉悅感**：使用漸進式揭露減少資訊過載
+- **保持一致性**：在所有報告中遵循相同的模式
 
-### Example Report Structure
+### 報告結構範例
 
 ```markdown
-### Summary
-- Key metric 1: value
-- Key metric 2: value
-- Status: ✅/⚠️/❌
+### 摘要
+- 關鍵指標 1：數值
+- 關鍵指標 2：數值
+- 狀態：✅/⚠️/❌
 
-### Critical Issues
-[Always visible - these are important]
+### 關鍵問題
+[始終可見 — 這些是重要資訊]
 
 <details>
-<summary><b>View Detailed Results</b></summary>
+<summary><b>查看詳細結果</b></summary>
 
-[Comprehensive details, logs, traces]
+[完整詳情、日誌、追蹤記錄]
 
 </details>
 
 <details>
-<summary><b>View All Warnings</b></summary>
+<summary><b>查看所有警告</b></summary>
 
-[Minor issues and potential problems]
+[輕微問題和潛在問題]
 
 </details>
 
-### Recommendations
-[Actionable next steps - keep visible]
+### 建議
+[可行的後續步驟 — 保持可見]
 ```
 
-## Workflow Run References
+## 工作流程執行參照
 
-- Format run IDs as links: `[§12345](https://github.com/owner/repo/actions/runs/12345)`
-- Include up to 3 most relevant run URLs at end under `**References:**`
-- Do NOT add footer attribution (system adds automatically)
+- 將執行 ID 格式化為連結：`[§12345](https://github.com/owner/repo/actions/runs/12345)`
+- 在最後的 `**參照：**` 區段下最多包含 3 個最相關的執行 URL
+- **不要**加入頁尾署名（系統會自動加入）

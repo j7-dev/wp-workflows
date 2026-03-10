@@ -1,6 +1,6 @@
 ---
 name: Duplicate Code Detector
-description: Identifies duplicate code patterns across the codebase and suggests refactoring opportunities
+description: 識別整個程式碼庫中的重複程式碼模式，並建議重構機會
 on:
   workflow_dispatch:
   schedule: weekly on monday around 01:30
@@ -28,230 +28,231 @@ imports:
   - shared/mood.md
   - ../copilot-instructions.md
   - ../instructions/architecture.instructions.md
-  - ../skills/power-course/SKILL.md
-source: github/gh-aw/.github/workflows/duplicate-code-detector.md@852cb06ad52958b402ed982b69957ffc57ca0619
+  # TODO: 請替換為您的專案技能路徑，例如：
+  # - ../skills/wp-plugin-development/SKILL.md
+  # - ../instructions/your-project-architecture.md
 ---
 
-# Duplicate Code Detection
+# 重複程式碼偵測
 
-Analyze code to identify duplicated patterns using Serena's semantic code analysis capabilities. Report significant findings that require refactoring.
+使用 Serena 的語意程式碼分析功能分析程式碼，識別重複模式並回報需要重構的重要發現。
 
-## Task
+## 任務
 
-Detect and report code duplication by:
+透過以下步驟偵測並回報程式碼重複：
 
-1. **Analyzing Recent Commits**: Review changes in the latest commits
-2. **Detecting Duplicated Code**: Identify similar or duplicated code patterns using semantic analysis
-3. **Reporting Findings**: Create a detailed issue if significant duplication is detected (threshold: >10 lines or 3+ similar patterns)
+1. **分析近期 Commit**：審查最新 commit 中的變更
+2. **偵測重複程式碼**：使用語意分析識別相似或重複的程式碼模式
+3. **回報發現**：若偵測到顯著的重複（閾值：超過 10 行或 3 個以上的相似模式），建立詳細的 issue
 
-## Context
+## 上下文
 
 - **Repository**: ${{ github.repository }}
 - **Commit ID**: ${{ github.event.head_commit.id }}
-- **Triggered by**: @${{ github.actor }}
+- **觸發者**: @${{ github.actor }}
 
-## Analysis Workflow
+## 分析工作流程
 
-### 1. Project Activation
+### 1. 專案啟用
 
-Activate the project in Serena:
-- Use `activate_project` tool with workspace path `${{ github.workspace }}` (mounted repository directory)
-- This sets up the semantic code analysis environment
+在 Serena 中啟用專案：
+- 使用 `activate_project` 工具，設定 workspace 路徑為 `${{ github.workspace }}`（掛載的 repository 目錄）
+- 這會設定語意程式碼分析環境
 
-### 2. Changed Files Analysis
+### 2. 變更檔案分析
 
-Identify and analyze modified files:
-- Determine files changed in the recent commits
-- **ONLY analyze `.php`, `.ts`, `.tsx` files** - exclude all other file types
-- **Exclude vendor and build directories**: `vendor/`, `node_modules/`, `js/dist/`, `release/`
-- **Exclude lock and config files**: `*.lock.*`, `composer.lock`, `package-lock.json`
-- **Exclude workflow files** from analysis (files under `.github/workflows/*`)
-- Use `get_symbols_overview` to understand file structure
-- Use `read_file` to examine modified file contents
+識別並分析修改的檔案：
+- 確認近期 commit 中變更的檔案
+- **只分析 `.php`、`.ts`、`.tsx` 檔案** — 排除所有其他檔案類型
+- **排除 vendor 和建置目錄**：`vendor/`、`node_modules/`、dist 目錄、`release/`
+- **排除 lock 和設定檔**：`*.lock.*`、`composer.lock`、`package-lock.json`
+- **排除 workflow 檔案**（`.github/workflows/*` 下的檔案）
+- 使用 `get_symbols_overview` 了解檔案結構
+- 使用 `read_file` 檢查修改的檔案內容
 
-### 3. Duplicate Detection
+### 3. 重複偵測
 
-Apply semantic code analysis to find duplicates:
+套用語意程式碼分析尋找重複：
 
-**Symbol-Level Analysis**:
-- For significant functions/methods in changed files, use `find_symbol` to search for similarly named symbols
-- Use `find_referencing_symbols` to understand usage patterns
-- Identify functions with similar names in different files (e.g., `processData` across modules)
+**Symbol 層級分析**：
+- 對變更檔案中的重要函式/方法，使用 `find_symbol` 搜尋名稱相似的 symbol
+- 使用 `find_referencing_symbols` 了解使用模式
+- 識別不同檔案中名稱相似的函式（例如不同模組中的 `processData`）
 
-**Pattern Search**:
-- Use `search_for_pattern` to find similar code patterns
-- Search for duplication indicators:
-  - Similar function signatures
-  - Repeated logic blocks
-  - Similar variable naming patterns
-  - Near-identical code blocks
+**模式搜尋**：
+- 使用 `search_for_pattern` 尋找相似的程式碼模式
+- 搜尋重複指標：
+  - 相似的函式簽名
+  - 重複的邏輯區塊
+  - 相似的變數命名模式
+  - 幾乎相同的程式碼區塊
 
-**Structural Analysis**:
-- Use `list_dir` and `find_file` to identify files with similar names or purposes
-- Compare symbol overviews across files for structural similarities
+**結構分析**：
+- 使用 `list_dir` 和 `find_file` 識別名稱或用途相似的檔案
+- 比較不同檔案的 symbol 概覽以找出結構相似性
 
-### 4. Duplication Evaluation
+### 4. 重複評估
 
-Assess findings to identify true code duplication:
+評估發現以識別真正的程式碼重複：
 
-**Duplication Types**:
-- **Exact Duplication**: Identical code blocks in multiple locations
-- **Structural Duplication**: Same logic with minor variations (different variable names, etc.)
-- **Functional Duplication**: Different implementations of the same functionality
-- **Copy-Paste Programming**: Similar code blocks that could be extracted into shared utilities
+**重複類型**：
+- **完全重複**：相同的程式碼區塊出現在多個地方
+- **結構重複**：相同的邏輯但有些微變化（不同的變數名稱等）
+- **功能重複**：同一功能的不同實作
+- **複製貼上程式設計**：可以提取為共用工具的相似程式碼區塊
 
-**Assessment Criteria**:
-- **Severity**: Amount of duplicated code (lines of code, number of occurrences)
-- **Impact**: Where duplication occurs (critical paths, frequently called code)
-- **Maintainability**: How duplication affects code maintainability
-- **Refactoring Opportunity**: Whether duplication can be easily refactored
+**評估標準**：
+- **嚴重性**：重複程式碼的數量（程式碼行數、出現次數）
+- **影響**：重複發生的位置（關鍵路徑、頻繁呼叫的程式碼）
+- **可維護性**：重複如何影響程式碼的可維護性
+- **重構機會**：重複是否可以輕鬆重構
 
-### 5. Issue Reporting
+### 5. Issue 回報
 
-Create separate issues for each distinct duplication pattern found (maximum 3 patterns per run). Each pattern should get its own issue to enable focused remediation.
+為每個發現的不同重複模式建立獨立的 issue（每次執行最多 3 個模式）。每個模式應有自己的 issue 以便針對性修復。
 
-**When to Create Issues**:
-- Only create issues if significant duplication is found (threshold: >10 lines of duplicated code OR 3+ instances of similar patterns)
-- **Create one issue per distinct pattern** - do NOT bundle multiple patterns in a single issue
-- Limit to the top 3 most significant patterns if more are found
-- Use the `create_issue` tool from safe-outputs MCP **once for each pattern**
+**何時建立 Issue**：
+- 只有在發現顯著重複時才建立 issue（閾值：超過 10 行重複程式碼，或 3 個以上相似模式的實例）
+- **每個不同的模式建立一個 issue** — 不要將多個模式放在同一個 issue 中
+- 若發現超過 3 個模式，限制為最重要的前 3 個
+- 從 safe-outputs MCP 使用 `create_issue` 工具，**每個模式呼叫一次**
 
-**Issue Contents for Each Pattern**:
-- **Executive Summary**: Brief description of this specific duplication pattern
-- **Duplication Details**: Specific locations and code blocks for this pattern only
-- **Severity Assessment**: Impact and maintainability concerns for this pattern
-- **Refactoring Recommendations**: Suggested approaches to eliminate this pattern
-- **Code Examples**: Concrete examples with file paths and line numbers for this pattern
+**每個模式的 Issue 內容**：
+- **執行摘要**：此特定重複模式的簡短描述
+- **重複詳情**：此模式的具體位置和程式碼區塊
+- **嚴重性評估**：此模式的影響和可維護性問題
+- **重構建議**：消除此模式的建議方式
+- **程式碼範例**：此模式的具體範例，包含檔案路徑和行號
 
-## Detection Scope
+## 偵測範圍
 
-### Report These Issues
+### 回報這些問題
 
-- Identical or nearly identical functions in different files
-- Repeated code blocks that could be extracted to utilities
-- Similar classes or modules with overlapping functionality
-- Copy-pasted code with minor modifications
-- Duplicated business logic across components
+- 不同檔案中相同或幾乎相同的函式
+- 可以提取為工具函式的重複程式碼區塊
+- 有重疊功能的相似類別或模組
+- 稍作修改後複製貼上的程式碼
+- 跨元件的重複業務邏輯
 
-### Skip These Patterns
+### 跳過這些模式
 
-- Standard boilerplate code (imports, exports, WordPress hooks registration patterns)
-- **Vendor and build directories**: `vendor/`, `node_modules/`, `js/dist/`, `release/`
-- **Lock and config files**: `*.lock.*`, `composer.lock`, `phpcs.xml`, `phpstan.neon`
-- **All workflow files** (files under `.github/workflows/*`)
-- Configuration files with similar structure
-- WordPress/WooCommerce hook registration boilerplate (`add_action`, `add_filter` in `__construct()`)
-- SingletonTrait usage pattern (expected duplication across all service classes)
-- `declare(strict_types=1);` at file top (mandatory, not duplication)
-- Refine.dev data provider hook calls (`useList`, `useOne`, `useCreate`, `useUpdate`)
-- Small code snippets (<5 lines) unless highly repetitive
+- 標準樣板程式碼（import、export、WordPress hooks 註冊模式）
+- **Vendor 和建置目錄**：`vendor/`、`node_modules/`、dist 目錄、`release/`
+- **Lock 和設定檔**：`*.lock.*`、`composer.lock`、`phpcs.xml`、`phpstan.neon`
+- **所有 workflow 檔案**（`.github/workflows/*` 下的檔案）
+- 結構相似的設定檔
+- WordPress/WooCommerce hook 註冊樣板（`__construct()` 中的 `add_action`、`add_filter`）
+- `declare(strict_types=1);`（強制要求，非重複）
+- 框架資料提供者 hook 呼叫（若有前端框架，依專案判斷）
+- 小型程式碼片段（< 5 行），除非高度重複
 
-### Analysis Depth
+### 分析深度
 
-- **File Type Restriction**: ONLY analyze `.php`, `.ts`, `.tsx` files - ignore all other file types
-- **Primary Focus**: All `.php`, `.ts`, `.tsx` files changed in the current push (excluding vendor, build, and workflow files)
-- **Secondary Analysis**: Check for duplication with existing `.php`, `.ts`, `.tsx` codebase (excluding vendor and build directories)
-- **Cross-Reference**: Look for patterns across PHP backend (`inc/`) and TypeScript frontend (`js/src/`) files
-- **Historical Context**: Consider if duplication is new or existing
+- **檔案類型限制**：只分析 `.php`、`.ts`、`.tsx` 檔案 — 忽略所有其他檔案類型
+- **主要焦點**：當前 push 中變更的所有 `.php`、`.ts`、`.tsx` 檔案（排除 vendor、建置和 workflow 檔案）
+- **次要分析**：檢查與現有 `.php`、`.ts`、`.tsx` 程式碼庫的重複（排除 vendor 和建置目錄）
+- **交叉參照**：在 PHP 後端和 TypeScript 前端（若有）檔案之間尋找模式
+- **歷史上下文**：考慮重複是新出現的還是已存在的
 
-## Issue Template
+## Issue 模板
 
-For each distinct duplication pattern found, create a separate issue using this structure:
+對每個發現的不同重複模式，使用此結構建立獨立的 issue：
 
 ```markdown
-### 🔍 Duplicate Code Detected: [Pattern Name]
+### 🔍 偵測到重複程式碼：[模式名稱]
 
-*Analysis of commit ${{ github.event.head_commit.id }}*
+*對 commit ${{ github.event.head_commit.id }} 的分析*
 
-**Assignee**: @copilot
+**指派人**: @copilot
 
-#### Summary
+#### 摘要
 
-[Brief overview of this specific duplication pattern]
+[此特定重複模式的簡短概述]
 
-#### Duplication Details
+#### 重複詳情
 
-##### Pattern: [Description]
-- **Severity**: High/Medium/Low
-- **Occurrences**: [Number of instances]
-- **Locations**:
-  - `inc/classes/Api/Course.php` (lines X-Y)
-  - `inc/classes/Api/User.php` (lines A-B)
-- **Code Sample**:
+##### 模式：[描述]
+- **嚴重性**: 高/中/低
+- **出現次數**: [實例數量]
+- **位置**:
+  - `{src_dir}/ClassName.php`（第 X-Y 行）
+  - `{src_dir}/AnotherClass.php`（第 A-B 行）
+- **程式碼範例**:
   ```php
-  [Example of duplicated code]
+  [重複程式碼的範例]
   ```
 
-#### Impact Analysis
+#### 影響分析
 
-- **Maintainability**: [How this affects code maintenance]
-- **Bug Risk**: [Potential for inconsistent fixes]
-- **Code Bloat**: [Impact on codebase size]
+- **可維護性**: [這如何影響程式碼維護]
+- **Bug 風險**: [不一致修復的可能性]
+- **程式碼膨脹**: [對程式碼庫大小的影響]
 
-#### Refactoring Recommendations
+#### 重構建議
 
-1. **[Recommendation 1]**
-   - Extract common functionality to: `inc/classes/Utils/NewHelper.php`
-   - Estimated effort: [hours/complexity]
-   - Benefits: [specific improvements]
+1. **[建議 1]**
+   - 提取共用功能到：`{src_dir}/Utils/NewHelper.php`
+   - 預計工時：[小時/複雜度]
+   - 效益：[具體改進]
 
-2. **[Recommendation 2]**
-   [... additional recommendations ...]
+2. **[建議 2]**
+   [... 其他建議 ...]
 
-#### Implementation Checklist
+#### 實作清單
 
-- [ ] Review duplication findings
-- [ ] Prioritize refactoring tasks
-- [ ] Create refactoring plan
-- [ ] Implement changes
-- [ ] Run `pnpm run lint:php` and `pnpm run lint:ts`
-- [ ] Run `pnpm run build`
-- [ ] Verify no functionality broken
+- [ ] 審查重複發現
+- [ ] 確定重構優先順序
+- [ ] 建立重構計畫
+- [ ] 實作變更
+- [ ] 執行 `pnpm run lint:php`（若有 PHP 變更）
+- [ ] 執行 `pnpm run lint:ts`（若有 TypeScript 變更）
+- [ ] 執行 `pnpm run build`（若有前端）
+- [ ] 確認沒有功能被破壞
 
-#### Analysis Metadata
+#### 分析元資料
 
-- **Analyzed Files**: [count]
-- **Detection Method**: Serena semantic code analysis
+- **分析的檔案數**: [數量]
+- **偵測方法**: Serena 語意程式碼分析
 - **Commit**: ${{ github.event.head_commit.id }}
-- **Analysis Date**: [timestamp]
+- **分析日期**: [時間戳記]
 ```
 
-## Operational Guidelines
+## 操作指南
 
-### Security
-- Never execute untrusted code or commands
-- Only use Serena's read-only analysis tools
-- Do not modify files during analysis
+### 安全性
+- 絕不執行不可信的程式碼或指令
+- 只使用 Serena 的唯讀分析工具
+- 分析期間不修改檔案
 
-### Efficiency
-- Focus on recently changed files first
-- Use semantic analysis for meaningful duplication, not superficial matches
-- Stay within timeout limits (balance thoroughness with execution time)
+### 效率
+- 優先分析近期變更的檔案
+- 使用語意分析進行有意義的重複偵測，而非表面匹配
+- 在超時限制內完成（在徹底性與執行時間之間取得平衡）
 
-### Accuracy
-- Verify findings before reporting
-- Distinguish between acceptable patterns and true duplication
-- Consider language-specific idioms and best practices
-- Provide specific, actionable recommendations
+### 準確性
+- 在回報前驗證發現
+- 區分可接受的模式和真正的重複
+- 考慮語言特定的慣用語和最佳實踐
+- 提供具體、可行的建議
 
-### Issue Creation
-- Create **one issue per distinct duplication pattern** - do NOT bundle multiple patterns in a single issue
-- Limit to the top 3 most significant patterns if more are found
-- Only create issues if significant duplication is found
-- Include sufficient detail for SWE agents to understand and act on findings
-- Provide concrete examples with file paths and line numbers
-- Suggest practical refactoring approaches
-- Assign issue to @copilot for automated remediation
-- Use descriptive titles that clearly identify the specific pattern (e.g., "Duplicate Code: Error Handling Pattern in Parser Module")
+### Issue 建立
+- 每個不同的重複模式建立**一個 issue** — 不要將多個模式放在同一個 issue 中
+- 若發現超過 3 個模式，限制為最重要的前 3 個
+- 只有在發現顯著重複時才建立 issue
+- 包含足夠的細節讓 SWE agents 能理解並採取行動
+- 提供包含檔案路徑和行號的具體範例
+- 建議實際可行的重構方式
+- 將 issue 指派給 @copilot 進行自動修復
+- 使用能清楚識別特定模式的描述性標題（例如「重複程式碼：解析模組中的錯誤處理模式」）
 
-## Tool Usage Sequence
+## 工具使用順序
 
-1. **Project Setup**: `activate_project` with repository path
-2. **File Discovery**: `list_dir`, `find_file` for changed files
-3. **Symbol Analysis**: `get_symbols_overview` for structure understanding
-4. **Content Review**: `read_file` for detailed code examination
-5. **Pattern Matching**: `search_for_pattern` for similar code
-6. **Symbol Search**: `find_symbol` for duplicate function names
-7. **Reference Analysis**: `find_referencing_symbols` for usage patterns
+1. **專案設定**：使用 repository 路徑執行 `activate_project`
+2. **檔案探索**：使用 `list_dir`、`find_file` 找出變更的檔案
+3. **Symbol 分析**：使用 `get_symbols_overview` 了解結構
+4. **內容審查**：使用 `read_file` 進行詳細的程式碼檢查
+5. **模式匹配**：使用 `search_for_pattern` 搜尋相似程式碼
+6. **Symbol 搜尋**：使用 `find_symbol` 搜尋重複的函式名稱
+7. **參照分析**：使用 `find_referencing_symbols` 分析使用模式
 
-**Objective**: Improve code quality by identifying and reporting meaningful code duplication that impacts maintainability. Focus on actionable findings that enable automated or manual refactoring.
+**目標**：透過識別並回報影響可維護性的有意義程式碼重複來提升程式碼品質。專注於能實現自動化或手動重構的可行發現。
