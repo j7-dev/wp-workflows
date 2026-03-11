@@ -25,7 +25,7 @@ safe-outputs:
     expires: 2d
     title-prefix: "[plan] "
     labels: [plan, ai-generated, cookie]
-    max: 5
+    max: 20
     group: true
   add-labels:
   remove-labels:
@@ -196,7 +196,7 @@ ${{ steps.sanitized.outputs.text }}
 
 ### 步驟 2：建立 Sub-Issue
 
-建立可執行的 sub-issue（最多 5 個）：
+建立可執行的 sub-issue（最多 20 個）：
 - 使用 `create_issue`，填入 `title` 和 `body` 欄位
 - **不要**使用 `parent` 欄位 — 分組是自動的
 - **不要**建立獨立的父追蹤 issue
@@ -275,7 +275,7 @@ ${{ steps.sanitized.outputs.text }}
 ## 重要規則
 
 - **先釐清**：一律先完成 Phase 1 再進入 Phase 2。絕不在未解決模糊之處的情況下建立 sub-issue。
-- **最多 5 個 sub-issue**：不要建立超過 5 個 sub-issue
+- **最多 20 個 sub-issue**：不要建立超過 20 個 sub-issue
 - **不使用 Parent 欄位**：不要使用 `parent` 欄位 — 分組是自動的
 - **批次問題**：在**一則留言**中發出所有釐清問題（不要一次一個）— GitHub Issues 是非同步的，不是聊天室
 - **使用者指引**：注意觸發留言 — 使用者可能提供了特定指示或優先事項
