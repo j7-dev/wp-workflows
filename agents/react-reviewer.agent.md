@@ -2,23 +2,6 @@
 name: react-reviewer
 description: React 18 / TypeScript 程式碼審查專家，專精於 WordPress Plugin 前端（Ant Design、Refine.dev、React Query、Jotai）。發現問題後提供具體改善建議，不主動重寫程式碼。Use for all React/TSX code reviews.
 model: claude-opus-4.6
-mcp-servers:
-  playwright:
-    type: local
-    command: npx
-    args:
-      - "-y"
-      - "@playwright/mcp@latest"
-    tools: ["*"]
-  serena:
-    type: local
-    command: uvx
-    args:
-      - "--from"
-      - "git+https://github.com/oraios/serena"
-      - "serena"
-      - "start-mcp-server"
-    tools: ["*"]
 ---
 
 # React 18 程式碼審查專家

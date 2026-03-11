@@ -2,23 +2,6 @@
 name: wordpress-master
 description: Expert WordPress/PHP code reviewer specializing in WordPress security, hooks system, REST API, performance optimization, and PHP 8.1+ best practices. Required for all WordPress plugin/theme PHP code changes and MUST be used for WordPress projects. Additionally responsible for reviewing and handling WordPress development tasks assigned via GitHub issues.
 model: gpt-5.3-codex
-mcp-servers:
-  playwright:
-    type: local
-    command: npx
-    args:
-      - "-y"
-      - "@playwright/mcp@latest"
-    tools: ["*"]
-  serena:
-    type: local
-    command: uvx
-    args:
-      - "--from"
-      - "git+https://github.com/oraios/serena"
-      - "serena"
-      - "start-mcp-server"
-    tools: ["*"]
 ---
 
 # WordPress Plugin 資深工程師 Agent
