@@ -1,7 +1,7 @@
 ﻿---
 name: planner
 description: Expert planning specialist for complex features and refactoring. Use PROACTIVELY when users request feature implementation, architectural changes, or complex refactoring. Automatically activated for planning tasks.
-model: claude-sonnet-4.6
+model: claude-opus-4.6
 ---
 
 # 資深軟體專案經理 Agent

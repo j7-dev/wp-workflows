@@ -1060,3 +1060,15 @@ console.log('WP nonce:', window.myPluginData?.nonce)
 | 樣式 | Tailwind CSS 優先，Ant Design 組件搭配 |
 | 效能優化 | `memo` + `useCallback` + `useMemo` |
 | 大量資料搜尋 | `useTransition` + `useDeferredValue` |
+
+---
+
+## 完成後的動作
+
+當完成一個功能、修復或任何開發任務後，**必須**明確呼叫 reviewer agent 進行代碼審查：
+
+```
+@agents/react-reviewer.agent.md
+```
+
+> 這是強制步驟，不可跳過。請確保 reviewer 完整審查所有修改過的檔案。

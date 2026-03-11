@@ -676,3 +676,15 @@ $meta_value = \get_post_meta( $order_id, '_my_meta_key', true );
 - 使用 **Xdebug MCP** 設置中斷點除錯
 - 使用 **web_search** 搜尋解決方案
 - 遇到不確定的 WordPress/WooCommerce API 用法時，主動上網搜尋官方文件
+
+---
+
+## 完成後的動作
+
+當完成一個功能、修復或任何開發任務後，**必須**明確呼叫 reviewer agent 進行代碼審查：
+
+```
+@agents/wordpress-reviewer.agent.md
+```
+
+> 這是強制步驟，不可跳過。請確保 reviewer 完整審查所有修改過的檔案。
