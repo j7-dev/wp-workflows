@@ -12,6 +12,40 @@ permissions:
   issues: read
   pull-requests: read
 
+network:
+  allowed:
+    - defaults
+    - node
+
+steps:
+  - uses: shivammathur/setup-php@v2
+    with:
+      php-version: "8.2"
+      tools: composer
+      ini-values: memory_limit=4096M
+  - uses: pnpm/action-setup@v4
+    with:
+      version: latest
+  - uses: actions/setup-node@v4
+    with:
+      node-version: "20"
+  - name: Setup dependencies
+    run: |
+      if [ ! -d "../powerhouse" ]; then
+        git clone --depth 1 https://github.com/j7-dev/wp-powerhouse.git ../powerhouse
+        cd ../powerhouse && composer install --no-interaction --prefer-dist
+        cd $GITHUB_WORKSPACE
+      fi
+      composer install --no-interaction --prefer-dist
+      echo "$(pwd)/vendor/bin" >> $GITHUB_PATH
+      if [ ! -f "../../pnpm-workspace.yaml" ]; then
+        cat > pnpm-workspace.yaml << 'WSEOF'
+      packages:
+        - "packages/*"
+      WSEOF
+      fi
+      pnpm install --no-frozen-lockfile
+
 tracker-id: code-refactor
 
 imports:
@@ -39,6 +73,8 @@ tools:
   github:
     toolsets: [default]
   serena: ["php", "typescript"]
+  bash: true
+  edit:
 
 timeout-minutes: 45
 strict: true
@@ -211,14 +247,14 @@ git log --since="24 hours ago" --pretty=format:"%H %s" --no-merges
 - 繪製**現狀架構圖**（哪些類別在哪一層）
 - 識別所有 Code Smell，按嚴重程度排序：
 
-| 嚴重度 | Code Smell | 症狀 |
-|--------|-----------|------|
-| 🔴 高 | God Class | 單一類別超過 500 行，負責多種職責 |
-| 🔴 高 | 無分層 | 業務邏輯散落在 Controller / Hook callback 中 |
-| 🟠 中 | Primitive Obsession | 大量 array 傳遞取代 DTO / Value Object |
-| 🟠 中 | Feature Envy | 方法大量操作其他類別的資料 |
-| 🟡 低 | Data Clumps | 多個方法重複傳遞同一組參數 |
-| 🟡 低 | Shotgun Surgery | 修改一個功能需要改動多個檔案 |
+| 嚴重度 | Code Smell          | 症狀                                         |
+| ------ | ------------------- | -------------------------------------------- |
+| 🔴 高   | God Class           | 單一類別超過 500 行，負責多種職責            |
+| 🔴 高   | 無分層              | 業務邏輯散落在 Controller / Hook callback 中 |
+| 🟠 中   | Primitive Obsession | 大量 array 傳遞取代 DTO / Value Object       |
+| 🟠 中   | Feature Envy        | 方法大量操作其他類別的資料                   |
+| 🟡 低   | Data Clumps         | 多個方法重複傳遞同一組參數                   |
+| 🟡 低   | Shotgun Surgery     | 修改一個功能需要改動多個檔案                 |
 
 ### 3.3 制定重構路線圖
 
