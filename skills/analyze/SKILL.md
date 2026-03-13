@@ -1,7 +1,6 @@
 ---
 name: analyze
 description: "專案分析與 SKILL/指引生成器。掃描專案目錄結構、辨識技術棧，自動生成專案專屬 SKILL（按技術層分類）與 copilot-instructions.md 專案指引。使用 /analyze 觸發。"
-origin: custom
 ---
 
 # 專案分析與 SKILL 生成器 (Project Analyze)
