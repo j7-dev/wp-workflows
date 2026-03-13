@@ -38,12 +38,6 @@ steps:
       fi
       composer install --no-interaction --prefer-dist
       echo "$(pwd)/vendor/bin" >> $GITHUB_PATH
-      if [ ! -f "../../pnpm-workspace.yaml" ]; then
-        cat > pnpm-workspace.yaml << 'WSEOF'
-      packages:
-        - "packages/*"
-      WSEOF
-      fi
       pnpm install --no-frozen-lockfile
 
 tracker-id: code-refactor
@@ -61,6 +55,7 @@ safe-outputs:
     labels: [refactoring, code-quality, automation]
     reviewers: [copilot]
     expires: 1d
+    draft: false
   create-issue:
     expires: 2d
     title-prefix: "[refactor] "
@@ -238,7 +233,7 @@ git log --since="24 hours ago" --pretty=format:"%H %s" --no-merges
 
 - 閱讀 `.github/copilot-instructions.md`
 - 若存在，閱讀 `.github/instructions/*.instructions.md`
-- 若存在，從 `specs/` 目錄理解業務領域與功能規格
+- 若存在，從 `spec/` 目錄理解業務領域與功能規格
 
 ### 3.2 架構掃描
 

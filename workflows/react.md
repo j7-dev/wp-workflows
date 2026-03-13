@@ -23,12 +23,6 @@ steps:
       node-version: "20"
   - name: Setup dependencies
     run: |
-      if [ ! -f "../../pnpm-workspace.yaml" ]; then
-        cat > pnpm-workspace.yaml << 'WSEOF'
-      packages:
-        - "packages/*"
-      WSEOF
-      fi
       pnpm install --no-frozen-lockfile
 engine:
   id: copilot
@@ -40,11 +34,12 @@ tools:
     toolsets: [default, discussions] # 允許讀取 Issue、PR 與程式碼
   edit: # 賦予 AI 在 Workspace 中修改檔案的能力
   bash: # 賦予 AI 執行前端驗證指令的能力
-    - "pnpm:*"
-    - "npx:*"
+    - "pnpm *"
+    - "npx *"
 safe-outputs:
   create-pull-request:
     title-prefix: "[React] "
+    draft: false
   add-comment:
     hide-older-comments: true
   noop:

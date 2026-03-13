@@ -46,6 +46,7 @@ tools:
 
 timeout-minutes: 20
 
+source: github/gh-aw/.github/workflows/ci-doctor.md@852cb06ad52958b402ed982b69957ffc57ca0619
 imports:
   - shared/mood.md
   - shared/reporting.md

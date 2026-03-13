@@ -35,12 +35,6 @@ steps:
       fi
       composer install --no-interaction --prefer-dist
       echo "$(pwd)/vendor/bin" >> $GITHUB_PATH
-      if [ ! -f "../../pnpm-workspace.yaml" ]; then
-        cat > pnpm-workspace.yaml << 'WSEOF'
-      packages:
-        - "packages/*"
-      WSEOF
-      fi
       pnpm install --no-frozen-lockfile
 engine:
   id: copilot
@@ -52,16 +46,17 @@ tools:
     toolsets: [default, discussions] # 允許讀取 Issue、PR 與程式碼
   edit: # 賦予 AI 在 Workspace 中修改檔案的能力
   bash: # 賦予 AI 執行本地驗證指令的能力
-    - "composer:*"
-    - "vendor/bin/phpcbf:*"
-    - "vendor/bin/phpcs:*"
-    - "vendor/bin/phpstan:*"
-    - "vendor/bin/phpunit:*"
-    - "npx:*"
-    - "pnpm:*"
+    - "composer *"
+    - "vendor/bin/phpcbf *"
+    - "vendor/bin/phpcs *"
+    - "vendor/bin/phpstan *"
+    - "vendor/bin/phpunit *"
+    - "npx *"
+    - "pnpm *"
 safe-outputs:
   create-pull-request:
     title-prefix: "[WP] "
+    draft: false
   add-comment:
     hide-older-comments: true # 保持 Issue 討論串乾淨 [4]
   noop:
