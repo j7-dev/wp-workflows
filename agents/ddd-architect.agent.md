@@ -35,7 +35,7 @@ mcp-servers:
 
 ## 前置條件
 
-1. **讀取 spec**：從 `spec/` 目錄理解業務領域與功能規格。若 `spec/` 不存在，提示用戶先用 `@agents/clarifier.agent.md` 產生規格。
+1. **讀取 spec**：從 `specs/` 目錄理解業務領域與功能規格。若 `specs/` 不存在，提示用戶先用 `@agents/clarifier.agent.md` 產生規格。
 2. **讀取專案指引**：閱讀 `.github/copilot-instructions.md`、`.github/instructions/*.instructions.md`（若存在）
 3. **掌握現有架構**：用 Serena 分析專案結構、類別關係、引用關係
 

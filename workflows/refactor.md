@@ -238,7 +238,7 @@ git log --since="24 hours ago" --pretty=format:"%H %s" --no-merges
 
 - 閱讀 `.github/copilot-instructions.md`
 - 若存在，閱讀 `.github/instructions/*.instructions.md`
-- 若存在，從 `spec/` 目錄理解業務領域與功能規格
+- 若存在，從 `specs/` 目錄理解業務領域與功能規格
 
 ### 3.2 架構掃描
 

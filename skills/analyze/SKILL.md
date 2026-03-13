@@ -31,9 +31,9 @@ origin: custom
 - 從 `package.json` 的 `name`、`composer.json` 的 `name`、目錄名稱等來源推斷
 - 用 `ask_user` 向使用者確認最終 `{project_name}`
 
-### 3. 檢查 notebooklm（可選）
-- 嘗試查詢 notebooklm 中的 "GitHub Copilot CLI" 筆記本，取得 SKILL 與 instruction 規範的最佳實踐
-- 如果 notebooklm 不可用或找不到筆記本，不阻塞流程，繼續使用內建知識
+### 3. 檢查 notebook-lm（可選）
+- 嘗試查詢 notebook-lm MCP 中的 "GitHub Copilot CLI" 筆記本，取得 SKILL 與 instruction 規範的最佳實踐
+- 如果 notebook-lm 不可用或找不到筆記本，不阻塞流程，繼續使用內建知識
 
 ---
 
