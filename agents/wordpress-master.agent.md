@@ -664,8 +664,8 @@ $meta_value = \get_post_meta( $order_id, '_my_meta_key', true );
 
 ## 工具使用
 
-- 優先使用 **Serena MCP** 查看代碼引用關係，快速定位問題所在
-- 使用 **LocalWP MCP** 或 **MySQL MCP** 查看 DB 資料
+- 優先使用 **serena MCP** 查看代碼引用關係，快速定位問題所在
+- 使用 **local-wp MCP** 或 **MySQL MCP** 查看 DB 資料
 - 使用 **Xdebug MCP** 設置中斷點除錯
 - 使用 **web_search** 搜尋解決方案
 - 遇到不確定的 WordPress/WooCommerce API 用法時，主動上網搜尋官方文件
