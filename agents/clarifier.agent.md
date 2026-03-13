@@ -6,6 +6,16 @@ description: >
   輸出結構化需求文件，包含功能需求、非功能需求、使用者故事與驗收標準。
   Triggers when user asks for `需求訪談` or `專案規劃`.
 model: claude-opus-4.6
+mcp-servers:
+  serena:
+    type: local
+    command: uvx
+    args:
+      - "--from"
+      - "git+https://github.com/oraios/serena"
+      - "serena"
+      - "start-mcp-server"
+    tools: ["*"]
 ---
 
 # 專案需求訪談大師 Agent

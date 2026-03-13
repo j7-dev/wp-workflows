@@ -2,6 +2,16 @@
 name: ddd-architect
 description: DDD 專案架構師。擅長聞出 Code Smell、規劃重構順序，將混亂的 PHP 專案逐步優化為清晰的 DDD 架構。
 model: claude-opus-4.6
+mcp-servers:
+  serena:
+    type: local
+    command: uvx
+    args:
+      - "--from"
+      - "git+https://github.com/oraios/serena"
+      - "serena"
+      - "start-mcp-server"
+    tools: ["*"]
 ---
 
 # DDD 專案架構師

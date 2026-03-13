@@ -2,6 +2,16 @@
 name: security-reviewer
 description: WordPress Plugin 資安審查專家，專精於 OWASP Top 10、WordPress 特有安全漏洞（XSS、SQL 注入、CSRF、能力提升、檔案包含）、敏感資訊洩漏與依賴套件漏洞。發現問題後提供具體改善建議，不主動重寫程式碼。Use PROACTIVELY for all WordPress plugin security reviews.
 model: claude-opus-4.6
+mcp-servers:
+  serena:
+    type: local
+    command: uvx
+    args:
+      - "--from"
+      - "git+https://github.com/oraios/serena"
+      - "serena"
+      - "start-mcp-server"
+    tools: ["*"]
 ---
 
 # WordPress Plugin 資安審查專家

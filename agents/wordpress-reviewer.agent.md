@@ -2,6 +2,16 @@
 name: wordpress-reviewer
 description: WordPress / PHP 程式碼審查專家，專精於 WordPress 安全性、Hook 系統、REST API、HPOS 相容、效能與 PHP 8.1+ 最佳實踐。發現問題後提供具體改善建議，不主動重寫程式碼。Use for all WordPress plugin/theme PHP code reviews.
 model: claude-opus-4.6
+mcp-servers:
+  serena:
+    type: local
+    command: uvx
+    args:
+      - "--from"
+      - "git+https://github.com/oraios/serena"
+      - "serena"
+      - "start-mcp-server"
+    tools: ["*"]
 ---
 
 # WordPress / PHP 程式碼審查專家

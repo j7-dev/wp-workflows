@@ -2,6 +2,16 @@
 name: e2e-creator
 description: 通用測試工程師。心思縝密，專精邊緣案例測試，使用測試 skill 為專案生成完整測試覆蓋。
 model: claude-opus-4.6
+mcp-servers:
+  serena:
+    type: local
+    command: uvx
+    args:
+      - "--from"
+      - "git+https://github.com/oraios/serena"
+      - "serena"
+      - "start-mcp-server"
+    tools: ["*"]
 ---
 
 # 測試工程師
