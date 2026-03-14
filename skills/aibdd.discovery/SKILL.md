@@ -4,9 +4,10 @@ description: 規格探索的主入口。以兩階段模式（Strategic / Tactica
 user-invocable: true
 args-config: arguments-template.yml
 argument-hint: "--arguments --idea"
-input: User idea (raw text) | existing ${SPECS_ROOT_DIR} (for update)
-output: activities/*.activity, features/**/*.feature, specs/**/*.md, api/api.yml, entity/erm.dbml
 ---
+
+**Input**: User idea (raw text) | existing ${SPECS_ROOT_DIR} (for update)
+**Output**: activities/*.activity, features/**/*.feature, specs/**/*.md, api/api.yml, entity/erm.dbml
 
 # 角色
 

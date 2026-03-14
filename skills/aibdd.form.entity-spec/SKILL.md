@@ -4,9 +4,10 @@ description: Entity 視圖的 Spec Skill。從完整的 .feature 文件推導 DB
 user-invocable: true
 args-config: arguments-template.yml
 argument-hint: "[FEATURE_SPECS_DIR]"
-input: ${FEATURE_SPECS_DIR}/**/*.feature (completed, no sticky notes)
-output: ${ENTITY_SPECS_DIR}/erm.dbml
 ---
+
+**Input**: ${FEATURE_SPECS_DIR}/**/*.feature (completed, no sticky notes)
+**Output**: ${ENTITY_SPECS_DIR}/erm.dbml
 
 # 角色
 

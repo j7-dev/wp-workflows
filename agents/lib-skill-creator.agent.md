@@ -9,20 +9,16 @@ description: >
   3. 用戶貼了文件 URL 並指示「幫我整理」。
   4. 用戶表示：「不想每次都搜尋」、「給 AI 一份參考資料」、「這個套件的 API 太多記不住」或「把官方文件變成 skill」。
   5. 用戶指定一個「主題」或「領域」（非特定套件）並希望整理成知識庫，如：「幫我研究 CQRS pattern」、「整理 WooCommerce Hooks」、「做一份 GraphQL best practices 的 skill」。
-model: claude-opus-4.6
-mcp-servers:
+model: opus
+mcpServers:
   serena:
-    type: local
+    type: stdio
     command: uvx
     args:
       - "--from"
       - "git+https://github.com/oraios/serena"
       - "serena"
       - "start-mcp-server"
-      - "--context"
-      - "ide"
-      - "--project-from-cwd"
-    tools: ["*"]
 ---
 # Lib Skill Creator Agent
 

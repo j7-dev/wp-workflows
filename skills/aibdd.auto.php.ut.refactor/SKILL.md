@@ -3,9 +3,10 @@ name: aibdd.auto.php.ut.refactor
 description: PHP UT Stage 4：重構階段。Phase A（測試程式碼）→ 跑測試 → Phase B（生產程式碼）→ 跑測試。嚴格遵守 /aibdd.auto.php.code-quality 規範。
 user-invocable: true
 argument-hint: "[feature-file]"
-input: tests/contexts/**/*.php, src/Models/*.php, src/Repositories/*.php, src/Services/*.php
-output: 重構後的程式碼（測試持續通過）
 ---
+
+**Input**: tests/contexts/**/*.php, src/Models/*.php, src/Repositories/*.php, src/Services/*.php
+**Output**: 重構後的程式碼（測試持續通過）
 
 # 角色
 

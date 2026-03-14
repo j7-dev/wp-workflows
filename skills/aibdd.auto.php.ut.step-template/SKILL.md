@@ -3,9 +3,10 @@ name: aibdd.auto.php.ut.step-template
 description: PHP UT Stage 1：從 Gherkin Feature 生成 Unit Test Step Definition 樣板。使用 FeatureContext 共用狀態。可被 /php-ut 調用，也可獨立使用。
 user-invocable: true
 argument-hint: "[feature-file]"
-input: tests/features/**/*.feature, tests/contexts/**/*.php
-output: tests/contexts/{Subdomain}/{Category}Context.php（樣板）
 ---
+
+**Input**: tests/features/**/*.feature, tests/contexts/**/*.php
+**Output**: tests/contexts/{Subdomain}/{Category}Context.php（樣板）
 
 # 角色
 

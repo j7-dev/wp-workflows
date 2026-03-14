@@ -1,27 +1,27 @@
-# WordPress Plugin — GitHub Copilot CLI Plugin
+# WordPress Plugin — Claude Code Plugin
 
-> 專為 WordPress 開發設計的 GitHub Copilot CLI Plugin，內建完整的 Agent、Skill 與 MCP Server 設定，大幅提升 WordPress 外掛、主題、區塊開發的 AI 輔助效率。
+> 專為 WordPress 開發設計的 Claude Code Plugin，內建完整的 Agent、Skill 與 MCP Server 設定，大幅提升 WordPress 外掛、主題、區塊開發的 AI 輔助效率。
 
 ## 安裝方式
 
-### 從 GitHub 安裝
+### 從 Marketplace 安裝
 
 ```bash
-copilot plugin install github.com/j7-dev/wp-workflows
+claude plugin marketplace add j7-dev/wp-workflows
+claude plugin install wp-workflows
 ```
 
 ### 從本地目錄安裝
 
 ```bash
-copilot plugin marketplace add j7-dev/wp-workflows
-copilot plugin install ./wp-workflows
+claude plugin install ./wp-workflows
 ```
 
 ### 驗證安裝
 
 ```bash
 # 列出已安裝的 Plugin
-copilot plugin list
+claude plugin list
 
 # 列出可用的 Skill
 /skills list
@@ -87,7 +87,6 @@ copilot plugin list
 | 需求表述       | `/formulation`            | 需求文件撰寫                    |
 | React 編碼標準 | `/react-coding-standards` | React / TypeScript 最佳實踐     |
 | Refine         | `/refine`                 | Ant Design + Refine 框架開發    |
-| Skill Creator  | `/skill-creator`          | 建立自訂 Copilot Skill          |
 
 ---
 
@@ -104,20 +103,20 @@ copilot plugin list
 
 ```
 wp-workflows/
-├── plugin.json                 # Copilot Plugin 主設定
-├── .github/
-│   └── plugin/
-│       └── marketplace.json    # Marketplace 上架設定
-├── agents/                     # Agent 定義檔
+├── .claude-plugin/
+│   ├── plugin.json            # Claude Code Plugin 主設定
+│   └── marketplace.json       # Marketplace 上架設定
+├── agents/                    # Agent 定義檔
 │   ├── wordpress-master.agent.md
 │   ├── wordpress-reviewer.agent.md
 │   └── ...
-├── skills/                     # Skill 定義檔
+├── skills/                    # Skill 定義檔
 │   ├── wp-plugin-development/
 │   ├── wp-block-development/
 │   └── ...
+├── workflows/                 # GitHub Copilot coding agent 工作流程（參考用）
 └── mcp/
-    └── mcp-config.json         # MCP Server 設定
+    └── mcp-config.json        # MCP Server 設定
 ```
 
 ---

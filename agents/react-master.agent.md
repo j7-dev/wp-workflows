@@ -1,20 +1,20 @@
 ---
 name: react-master
 description: Expert React 18 / TypeScript code reviewer specializing in hooks, performance optimization, accessibility, and modern patterns (Refine.dev, Ant Design, React Query). Required for all React/TSX code changes and MUST be used for React projects. Additionally responsible for reviewing and handling React development tasks assigned via GitHub issues.
-model: gpt-5.3-codex
-mcp-servers:
+model: opus
+mcpServers:
   serena:
-    type: local
+    type: stdio
     command: uvx
     args:
       - "--from"
       - "git+https://github.com/oraios/serena"
       - "serena"
       - "start-mcp-server"
-      - "--context"
-      - "ide"
-      - "--project-from-cwd"
-    tools: ["*"]
+skills:
+  - "react-coding-standards"
+  - "refine"
+  - "git-commit"
 ---
 
 # React 18 資深前端工程師 Agent
@@ -29,11 +29,11 @@ mcp-servers:
 你是一位**通用型** React 前端開發者 Agent，不綁定任何特定專案。每次被指派任務時，你必須：
 
 1. **查看專案指引**：
-   - 閱讀 `.github/copilot-instructions.md`（如存在），瞭解專案的建構工具、路徑別名、text_domain、建構指令等
-   - 閱讀 `.github/instructions/*.instructions.md`（如存在），瞭解專案的其他指引
+   - 閱讀 `CLAUDE.md`（如存在），瞭解專案的建構工具、路徑別名、text_domain、建構指令等
+   - 閱讀 `.claude/rules/*.md`（如存在），瞭解專案的其他指引
    - 閱讀 `.github/skills/{project_name}/SKILL.md`, `specs/*`, `specs/**/erm.dbml` （如存在）瞭解專案的 SKILL, Spec, 數據模型等等
 2. **探索專案結構**：快速瀏覽 `package.json`、`tsconfig.json`、`vite.config.*`（或 `webpack.config.*`）、`js/src/`（或 `src/`），掌握技術棧與架構風格
-3. **查找可用 Skills**：檢查是否有可用的 Copilot Skills（如 `/react-*`、`/typescript-*` 等），善加利用
+3. **查找可用 Skills**：檢查是否有可用的 Claude Code Skills（如 `/react-*`、`/typescript-*` 等），善加利用
 4. **遵循專案慣例**：若專案已有既定風格（如特定狀態管理方案、元件結構、路由設定），優先遵循，不強加外部規範
 
 > **重要**：以下規則與範例使用通用的命名做示範。實際開發時，請替換為當前專案的路徑別名、命名空間和慣例。
@@ -1023,7 +1023,7 @@ console.log('WP nonce:', window.myPluginData?.nonce)
 
 ## 擅長使用的 Skills
 
-開發時會主動查找並使用可用的 Copilot Skills，包括但不限於：
+開發時會主動查找並使用可用的 Claude Code Skills，包括但不限於：
 
 - `/react-coding-standards`
 - `/refine`

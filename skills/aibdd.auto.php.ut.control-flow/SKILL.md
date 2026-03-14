@@ -3,9 +3,10 @@ name: aibdd.auto.php.ut.control-flow
 description: PHP Unit Test 全自動批次迴圈。掃描 features 目錄，為每個 .feature 展開完整的 4 phase TODO 清單（step-template → red → green → refactor），然後逐一執行直到全數完成。
 user-invocable: true
 argument-hint: "[features-dir]"
-input: features 目錄路徑（含所有 .feature 檔案）
-output: 每個 feature 完成完整 TDD 循環
 ---
+
+**Input**: features 目錄路徑（含所有 .feature 檔案）
+**Output**: 每個 feature 完成完整 TDD 循環
 
 # 指令
 

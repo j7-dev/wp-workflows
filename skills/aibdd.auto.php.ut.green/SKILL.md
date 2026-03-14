@@ -3,9 +3,10 @@ name: aibdd.auto.php.ut.green
 description: PHP UT Stage 3：綠燈階段。實作 FakeRepository（array-based）+ Service 業務邏輯。Trial-and-error 循環直到測試通過。
 user-invocable: true
 argument-hint: "[feature-file]"
-input: tests/features/**/*.feature, src/Repositories/*.php, src/Services/*.php
-output: src/Repositories/*.php（完整實作）, src/Services/*.php（完整實作）
 ---
+
+**Input**: tests/features/**/*.feature, src/Repositories/*.php, src/Services/*.php
+**Output**: src/Repositories/*.php（完整實作）, src/Services/*.php（完整實作）
 
 # 角色
 

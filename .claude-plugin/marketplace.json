@@ -1,0 +1,13 @@
+{
+  "name": "wp-workflows",
+  "owner": {
+    "name": "j7-dev",
+    "email": "j7.dev.gg@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "wp-workflows",
+      "source": "./"
+    }
+  ]
+}

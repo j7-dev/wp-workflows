@@ -3,9 +3,10 @@ name: aibdd.auto.php.ut.red
 description: PHP UT Stage 2：紅燈生成器。建立 FakeRepository（BadMethodCallException）+ Service 介面（BadMethodCallException）+ 完整 Step Definition。
 user-invocable: true
 argument-hint: "[feature-file]"
-input: tests/contexts/**/*.php（樣板）, handler skills
-output: tests/contexts/**/*.php（完整）, src/Models/*.php, src/Repositories/*.php, src/Services/*.php
 ---
+
+**Input**: tests/contexts/**/*.php（樣板）, handler skills
+**Output**: tests/contexts/**/*.php（完整）, src/Models/*.php, src/Repositories/*.php, src/Services/*.php
 
 # 角色
 

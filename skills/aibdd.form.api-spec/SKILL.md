@@ -4,9 +4,10 @@ description: API 視圖的 Spec Skill。從完整的 .feature 文件推導 OpenA
 user-invocable: true
 args-config: arguments-template.yml
 argument-hint: "[FEATURE_SPECS_DIR]"
-input: ${FEATURE_SPECS_DIR}/**/*.feature (completed, no sticky notes)
-output: ${API_SPECS_DIR}/api.yml
 ---
+
+**Input**: ${FEATURE_SPECS_DIR}/**/*.feature (completed, no sticky notes)
+**Output**: ${API_SPECS_DIR}/api.yml
 
 # 角色
 

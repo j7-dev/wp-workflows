@@ -1,6 +1,6 @@
 ---
 name: plan
-description: 重述需求、研究風險、審視缺口、澄清疑點，並建立逐步實作計劃。在撰寫任何程式碼之前，必須等待使用者確認。
+description: 重述需求、研究風險、審視缺口、澄清疑點，並建立逐步實作計劃。在撰寫任何程式碼之前，必須等待使用者確認。即使使用者沒有說 /plan，當即將開始複雜功能開發或重大架構調整時，也應主動建議使用此 skill。
 ---
 
 # /plan 指令
@@ -36,11 +36,11 @@ Planner agent 將依序執行下列步驟，除非需要澄清否則**不中斷*
 
 在開始規劃之前，**必須**先完成：
 
-1. 閱讀 `.github/copilot-instructions.md`（如存在），瞭解命名空間、架構、text_domain、建構指令
-2. 閱讀 `.github/instructions/*.instructions.md`（如存在）
+1. 閱讀 `CLAUDE.md`（如存在），瞭解命名空間、架構、text_domain、建構指令
+2. 閱讀 `.claude/rules/*.md`（如存在）
 3. 閱讀 `.github/skills/{project_name}/SKILL.md`、`specs/*`、`specs/**/erm.dbml`（如存在）
 4. 快速瀏覽 `composer.json`、`plugin.php`、`inc/src/` 或主要原始碼目錄，掌握架構風格
-5. 檢查是否有可用的 Skills（如 `/wordpress-router`、`/wp-abilities-api` 等），優先善加利用
+5. 檢查是否有可用的 Claude Code Skills（如 `/wordpress-router`、`/wp-abilities-api` 等），優先善加利用
 
 > ⚠️ 若無法讀取相關檔案，應明確告知使用者缺少哪些資訊，再繼續規劃。
 
@@ -235,7 +235,7 @@ Planner agent 將依序執行下列步驟，除非需要澄清否則**不中斷*
 > ⚙️ 此 Issue 應指派給 **`@wordpress-master`** agent 執行
 ```
 
-Copilot 在 assign issue 時，即可依此明確知道要啟用哪個 agent。
+在 assign issue 時，即可依此明確知道要啟用哪個 agent。
 
 ---
 

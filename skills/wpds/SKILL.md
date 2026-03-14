@@ -1,10 +1,11 @@
 ---
 name: wpds
 description: "Use when building UIs leveraging the WordPress Design System (WPDS) and its components, tokens, patterns, etc."
-compatibility: "Requires WPDS MCP server configured and running. Targets WordPress 6.9+ (PHP 7.2.24+)."
 ---
 
 # WordPress Design System (WPDS)
+
+**Compatibility**: Requires WPDS MCP server configured and running. Targets WordPress 6.9+ (PHP 7.2.24+).
 
 ## Prerequisites
 

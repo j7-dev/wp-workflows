@@ -1,13 +1,11 @@
 ---
 name: refine
 description: Refine React meta-framework 開發專家。精通 CRUD-heavy 應用程式架構、Data/Auth/Router Provider 系統、Ant Design UI 整合、REST Data Provider (@refinedev/rest)。當使用者需要建立 Refine 應用程式、實作 Provider、整合 Ant Design 元件、配置路由或資料層時，請啟用此技能。
-metadata:
-  domain: refine-react-framework
-  version: "1.0"
-compatibility: "@refinedev/core ^4.x, @refinedev/antd ^5.x, @refinedev/react-router ^1.x"
 ---
 
 # Refine — React CRUD Meta-Framework 開發指南
+
+**相容版本**：`@refinedev/core ^4.x`, `@refinedev/antd ^5.x`, `@refinedev/react-router ^1.x`
 
 ## 核心概念
 
@@ -102,73 +100,13 @@ resources={[
 
 ---
 
-## Data Provider 介面
+## Data Provider
 
-Data Provider 是 Refine 與後端通訊的橋樑，需實作以下方法：
+Data Provider 是 Refine 與後端通訊的橋樑。必要方法：`getList`、`getOne`、`create`、`update`、`deleteOne`、`getApiUrl`。選用方法：`getMany`、`createMany`、`updateMany`、`deleteMany`、`custom`。
 
-### 必要方法
+> 完整介面定義與自訂範例見 [references/data-provider.md](./references/data-provider.md)
 
-```typescript
-interface DataProvider {
-  getList: (params: {
-    resource: string;
-    pagination?: { current?: number; pageSize?: number; mode?: "off" | "client" | "server" };
-    sorters?: CrudSorters;
-    filters?: CrudFilters;
-    meta?: MetaQuery;
-  }) => Promise<{ data: BaseRecord[]; total: number }>;
-
-  getOne: (params: {
-    resource: string;
-    id: BaseKey;
-    meta?: MetaQuery;
-  }) => Promise<{ data: BaseRecord }>;
-
-  create: (params: {
-    resource: string;
-    variables: Record<string, unknown>;
-    meta?: MetaQuery;
-  }) => Promise<{ data: BaseRecord }>;
-
-  update: (params: {
-    resource: string;
-    id: BaseKey;
-    variables: Record<string, unknown>;
-    meta?: MetaQuery;
-  }) => Promise<{ data: BaseRecord }>;
-
-  deleteOne: (params: {
-    resource: string;
-    id: BaseKey;
-    variables?: Record<string, unknown>;
-    meta?: MetaQuery;
-  }) => Promise<{ data: BaseRecord }>;
-
-  getApiUrl: () => string;
-}
-```
-
-### 選用方法
-
-```typescript
-getMany?: (params: { resource: string; ids: BaseKey[]; meta?: MetaQuery }) => Promise<{ data: BaseRecord[] }>;
-createMany?: (params: { resource: string; variables: Record<string, unknown>[]; meta?: MetaQuery }) => Promise<{ data: BaseRecord[] }>;
-updateMany?: (...) => Promise<...>;
-deleteMany?: (...) => Promise<...>;
-custom?: (params: { url: string; method: string; payload?: unknown; headers?: object; meta?: MetaQuery }) => Promise<{ data: unknown }>;
-```
-
-> 完整 custom Data Provider 範例見 [references/data-provider.md](./references/data-provider.md)
-
----
-
-## @refinedev/rest（REST Data Provider）
-
-新版 REST Data Provider，基於 KY HTTP client。
-
-```bash
-npm i @refinedev/rest
-```
+### @refinedev/rest（REST Data Provider）
 
 ```typescript
 import { createDataProvider } from "@refinedev/rest";
@@ -176,23 +114,15 @@ import { createDataProvider } from "@refinedev/rest";
 const { dataProvider, kyInstance } = createDataProvider(
   "https://api.example.com/v1",
   {
-    // 可選：自訂每個方法的行為
     getList: {
-      buildQueryParams: ({ pagination, sorters, filters }) => {
-        return {
-          _page: pagination?.current,
-          _limit: pagination?.pageSize,
-          _sort: sorters?.[0]?.field,
-          _order: sorters?.[0]?.order,
-          ...filters?.reduce((acc, filter) => {
-            if ("field" in filter) acc[filter.field] = filter.value;
-            return acc;
-          }, {}),
-        };
-      },
-      getTotalCount: ({ response }) => {
-        return Number(response.headers.get("x-total-count"));
-      },
+      buildQueryParams: ({ pagination, sorters, filters }) => ({
+        _page: pagination?.current,
+        _limit: pagination?.pageSize,
+        _sort: sorters?.[0]?.field,
+        _order: sorters?.[0]?.order,
+      }),
+      getTotalCount: ({ response }) =>
+        Number(response.headers.get("x-total-count")),
     },
   }
 );
@@ -202,144 +132,53 @@ const { dataProvider, kyInstance } = createDataProvider(
 
 ---
 
-## Auth Provider 介面
+## Auth Provider
+
+Auth Provider 處理登入、登出、認證檢查與錯誤處理。必要方法：`login`、`check`、`logout`、`onError`。選用方法：`register`、`forgotPassword`、`updatePassword`、`getPermissions`、`getIdentity`。
 
 ```typescript
-interface AuthProvider {
-  login: (params: { email?: string; username?: string; password?: string; [key: string]: unknown }) => Promise<AuthActionResponse>;
-  check: (params?: unknown) => Promise<CheckResponse>;
-  logout: (params?: unknown) => Promise<AuthActionResponse>;
-  onError: (error: unknown) => Promise<OnErrorResponse>;
-
-  // 選用
-  register?: (params: unknown) => Promise<AuthActionResponse>;
-  forgotPassword?: (params: unknown) => Promise<AuthActionResponse>;
-  updatePassword?: (params: unknown) => Promise<AuthActionResponse>;
-  getPermissions?: (params?: unknown) => Promise<unknown>;
-  getIdentity?: (params?: unknown) => Promise<unknown>;
-}
-
-// 回傳類型
-type AuthActionResponse = {
-  success: boolean;
-  redirectTo?: string;
-  error?: { message: string; name: string };
-};
-
-type CheckResponse = {
-  authenticated: boolean;
-  redirectTo?: string;    // 未認證時重導向
-  logout?: boolean;       // 是否登出
-  error?: Error;
-};
-```
-
-### 使用 Hooks
-
-```typescript
+// 常用 Hooks
 import { useLogin, useLogout, useIsAuthenticated, useGetIdentity } from "@refinedev/core";
 
 const { mutate: login } = useLogin();
-const { mutate: logout } = useLogout();
 const { data: authData } = useIsAuthenticated();
-const { data: identity } = useGetIdentity<{ name: string; email: string }>();
 ```
+
+> 完整介面定義與範例見 [references/auth-provider.md](./references/auth-provider.md)
 
 ---
 
 ## Data Hooks
 
-### useList
+所有 data hooks 基於 TanStack Query，自動處理快取、重新驗證和錯誤狀態。
 
-```typescript
-import { useList } from "@refinedev/core";
-
-const { data, isLoading, isError } = useList({
-  resource: "products",
-  pagination: { current: 1, pageSize: 20, mode: "server" },
-  sorters: [{ field: "id", order: "desc" }],
-  filters: [
-    { field: "category", operator: "eq", value: "electronics" },
-    { field: "price", operator: "lte", value: 1000 },
-  ],
-  meta: { headers: { "x-custom-header": "value" } },
-});
-
-// data.data: BaseRecord[]
-// data.total: number
-```
-
-### useOne
-
-```typescript
-const { data, isLoading } = useOne({ resource: "products", id: 1 });
-```
-
-### useCreate
-
-```typescript
-const { mutate, isLoading } = useCreate();
-
-mutate({
-  resource: "products",
-  values: { name: "新產品", price: 100 },
-});
-```
-
-### useUpdate
-
-```typescript
-const { mutate } = useUpdate();
-
-mutate({
-  resource: "products",
-  id: 1,
-  values: { price: 200 },
-  mutationMode: "optimistic", // "pessimistic" | "optimistic" | "undoable"
-});
-```
-
-### useDelete
-
-```typescript
-const { mutate: deleteProduct } = useDelete();
-
-deleteProduct({ resource: "products", id: 1 });
-```
-
-### useTable（@refinedev/core）
-
-```typescript
-import { useTable } from "@refinedev/core";
-
-const { tableQuery, current, setCurrent, pageSize, setPageSize,
-        sorters, setSorters, filters, setFilters } = useTable({
-  resource: "products",
-  syncWithLocation: true, // 同步 URL query string
-});
-```
+| Hook | 用途 | Data Provider 方法 |
+|------|------|-------------------|
+| `useList` | 取得列表（分頁、排序、篩選） | `getList` |
+| `useOne` | 取得單筆資料 | `getOne` |
+| `useCreate` | 建立資料 | `create` |
+| `useUpdate` | 更新資料 | `update` |
+| `useDelete` | 刪除資料 | `deleteOne` |
+| `useTable` | 整合表格狀態 | `getList` |
+| `useCustom` | 自訂 API 呼叫 | `custom` |
+| `useMany` | 批量取得 | `getMany` |
 
 ### Filter Operators
 
 | operator | 說明 |
 |----------|------|
-| `eq` | 等於 |
-| `ne` | 不等於 |
-| `lt` / `gt` | 小於 / 大於 |
-| `lte` / `gte` | 小於等於 / 大於等於 |
-| `contains` | 包含（字串） |
-| `startswith` / `endswith` | 開頭 / 結尾 |
-| `in` / `nin` | 在清單內 / 不在清單內 |
+| `eq` / `ne` | 等於 / 不等於 |
+| `lt` / `gt` / `lte` / `gte` | 比較運算 |
+| `contains` / `startswith` / `endswith` | 字串匹配 |
+| `in` / `nin` | 清單匹配 |
 | `between` | 範圍 |
-| `null` / `nnull` | 為空 / 不為空 |
+| `null` / `nnull` | 空值檢查 |
+
+> 完整 hooks 範例與用法見 [references/data-hooks.md](./references/data-hooks.md)
 
 ---
 
 ## Ant Design UI 整合（@refinedev/antd）
-
-```bash
-npm i @refinedev/antd antd
-```
 
 ### 必要設定
 
@@ -357,16 +196,6 @@ import { RefineThemes, useNotificationProvider } from "@refinedev/antd";
 </ConfigProvider>
 ```
 
-### ThemedLayout
-
-```tsx
-import { ThemedLayout } from "@refinedev/antd";
-
-<Route element={<ThemedLayout />}>
-  <Route path="/products" element={<ProductList />} />
-</Route>
-```
-
 ### CRUD 頁面元件
 
 | 元件 | 用途 |
@@ -379,38 +208,20 @@ import { ThemedLayout } from "@refinedev/antd";
 ### useTable（@refinedev/antd）
 
 ```tsx
-import { useTable, List, getDefaultSortOrder, getDefaultFilter, FilterDropdown } from "@refinedev/antd";
+import { useTable, List, getDefaultSortOrder, FilterDropdown } from "@refinedev/antd";
 import { Table } from "antd";
 
 export const ProductList = () => {
   const { tableProps, sorters, filters } = useTable<IProduct>({
     syncWithLocation: true,
     sorters: { initial: [{ field: "id", order: "desc" }] },
-    filters: { initial: [{ field: "status", operator: "eq", value: "active" }] },
-    onSearch: (values: { name: string }) => [
-      { field: "name", operator: "contains", value: values.name },
-    ],
   });
 
   return (
     <List>
       <Table {...tableProps} rowKey="id">
-        <Table.Column
-          dataIndex="name"
-          title="名稱"
-          sorter
-          defaultSortOrder={getDefaultSortOrder("name", sorters)}
-        />
-        <Table.Column
-          dataIndex="status"
-          title="狀態"
-          defaultFilteredValue={getDefaultFilter("status", filters)}
-          filterDropdown={(props) => (
-            <FilterDropdown {...props}>
-              <Select options={[{ label: "啟用", value: "active" }]} />
-            </FilterDropdown>
-          )}
-        />
+        <Table.Column dataIndex="name" title="名稱" sorter
+          defaultSortOrder={getDefaultSortOrder("name", sorters)} />
       </Table>
     </List>
   );
@@ -425,11 +236,8 @@ import { Form, Input } from "antd";
 
 export const ProductEdit = () => {
   const { formProps, saveButtonProps } = useForm<IProduct>({
-    action: "edit", // "create" | "edit" | "clone"
-    redirect: "show", // 提交後跳轉
-    onMutationSuccess: (data) => {
-      console.log("成功:", data);
-    },
+    action: "edit",
+    redirect: "show",
   });
 
   return (
@@ -444,37 +252,7 @@ export const ProductEdit = () => {
 };
 ```
 
-### 欄位顯示元件
-
-```tsx
-import { TextField, NumberField, DateField, MarkdownField, BooleanField, TagField, UrlField, EmailField, ImageField } from "@refinedev/antd";
-
-<TextField value="文字" />
-<NumberField value={1234.56} options={{ style: "currency", currency: "TWD" }} />
-<DateField value="2024-01-01" format="YYYY/MM/DD" />
-<BooleanField value={true} />
-<TagField value="published" />
-```
-
-### 操作按鈕元件
-
-```tsx
-import { ShowButton, EditButton, DeleteButton, CreateButton, ListButton, SaveButton, RefreshButton, CloneButton } from "@refinedev/antd";
-
-// 在 Table 中使用
-<Table.Column
-  title="操作"
-  render={(_, record) => (
-    <Space>
-      <ShowButton recordItemId={record.id} hideText size="small" />
-      <EditButton recordItemId={record.id} hideText size="small" />
-      <DeleteButton recordItemId={record.id} hideText size="small" />
-    </Space>
-  )}
-/>
-```
-
-> 完整 CRUD 頁面範例見 [references/antd-crud.md](./references/antd-crud.md)
+> 完整 CRUD 頁面、欄位顯示元件與操作按鈕範例見 [references/antd-crud.md](./references/antd-crud.md)
 
 ---
 
@@ -527,7 +305,7 @@ open({
   type: "success", // "success" | "error" | "progress"
   message: "操作成功",
   description: "資料已儲存",
-  key: "unique-key",  // 用於 close
+  key: "unique-key",
 });
 close("unique-key");
 ```
@@ -550,27 +328,6 @@ const { data: { can } } = useCan({
 <CanAccess resource="products" action="create" fallback={<span>無權限</span>}>
   <CreateButton />
 </CanAccess>
-```
-
----
-
-## i18n Provider
-
-```typescript
-import { I18nProvider } from "@refinedev/core";
-import i18n from "i18next";
-
-const i18nProvider: I18nProvider = {
-  translate: (key: string, options?: object) => i18n.t(key, options),
-  changeLocale: (lang: string) => i18n.changeLanguage(lang),
-  getLocale: () => i18n.language,
-};
-
-// 必要的翻譯 key 結構：
-// pages.login, pages.register, pages.error
-// actions.create, actions.edit, actions.delete, actions.show
-// buttons.save, buttons.cancel, buttons.confirm
-// notifications.createSuccess, notifications.createError
 ```
 
 ---
@@ -644,3 +401,16 @@ useList({
 | `@refinedev/rest` | 進階 REST data provider（KY-based）|
 | `@refinedev/strapi-v4` | Strapi v4 data provider |
 | `@refinedev/supabase` | Supabase data provider |
+
+---
+
+## 參考文件
+
+依需要載入對應的詳細文件：
+
+- **App 設定範例**：`references/app-setup.md`
+- **Data Provider 完整介面**：`references/data-provider.md` — 介面定義、自訂實作範例
+- **REST Data Provider**：`references/rest-data-provider.md` — KY-based REST provider 設定
+- **Auth Provider**：`references/auth-provider.md` — 完整介面、回傳類型、範例實作
+- **Data Hooks**：`references/data-hooks.md` — useList/useOne/useCreate/useUpdate/useDelete/useTable 完整範例
+- **Ant Design CRUD**：`references/antd-crud.md` — CRUD 頁面、欄位顯示元件、操作按鈕

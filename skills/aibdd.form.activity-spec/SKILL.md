@@ -4,9 +4,10 @@ description: Activity 視圖的 Spec Skill。從 idea 生成 .activity 骨架並
 user-invocable: true
 args-config: arguments-template.yml
 argument-hint: "[idea]"
-input: User idea (raw text) | existing .activity files (for update)
-output: activities/*.activity, features/**/*.feature (skeleton), specs/**/*.md (skeleton)
 ---
+
+**Input**: User idea (raw text) | existing .activity files (for update)
+**Output**: activities/*.activity, features/**/*.feature (skeleton), specs/**/*.md (skeleton)
 
 # 角色
 

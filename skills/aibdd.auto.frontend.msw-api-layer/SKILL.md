@@ -1,7 +1,7 @@
 ---
 name: aibdd.auto.frontend.msw-api-layer
 description: 前端 Stage 1：從 api.yml + discovery features 產出 Zod Schemas、Fixtures、MSW Handlers、API Client 函式。可被 /aibdd.frontend-formulation 調用，也可獨立使用。
-user-invokable: true
+user-invocable: true
 argument-hint: "[specs-root-dir] [project-root]"
 ---
 
