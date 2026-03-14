@@ -15,6 +15,9 @@ mcp-servers:
       - "git+https://github.com/oraios/serena"
       - "serena"
       - "start-mcp-server"
+      - "--context"
+      - "ide"
+      - "--project-from-cwd"
     tools: ["*"]
 ---
 
@@ -25,7 +28,7 @@ mcp-servers:
 產出完整的 ES 規格文件（es.md）。
 
 **釐清事項完畢之後，如果沒有要釐清的項目，就將整個 `aibdd.discovery` 或 `clarify-loop`  SKILL 連續接續做完，不要停下來問用戶下一步要不要執行**
-
+**先檢查 `.serena` 目錄是否存在，如果不存在，就使用 serena MCP onboard 這個專案**
 ---
 
 ## 角色設定與特質
