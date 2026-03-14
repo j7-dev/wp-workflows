@@ -98,6 +98,8 @@ npx jest --testPathIgnorePatterns='e2e|playwright'
 - [ ] **Client-side 是否暴露 API 金鑰或機密**（🔴）
 - [ ] **使用者可控 ID** 是否未經授權驗證就直接操作資源（🔴）
 - [ ] WordPress nonce 是否正確傳遞，防止 CSRF（🟠）
+- [ ] **LLM 信任邊界**：AI 生成內容是否經 `DOMPurify.sanitize()` 再渲染（禁止直接 `dangerouslySetInnerHTML`）（🔴）
+- [ ] **Prompt Injection**：使用者輸入流向 LLM API 時是否與系統指令隔離（🟠）
 
 ### 三、元件結構與品質
 
@@ -126,6 +128,8 @@ npx jest --testPathIgnorePatterns='e2e|playwright'
 - [ ] `useEffect` 依賴陣列是否完整（無遺漏或冗餘）（🟠）
 - [ ] 是否有物件引用造成無限迴圈的 `useEffect`（需用 `useMemo` 穩定引用）（🟠）
 - [ ] **API 呼叫禁止在元件中直接 `useEffect` + `fetch`**，需封裝為 Custom Hook（🟠）
+- [ ] **非同步競爭條件**：`useEffect` 中 async 操作是否使用 AbortController 或 cleanup flag 避免更新已卸載元件（🟠）
+- [ ] **過期狀態**：快速連續觸發的非同步操作是否確保只採用最新結果（debounce + 取消前次請求）（🟠）
 
 ### 六、效能
 
@@ -159,6 +163,8 @@ npx jest --testPathIgnorePatterns='e2e|playwright'
 - [ ] WordPress 全域變數（`window.myPluginData`）是否有 `declare global` 型別宣告（🟠）
 - [ ] REST API 請求是否正確傳遞 nonce（`X-WP-Nonce` 標頭）（🟠）
 - [ ] `ReactQueryDevtools` 是否有 `process.env.NODE_ENV === 'development'` 條件（🟡）
+- [ ] **邊界型別強制轉換**：REST API 回傳的字串 ID 是否轉為數字再比較（`"123" !== 123`）（🟠）
+- [ ] **JSON 邊界**：PHP→JSON→JS 傳遞的值是否保持型別一致（數字、布林、null 可能改變型別）（🟡）
 
 ### 十、程式碼異味
 
@@ -228,6 +234,7 @@ npx jest --testPathIgnorePatterns='e2e|playwright'
 | **Ant Design 5** | `Form.Item` 處理表單欄位，`Table` 搭配分頁設定，禁止 inline style |
 | **React Query** | `queryKey` 結構一致性、invalidation 模式、`enabled` 條件控制 |
 | **Jotai** | atom 命名加 `Atom` 後綴（如 `selectedProductsAtom`），衍生用 derived atom |
+| **REST API 邊界** | 字串 vs 數字 ID 型別一致性、`null` vs `undefined` 處理、PHP 布林 vs JS 布林 |
 
 ---
 

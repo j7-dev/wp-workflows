@@ -253,6 +253,22 @@ npm audit --audit-level=high
 - [ ] Cron job 是否有能力驗證（防止未授權觸發）（🟠）
 - [ ] Multisite 環境：`switch_to_blog()` 後是否正確 `restore_current_blog()`（🟠）
 
+### 十二、競爭條件與並發安全
+
+- [ ] TOCTOU（先讀再檢查再寫入）是否改用原子操作（`INSERT ... ON DUPLICATE KEY UPDATE` 或加鎖查詢）（🔴）
+- [ ] WordPress Cron 是否防止重疊執行（使用 transient lock 確保單一實例）（🟠）
+- [ ] WooCommerce 庫存扣減是否防止超賣（`WHERE stock >= quantity` 原子更新）（🔴）
+- [ ] 並發 AJAX 是否可能同時修改共享狀態（`update_option` 覆蓋彼此結果）（🟠）
+- [ ] 「查找或建立」模式是否有唯一約束保護（無 unique index 時並發可建立重複記錄）（🟠）
+
+### 十三、LLM 輸出信任邊界
+
+- [ ] AI 生成的值寫入 DB 前是否經過格式驗證（`is_email()`、`esc_url_raw()`）（🔴）
+- [ ] AI 生成的內容顯示於前端時是否 escape（`esc_html()`、`wp_kses_post()`）（🔴）
+- [ ] AI 建議的 URL 或檔案路徑是否經過白名單或 `realpath()` 驗證（🔴）
+- [ ] 使用者輸入流向 LLM Prompt 時是否防範 Prompt Injection（隔離系統指令與使用者輸入）（🟠）
+- [ ] LLM 工具呼叫的輸出是否在執行前驗證型別與結構（🟠）
+
 ---
 
 ## 常見誤判（False Positives）
@@ -332,6 +348,8 @@ npm audit --audit-level=high
 | **短碼（Shortcode）** | `sanitize_*` 屬性 + `esc_*` 輸出 | XSS |
 | **Cron 任務** | 能力驗證或 nonce | 未授權執行 |
 | **Webhook 接收** | 簽章驗證（HMAC）+ IP 白名單 | 偽造請求 |
+| **並發操作** | TOCTOU 模式、Cron 重疊執行、庫存競爭條件 | 競爭條件、資料不一致 |
+| **LLM/AI 整合** | 輸出格式驗證、escape、Prompt Injection 防護 | 資料注入、XSS、未授權操作 |
 
 ---
 

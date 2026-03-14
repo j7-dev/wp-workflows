@@ -104,6 +104,8 @@ composer test
 - [ ] **資料驗證**：使用者輸入是否先 `sanitize_*()` 再儲存（🔴）
 - [ ] **直接存取防護**：非入口 PHP 檔案是否有 `defined('ABSPATH') || exit;`（🟠）
 - [ ] **敏感資訊**：是否在前端或日誌中暴露 API 金鑰、密碼、Token（🔴）
+- [ ] **競爭條件**：並發操作是否使用原子查詢（TOCTOU、Cron 重疊、WooCommerce 庫存需 `WHERE stock >= qty`）（🟠）
+- [ ] **並發安全**：`update_option` / `update_post_meta` 在高並發場景是否有覆蓋風險（🟠）
 
 ### 二、PHP 8.1+ 型別安全
 
@@ -149,6 +151,7 @@ composer test
 - [ ] 查詢是否有適當的快取（`wp_cache_get` / `transient`）（🟡）
 - [ ] `WP_Query` 是否設定 `no_found_rows` 等效能參數（🟡）
 - [ ] 迴圈中是否有 N+1 查詢問題（🟠）
+- [ ] **條件式副作用**：分支邏輯是否有遺漏副作用（如某條件下促銷但未附加 URL，early return 跳過清理邏輯）（🟠）
 
 ### 七、WooCommerce 相容性
 
@@ -180,6 +183,7 @@ composer test
 - [ ] 是否有直接操作 postmeta 而非使用 WooCommerce / CPT 物件方法（🟠）
 - [ ] **生產環境**是否有未清除的 `error_log`、`var_dump`、`print_r`（🟡）
 - [ ] 是否有未使用的死碼、被注解掉的程式碼（🟡）
+- [ ] **LLM 信任邊界**（若專案使用 AI 功能）：AI 生成值是否在寫入 DB 前驗證、顯示前 escape（🟠）
 
 ---
 
@@ -244,6 +248,7 @@ composer test
 | **WooCommerce 結帳** | 同時支援傳統與區塊結帳 hook |
 | **排程任務** | `wp_schedule_event` 是否有 deregister，避免重複排程 |
 | **多站台** | `switch_to_blog()` 與 `restore_current_blog()` 是否成對使用 |
+| **並發/競爭條件** | TOCTOU 模式、Cron lock、庫存原子扣減、`update_option` 並發安全 |
 
 ---
 
