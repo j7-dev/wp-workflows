@@ -2,7 +2,7 @@
 
 額外開一個 worktree ， 分支名稱你幫我命名
 
-呼叫 @agents/planner.agent-leader.md 規劃分派任務
+呼叫 @"planner (agent)" 規劃分派任務
 
 ## 任務目標
 
@@ -21,11 +21,11 @@ specs\list\008-player-ab.spec.md
 
 ### 1. 釐清此次任務規格 - 先使用 /aibdd.discovery SKILL 跟用戶一起釐清此次任務規格
 
-### 2. 先寫測試 - 針對這次的 HOPS 功能新增整合測試，使用 @agents/test-creator.agent.md agent 來完成
+### 2. 先寫測試 - 針對這次的功能新增整合測試，使用 @"test-creator (agent)" agent 來完成
 
-### 3. 開發功能 - 根據測試內容來開發功能，使用 @agents/avalonia-master.agent.md , @agents/abp-master.agent.md agent 來開發
+### 3. 開發功能 - 根據測試內容來開發功能，使用 @"wordpress-master (agent)" agent 來開發
 
-### 4. 審核功能 - 開發完成後，使用 @agents/avalonia-reviewer.agent.md , @agents/abp-reviewer.agent.md agent 來審核功能，確保功能正常，測試通過
+### 4. 審核功能 - 開發完成後，使用 @"wordpress-reviewer (agent)" agent 來審核功能，確保功能正常，測試通過
 
 ### 5. 更新文件 - 功能審核通過後，更新相關文件，確保文件內容完整且符合規範
 
@@ -35,3 +35,25 @@ specs\list\008-player-ab.spec.md
 ## 驗收條件
 1. **所有功能測試全數通過** 功能正常運行
 2. 確保編譯通過，能正常運行
+
+---
+## 任務目標
+使用生成此專案**所有功能**的整合測試 integration-test
+
+
+## 注意事項
+1. 如果需要 docker 環境請自行啟動，如果啟動不了可以請用戶協助
+
+## 驗收條件，未達驗收標準不停止任務
+1. **所有功能在不修改源代碼的情況下都能通過整合測試**
+2. 需要生成整合測試的操作文檔/命令說明，確保其他開發者也能夠使用這些測試
+
+## 測試環境
+wordpress 登入網址: https://payuni-test.powerhouse.tw/wp-admin
+帳號: test
+密碼: test
+
+https://payuni-test.powerhouse.tw 會映射到我本地的 http://test.local
+可以使用 playwright 測試
+開發完畢後我就關閉 server，不需要擔心密碼外洩與安全問題
+開發方便為主
