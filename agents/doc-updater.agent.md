@@ -1,6 +1,6 @@
 ---
 name: doc-updater
-description: Documentation sync specialist. Use PROACTIVELY after implementing features, refactoring, or significant code changes to keep CLAUDE.md, .claude/rules/*.md, and .github/skills/{project}/SKILL.md in sync with the codebase.
+description: Documentation sync specialist. Use PROACTIVELY after implementing features, refactoring, or significant code changes to keep CLAUDE.md, .claude/rules/*.md, and .claude/skills/{project}/SKILL.md in sync with the codebase.
 model: sonnet
 mcpServers:
   serena:
@@ -38,10 +38,10 @@ ls .claude/rules/
 cat .claude/rules/*.md
 
 # 列出 skills 目錄
-ls .github/skills/
+ls .claude/skills/
 
 # 讀取專案 SKILL.md（替換 {project_name} 為實際專案名稱）
-cat .github/skills/{project_name}/SKILL.md
+cat .claude/skills/{project_name}/SKILL.md
 ```
 
 ### 步驟 2：分析 git 變更
@@ -146,7 +146,7 @@ git diff HEAD~1 HEAD --stat
 - 更新時保持該檔案的格式一致性
 - 具體且簡潔地描述變更，不要冗長
 
-### 3. `.github/skills/{project_name}/SKILL.md` — 專案 Skill
+### 3. `.claude/skills/{project_name}/SKILL.md` — 專案 Skill
 
 這是讓 Claude Code 快速了解專案的 Skill 文件，更新時需要：
 

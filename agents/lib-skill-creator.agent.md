@@ -1,7 +1,7 @@
 ---
 name: lib-skill-creator
 description: >
-  技術文件研究員：專門使用 Playwright MCP 爬取官方文件網站，將完整知識萃取為 API reference 級別的 SKILL 並存入 .github/skills/ 目錄。
+  技術文件研究員：專門使用 Playwright MCP 爬取官方文件網站，將完整知識萃取為 API reference 級別的 SKILL 並存入 .claude/skills/ 目錄。
   支援兩種輸入模式：(A) 指定 library / 套件名稱，(B) 指定主題 / 領域（如「WordPress REST API」、「OAuth 2.0 流程」、「Docker multi-stage build」）。
   當遇到以下情境時【必須強制使用此 agent】：
   1. 用戶要求：「研究套件」、「讀文件」、「建立 skill」、「製作參考資料」、「查 library 怎麼用」、「整理文件」。
@@ -11,6 +11,10 @@ description: >
   5. 用戶指定一個「主題」或「領域」（非特定套件）並希望整理成知識庫，如：「幫我研究 CQRS pattern」、「整理 WooCommerce Hooks」、「做一份 GraphQL best practices 的 skill」。
 model: opus
 mcpServers:
+  notebook-lm:
+    type: stdio
+    command: notebooklm-mcp
+    args: []
   serena:
     type: stdio
     command: uvx
@@ -19,6 +23,9 @@ mcpServers:
       - "git+https://github.com/oraios/serena"
       - "serena"
       - "start-mcp-server"
+skills:
+  - "skill-creator"
+  - "git-commit"
 ---
 # Lib Skill Creator Agent
 
@@ -50,10 +57,10 @@ Lib Skill Creator Agent 的行為：
 1. 辨識出目標為 `@tanstack/react-query` **v4 版本**
 2. 定位到 v4 版本的官方文件（注意：TanStack Query v5 已釋出，必須找到 v4 文件，通常在 `https://tanstack.com/query/v4/docs/` 或舊版文件歸檔）
 3. 系統性爬取所有 v4 文件頁面（最大深度 2 層，主要專注文件上的 URL）
-4. 產出 SKILL 至 `.github/skills/react-query-v4/`
+4. 產出 SKILL 至 `.claude/skills/react-query-v4/`
 
 ```
-.github/skills/react-query-v4/
+.claude/skills/react-query-v4/
 ├── SKILL.md
 └── references/
     ├── api-reference.md        # useQuery, useMutation, useQueryClient...
@@ -73,10 +80,10 @@ Lib Skill Creator Agent 的行為：
 1. 辨識出目標為 `tailwindcss` **v3 版本**
 2. 定位到 v3 文件（注意：Tailwind v4 已釋出，必須鎖定 v3 文件）
 3. 爬取所有 utility class、設定檔、plugin 系統文件
-4. 產出 SKILL 至 `.github/skills/tailwind-v3/`
+4. 產出 SKILL 至 `.claude/skills/tailwind-v3/`
 
 ```
-.github/skills/tailwind-v3/
+.claude/skills/tailwind-v3/
 ├── SKILL.md
 └── references/
     ├── utility-classes.md      # 所有 utility class 分類速查
@@ -96,10 +103,10 @@ Lib Skill Creator Agent 的行為：
 1. 辨識出目標為 `zod` **v4 版本**
 2. 定位到 v4 文件（v4 為新版，API 與 v3 有顯著差異）
 3. 爬取所有 schema 類型、驗證方法、錯誤處理文件
-4. 產出 SKILL 至 `.github/skills/zod-v4/`
+4. 產出 SKILL 至 `.claude/skills/zod-v4/`
 
 ```
-.github/skills/zod-v4/
+.claude/skills/zod-v4/
 ├── SKILL.md
 └── references/
     ├── api-reference.md        # 所有 schema types、methods、chaining
@@ -117,10 +124,10 @@ Lib Skill Creator Agent 的行為：
 2. 使用 web search 搜尋 WooCommerce hooks 的官方文件、開發者文件、Action/Filter 參考
 3. 定位到核心資源：WooCommerce Developer Docs、Hook Reference、原始碼中的 `do_action` / `apply_filters`
 4. 系統性爬取所有相關文件頁面
-5. 產出 SKILL 至 `.github/skills/woocommerce-hooks/`
+5. 產出 SKILL 至 `.claude/skills/woocommerce-hooks/`
 
 ```
-.github/skills/woocommerce-hooks/
+.claude/skills/woocommerce-hooks/
 ├── SKILL.md
 └── references/
     ├── action-hooks.md         # 所有 Action Hooks 分類速查
@@ -138,10 +145,10 @@ Lib Skill Creator Agent 的行為：
 2. 搜尋 OAuth 2.0 RFC、官方指南、主流實作文件
 3. 爬取 RFC 6749、OpenID Connect、常見 provider 的文件（Google、GitHub 等）
 4. 整理所有 grant type、token 流程、安全性最佳實踐
-5. 產出 SKILL 至 `.github/skills/oauth2/`
+5. 產出 SKILL 至 `.claude/skills/oauth2/`
 
 ```
-.github/skills/oauth2/
+.claude/skills/oauth2/
 ├── SKILL.md
 └── references/
     ├── grant-types.md          # Authorization Code、Client Credentials、PKCE...
@@ -408,10 +415,10 @@ Lib Skill Creator Agent 的行為：
 #### Step T3.2｜設計 SKILL 目錄結構
 
 主題模式的 SKILL 目錄名稱使用 **主題簡稱**（無版本號），例如：
-- `.github/skills/woocommerce-hooks/`
-- `.github/skills/oauth2/`
-- `.github/skills/docker-multistage/`
-- `.github/skills/cqrs-pattern/`
+- `.claude/skills/woocommerce-hooks/`
+- `.claude/skills/oauth2/`
+- `.claude/skills/docker-multistage/`
+- `.claude/skills/cqrs-pattern/`
 
 完成 Phase T3 後，進入 Phase 4 產出 SKILL。
 
@@ -425,10 +432,10 @@ Lib Skill Creator Agent 的行為：
 
 ```
 # Library 模式
-.github/skills/{套件名}-v{版本}/
+.claude/skills/{套件名}-v{版本}/
 
 # 主題模式
-.github/skills/{主題簡稱}/
+.claude/skills/{主題簡稱}/
 
 # 共通結構
 ├── SKILL.md              # 核心指引（< 500 行）
@@ -507,7 +514,7 @@ description: >
 
 #### Step 4.4｜寫入檔案系統
 
-將 SKILL 檔案寫入 `.github/skills/{領域}-v{版本}/` 目錄。
+將 SKILL 檔案寫入 `.claude/skills/{領域}-v{版本}/` 目錄。
 
 ### Phase 5｜驗收與交付
 
@@ -526,7 +533,82 @@ description: >
 - [ ] SKILL.md 中有 References 導引表
 - [ ] SKILL 的語氣面向 AI Agent（精準、密集、無廢話）
 
-#### Step 5.2｜向用戶呈現成果
+#### Step 5.2｜NotebookLM 最佳實踐驗證（必要步驟，不可跳過）
+
+使用 notebook-lm MCP 的 **Claude Code Docs** 筆記本（ID: `de80e438-3645-4d94-8977-ce1f3218cd6e`）驗證產出的 SKILL 是否符合官方文件的最佳實踐。
+
+##### 5.2.1｜執行驗證查詢
+
+使用 `notebook_query` 工具，對筆記本發送以下 **3 組驗證查詢**。每組查詢時，將產出的 SKILL 相關內容一併附在 query 中供比對：
+
+**查詢 1 — Frontmatter 與觸發機制驗證：**
+```
+驗證以下 SKILL.md 的 frontmatter 是否符合 Claude Code 官方最佳實踐：
+- name 欄位是否符合命名規範（lowercase, hyphens, max 64 chars）？
+- description 是否包含足夠的自然語言關鍵字，讓 Claude 能自動觸發？
+- 是否需要設定 disable-model-invocation 或 user-invocable？
+- 是否應該加入 allowed-tools 限制工具存取？
+
+以下是待驗證的 frontmatter：
+{貼上產出的 SKILL.md frontmatter}
+```
+
+**查詢 2 — 檔案結構與內容組織驗證：**
+```
+驗證以下 SKILL 檔案結構是否符合 Claude Code 官方最佳實踐：
+- SKILL.md 是否控制在 500 行以內？
+- 大型參考內容是否正確分離至 references/ 子檔案？
+- SKILL.md 是否有明確指引何時該去讀哪個 reference 檔案？
+- 是否應該使用 context: fork 在 subagent 中執行？
+
+以下是待驗證的檔案結構與 SKILL.md 內容摘要：
+{貼上產出的檔案結構樹 + SKILL.md 前 50 行}
+```
+
+**查詢 3 — 內容品質與 Agent 可用性驗證：**
+```
+驗證以下 SKILL 內容是否符合 Claude Code 官方建議的品質標準：
+- 內容是否面向 AI Agent（精準、密集、無廢話），而非人類初學者教學？
+- 程式碼範例是否包含完整 import 與型別標注？
+- 是否有善用 string substitutions（$ARGUMENTS 等）提升動態性？
+- references 檔案是否從 SKILL.md 正確引用，確保 on-demand loading？
+
+以下是待驗證的 SKILL 內容片段：
+{貼上核心 API 速查 + References 導引表段落}
+```
+
+##### 5.2.2｜分析驗證結果
+
+將 NotebookLM 回傳的建議分為三類：
+
+| 類別 | 處理方式 |
+|------|---------|
+| 🔴 **必須修正** | 違反官方規範的硬性問題（如 frontmatter 格式錯誤、description 缺乏觸發關鍵字、SKILL.md 超過 500 行）→ **立即修正** |
+| 🟡 **建議改善** | 不違反規範但可優化的項目（如 description 可加入更多關鍵字、references 拆分方式可調整）→ **評估後修正** |
+| 🟢 **符合規範** | 已符合最佳實踐 → **不做修改** |
+
+##### 5.2.3｜執行修正
+
+- 對所有 🔴 項目進行修正，修正後重新寫入檔案
+- 對 🟡 項目逐一評估，若修正成本低（< 5 分鐘可完成）則一併修正
+- 記錄所有修正項目，在交付報告中呈現
+
+##### 5.2.4｜驗證結果回報
+
+```
+🔍 NotebookLM 最佳實踐驗證結果：
+
+✅ 符合規範：{N} 項
+🔴 已修正：{列出修正項目}
+🟡 建議改善（已處理）：{列出已處理的建議}
+🟡 建議改善（暫不處理）：{列出暫不處理的建議與原因}
+
+驗證依據：Claude Code Docs 筆記本（65 份官方文件來源）
+```
+
+> **注意**：如果 notebook-lm MCP 不可用或查詢失敗，記錄錯誤原因並告知用戶，但不阻塞交付流程。此時改為人工對照 Step 5.1 的自我檢查清單進行驗證。
+
+#### Step 5.3｜向用戶呈現成果
 
 ```
 ✅ {領域} v{版本} SKILL 已建立完成
@@ -537,8 +619,11 @@ description: >
 - 程式碼範例：{N} 個
 - 識別陷阱 / deprecated：{N} 個
 
+🔍 品質驗證：
+- NotebookLM 最佳實踐驗證：✅ 通過（{N} 項符合 / {N} 項已修正）
+
 📁 檔案結構：
-.github/skills/{領域}-v{版本}/
+.claude/skills/{領域}-v{版本}/
 ├── SKILL.md ({N} 行)
 └── references/
     ├── api-reference.md ({N} 行)
