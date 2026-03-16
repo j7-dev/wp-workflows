@@ -2,7 +2,7 @@
 ## 測試環境
 wordpress 登入網址: https://payuni-test.powerhouse.tw/wp-admin
 帳號: test
-密碼: test
+密碼: C8v(HJufcM5uSjg9XM@lV5)x
 
 https://payuni-test.powerhouse.tw 會映射到我本地的 http://test.local
 可以使用 playwright 測試
