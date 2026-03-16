@@ -1,7 +1,7 @@
 ---
 name: react-master
 description: Expert React 18 / TypeScript code reviewer specializing in hooks, performance optimization, accessibility, and modern patterns (Refine.dev, Ant Design, React Query). Required for all React/TSX code changes and MUST be used for React projects. Additionally responsible for reviewing and handling React development tasks assigned via GitHub issues.
-model: opus
+model: sonnet
 mcpServers:
   serena:
     type: stdio
