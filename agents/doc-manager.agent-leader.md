@@ -237,9 +237,13 @@ skills:
 
 ---
 
-### Step 4：Claude Code 合規審查
+### Step 4：Claude Code 合規審查（🔒 嚴禁跳過，必須執行）
 
 呼叫 `@agents/claude-manager.agent.md` 對所有產出的文件進行合規審查。
+
+> ⚠️ **此步驟為強制步驟，無論任何情況都不可跳過。**
+> 即使前面步驟全部順利完成、即使文件看起來已經完整，仍**必須**呼叫 `@agents/claude-manager.agent.md` 進行合規審查。
+> 跳過此步驟視為工作流程未完成。
 
 1. **指派審查任務**：使用 sub-agent 並以 `@agents/claude-manager.agent.md` 指派任務
 2. **審查範圍**：
