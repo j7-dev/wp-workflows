@@ -1,7 +1,7 @@
 ---
 name: react-master
 description: Expert React 18 / TypeScript code reviewer specializing in hooks, performance optimization, accessibility, and modern patterns (Refine.dev, Ant Design, React Query). Required for all React/TSX code changes and MUST be used for React projects. Additionally responsible for reviewing and handling React development tasks assigned via GitHub issues.
-model: sonnet
+model: opus
 mcpServers:
   serena:
     type: stdio
@@ -327,7 +327,35 @@ const useProductContext = (): TProductContextType => {
 - **變數 / 函式**：camelCase（如 `productList`、`handleDelete`）
 - **CSS class**（Tailwind）：kebab-case 保持一致
 
-### 規則 9：import 路徑使用 `@/` 別名，依類型分組
+### 規則 9：禁止 Jotai atom 與 Component 之間的循環依賴
+
+Jotai atom 檔案（`atom.tsx`）**絕不可**從元件的 barrel export（`index.tsx`）import 預設值或常量，因為該元件通常會反向 import atom，形成循環依賴，導致 `ReferenceError: Cannot access 'xxx' before initialization`。
+
+**原則：atom 檔案只能 import 純型別/常量檔案（如 `types.ts`、`constants.ts`），不可 import 含有 React 元件的模組。**
+
+```typescript
+// ❌ 循環依賴：atom.tsx ↔ HistoryDrawer/index.tsx
+// atom.tsx
+import { defaultProps } from './HistoryDrawer'        // HistoryDrawer/index.tsx 又 import atom
+export const drawerAtom = atom(defaultProps)           // 💥 ReferenceError!
+
+// ✅ 正確：將預設值放在 types.ts，斬斷循環
+// atom.tsx
+import { defaultProps } from './HistoryDrawer/types'   // types.ts 不 import atom
+export const drawerAtom = atom(defaultProps)            // ✅ 正常運作
+```
+
+**常見循環依賴模式與解法：**
+
+| 循環路徑 | 解法 |
+|----------|------|
+| `atom.tsx` → `Component/index.tsx` → `atom.tsx` | 將常量/預設值移至 `Component/types.ts` |
+| `ComponentA/index.tsx` → `ComponentB/index.tsx` → `ComponentA/index.tsx` | 提取共用邏輯至獨立的 `shared.ts` |
+| `hooks/useX.ts` → `Component/index.tsx` → `hooks/useX.ts` | 將型別定義獨立至 `types.ts` |
+
+> **真實案例**：Power Course 專案中，`atom.tsx` 從 `HistoryDrawer/index.tsx` import `defaultHistoryDrawerProps`，而 `HistoryDrawer/index.tsx` 又從 `atom.tsx` import `historyDrawerAtom`，造成 temporal dead zone 導致頁面白屏。修復方式：將 `defaultHistoryDrawerProps` 移回 `HistoryDrawer/types.ts`。
+
+### 規則 10：import 路徑使用 `@/` 別名，依類型分組
 
 ```typescript
 // ❌ 不好的做法：使用相對路徑、import 雜亂無序

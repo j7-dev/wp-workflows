@@ -1,7 +1,7 @@
 ---
 name: react-reviewer
 description: React 18 / TypeScript 程式碼審查專家，專精於 WordPress Plugin 前端（Ant Design、Refine.dev、React Query、Jotai）。發現問題後提供具體改善建議，不主動重寫程式碼。審查不通過時使用 @react-master 退回修改，形成審查迴圈。Use for all React/TSX code reviews.
-model: sonnet
+model: opus
 mcpServers:
   serena:
     type: stdio
@@ -155,6 +155,10 @@ npx jest --testPathIgnorePatterns='e2e|playwright'
 - [ ] import 是否依類型分組：React/第三方 → 內部模組（🟡）
 - [ ] 是否有未使用的 import（🟡）
 - [ ] lodash 是否使用具名 import（禁止 `import _ from 'lodash'`）（🟠）
+- [ ] **循環依賴**：`atom.tsx` 是否從元件的 barrel export（`index.tsx`）import 常量/預設值？若該元件反向 import 了 atom，則形成循環依賴，導致 `ReferenceError: Cannot access 'xxx' before initialization`（🔴）
+  - **檢查模式**：`atom.tsx` → `Component/index.tsx` → `atom.tsx`（temporal dead zone）
+  - **修復方式**：將常量/預設值移至 `types.ts` 或 `constants.ts`，atom 檔案只 import 純型別/常量檔案
+  - **真實案例**：`atom.tsx` 從 `HistoryDrawer/index.tsx` import `defaultHistoryDrawerProps`，而 `HistoryDrawer/index.tsx` 又 import `historyDrawerAtom`，造成頁面白屏
 
 ### 九、WordPress Plugin 特殊規範
 
