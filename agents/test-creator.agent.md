@@ -61,6 +61,44 @@ skills:
 
 ---
 
+## Timeout 設定規範（E2E 測試）
+
+本地 WordPress 環境（如 LocalWP）比 CI 慢很多，cold start 時 API 回應時間可能超過 10s。**Timeout 設得太短是 flaky test 的頭號元兇。**
+
+### 強制規則
+
+1. **test.setTimeout(60_000)**：每個 E2E test file 開頭必須設定足夠的測試超時時間（建議 60s 以上）
+2. **API context timeout**：若使用 `browser.newContext()` 建立 API 請求用的 context，**必須**明確設定 `context.setDefaultTimeout(60_000)`，不可依賴 Playwright config 的 `actionTimeout`（通常只有 10s）
+3. **page.goto timeout**：導航到 wp-admin 頁面時，使用 `{ timeout: 30_000 }` 以上
+4. **waitForSelector / waitForFunction**：等待 React SPA 渲染、Ant Design Spin 消失等操作，建議 15_000 ~ 30_000ms
+5. **toBeVisible assertions**：`expect(locator).toBeVisible({ timeout: 10_000 })` 作為最低標準
+
+### 已知地雷
+
+- `setupApiFromBrowser()` 繼承 Playwright config 的 `actionTimeout: 10s`，在 beforeAll 中做課程/章節建立時很容易超時 → **改用獨立的 `setupApiWithLongTimeout()` 模式**
+- 第一個測試案例可能遇到 cold start（WordPress 載入快取尚未建立），需要更寬鬆的 timeout
+- 多個測試重複導航到同一頁面時，合併測試案例以減少導航開銷
+
+### 參考模式
+
+```typescript
+// ✅ 正確：獨立 context + 明確 timeout
+async function setupApiWithLongTimeout(browser: Browser) {
+  const context = await browser.newContext({
+    storageState: STORAGE_STATE_PATH,
+    ignoreHTTPSErrors: true,
+    serviceWorkers: 'block',
+  })
+  context.setDefaultTimeout(60_000)
+  // ...
+}
+
+// ❌ 錯誤：繼承 config 的 10s actionTimeout
+const { api } = await setupApiFromBrowser(browser)
+```
+
+---
+
 ## 工作流程
 
 1. 讀取 `specs/` 所有文件，提取角色、情境、業務規則
