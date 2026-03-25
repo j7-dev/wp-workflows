@@ -12,7 +12,7 @@ mcpServers:
       - "serena"
       - "start-mcp-server"
 skills:
-  - "wordpress-coding-standards"
+  - "wp-workflows:wordpress-coding-standards"
 ---
 
 # WordPress Plugin 資安審查專家

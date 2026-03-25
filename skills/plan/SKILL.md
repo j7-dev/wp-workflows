@@ -223,8 +223,8 @@ Planner agent 將依序執行下列步驟，除非需要澄清否則**不中斷*
 
 | 任務類型 | 執行 Agent |
 | --- | --- |
-| PHP / WordPress 後端（`inc/`、REST API、Hooks、WooCommerce） | `@wordpress-master` |
-| React / TypeScript 前端（`js/src/`、Ant Design、Refine.dev） | `@react-master` |
+| PHP / WordPress 後端（`inc/`、REST API、Hooks、WooCommerce） | `@wp-workflows:wordpress-master` |
+| React / TypeScript 前端（`js/src/`、Ant Design、Refine.dev） | `@wp-workflows:react-master` |
 | 混合任務 | 拆成兩個 sub-issue 分別指派 |
 
 每個 sub-issue body 最上方應加入：
@@ -232,7 +232,7 @@ Planner agent 將依序執行下列步驟，除非需要澄清否則**不中斷*
 ```markdown
 ## 執行 Agent
 
-> ⚙️ 此 Issue 應指派給 **`@wordpress-master`** agent 執行
+> ⚙️ 此 Issue 應指派給 **`@wp-workflows:wordpress-master`** agent 執行
 ```
 
 在 assign issue 時，即可依此明確知道要啟用哪個 agent。
@@ -243,6 +243,6 @@ Planner agent 將依序執行下列步驟，除非需要澄清否則**不中斷*
 
 | Agent | 路徑 | 用途 |
 | --- | --- | --- |
-| `planner` | `.github/agents/planner.agent.md` | 規劃分析、拆解 sub-issue |
-| `wordpress-master` | `.github/agents/wordpress-master.agent.md` | PHP/WordPress 後端實作 |
-| `react-master` | `.github/agents/react-master.agent.md` | React/TypeScript 前端實作 |
+| `@wp-workflows:planner` | `@wp-workflows:planner` | 規劃分析、拆解 sub-issue |
+| `@wp-workflows:wordpress-master` | `@wp-workflows:wordpress-master` | PHP/WordPress 後端實作 |
+| `@wp-workflows:react-master` | `@wp-workflows:react-master` | React/TypeScript 前端實作 |

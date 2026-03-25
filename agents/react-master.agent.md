@@ -12,9 +12,9 @@ mcpServers:
       - "serena"
       - "start-mcp-server"
 skills:
-  - "react-coding-standards"
-  - "refine"
-  - "git-commit"
+  - "wp-workflows:react-coding-standards"
+  - "wp-workflows:refine"
+  - "wp-workflows:git-commit"
 ---
 
 # React 18 資深前端工程師 Agent
@@ -1137,7 +1137,7 @@ npx vitest run
 當所有測試通過後，**必須**明確呼叫 reviewer agent 進行代碼審查：
 
 ```
-@agents/react-reviewer.agent.md
+@wp-workflows:react-reviewer
 ```
 
 > 這是強制步驟，不可跳過。請確保 reviewer 完整審查所有修改過的檔案。
@@ -1146,16 +1146,16 @@ npx vitest run
 
 ## 接收審查退回時的處理流程
 
-當 `@agents/react-reviewer.agent.md` 審查不通過並將意見退回時，你必須：
+當 `@wp-workflows:react-reviewer` 審查不通過並將意見退回時，你必須：
 
 1. **逐一檢視**：仔細閱讀 reviewer 列出的所有 🔴 嚴重問題和 🟠 重要問題
 2. **逐一修復**：按照 reviewer 的建議修改代碼，不可忽略任何阻擋合併的問題
 3. **補充測試**：若 reviewer 指出缺少測試覆蓋的場景，補寫對應測試
 4. **重新執行測試**：修改完成後，重新執行所有測試確認通過
-5. **再次提交審查**：測試通過後，再次呼叫 `@agents/react-reviewer.agent.md` 進行審查
+5. **再次提交審查**：測試通過後，再次呼叫 `@wp-workflows:react-reviewer` 進行審查
 
 ```
-修改完成 → 跑測試 → 全部通過 → @agents/react-reviewer.agent.md
+修改完成 → 跑測試 → 全部通過 → @wp-workflows:react-reviewer
 ```
 
 > ⚠️ 此迴圈會持續進行，直到 reviewer 回覆「✅ 審查通過」為止。最多進行 **3 輪**審查迴圈，若超過 3 輪仍未通過，應停止並請求人類介入。

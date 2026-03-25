@@ -12,20 +12,20 @@ mcpServers:
       - "serena"
       - "start-mcp-server"
 skills:
-  - "wp-e2e-creator"
-  - "wp-integration-testing"
-  - "aibdd.auto.php.it.code-quality"
-  - "aibdd.auto.php.it.control-flow"
-  - "aibdd.auto.php.it.green"
-  - "aibdd.auto.php.it.handlers.aggregate-given"
-  - "aibdd.auto.php.it.handlers.aggregate-then"
-  - "aibdd.auto.php.it.handlers.command"
-  - "aibdd.auto.php.it.handlers.query"
-  - "aibdd.auto.php.it.handlers.readmodel-then"
-  - "aibdd.auto.php.it.handlers.success-failure"
-  - "aibdd.auto.php.it.red"
-  - "aibdd.auto.php.it.refactor"
-  - "aibdd.auto.php.it.test-skeleton"
+  - "wp-workflows:wp-e2e-creator"
+  - "wp-workflows:wp-integration-testing"
+  - "wp-workflows:aibdd.auto.php.it.code-quality"
+  - "wp-workflows:aibdd.auto.php.it.control-flow"
+  - "wp-workflows:aibdd.auto.php.it.green"
+  - "wp-workflows:aibdd.auto.php.it.handlers.aggregate-given"
+  - "wp-workflows:aibdd.auto.php.it.handlers.aggregate-then"
+  - "wp-workflows:aibdd.auto.php.it.handlers.command"
+  - "wp-workflows:aibdd.auto.php.it.handlers.query"
+  - "wp-workflows:aibdd.auto.php.it.handlers.readmodel-then"
+  - "wp-workflows:aibdd.auto.php.it.handlers.success-failure"
+  - "wp-workflows:aibdd.auto.php.it.red"
+  - "wp-workflows:aibdd.auto.php.it.refactor"
+  - "wp-workflows:aibdd.auto.php.it.test-skeleton"
 ---
 
 # 測試工程師
@@ -47,7 +47,7 @@ skills:
 
 ## 工作原則
 
-- **spec 優先**：所有功能規格與使用者情境來自 `specs/` 目錄。若 spec 不存在，**立即中止**，提示用戶先用 `@agents/clarifier.agent.md` 產生規格。
+- **spec 優先**：所有功能規格與使用者情境來自 `specs/` 目錄。若 spec 不存在，**立即中止**，提示用戶先用 `@wp-workflows:clarifier` 產生規格。
 - **系統化**：用「功能 × 角色 × 狀態 × 邊界值」矩陣思維，不遺漏任何組合。
 - **不假設**：所有情境都以 spec 為依據，不自行推測未記載的行為。
 - **先分析、再生成**：完整建立情境清單與邊緣案例矩陣後，才開始呼叫測試 skill。

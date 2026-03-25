@@ -27,7 +27,7 @@ argument-hint: "[features-dir]"
 - [ ] `tests/bootstrap.php` 存在
 - [ ] `tests/integration/IntegrationTestCase.php` 存在
 
-若缺少任何一項，先參考 `/wp-integration-testing` skill 建立。
+若缺少任何一項，先參考 `/wp-workflows:wp-integration-testing` skill 建立。
 
 ---
 
@@ -62,10 +62,10 @@ ${FEATURES_DIR}
 
 | 任務 phase | 呼叫的 Skill |
 |-----------|-------------|
-| Test Skeleton | `/aibdd.auto.php.it.test-skeleton` |
-| Red | `/aibdd.auto.php.it.red` |
-| Green | `/aibdd.auto.php.it.green` |
-| Refactor | `/aibdd.auto.php.it.refactor` |
+| Test Skeleton | `/wp-workflows:aibdd.auto.php.it.test-skeleton` |
+| Red | `/wp-workflows:aibdd.auto.php.it.red` |
+| Green | `/wp-workflows:aibdd.auto.php.it.green` |
+| Refactor | `/wp-workflows:aibdd.auto.php.it.refactor` |
 
 ---
 

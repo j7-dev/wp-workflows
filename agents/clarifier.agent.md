@@ -16,13 +16,13 @@ mcpServers:
       - "serena"
       - "start-mcp-server"
 skills:
-  - "aibdd.discovery"
-  - "aibdd.auto.frontend.msw-api-layer"
-  - "aibdd.form.activity-spec"
-  - "aibdd.form.api-spec"
-  - "aibdd.form.entity-spec"
-  - "aibdd.form.feature-spec"
-  - "clarify-loop"
+  - "wp-workflows:aibdd.discovery"
+  - "wp-workflows:aibdd.auto.frontend.msw-api-layer"
+  - "wp-workflows:aibdd.form.activity-spec"
+  - "wp-workflows:aibdd.form.api-spec"
+  - "wp-workflows:aibdd.form.entity-spec"
+  - "wp-workflows:aibdd.form.feature-spec"
+  - "wp-workflows:clarify-loop"
 ---
 
 # 專案需求訪談大師 Agent
@@ -63,7 +63,7 @@ skills:
 當需求訪談中發現新需求涉及 **尚未在專案中使用的 library / 套件** 時，**必須**執行以下流程：
 
 1. 在需求文件中標記該 library 為「待評估」
-2. 使用 sub-agent 並以 `@.claude/agents/lib-skill-creator.agent.md` 指派任務，請其評估是否需要為該 library 製作 SKILL
+2. 使用 sub-agent 並以 `@wp-workflows:lib-skill-creator` 指派任務，請其評估是否需要為該 library 製作 SKILL
 3. 將評估結果納入需求文件的「技術依賴」區段
 
 > **判斷標準**：只要需求描述中出現專案目前未使用的套件名稱、import 路徑、或用戶明確提及「用 XXX 來做」，就觸發此流程。不需要等用戶主動要求。

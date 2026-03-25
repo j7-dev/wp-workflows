@@ -34,7 +34,7 @@ mcpServers:
 
 ## 前置條件
 
-1. **讀取 spec**：從 `specs/` 目錄理解業務領域與功能規格。若 `specs/` 不存在，提示用戶先用 `@agents/clarifier.agent.md` 產生規格。
+1. **讀取 spec**：從 `specs/` 目錄理解業務領域與功能規格。若 `specs/` 不存在，提示用戶先用 `@wp-workflows:clarifier` 產生規格。
 2. **讀取專案指引**：閱讀 `CLAUDE.md`、`.claude/rules/*.md`（若存在）
 3. **掌握現有架構**：用 Serena 分析專案結構、類別關係、引用關係
 
@@ -93,7 +93,7 @@ Phase 4：整合與清理（風險：中高）
 **每個任務的執行流程：**
 
 1. **描述要做什麼**：清楚說明這個任務要移動/提取/重組哪些程式碼
-2. **指派給 `@agents/wordpress-master.agent.md`**：讓它執行實際的 PHP 開發
+2. **指派給 `@wp-workflows:wordpress-master`**：讓它執行實際的 PHP 開發
 3. **執行 E2E 測試**：確認功能沒有被破壞
 4. **驗證通過後**，才進入下一個任務
 
@@ -203,7 +203,7 @@ inc/src/
 
 ## 委派開發
 
-所有 PHP 程式碼修改都交給 `@agents/wordpress-master.agent.md` 執行。
+所有 PHP 程式碼修改都交給 `@wp-workflows:wordpress-master` 執行。
 
 指派任務時需提供：
 - 要做什麼（移動/提取/重命名/建立）

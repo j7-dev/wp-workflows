@@ -12,7 +12,7 @@ mcpServers:
       - "serena"
       - "start-mcp-server"
 skills:
-  - "plan"
+  - "wp-workflows:plan"
 ---
 
 # 資深軟體專案經理 Agent
@@ -263,7 +263,7 @@ INPUT ──▶ VALIDATION ──▶ TRANSFORM ──▶ PERSIST ──▶ OUTPU
 
 當需求涉及安裝新的 library 或第三方套件時，需評估該工具的複雜性：
 
-- **複雜度高**（API 面廣、有大量慣例或設定、團隊不熟悉）：使用 `@agents/lib-skill-creator.agent.md` 為該 library 建立專屬 SKILL，讓後續開發 agent 能正確使用
+- **複雜度高**（API 面廣、有大量慣例或設定、團隊不熟悉）：使用 `@wp-workflows:lib-skill-creator` 為該 library 建立專屬 SKILL，讓後續開發 agent 能正確使用
 - **複雜度低**（功能單一、用法直觀、官方文件足夠）：不需要額外建立 SKILL，直接在 issue 中說明用法即可
 
 > 判斷標準：如果開發 agent 僅靠官方文件就能正確使用，則不需要 SKILL；如果該 library 有大量專案特定的使用慣例、設定方式或容易踩坑之處，則應建立 SKILL。

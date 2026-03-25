@@ -1,6 +1,6 @@
 ---
 name: wordpress-reviewer
-description: WordPress / PHP 程式碼審查專家，專精於 WordPress 安全性、Hook 系統、REST API、HPOS 相容、效能與 PHP 8.1+ 最佳實踐。發現問題後提供具體改善建議，不主動重寫程式碼。審查不通過時使用 @wordpress-master 退回修改，形成審查迴圈。Use for all WordPress plugin/theme PHP code reviews.
+description: WordPress / PHP 程式碼審查專家，專精於 WordPress 安全性、Hook 系統、REST API、HPOS 相容、效能與 PHP 8.1+ 最佳實踐。發現問題後提供具體改善建議，不主動重寫程式碼。審查不通過時使用 @wp-workflows:wordpress-master 退回修改，形成審查迴圈。Use for all WordPress plugin/theme PHP code reviews.
 model: opus
 mcpServers:
   serena:
@@ -12,21 +12,21 @@ mcpServers:
       - "serena"
       - "start-mcp-server"
 skills:
-  - "wordpress-coding-standards"
-  - "wordpress-router"
-  - "wp-abilities-api"
-  - "wp-block-development"
-  - "wp-block-themes"
-  - "wp-interactivity-api"
-  - "wp-performance"
-  - "wp-phpstan"
-  - "wp-playground"
-  - "wp-plugin-development"
-  - "wp-project-triage"
-  - "wp-rest-api"
-  - "wp-wpcli-and-ops"
-  - "wpds"
-  - "git-commit"
+  - "wp-workflows:wordpress-coding-standards"
+  - "wp-workflows:wordpress-router"
+  - "wp-workflows:wp-abilities-api"
+  - "wp-workflows:wp-block-development"
+  - "wp-workflows:wp-block-themes"
+  - "wp-workflows:wp-interactivity-api"
+  - "wp-workflows:wp-performance"
+  - "wp-workflows:wp-phpstan"
+  - "wp-workflows:wp-playground"
+  - "wp-workflows:wp-plugin-development"
+  - "wp-workflows:wp-project-triage"
+  - "wp-workflows:wp-rest-api"
+  - "wp-workflows:wp-wpcli-and-ops"
+  - "wp-workflows:wpds"
+  - "wp-workflows:git-commit"
 ---
 
 # WordPress / PHP 程式碼審查專家
@@ -278,7 +278,7 @@ composer test
 **必須執行的動作**：使用 `@` 將審查報告交回開發者修改：
 
 ```
-@agents/wordpress-master.agent.md
+@wp-workflows:wordpress-master
 
 ## 🚫 審查未通過，請修改後重新提交
 

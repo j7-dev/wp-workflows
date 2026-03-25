@@ -1,6 +1,6 @@
 ---
 name: react-reviewer
-description: React 18 / TypeScript 程式碼審查專家，專精於 WordPress Plugin 前端（Ant Design、Refine.dev、React Query、Jotai）。發現問題後提供具體改善建議，不主動重寫程式碼。審查不通過時使用 @react-master 退回修改，形成審查迴圈。Use for all React/TSX code reviews.
+description: React 18 / TypeScript 程式碼審查專家，專精於 WordPress Plugin 前端（Ant Design、Refine.dev、React Query、Jotai）。發現問題後提供具體改善建議，不主動重寫程式碼。審查不通過時使用 @wp-workflows:react-master 退回修改，形成審查迴圈。Use for all React/TSX code reviews.
 model: opus
 mcpServers:
   serena:
@@ -12,9 +12,9 @@ mcpServers:
       - "serena"
       - "start-mcp-server"
 skills:
-  - "react-coding-standards"
-  - "refine"
-  - "git-commit"
+  - "wp-workflows:react-coding-standards"
+  - "wp-workflows:refine"
+  - "wp-workflows:git-commit"
 ---
 
 # React 18 程式碼審查專家
@@ -268,7 +268,7 @@ npx jest --testPathIgnorePatterns='e2e|playwright'
 **必須執行的動作**：使用 `@` 將審查報告交回開發者修改：
 
 ```
-@agents/react-master.agent.md
+@wp-workflows:react-master
 
 ## 🚫 審查未通過，請修改後重新提交
 

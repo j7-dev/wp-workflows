@@ -22,7 +22,7 @@ Integration Test 骨架生成器。從 Gherkin Feature File 生成可執行的 P
 1. 詢問目標 Feature File
 2. 執行骨架生成流程
 
-## 模式 B：被 /aibdd.auto.php.it.control-flow 調用
+## 模式 B：被 /wp-workflows:aibdd.auto.php.it.control-flow 調用
 接收參數：Feature File 路徑。直接執行。
 
 ---
@@ -64,9 +64,9 @@ class LessonProgressTest extends IntegrationTestCase
      * Scenario: 用戶更新課程影片進度
      *
      * TODO: [事件風暴部位: Command - UpdateVideoProgress]
-     * TODO: 參考 /aibdd.auto.php.it.handlers.command 實作 When
-     * TODO: 參考 /aibdd.auto.php.it.handlers.aggregate-given 實作 Given
-     * TODO: 參考 /aibdd.auto.php.it.handlers.aggregate-then 實作 Then
+     * TODO: 參考 /wp-workflows:aibdd.auto.php.it.handlers.command 實作 When
+     * TODO: 參考 /wp-workflows:aibdd.auto.php.it.handlers.aggregate-given 實作 Given
+     * TODO: 參考 /wp-workflows:aibdd.auto.php.it.handlers.aggregate-then 實作 Then
      */
     public function test_user_updates_video_progress(): void
     {
@@ -84,8 +84,8 @@ class LessonProgressTest extends IntegrationTestCase
      * Scenario: 用戶完成課程
      *
      * TODO: [事件風暴部位: Command - UpdateVideoProgress]
-     * TODO: 參考 /aibdd.auto.php.it.handlers.command 實作 When
-     * TODO: 參考 /aibdd.auto.php.it.handlers.aggregate-then 實作 Then
+     * TODO: 參考 /wp-workflows:aibdd.auto.php.it.handlers.command 實作 When
+     * TODO: 參考 /wp-workflows:aibdd.auto.php.it.handlers.aggregate-then 實作 Then
      */
     public function test_user_completes_lesson(): void
     {
@@ -115,17 +115,17 @@ class LessonProgressTest extends IntegrationTestCase
 
 ```
 Given:
-  建立初始資料狀態 → /aibdd.auto.php.it.handlers.aggregate-given
-  已完成的寫入操作 → /aibdd.auto.php.it.handlers.command
+  建立初始資料狀態 → /wp-workflows:aibdd.auto.php.it.handlers.aggregate-given
+  已完成的寫入操作 → /wp-workflows:aibdd.auto.php.it.handlers.command
 
 When:
-  讀取操作 → /aibdd.auto.php.it.handlers.query
-  寫入操作 → /aibdd.auto.php.it.handlers.command
+  讀取操作 → /wp-workflows:aibdd.auto.php.it.handlers.query
+  寫入操作 → /wp-workflows:aibdd.auto.php.it.handlers.command
 
 Then:
-  只關注成功/失敗 → /aibdd.auto.php.it.handlers.success-failure
-  驗證 Aggregate 狀態 → /aibdd.auto.php.it.handlers.aggregate-then
-  驗證 Query 回傳值 → /aibdd.auto.php.it.handlers.readmodel-then
+  只關注成功/失敗 → /wp-workflows:aibdd.auto.php.it.handlers.success-failure
+  驗證 Aggregate 狀態 → /wp-workflows:aibdd.auto.php.it.handlers.aggregate-then
+  驗證 Query 回傳值 → /wp-workflows:aibdd.auto.php.it.handlers.readmodel-then
 
 And:
   繼承前一個判斷規則
@@ -137,12 +137,12 @@ And:
 
 | 事件風暴部位 | 位置 | Handler Skill |
 |------------|------|--------------|
-| Aggregate | Given | /aibdd.auto.php.it.handlers.aggregate-given |
-| Command | Given/When | /aibdd.auto.php.it.handlers.command |
-| Query | When | /aibdd.auto.php.it.handlers.query |
-| 操作成功/失敗 | Then | /aibdd.auto.php.it.handlers.success-failure |
-| Aggregate | Then | /aibdd.auto.php.it.handlers.aggregate-then |
-| Read Model | Then | /aibdd.auto.php.it.handlers.readmodel-then |
+| Aggregate | Given | /wp-workflows:aibdd.auto.php.it.handlers.aggregate-given |
+| Command | Given/When | /wp-workflows:aibdd.auto.php.it.handlers.command |
+| Query | When | /wp-workflows:aibdd.auto.php.it.handlers.query |
+| 操作成功/失敗 | Then | /wp-workflows:aibdd.auto.php.it.handlers.success-failure |
+| Aggregate | Then | /wp-workflows:aibdd.auto.php.it.handlers.aggregate-then |
+| Read Model | Then | /wp-workflows:aibdd.auto.php.it.handlers.readmodel-then |
 
 ---
 

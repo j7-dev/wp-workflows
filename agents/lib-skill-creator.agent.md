@@ -25,7 +25,7 @@ mcpServers:
       - "start-mcp-server"
 skills:
   - "skill-creator"
-  - "git-commit"
+  - "wp-workflows:git-commit"
 ---
 # Lib Skill Creator Agent
 

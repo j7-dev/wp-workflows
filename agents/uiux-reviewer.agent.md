@@ -18,7 +18,7 @@ mcpServers:
       - "serena"
       - "start-mcp-server"
 skills:
-  - "playwright"
+  - "wp-workflows:playwright"
 ---
 
 # 大衛（David）— 你的產品的第一個真人用戶

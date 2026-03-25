@@ -175,12 +175,12 @@ npx wp-env run cli --env-cwd=wp-content/plugins/{plugin-name} vendor/bin/phpunit
 
 | TODO 中的 Handler | Handler Skill |
 |-------------------|--------------|
-| aggregate-given | /aibdd.auto.php.it.handlers.aggregate-given |
-| aggregate-then | /aibdd.auto.php.it.handlers.aggregate-then |
-| command | /aibdd.auto.php.it.handlers.command |
-| query | /aibdd.auto.php.it.handlers.query |
-| readmodel-then | /aibdd.auto.php.it.handlers.readmodel-then |
-| success-failure | /aibdd.auto.php.it.handlers.success-failure |
+| aggregate-given | /wp-workflows:aibdd.auto.php.it.handlers.aggregate-given |
+| aggregate-then | /wp-workflows:aibdd.auto.php.it.handlers.aggregate-then |
+| command | /wp-workflows:aibdd.auto.php.it.handlers.command |
+| query | /wp-workflows:aibdd.auto.php.it.handlers.query |
+| readmodel-then | /wp-workflows:aibdd.auto.php.it.handlers.readmodel-then |
+| success-failure | /wp-workflows:aibdd.auto.php.it.handlers.success-failure |
 
 ---
 

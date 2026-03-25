@@ -39,7 +39,7 @@ argument-hint: "--arguments --idea"
 **不進入**：API 設計、Entity 設計（即使有相關問題，紀錄為便條紙，延後至 Tactical）。
 
 **啟動行為**：
-1. 調用 `/aibdd.form.activity-spec` 生成 .activity 骨架 + 所有綁定檔案骨架（含便條紙）
+1. 調用 `/wp-workflows:aibdd.form.activity-spec` 生成 .activity 骨架 + 所有綁定檔案骨架（含便條紙）
 2. 展示：**檔案清單** + **跨視圖便條紙彙整表**（格式見下方）
 3. 進入澄清循環
 
@@ -53,7 +53,7 @@ grep -rn "<!-- ?" ${SPECS_ROOT_DIR}/activities/ ${SPECS_ROOT_DIR}/features/
 
 **面向覆蓋率掃描（便條紙清零後、過渡前執行）**：
 
-便條紙只捕捉「AI 寫的當下意識到的問題」，不足以確保沒有盲點。清零後，委託 `/aibdd.form.feature-spec` 執行 F1–F6 面向覆蓋率清單：
+便條紙只捕捉「AI 寫的當下意識到的問題」，不足以確保沒有盲點。清零後，委託 `/wp-workflows:aibdd.form.feature-spec` 執行 F1–F6 面向覆蓋率清單：
 
 | 結果 | 行動 |
 |------|------|
@@ -62,7 +62,7 @@ grep -rn "<!-- ?" ${SPECS_ROOT_DIR}/activities/ ${SPECS_ROOT_DIR}/features/
 
 **過渡條件**（兩個條件皆需滿足）：
 1. **零殘留**：`grep -rn "<!-- ?" activities/ features/` 輸出為空
-2. **面向覆蓋**：`/aibdd.form.feature-spec` 的 F1–F6 全部 Clear
+2. **面向覆蓋**：`/wp-workflows:aibdd.form.feature-spec` 的 F1–F6 全部 Clear
 
 → 宣告過渡，切換 [tactical]。
 
@@ -73,7 +73,7 @@ grep -rn "<!-- ?" ${SPECS_ROOT_DIR}/activities/ ${SPECS_ROOT_DIR}/features/
 **聚焦**：api.yml、erm.dbml。
 
 **啟動行為**：
-1. 調用 `/aibdd.form.api-spec` + `/aibdd.form.entity-spec` skills，從完整的 .feature 推導骨架（含便條紙）
+1. 調用 `/wp-workflows:aibdd.form.api-spec` + `/wp-workflows:aibdd.form.entity-spec` skills，從完整的 .feature 推導骨架（含便條紙）
 2. 展示：**檔案清單** + **便條紙彙整表**
 3. 進入澄清循環
 
@@ -86,7 +86,7 @@ grep -rn "<!-- ?" ${SPECS_ROOT_DIR}/activities/ ${SPECS_ROOT_DIR}/features/
 若矛盾：
   → 宣告：「此需求與 <具體衝突位置（檔案名 + 行/Rule 名）> 衝突，需先更新戰略層。」
   → 切換 [strategic]
-  → 調用受影響的 /aibdd.form.activity-spec 或 /aibdd.form.feature-spec 修復
+  → 調用受影響的 /wp-workflows:aibdd.form.activity-spec 或 /wp-workflows:aibdd.form.feature-spec 修復
   → 修復完成後，重新推導受影響的 Tactical 視圖（可能產生新便條紙）
   → 返回 [tactical]
 ```
@@ -111,7 +111,7 @@ grep -rn "<!-- ?" ${SPECS_ROOT_DIR}/activities/ ${SPECS_ROOT_DIR}/features/
 
 # 澄清循環（兩模式共用）
 
-**使用 `/clarify-loop` skill 的完整澄清規則。**
+**使用 `/wp-workflows:clarify-loop` skill 的完整澄清規則。**
 
 ## 便條紙優先序（動態評估）
 
@@ -284,7 +284,7 @@ ${SPECS_ROOT_DIR}/
 **[strategic] 完成**：
 - 所有 .activity 無未解便條紙
 - 所有 .feature 無未解便條紙、無 `(待澄清)` 佔位
-- `/aibdd.form.feature-spec` 面向覆蓋率掃描 F1–F6 全部 Clear
+- `/wp-workflows:aibdd.form.feature-spec` 面向覆蓋率掃描 F1–F6 全部 Clear
 
 **[tactical] 完成**：
 - api.yml 無未解便條紙

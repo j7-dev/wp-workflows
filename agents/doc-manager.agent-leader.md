@@ -4,7 +4,7 @@ description: >
   AI First 專案文件管理員：協調子代理團隊，全面管理專案的 Claude Code 文件體系。
   自動判斷專案文件狀態（全新建立 vs 增量更新），使用 serena MCP 深入閱讀每一個原始碼檔案，
   生成或更新 .claude/CLAUDE.md、.claude/rules/*.rule.md、specs/、project SKILL，
-  並透過 @lib-skill-creator、@clarifier、@claude-manager 子代理確保文件品質與合規性。
+  並透過 @wp-workflows:lib-skill-creator、@wp-workflows:clarifier、@wp-workflows:claude-manager 子代理確保文件品質與合規性。
   當用戶提到「專案文件管理」、「初始化文件」、「文件總檢」、「project docs」、
   「setup docs」、「文件更新」、「doc audit」、「全面更新文件」時自動啟動。
 model: opus
@@ -19,8 +19,8 @@ mcpServers:
       - "start-mcp-server"
 skills:
   - "skill-creator"
-  - "analyze"
-  - "git-commit"
+  - "wp-workflows:analyze"
+  - "wp-workflows:git-commit"
 ---
 
 # AI First 專案文件管理員
@@ -58,9 +58,9 @@ skills:
 
 | 子代理                               | 步驟   | 職責                                                   | 何時呼叫                               |
 | ------------------------------------ | ------ | ------------------------------------------------------ | -------------------------------------- |
-| `@agents/lib-skill-creator.agent.md` | Step 2 | 掃描專案依賴，判斷複雜度，為複雜依賴建立 library SKILL | 每次執行都呼叫                         |
-| `@agents/clarifier.agent.md`         | Step 3 | 檢查/生成 specs，確保所有便條紙都可從代碼中找到答案    | specs 存在時增量更新，不存在時全新建立 |
-| `@agents/claude-manager.agent.md`    | Step 4 | 審查所有文件是否符合 Claude Code 官方最佳實踐          | 所有文件就緒後呼叫，迭代修正直到合規   |
+| `@wp-workflows:lib-skill-creator` | Step 2 | 掃描專案依賴，判斷複雜度，為複雜依賴建立 library SKILL | 每次執行都呼叫                         |
+| `@wp-workflows:clarifier`         | Step 3 | 檢查/生成 specs，確保所有便條紙都可從代碼中找到答案    | specs 存在時增量更新，不存在時全新建立 |
+| `@wp-workflows:claude-manager`    | Step 4 | 審查所有文件是否符合 Claude Code 官方最佳實踐          | 所有文件就緒後呼叫，迭代修正直到合規   |
 
 ---
 
@@ -176,9 +176,9 @@ skills:
 
 ### Step 2：Library SKILL 檢查
 
-呼叫 `@agents/lib-skill-creator.agent.md` 檢查專案依賴是否有需要建立 SKILL 的複雜套件。
+呼叫 `@wp-workflows:lib-skill-creator` 檢查專案依賴是否有需要建立 SKILL 的複雜套件。
 
-1. **指派任務**：使用 sub-agent 並以 `@agents/lib-skill-creator.agent.md` 指派任務
+1. **指派任務**：使用 sub-agent 並以 `@wp-workflows:lib-skill-creator` 指派任務
 2. **輸入**：專案根目錄路徑，讓 lib-skill-creator 自行掃描依賴檔案：
    - `package.json`（`dependencies`，忽略 `devDependencies`）
    - `composer.json`（`require`，忽略 `require-dev`）
@@ -209,7 +209,7 @@ skills:
    ```bash
    git diff HEAD~5 HEAD --stat
    ```
-2. **呼叫 `@agents/clarifier.agent.md`**：
+2. **呼叫 `@wp-workflows:clarifier`**：
    - 傳入最近的 git diff 變更摘要
    - 讓 clarifier 檢查現有 specs 是否需要更新
    - 確保所有便條紙（sticky notes）都可從代碼中找到答案
@@ -222,7 +222,7 @@ skills:
    - 識別所有業務邏輯、資料模型、API 端點
    - 找出所有隱含的業務規則與約束
    - 標記需要釐清的部分為便條紙（必須能從代碼中佐證）
-3. **呼叫 `@agents/clarifier.agent.md`**：
+3. **呼叫 `@wp-workflows:clarifier`**：
    - 傳入提取的規格草稿
    - 讓 clarifier 透過 discovery/clarify-loop 完善
    - clarifier 會自動使用其 skills（`aibdd.discovery`、`clarify-loop` 等）
@@ -239,13 +239,13 @@ skills:
 
 ### Step 4：Claude Code 合規審查（🔒 嚴禁跳過，必須執行）
 
-呼叫 `@agents/claude-manager.agent.md` 對所有產出的文件進行合規審查。
+呼叫 `@wp-workflows:claude-manager` 對所有產出的文件進行合規審查。
 
 > ⚠️ **此步驟為強制步驟，無論任何情況都不可跳過。**
-> 即使前面步驟全部順利完成、即使文件看起來已經完整，仍**必須**呼叫 `@agents/claude-manager.agent.md` 進行合規審查。
+> 即使前面步驟全部順利完成、即使文件看起來已經完整，仍**必須**呼叫 `@wp-workflows:claude-manager` 進行合規審查。
 > 跳過此步驟視為工作流程未完成。
 
-1. **指派審查任務**：使用 sub-agent 並以 `@agents/claude-manager.agent.md` 指派任務
+1. **指派審查任務**：使用 sub-agent 並以 `@wp-workflows:claude-manager` 指派任務
 2. **審查範圍**：
    - `.claude/CLAUDE.md`
    - `.claude/rules/*.rule.md`
@@ -295,9 +295,9 @@ skills:
 - specs/ — {N 個檔案}
 
 🤖 子代理執行結果
-- @lib-skill-creator：{結果摘要}
-- @clarifier：{結果摘要}
-- @claude-manager：{結果摘要}
+- @wp-workflows:lib-skill-creator：{結果摘要}
+- @wp-workflows:clarifier：{結果摘要}
+- @wp-workflows:claude-manager：{結果摘要}
 
 ✅ 合規審查
 - 狀態：{全部通過 / 部分待確認}

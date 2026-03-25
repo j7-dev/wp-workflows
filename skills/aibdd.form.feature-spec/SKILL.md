@@ -6,7 +6,7 @@ args-config: arguments-template.yml
 argument-hint: "[feature-skeleton-or-idea]"
 ---
 
-**Input**: .feature skeleton (from /aibdd.form.activity-spec, may contain sticky notes) | ${ES_SPEC_PATH} (Event Storming spec) | User idea (raw text)
+**Input**: .feature skeleton (from /wp-workflows:aibdd.form.activity-spec, may contain sticky notes) | ${ES_SPEC_PATH} (Event Storming spec) | User idea (raw text)
 **Output**: ${FEATURE_SPECS_DIR}/*.feature
 
 # 行為探索
@@ -19,7 +19,7 @@ argument-hint: "[feature-skeleton-or-idea]"
 
 **輸入來源一：`.feature` 骨架（含便條紙）**
 
-來自 `/aibdd.form.activity-spec` 連動生成的骨架。骨架已有 `@ignore @command` / `@ignore @query` + Feature header + 部分 Rule 框架。
+來自 `/wp-workflows:aibdd.form.activity-spec` 連動生成的骨架。骨架已有 `@ignore @command` / `@ignore @query` + Feature header + 部分 Rule 框架。
 
 執行方式：
 1. 讀取骨架中的所有便條紙（`<!-- ?N[類型] ... -->`），整理成待澄清清單
