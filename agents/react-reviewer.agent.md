@@ -242,7 +242,7 @@ npx jest --testPathIgnorePatterns='e2e|playwright'
 
 | 框架 | 重點 |
 |------|------|
-| **Refine.dev** | 使用 `useTable`、`useForm`、`useCustom`，禁止自訂 fetch 邏輯 |
+| **Refine.dev** | 使用 `useTable`、`useForm`、`useCustom`，禁止自訂 fetch, axios 邏輯 |
 | **Ant Design 5** | `Form.Item` 處理表單欄位，`Table` 搭配分頁設定，禁止 inline style |
 | **React Query** | `queryKey` 結構一致性、invalidation 模式、`enabled` 條件控制 |
 | **Jotai** | atom 命名加 `Atom` 後綴（如 `selectedProductsAtom`），衍生用 derived atom |
