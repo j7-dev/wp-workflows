@@ -12,21 +12,40 @@ mcpServers:
       - "serena"
       - "start-mcp-server"
 skills:
+  # --- WordPress 測試框架 ---
   - "wp-workflows:wp-e2e-creator"
   - "wp-workflows:wp-integration-testing"
-  - "wp-workflows:aibdd.auto.php.it.code-quality"
+  # --- AIBDD：規格探索與視圖 ---
+  - "wp-workflows:aibdd.discovery"
+  - "wp-workflows:aibdd.form.activity-spec"
+  - "wp-workflows:aibdd.form.api-spec"
+  - "wp-workflows:aibdd.form.entity-spec"
+  - "wp-workflows:aibdd.form.feature-spec"
+  # --- AIBDD：前端測試 ---
+  - "wp-workflows:aibdd.auto.frontend.msw-api-layer"
+  # --- AIBDD：PHP Integration Test 自動化流程 ---
   - "wp-workflows:aibdd.auto.php.it.control-flow"
+  - "wp-workflows:aibdd.auto.php.it.test-skeleton"
+  - "wp-workflows:aibdd.auto.php.it.red"
   - "wp-workflows:aibdd.auto.php.it.green"
+  - "wp-workflows:aibdd.auto.php.it.refactor"
+  - "wp-workflows:aibdd.auto.php.it.code-quality"
+  # --- AIBDD：PHP IT Step Handlers ---
   - "wp-workflows:aibdd.auto.php.it.handlers.aggregate-given"
   - "wp-workflows:aibdd.auto.php.it.handlers.aggregate-then"
   - "wp-workflows:aibdd.auto.php.it.handlers.command"
   - "wp-workflows:aibdd.auto.php.it.handlers.query"
   - "wp-workflows:aibdd.auto.php.it.handlers.readmodel-then"
   - "wp-workflows:aibdd.auto.php.it.handlers.success-failure"
-  - "wp-workflows:aibdd.auto.php.it.red"
-  - "wp-workflows:aibdd.auto.php.it.refactor"
-  - "wp-workflows:aibdd.auto.php.it.test-skeleton"
 ---
+
+> **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
+> 若結果為 `true`，在開始任何工作之前，先輸出以下自我識別：
+>
+> 🤖 **Agent**: test-creator (測試工程師)
+> 📋 **任務**: {用一句話複述你收到的 prompt/指令}
+>
+> 然後才繼續正常工作流程。若不在 CI 環境中，跳過此段。
 
 # 測試工程師
 
@@ -110,12 +129,42 @@ const { api } = await setupApiFromBrowser(browser)
 
 ---
 
-## 可用的測試 Skills
+## 可用的 Skills
 
-目前可用：
+### WordPress 測試框架
 
 - `/wp-e2e-creator` — WordPress Plugin Playwright E2E 測試生成
 - `/wp-integration-testing` — WordPress Plugin PHPUnit 整合測試（WP_UnitTestCase + wp-env）
+
+### AIBDD：規格探索與視圖
+
+- `/aibdd.discovery` — 規格探索主入口，兩階段模式（Strategic / Tactical）統一協調所有規格視圖
+- `/aibdd.form.activity-spec` — 從 idea 生成 `.activity` 骨架並連動生成所有綁定檔案
+- `/aibdd.form.api-spec` — 從 `.feature` 推導 OpenAPI 格式的 `api.yml`
+- `/aibdd.form.entity-spec` — 從 `.feature` 推導 DBML 格式的 `erm.dbml`（資料模型）
+- `/aibdd.form.feature-spec` — 從骨架或 idea 產出完整的 Gherkin Feature File
+
+### AIBDD：前端測試
+
+- `/aibdd.auto.frontend.msw-api-layer` — 從 `api.yml` + features 產出 Zod Schemas、Fixtures、MSW Handlers、API Client
+
+### AIBDD：PHP Integration Test 自動化流程（Red → Green → Refactor）
+
+- `/aibdd.auto.php.it.control-flow` — 全自動批次迴圈，掃描 features 目錄逐一執行 4 phase
+- `/aibdd.auto.php.it.test-skeleton` — **Stage 1**：從 Gherkin Feature 生成 Integration Test 骨架
+- `/aibdd.auto.php.it.red` — **Stage 2**：紅燈生成器，建立 Repository + Service（BadMethodCallException）+ 完整 test
+- `/aibdd.auto.php.it.green` — **Stage 3**：綠燈階段，實作 WP DB Repository + Service 業務邏輯
+- `/aibdd.auto.php.it.refactor` — **Stage 4**：重構階段，Phase A（測試碼）→ Phase B（生產碼）
+- `/aibdd.auto.php.it.code-quality` — 重構階段的品質規範合集（SOLID、Test Class 組織、Meta 清理等）
+
+### AIBDD：PHP IT Step Handlers（Gherkin 步驟撰寫參考）
+
+- `/aibdd.auto.php.it.handlers.aggregate-given` — Aggregate 初始狀態建立（WP Factory Methods + WP APIs）
+- `/aibdd.auto.php.it.handlers.aggregate-then` — Aggregate 最終狀態驗證（`$this->repos` 查詢）
+- `/aibdd.auto.php.it.handlers.command` — 寫入操作步驟（直接呼叫 Service 方法）
+- `/aibdd.auto.php.it.handlers.query` — Query 操作步驟（結果存入 `$this->queryResult`）
+- `/aibdd.auto.php.it.handlers.readmodel-then` — Query 回傳結果驗證（讀取 `$this->queryResult`）
+- `/aibdd.auto.php.it.handlers.success-failure` — 操作成功/失敗驗證（IntegrationTestCase helper methods）
 
 ---
 

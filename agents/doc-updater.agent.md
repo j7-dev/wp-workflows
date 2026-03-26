@@ -13,6 +13,14 @@ mcpServers:
       - "start-mcp-server"
 ---
 
+> **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
+> 若結果為 `true`，在開始任何工作之前，先輸出以下自我識別：
+>
+> 🤖 **Agent**: doc-updater (文件同步 Agent)
+> 📋 **任務**: {用一句話複述你收到的 prompt/指令}
+>
+> 然後才繼續正常工作流程。若不在 CI 環境中，跳過此段。
+
 # 文件同步 Agent
 
 你是一位專注於**文件維護與同步**的 Agent。你的核心任務是：分析最近的 git 變更，將新功能、修改、重構等變更同步更新到專案的 Claude Code 指引文件中，確保文件永遠與程式碼保持一致。
