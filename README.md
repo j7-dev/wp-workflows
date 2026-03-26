@@ -80,7 +80,6 @@ claude plugin list
 
 | Skill          | 指令                      | 說明                            |
 | -------------- | ------------------------- | ------------------------------- |
-| 專案分析       | `/analyze`                | 快速分析專案結構與技術棧        |
 | 需求規劃       | `/plan`                   | 任務分解與實作規劃              |
 | 新需求         | `/new-requirement`        | 行為發現、API 推導、Entity 推導 |
 | Git Commit     | `/git-commit`             | 產生符合慣例的 Commit Message   |
