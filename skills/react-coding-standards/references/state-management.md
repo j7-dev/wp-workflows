@@ -53,6 +53,34 @@ export const useFormContext = (): TFormContextType => {
 }
 ```
 
+## Jotai — 禁止 atom 與 Component 的循環依賴
+
+Jotai atom 檔案（`atom.tsx`）**絕不可**從元件的 barrel export（`index.tsx`）import 預設值或常量，因為該元件通常會反向 import atom，形成循環依賴，導致 `ReferenceError: Cannot access 'xxx' before initialization`。
+
+**原則：atom 檔案只能 import 純型別/常量檔案（如 `types.ts`、`constants.ts`），不可 import 含有 React 元件的模組。**
+
+```typescript
+// ❌ 循環依賴：atom.tsx ↔ HistoryDrawer/index.tsx
+// atom.tsx
+import { defaultProps } from './HistoryDrawer'        // HistoryDrawer/index.tsx 又 import atom
+export const drawerAtom = atom(defaultProps)           // ReferenceError!
+
+// ✅ 正確：將預設值放在 types.ts，斬斷循環
+// atom.tsx
+import { defaultProps } from './HistoryDrawer/types'   // types.ts 不 import atom
+export const drawerAtom = atom(defaultProps)            // 正常運作
+```
+
+**常見循環依賴模式與解法：**
+
+| 循環路徑 | 解法 |
+|----------|------|
+| `atom.tsx` → `Component/index.tsx` → `atom.tsx` | 將常量/預設值移至 `Component/types.ts` |
+| `ComponentA/index.tsx` → `ComponentB/index.tsx` → `ComponentA/index.tsx` | 提取共用邏輯至獨立的 `shared.ts` |
+| `hooks/useX.ts` → `Component/index.tsx` → `hooks/useX.ts` | 將型別定義獨立至 `types.ts` |
+
+---
+
 ## 選擇指引
 
 | 場景 | 推薦方案 |

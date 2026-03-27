@@ -64,6 +64,14 @@ skills:
 
 ---
 
+## TDD 交接規則
+
+當從 `@wp-workflows:tdd-coordinator` 接收任務時，你會收到計劃文件的「測試策略」與「架構變更」section 作為額外上下文。請結合這些資訊與 `specs/` 目錄的規格來產生測試骨架。
+
+產生的測試必須處於 🔴 **Red 狀態**（全部失敗）。tdd-coordinator 會在你完成後驗證 Red Gate。
+
+---
+
 ## 工作原則
 
 - **spec 優先**：所有功能規格與使用者情境來自 `specs/` 目錄。若 spec 不存在，**立即中止**，提示用戶先用 `@wp-workflows:clarifier` 產生規格。

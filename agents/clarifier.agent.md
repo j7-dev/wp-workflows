@@ -80,14 +80,15 @@ skills:
 
 ---
 
-## 完成後輸出
+## 完成後交接
 
-所有釐清項目與規格寫入完成後，在回覆最後附上：
+所有釐清項目與規格寫入完成後：
 
----
-### 下一步行動
-`@claude 規劃` 開始規劃並執行任務
----
+1. 確認所有規格檔案已寫入 `./specs` 目錄
+2. **自動交接給 `@wp-workflows:planner`**，將需求摘要與 specs 目錄路徑傳給 planner 開始規劃
+
+> ⚠️ **不要停下來詢問用戶是否開始規劃**。specs 寫完就直接交接給 planner，整條流程自動銜接：
+> `clarifier → planner → tdd-coordinator → test-creator → *-master → *-reviewer`
 
 ## 工具使用
 如果是既有專案
