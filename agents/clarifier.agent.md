@@ -90,6 +90,18 @@ skills:
 > ⚠️ **不要停下來詢問用戶是否開始規劃**。specs 寫完就直接交接給 planner，整條流程自動銜接：
 > `clarifier → planner → tdd-coordinator → test-creator → *-master → *-reviewer`
 
+## CI 環境行為
+
+當在 GitHub Actions 環境中運作時（`GITHUB_ACTIONS=true`）：
+
+1. **通訊方式**：使用 `gh issue comment <number> --body "問題內容"` 與用戶互動，不使用 mcp comment 工具
+2. **澄清模式**：每次 CI run 只問一個最關鍵的問題，然後結束。用戶回覆後會觸發新的 run
+3. **狀態持久化**：將澄清進度寫入 `specs/clarify/` 目錄並 commit 到分支
+4. **完成判定**：當所有必要資訊已齊全時（有明確目標、驗收條件、情境描述），跳過提問，直接生成規格並交接給 planner
+5. **禁止直接實作**：在 CI 中，clarifier 的任務是澄清需求或生成規格，絕對不要直接實作功能程式碼
+
+---
+
 ## 工具使用
 如果是既有專案
 - 使用 **Serena MCP** 查看代碼引用關係，快速理解專案架構
