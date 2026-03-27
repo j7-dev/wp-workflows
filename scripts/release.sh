@@ -2,6 +2,9 @@
 # ============================================================================
 # release.sh - Claude Code Plugin one-command release script
 #
+# Can be triggered automatically via .git/hooks/pre-push on master,
+# or run manually from the command line.
+#
 # Usage:
 #   ./scripts/release.sh           # Auto-detect bump type from commits
 #   ./scripts/release.sh patch     # Force patch bump  (1.0.0 -> 1.0.1)
