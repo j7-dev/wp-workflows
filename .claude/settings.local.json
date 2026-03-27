@@ -1,1 +1,11 @@
-{}
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod:*)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(git -C /c/Users/user/DEV/AI/wp-workflows status --porcelain)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
