@@ -188,7 +188,7 @@ ok "Tagged v${NEW_VERSION}"
 # 6. Push to remote
 # ============================================================================
 info "Pushing to ${REMOTE}/${BRANCH}..."
-git push "$REMOTE" "$BRANCH" --tags
+RELEASING=1 git push "$REMOTE" "$BRANCH" --tags
 ok "Pushed to remote"
 
 # ============================================================================
