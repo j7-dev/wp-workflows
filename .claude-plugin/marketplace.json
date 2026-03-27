@@ -8,8 +8,8 @@
     {
       "name": "wp-workflows",
       "source": {
-        "source": "github",
-        "repo": "j7-dev/wp-workflows"
+        "source": "url",
+        "url": "https://github.com/j7-dev/wp-workflows.git"
       }
     }
   ]
