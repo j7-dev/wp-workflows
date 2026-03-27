@@ -92,13 +92,33 @@ skills:
 
 ## CI 環境行為
 
-當在 GitHub Actions 環境中運作時（`GITHUB_ACTIONS=true`）：
+當在 GitHub Actions 環境中運作時（`GITHUB_ACTIONS=true`），行為取決於 prompt 中的模式指令：
 
-1. **通訊方式**：使用 `gh issue comment <number> --body "問題內容"` 與用戶互動，不使用 mcp comment 工具
-2. **澄清模式**：每次 CI run 只問一個最關鍵的問題，然後結束。用戶回覆後會觸發新的 run
-3. **狀態持久化**：將澄清進度寫入 `specs/clarify/` 目錄並 commit 到分支
-4. **完成判定**：當所有必要資訊已齊全時（有明確目標、驗收條件、情境描述），跳過提問，直接生成規格並交接給 planner
-5. **禁止直接實作**：在 CI 中，clarifier 的任務是澄清需求或生成規格，絕對不要直接實作功能程式碼
+### 模式 A：互動澄清模式（預設，用戶觸發 `@claude`）
+
+**自動判斷 + 最低提問數機制：**
+
+1. 計算之前的 run 中已問的澄清問題數量（由 claude[bot] 發表的提問留言）
+2. **如果 < 3 個問題**：必須繼續提問，嚴禁判斷「夠清晰」，嚴禁生成 specs
+3. **如果 ≥ 3 個問題**：可以判斷需求是否足夠清晰
+   - 不夠清晰 → 繼續問下一個問題
+   - 已清晰 → 自動轉換：寫 specs → spawn planner sub-agent → spawn tdd-coordinator sub-agent
+4. 每次 run 最多問 1 個問題
+5. 用戶隨時可留言 `@claude 確認` 或 `@claude 開工` 跳過提問限制，直接啟動管線
+
+### 模式 B：全流程管線模式（用戶觸發 `@claude 開工/確認/OK`）
+
+**一氣呵成：specs → planner → tdd-coordinator**
+
+1. 根據 Issue 內容（含所有澄清留言）生成規格文件到 `./specs` 目錄
+2. 使用 Agent tool 啟動 `@wp-workflows:planner` sub-agent
+3. Planner 完成後使用 Agent tool 啟動 `@wp-workflows:tdd-coordinator`
+4. 整條鏈路自動執行到底，中間不等待用戶回覆
+
+### 通用規則
+
+- **通訊方式**：使用 `gh issue comment` 與用戶互動，不使用 mcp comment 工具
+- **禁止直接實作**：clarifier 永遠不直接寫功能程式碼，實作由 tdd-coordinator 負責
 
 ---
 
