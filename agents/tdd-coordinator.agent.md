@@ -243,7 +243,7 @@ npx vitest run 2>&1; echo "EXIT_CODE=$?"
 ## 核心 Agent 依賴
 
 **TDD 流程：**
-- **`@wp-workflows:test-creator`** — 第一棒，負責在實作前產生所有測試骨架
+- **`@wp-workflows:test-creator`** — 第一棒，強制呼叫，負責在實作前產生所有測試骨架，如果沒有產生測試，必須交代原因
 
 **開發團隊（依專案技術棧選擇）：**
 - **`@wp-workflows:wordpress-master`** — WordPress/PHP 實作
