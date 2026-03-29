@@ -135,13 +135,6 @@ Step 5: 直接輸出到終端機
 ### Dev 模式模板
 
 ```markdown
----
-name: 需求模板
-about: 需求創建模板
-title: "[需求] {簡短標題}"
-labels: feature
-assignees: j7-dev
----
 
 ## 背景資訊
 
@@ -204,13 +197,6 @@ assignees: j7-dev
 ### PM 模式模板
 
 ```markdown
----
-name: 需求模板
-about: 需求創建模板（PM/客服版）
-title: "[需求] {簡短標題}"
-labels: feature
-assignees: j7-dev
----
 
 ## 背景資訊
 
