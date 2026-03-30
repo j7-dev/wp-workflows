@@ -72,9 +72,9 @@ rm -f /tmp/markitdown_temp_*.html 2>/dev/null
 |------|---------|
 | `markitdown-mcp` 未安裝 | 嘗試 `pip install "markitdown[all]"` 安裝後重試 |
 | Port 3001 被佔用 | 先關閉佔用的程序，再啟動 markitdown-mcp |
-| URL 無法存取（SSL 錯誤、timeout） | 使用 Playwright MCP 載入頁面後取得 HTML 轉換 |
-| 轉換結果為空或不完整 | 改用 Playwright 取得完整頁面 HTML 後重試 |
-| 圖片下載失敗 | 嘗試帶 Referer header → 使用 Playwright → 標記為 `[⚠️ 圖片無法下載]` |
+| URL 無法存取（SSL 錯誤、timeout） | 使用 playwright-cli 載入頁面後取得 HTML 轉換 |
+| 轉換結果為空或不完整 | 改用 playwright-cli 取得完整頁面 HTML 後重試 |
+| 圖片下載失敗 | 嘗試帶 Referer header → 使用 playwright-cli → 標記為 `[⚠️ 圖片無法下載]` |
 | GitHub Issue 圖片上傳失敗 | 備援：`gh gist create --public` 或 commit 到 assets branch |
 | markitdown MCP server 啟動失敗 | 備援：直接使用 `markitdown` CLI 指令轉換 |
 | 檔案過大（> 100MB） | 告知用戶檔案過大，建議拆分後再轉換 |
@@ -82,4 +82,4 @@ rm -f /tmp/markitdown_temp_*.html 2>/dev/null
 | Inline SVG 渲染失敗 | 保留原始 SVG 代碼，標記 `[⚠️ SVG 渲染失敗]` |
 | Mermaid 渲染失敗 | 備援：`https://mermaid.ink/img/{base64}` API → 仍失敗則保留代碼區塊 |
 | 中文字型載入失敗 | 回退 Google Fonts → Microsoft JhengHei → 最終警告用戶 |
-| 截圖解析度不足 | 使用 `browser_evaluate` 設定 `deviceScaleFactor: 2` 提高 DPI |
+| 截圖解析度不足 | 使用 `playwright-cli eval "..."` 設定 `deviceScaleFactor: 2` 提高 DPI |

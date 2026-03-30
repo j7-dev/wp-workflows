@@ -83,12 +83,11 @@ curl -s http://127.0.0.1:3001/mcp -X POST \
 
 ### Step 2.3：JS-heavy 網站備援
 
-如果轉換結果不佳（內容缺失、只有導航元素、缺少主要文章內容），使用 Playwright MCP 作為備援：
+如果轉換結果不佳（內容缺失、只有導航元素、缺少主要文章內容），使用 playwright-cli 作為備援：
 
-1. 使用 `browser_navigate` 開啟目標網頁
-2. 使用 `browser_wait_for` 等待動態內容載入（等待 `networkidle` 或特定元素）
-3. 使用 `browser_snapshot` 取得頁面的 accessibility snapshot
-4. 使用 `browser_evaluate` 取得 `document.documentElement.outerHTML`
-5. 將完整 HTML 儲存為暫存檔案
-6. 再次使用 markitdown 轉換 HTML 檔案
-7. 使用 `browser_close` 關閉瀏覽器
+1. 使用 `playwright-cli open` 開啟瀏覽器，再用 `playwright-cli goto <url>` 導航至目標網頁
+2. 等待動態內容載入後，使用 `playwright-cli snapshot` 取得頁面的 accessibility snapshot
+3. 使用 `playwright-cli eval "document.documentElement.outerHTML"` 取得完整 HTML
+4. 將完整 HTML 儲存為暫存檔案
+5. 再次使用 markitdown 轉換 HTML 檔案
+6. 使用 `playwright-cli close` 關閉瀏覽器

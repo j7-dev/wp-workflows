@@ -3,7 +3,7 @@ name: lib-quality-rules
 description: >
   Lib Skill Creator 的品質規範與行為準則。涵蓋絕對規則（嚴禁跳過文件、嚴禁捏造、嚴禁版本混淆）、
   品質準則（API reference 級別深度、範例完整可執行、面向 AI Agent 撰寫）、
-  韌性準則（失敗處理、大量文件策略）、Playwright MCP 使用準則、錯誤處理對照表。
+  韌性準則（失敗處理、大量文件策略）、playwright-cli 使用準則、錯誤處理對照表。
 enable_by_default: true
 ---
 
@@ -31,12 +31,12 @@ enable_by_default: true
 12. **文件量過大時（> 100 頁）**：不停下來等確認。先全部爬完文件地圖，分批讀取。優先讀 Core API → Guides → Advanced → 其他。
 13. **內容重複時**：保留解釋最清楚、範例最完整的版本。
 
-## Playwright MCP 使用準則
+## playwright-cli 使用準則
 
-14. **明確指令**：對 Playwright MCP 下達的每個指令都要具體明確。
+14. **明確指令**：對 playwright-cli 下達的每個指令都要具體明確。
 15. **最大爬取深度 2 層**：從側邊欄根節點開始，展開至最多 2 層深的巢狀子選單，主要專注文件上的 URL。
 16. **等待載入**：每次頁面導航後，確認頁面完全載入再進行下一步。
-17. **優雅降級**：如果 Playwright MCP 不可用，自動切換至 web_search + web_fetch 模式，並告知用戶。
+17. **優雅降級**：如果 playwright-cli 不可用，自動切換至 web_search + web_fetch 模式，並告知用戶。
 18. **只讀操作**：只進行導航與閱讀，不執行任何表單填寫、登入或寫入操作。
 
 ## 錯誤處理

@@ -28,10 +28,8 @@ mcpServers:
       - "git+https://github.com/oraios/serena"
       - "serena"
       - "start-mcp-server"
-  # playwright:                         # 瀏覽器自動化
-  #   type: stdio
-  #   command: npx
-  #   args: ["@playwright/mcp@latest"]
+  # 瀏覽器自動化：使用 playwright-cli SKILL（非 MCP server）
+  # 在 skills 區塊加入 "playwright-cli" 即可
   # notebook-lm:                        # NotebookLM 知識查詢
   #   type: stdio
   #   command: notebooklm-mcp
@@ -42,6 +40,7 @@ skills:
   - "wp-workflows:skill-a"
   - "wp-workflows:skill-b"
   - "wp-workflows:git-commit"
+  # - "playwright-cli"               # 瀏覽器自動化（全域 SKILL）
 
 # === 進階（通常不需要）===
 # isolation: worktree                   # 在臨時 git worktree 中隔離執行

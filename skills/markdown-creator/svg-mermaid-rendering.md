@@ -1,14 +1,14 @@
 ---
 name: markdown-creator.svg-mermaid-rendering
 description: >
-  非 URL 型視覺內容（Inline SVG、Mermaid 圖表）的 Playwright 渲染流程。
+  非 URL 型視覺內容（Inline SVG、Mermaid 圖表）的 playwright-cli 渲染流程。
   包含繁體中文字型支援、HTML 模板、渲染失敗處理。
 enable_by_default: true
 ---
 
 # SVG / Mermaid 渲染流程（Phase 3.6）
 
-對偵測到的非 URL 型視覺內容，透過 Playwright MCP 渲染為 PNG 截圖。
+對偵測到的非 URL 型視覺內容，透過 playwright-cli 渲染為 PNG 截圖。
 
 ## 繁體中文字型支援（適用於所有渲染場景）
 
@@ -53,12 +53,12 @@ enable_by_default: true
 </html>
 ```
 
-3. 使用 Playwright MCP：
-   - `browser_navigate` 開啟 `file:///tmp/markdown-creator-images/svg_001.html`
-   - `browser_wait_for` 等待 SVG 渲染完成
-   - `browser_evaluate` 取得 SVG 元素的實際尺寸（boundingClientRect）
-   - `browser_take_screenshot` 截圖（指定元素或全頁面）
-   - 截圖儲存為 `/tmp/markdown-creator-images/svg_001.png`
+3. 使用 playwright-cli：
+   - `playwright-cli open file:///tmp/markdown-creator-images/svg_001.html`
+   - `playwright-cli snapshot` 確認 SVG 渲染完成
+   - `playwright-cli eval "JSON.stringify(document.querySelector('svg').getBoundingClientRect())"` 取得 SVG 元素的實際尺寸
+   - `playwright-cli screenshot --filename=/tmp/markdown-creator-images/svg_001.png` 截圖
+
 
 4. 上傳截圖至 GitHub Issue（使用 image-processing skill 的 Step 3.4 流程）
 5. 在 Markdown 中替換：原始 `<svg>...</svg>` → `![SVG 圖表描述](github-cdn-url)`
@@ -101,11 +101,10 @@ enable_by_default: true
 </html>
 ```
 
-3. 使用 Playwright MCP：
-   - `browser_navigate` 開啟暫存 HTML 檔案
-   - `browser_wait_for` 等待 Mermaid 渲染完成（等待 `.mermaid svg` 元素出現）
-   - `browser_take_screenshot` 截圖渲染結果
-   - 截圖儲存為 `/tmp/markdown-creator-images/mermaid_001.png`
+3. 使用 playwright-cli：
+   - `playwright-cli open file:///tmp/markdown-creator-images/mermaid_001.html`
+   - `playwright-cli eval "await document.querySelector('.mermaid svg') || await new Promise(r => setTimeout(r, 2000))"` 等待 Mermaid 渲染完成
+   - `playwright-cli screenshot --filename=/tmp/markdown-creator-images/mermaid_001.png` 截圖渲染結果
 
 4. 上傳截圖至 GitHub Issue（使用 image-processing skill 的 Step 3.4 流程）
 5. 在 Markdown 中替換：

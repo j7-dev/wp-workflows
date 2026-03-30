@@ -49,8 +49,8 @@ curl -s -o /dev/null -w "%{http_code}" "<IMAGE_URL>"
 | 404 | 不存在 | 標記為遺失，嘗試從原始頁面重新擷取 |
 | 本地路徑 | 本地檔案 | 上傳至 GitHub Issue |
 | data: URI | 內嵌資料 | 解碼儲存後上傳至 GitHub Issue |
-| Inline SVG | `<svg` 標籤（無獨立 URL） | 建立暫存 HTML → Playwright 渲染 → 截圖 → 上傳 GitHub Issue |
-| Mermaid 圖表 | ` ```mermaid ` 代碼區塊 | 建立含 Mermaid.js 的暫存 HTML → Playwright 渲染 → 截圖 → 上傳 GitHub Issue |
+| Inline SVG | `<svg` 標籤（無獨立 URL） | 建立暫存 HTML → playwright-cli 渲染 → 截圖 → 上傳 GitHub Issue |
+| Mermaid 圖表 | ` ```mermaid ` 代碼區塊 | 建立含 Mermaid.js 的暫存 HTML → playwright-cli 渲染 → 截圖 → 上傳 GitHub Issue |
 
 ## Step 3.3：下載非公開圖片
 
@@ -65,11 +65,11 @@ curl -L -o "/tmp/markdown-creator-images/img_001.png" \
   "<IMAGE_URL>"
 ```
 
-如果 curl 下載失敗（需要 cookie/session），使用 Playwright MCP：
+如果 curl 下載失敗（需要 cookie/session），使用 playwright-cli：
 
-1. 使用 `browser_navigate` 開啟圖片 URL
-2. 使用 `browser_take_screenshot` 擷取圖片（備援方案）
-3. 或使用 `browser_evaluate` 搭配 fetch API 下載圖片 blob
+1. 使用 `playwright-cli goto <image_url>` 開啟圖片 URL
+2. 使用 `playwright-cli screenshot` 擷取圖片（備援方案）
+3. 或使用 `playwright-cli eval "..."` 搭配 fetch API 下載圖片 blob
 
 ## Step 3.4：上傳至 GitHub Issue 取得永久 URL
 
@@ -87,25 +87,25 @@ https://github.com/user-attachments/assets/{uuid}
    gh repo view --json nameWithOwner -q '.nameWithOwner'
    ```
 
-2. **使用 Playwright MCP 開啟 GitHub Issue 頁面**：
-   - `browser_navigate` 到 `https://github.com/{owner}/{repo}/issues/new`
-   - `browser_wait_for` 等待頁面載入完成
+2. **使用 playwright-cli 開啟 GitHub Issue 頁面**：
+   - `playwright-cli goto https://github.com/{owner}/{repo}/issues/new`
+   - 等待頁面載入完成
 
 3. **取得頁面快照找到上傳區域**：
-   - `browser_snapshot` 取得頁面結構
+   - `playwright-cli snapshot` 取得頁面結構
    - 找到 issue body 的 textarea 元素
 
 4. **上傳圖片檔案**：
-   - `browser_click` 點擊 textarea 使其獲得焦點
+   - `playwright-cli click <ref>` 點擊 textarea 使其獲得焦點
    - 找到頁面中的檔案上傳 input（通常是隱藏的 `<input type="file">`）
-   - `browser_file_upload` 上傳圖片檔案到該 input
+   - `playwright-cli upload <file>` 上傳圖片檔案到該 input
 
 5. **等待上傳完成**：
-   - `browser_wait_for` 等待上傳處理完成（通常 3-5 秒）
+   - 等待上傳處理完成（通常 3-5 秒），使用 `playwright-cli snapshot` 確認
    - GitHub 會在 textarea 中自動插入 `![image](https://github.com/user-attachments/assets/{uuid})`
 
 6. **擷取上傳後的 CDN URL**：
-   - `browser_evaluate` 讀取 textarea 的值
+   - `playwright-cli eval "document.querySelector('textarea').value"` 讀取 textarea 的值
    - 使用正則表達式提取 URL：`https://github.com/user-attachments/assets/[a-f0-9-]+`
 
 7. **不要送出 Issue**：只取得圖片 URL，不要點擊 Submit
