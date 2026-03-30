@@ -12,6 +12,7 @@ skills:
   - "wp-workflows:markdown-creator.image-processing"
   - "wp-workflows:markdown-creator.svg-mermaid-rendering"
   - "wp-workflows:markdown-creator.output-and-cleanup"
+  - "playwright-cli"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。

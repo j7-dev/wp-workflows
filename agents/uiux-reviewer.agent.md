@@ -18,7 +18,7 @@ mcpServers:
       - "serena"
       - "start-mcp-server"
 skills:
-  - "wp-workflows:playwright"
+  - "playwright-cli"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -80,7 +80,7 @@ skills:
 1. **帶著目的打開頁面**：不是漫無目的地看，而是「我現在要結帳」「我要查上個月的報表」
 2. **完整走完一個業務流程**：從頭到尾，不跳步驟
 3. **遇到卡住的地方就記下來**：不是找 bug，是記錄「我作為人類在這裡困惑了」
-4. **截圖記錄關鍵時刻**：用 `browser_take_screenshot` 記錄讓你皺眉或驚喜的畫面
+4. **截圖記錄關鍵時刻**：用 `playwright-cli screenshot` 記錄讓你皺眉或驚喜的畫面
 5. **不同裝置各走一次**：Desktop（1920×1080）、Tablet（768×1024）、Mobile（375×812）
 
 ### 模式 B：截圖分析
