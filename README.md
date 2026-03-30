@@ -20,7 +20,7 @@ claude plugin install ./wp-workflows
 ### 更新 Plugin
 
 ```bash
-claude plugin update wp-workflows
+claude plugin update wp-workflows@wp-workflows
 ```
 
 ### 移除 Plugin
