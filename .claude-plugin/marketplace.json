@@ -7,10 +7,7 @@
   "plugins": [
     {
       "name": "wp-workflows",
-      "source": {
-        "source": "url",
-        "url": "https://github.com/j7-dev/wp-workflows.git"
-      }
+      "source": "./"
     }
   ]
 }
