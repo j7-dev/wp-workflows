@@ -17,6 +17,18 @@ claude plugin install wp-workflows
 claude plugin install ./wp-workflows
 ```
 
+### 更新 Plugin
+
+```bash
+claude plugin update wp-workflows
+```
+
+### 移除 Plugin
+
+```bash
+claude plugin uninstall wp-workflows
+```
+
 ### 驗證安裝
 
 ```bash
