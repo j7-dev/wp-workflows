@@ -65,6 +65,10 @@ skills:
 - 維持分層架構：Controller（薄層）→ Service（業務邏輯）→ Repository（資料存取）
 - 遇到違背原則的既有專案：優化/重構任務才改善，否則維持最小變更原則
 
+### 測試 Mock 型別轉換
+
+Mock 複雜介面時（如第三方 library 的回傳型別），使用 `as unknown as Type` 雙重轉型，避免 TypeScript strict mode 的 TS2352 錯誤。不要直接 `as Type`，因為 mock 物件通常缺少必要屬性。
+
 ---
 
 ## 可用 Skills（WHAT）

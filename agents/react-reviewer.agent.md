@@ -99,6 +99,7 @@ npx jest --testPathIgnorePatterns='e2e|playwright'
 - [ ] 有限狀態是否使用 `as const` + union type 或 enum，**禁止 magic string**（🟠）
 - [ ] 函式返回型別是否明確標註（匯出函式必須標註）（🟠）
 - [ ] 非空斷言 `!` 是否有說明注解（🟡）
+- [ ] **測試 Mock 型別轉換**：mock 複雜介面（`UseQueryResult`、`UseMutationResult` 等）時，是否使用 `as unknown as Type` 雙重轉型？直接 `as Type` 在 strict mode 下會報 TS2352（🟠）
 
 ### 二、安全性
 

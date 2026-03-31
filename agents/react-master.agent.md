@@ -92,6 +92,30 @@ skills:
 - 禁止跳過測試直接提交審查
 - 禁止自訂 fetch 與 axios 邏輯（使用 Refine.dev data provider）
 
+### 測試 Mock 型別轉換
+
+當 mock 複雜介面（如 `UseQueryResult`、`UseMutationResult` 等 TanStack Query 型別）時，mock 物件通常只包含測試需要的少數屬性，直接 `as Type` 轉型會被 TypeScript strict mode 拒絕。
+
+```typescript
+// ❌ 錯誤：mock 物件缺少必要屬性，TypeScript 報 TS2352
+vi.mocked(useQuery).mockReturnValue({
+  data: undefined,
+  isLoading: true,
+  isError: false,
+  refetch: vi.fn(),
+} as ReturnType<typeof useQuery>);
+
+// ✅ 正確：透過 unknown 雙重轉型（標準 mock 模式）
+vi.mocked(useQuery).mockReturnValue({
+  data: undefined,
+  isLoading: true,
+  isError: false,
+  refetch: vi.fn(),
+} as unknown as ReturnType<typeof useQuery>);
+```
+
+此模式適用於所有 mock 不完整的介面轉型場景。
+
 ---
 
 ## 可用 Skills（WHAT）
