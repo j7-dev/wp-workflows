@@ -246,11 +246,13 @@ Serena 不可用時：
 
 ## Phase 4: 報告生成
 
-### 4.1 本地模式報告
+### 4.1 報告格式
 
-直接在終端輸出結構化報告：
+所有模式（本地 + CI）均使用以下格式，並**必須將報告寫入檔案**：
 
-```markdown
+```bash
+# 所有測試完成後，用 Bash 工具將報告寫入此路徑（必做，不可省略）
+cat > output/playwright/browser-test/test-report.md << 'REPORT_EOF'
 # 瀏覽器模擬測試報告
 
 ## 測試摘要
@@ -259,42 +261,37 @@ Serena 不可用時：
 - **測試頁數**：{N} 頁
 - **結果**：✅ {pass} 通過 / ⚠️ {warn} 警告 / ❌ {fail} 失敗
 
-## 變更分析
-| 類型 | 檔案數 | 測試範圍 |
-|------|--------|---------|
-| API 變更 | {n} | 所有呼叫頁面 |
-| UI 頁面 | {n} | 所有修改頁面 |
-| UI 組件 | {n} | 各一個頁面 |
-
 ## 測試結果明細
 
-### {頁面名稱} ({URL})
+### {N}. {頁面名稱} ({URL})
 - **變更類型**：{API/頁面/組件}
 - **結果**：✅/⚠️/❌
 - **操作步驟**：
   1. {step}
   2. {step}
-- **影片**：`output/playwright/browser-test/videos/{name}.webm`
-- **截圖**：`output/playwright/browser-test/screenshots/{name}.png`
-- **Console 錯誤**：{有/無}（詳情見影片）
-- **Network 異常**：{有/無}（詳情見影片）
-
-## 產出物
-- 影片：`output/playwright/browser-test/videos/`
-- 截圖：`output/playwright/browser-test/screenshots/`
+- **截圖**：
+  - ![{截圖說明}](screenshots/{NN}-{name}.png)
+- **影片**：
+  - [▶️ 觀看影片](videos/{NN}-{name}.webm)
+- **Console 錯誤**：{有/無}
+- **Network 異常**：{有/無}
+REPORT_EOF
 ```
+
+> ⚠️ **重要**：報告必須寫入磁碟（`output/playwright/browser-test/test-report.md`），不可只輸出到終端。
 
 ### 4.2 CI 模式報告
 
-當 `GITHUB_ACTIONS=true` 時，額外執行 CI 報告流程。
+當 `GITHUB_ACTIONS=true` 時：
 
-詳細步驟參考：`references/ci-reporting.md`
+> ⚠️ **禁止使用 `gh` CLI 發佈 Issue Comment。**
+> 在此 CI 架構中，後續的 workflow steps 會自動讀取 `test-report.md`、上傳媒體到 CDN 並發佈 Issue Comment。
+> Agent 的職責只是**確保 `output/playwright/browser-test/test-report.md` 正確寫入磁碟**，其餘由 CI 處理。
 
-核心流程：
-1. 整理影片和截圖路徑
-2. 提取 PR/Issue number
-3. 使用 `gh` CLI 發佈 comment
-4. 影片和截圖需包含在 GitHub Actions artifact 中（由 workflow 配置 `actions/upload-artifact`）
+CI 模式檢查清單：
+- [ ] `output/playwright/browser-test/test-report.md` 已寫入
+- [ ] 截圖在 `output/playwright/browser-test/screenshots/`
+- [ ] 影片在 `output/playwright/browser-test/videos/`
 
 ---
 

@@ -1,5 +1,12 @@
 # CI 報告參考文件
 
+> **注意（ wp-workflows CI 架構）**
+>
+> 在此架構中，agent **只需**將 `test-report.md` 寫入磁碟路徑
+> `output/playwright/browser-test/test-report.md`。
+> 截圖/影片上傳 CDN 及 Issue Comment 發佈均由 CI workflow 的後續 steps 自動處理。
+> **請勿在 CI 中使用 `gh` CLI 發佈 comment**，否則會與 workflow 發生衝突並導致報告遺失。
+
 當 `GITHUB_ACTIONS=true` 時，測試報告需發佈到 GitHub Issue/PR Comment。
 
 ---

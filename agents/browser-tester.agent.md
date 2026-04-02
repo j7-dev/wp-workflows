@@ -102,7 +102,7 @@ skills:
 
 - **playwright-cli**（透過 Bash）：所有瀏覽器操作使用 `$PWCLI` 指令
 - **Serena MCP**（如可用）：分析程式碼引用關係，映射變更到受影響頁面
-- **gh CLI**（CI 環境）：發佈測試報告到 GitHub Issue/PR Comment
+- **gh CLI**：⚠️ 在此 CI 架構中禁止使用（CI workflow 自動處理發佈）
 - **git**（Bash）：分析 diff，取得變更檔案清單
 
 ---
@@ -111,13 +111,14 @@ skills:
 
 ### 完成時
 1. 輸出結構化測試報告（包含影片路徑、截圖、操作步驟、結果）
-2. **CI 環境**：使用 `gh` CLI 將報告發佈到對應的 Issue/PR Comment
-3. 產出物存放於 `output/playwright/browser-test/`
+2. **必須**使用 Bash 工具將完整報告寫入 `output/playwright/browser-test/test-report.md`
+3. 產出物存放於 `output/playwright/browser-test/`（截圖在 `screenshots/`，影片在 `videos/`）
+4. **CI 環境**：⚠️ 禁止使用 `gh` CLI 發佈 comment，CI workflow 會自動讀取 `test-report.md` 並處理
 
 ### 失敗時
 - 回報錯誤原因與已嘗試的解決方案
 - **即使測試失敗，仍須保留操作影片作為證據**
-- CI 環境下仍發佈失敗報告到 Issue Comment
+- **仍須將失敗報告寫入 `output/playwright/browser-test/test-report.md`**
 
 ### 前置檢查失敗時
 - **playwright-cli 不可用**：通知用戶安裝 Node.js/npm，並中斷操作
