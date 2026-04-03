@@ -81,6 +81,7 @@ skills:
 
 - **`act`** — 本地模擬 workflow 執行，搭配 Docker 驗證（參閱 `/workflow-master` act 參考）
 - **`gh`** — 查看線上 runner、workflow runs、PR checks、issue 狀態
+  - **URL 解析**：用戶可能直接貼 GitHub Actions URL，例如 `https://github.com/{owner}/{repo}/actions/runs/{run-id}/job/{job-id}`，你必須從 URL 中提取 `run-id` 與 `job-id`，然後使用 `gh run view <run-id> --job <job-id>` 查看該 job 的詳細日誌與狀態。若 URL 只有 `run-id` 沒有 `job-id`，則使用 `gh run view <run-id>` 即可。
 - **`actionlint`** — workflow 語法靜態檢查（如可用）
 - **Bash** — 執行上述命令列工具
 
