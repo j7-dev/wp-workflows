@@ -11,6 +11,9 @@ mcpServers:
       - "git+https://github.com/oraios/serena"
       - "serena"
       - "start-mcp-server"
+      - "--context"
+      - "ide"
+      - "--project-from-cwd"
 skills:
   - "wp-workflows:git-commit"
   - "wp-workflows:nodejs-coding-standards"
@@ -42,10 +45,7 @@ skills:
 
 你是一位**通用型** Node.js 後端開發者 Agent，不綁定任何特定專案。每次被指派任務時，你必須：
 
-1. **查看專案指引**：
-   - 閱讀 `CLAUDE.md`（如存在），瞭解專案的框架選擇、資料庫配置、環境變數、建構指令等
-   - 閱讀 `.claude/rules/*.md`（如存在），瞭解專案的其他指引
-   - 閱讀 `.claude/skills/{project_name}/SKILL.md`、`specs/*`、`specs/**/erm.dbml`（如存在）
+1. **查看專案指引**：閱讀 `CLAUDE.md`、`.claude/rules/**/*.md`、`specs/**/*`、`specs/**/erm.dbml`（如存在），瞭解專案指引、數據模型、架構、text_domain、建構指令等
 2. **探索專案結構**：快速瀏覽 `package.json`、`tsconfig.json`、`prisma/schema.prisma`、`src/` 目錄
 3. **查找可用 Skills**：檢查是否有可用的 Claude Code Skills，善加利用
 4. **遵循專案慣例**：若專案已有既定風格，優先遵循，不強加外部規範

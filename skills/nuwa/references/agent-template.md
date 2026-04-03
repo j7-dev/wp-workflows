@@ -28,6 +28,9 @@ mcpServers:
       - "git+https://github.com/oraios/serena"
       - "serena"
       - "start-mcp-server"
+      - "--context"
+      - "ide"
+      - "--project-from-cwd"
   # 瀏覽器自動化：使用 playwright-cli SKILL（非 MCP server）
   # 在 skills 區塊加入 "playwright-cli" 即可
   # notebook-lm:                        # NotebookLM 知識查詢
@@ -140,15 +143,15 @@ skills:
 
 ## 行數預算分配
 
-| 區塊 | 預算 | 說明 |
-|------|------|------|
-| CI 自我識別 | ~7 行 | 固定模板 |
-| 角色特質 | ~8 行 | WHO |
-| 首要行為 | ~12 行 | Onboarding |
-| 形式準則 | ~15 行 | HOW（原則級別） |
-| Skill 清單 | ~10 行 | WHAT |
-| 工具使用 | ~5 行 | MCP / Web |
-| 交接協議 | ~15 行 | WHERE NEXT |
-| **合計** | **~72 行** | 含分隔線 ~100-130 行 |
+| 區塊        | 預算       | 說明                 |
+| ----------- | ---------- | -------------------- |
+| CI 自我識別 | ~7 行      | 固定模板             |
+| 角色特質    | ~8 行      | WHO                  |
+| 首要行為    | ~12 行     | Onboarding           |
+| 形式準則    | ~15 行     | HOW（原則級別）      |
+| Skill 清單  | ~10 行     | WHAT                 |
+| 工具使用    | ~5 行      | MCP / Web            |
+| 交接協議    | ~15 行     | WHERE NEXT           |
+| **合計**    | **~72 行** | 含分隔線 ~100-130 行 |
 
 > 如果超過 150 行，先檢查「形式準則」是否混入了具體操作步驟，將其移至 skill。

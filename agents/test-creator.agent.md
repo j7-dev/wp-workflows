@@ -11,6 +11,9 @@ mcpServers:
       - "git+https://github.com/oraios/serena"
       - "serena"
       - "start-mcp-server"
+      - "--context"
+      - "ide"
+      - "--project-from-cwd"
 skills:
   # --- WordPress 測試框架 ---
   - "wp-workflows:wp-e2e-creator"
