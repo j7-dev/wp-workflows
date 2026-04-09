@@ -111,11 +111,11 @@ skills:
 
 ### Step 1：專案文件狀態判定
 
-檢查 `.claude/CLAUDE.md` 與 `.claude/rules/*.rule.md` 是否存在，決定走「增量更新」或「全新建立」模式。
+檢查 `specs/` 目錄是否存在，決定走「增量更新」或「全新建立」模式。
 
-#### Step 1-1：文件已存在 → 增量更新模式
+#### Step 1-1：Specs 已存在 → 增量更新模式
 
-當 `.claude/CLAUDE.md` 或 `.claude/rules/*.rule.md` 已存在時：
+當 `specs/` 目錄已存在時，代表專案已經過完整文件化，僅需根據近期變更進行增量更新：
 
 1. **分析 git 變更**：
    ```bash
@@ -130,19 +130,22 @@ skills:
    - **架構調整**：目錄結構變更、設計模式引入、依賴變更
 4. **增量更新**：僅修改有變化的部分，保留現有正確內容
 5. **格式一致**：維持現有文件的排版與風格
+6. **補建缺失文件**：若 `.claude/rules/` 或 `.claude/skills/{project_name}/SKILL.md` 不存在，一併建立（參照 Step 1-2 的建立流程）
 
-#### Step 1-2：Rules 或 SKILL 不存在 → 補建模式
+#### Step 1-2：Specs 不存在 → 全新建立模式
 
-> ⚠️ 由於前置檢查已確保 `.claude/CLAUDE.md` 必定存在，此步驟僅處理 rules 或 SKILL 不存在的情況。
-
-當 `.claude/rules/` 或 `.claude/skills/{project_name}/SKILL.md` 不存在時：
+當 `specs/` 目錄不存在時，代表專案尚未經過完整文件化，需從原始碼全面建立文件體系：
 
 1. **使用 serena MCP 讀取每一個原始碼檔案**（嚴禁跳過）
    - 逐一讀取每個檔案的內容
    - 理解其職責、匯出介面、依賴關係
    - 記錄關鍵 pattern（設計模式、命名慣例、架構風格）
 
-2. **生成 `.claude/rules/*.rule.md`**（按技術棧分類）：
+2. **更新 `.claude/CLAUDE.md`**：
+   - 前置檢查已確保 CLAUDE.md 存在（由 `/init` 建立的基礎版本）
+   - 根據實際讀取的代碼內容，補充完整的專案架構、技術棧、開發慣例等資訊
+
+3. **生成 `.claude/rules/*.rule.md`**（按技術棧分類）：
    - 每個 rule 檔案必須有 `globs` frontmatter
    - 依偵測到的技術棧條件生成：
 
@@ -154,24 +157,18 @@ skills:
    | Go                 | `.claude/rules/go.rule.md`（globs: `**/*.go`）             |
    | Python             | `.claude/rules/python.rule.md`（globs: `**/*.py`）         |
 
-3. **使用 `/skill-creator` 建立 project SKILL**：
+4. **使用 `/skill-creator` 建立 project SKILL**：
    - 將蒐集到的專案知識傳給 `/skill-creator`
    - 產出至 `.claude/skills/{project_name}/SKILL.md`
    - SKILL 內容面向 AI Agent（精準、密集、無廢話）
 
-#### 混合狀態處理
-
-若 `.claude/rules/` 存在但 SKILL 不存在（或反之）：
-- 已存在的部分 → 走增量更新模式
-- 不存在的部分 → 走補建模式
-
 回報格式：
 ```
 ✅ Step 1：專案文件狀態判定
-- 模式：{增量更新 / 全新建立 / 混合}
-- .claude/CLAUDE.md：{已更新 N 處 / 已建立（N 行）}
+- 模式：{增量更新 / 全新建立}
+- .claude/CLAUDE.md：已更新 N 處
 - .claude/rules/：{已更新 N 個檔案 / 已建立 N 個檔案}
-- .claude/skills/{project_name}/SKILL.md：{已建立（N 行） / 已存在}
+- .claude/skills/{project_name}/SKILL.md：{已更新 / 已建立（N 行）}
 ```
 
 ---
