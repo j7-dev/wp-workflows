@@ -11,10 +11,6 @@ description: >
   5. 用戶指定一個「主題」或「領域」（非特定套件）並希望整理成知識庫，如：「幫我研究 CQRS pattern」、「整理 WooCommerce Hooks」、「做一份 GraphQL best practices 的 skill」。
 model: sonnet
 mcpServers:
-  notebook-lm:
-    type: stdio
-    command: notebooklm-mcp
-    args: []
   serena:
     type: stdio
     command: uvx
@@ -29,6 +25,7 @@ mcpServers:
 skills:
   - "skill-creator"
   - "playwright-cli"
+  - "wp-workflows:notebooklm"
   - "wp-workflows:git-commit"
   - "wp-workflows:lib-crawl-workflow"
   - "wp-workflows:lib-skill-output"

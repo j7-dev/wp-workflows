@@ -213,7 +213,7 @@ npx vitest run 2>&1; echo "EXIT_CODE=$?"
 
 ### 相關文件
 
-- Claude Code 代理團隊的使用方法可以詢問 notebook-lm MCP 的 Claude Code Docs 筆記本
+- Claude Code 代理團隊的使用方法可以透過 /wp-workflows:notebooklm SKILL 查詢 Claude Code Docs 筆記本
 
 ---
 

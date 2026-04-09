@@ -41,7 +41,7 @@ user-invocable: true
 6. **已有 Skills** — 檢查 `skills/` 目錄，列出可複用的現有 skills
 7. **需要新 Skills** — 確認哪些知識需要新建 skill files
 8. **Model 選擇** — opus（複雜推理）/ sonnet（快速執行）/ haiku（輕量任務）
-9. **MCP Servers / Skills** — 是否需要 serena MCP、notebook-lm MCP、playwright-cli SKILL 等工具？
+9. **MCP Servers / Skills** — 是否需要 serena MCP、notebooklm SKILL、playwright-cli SKILL 等工具？
 10. **Permission Mode** — default / acceptEdits / dontAsk / bypassPermissions / plan
 
 > 可推斷的項目直接填入，不佔提問額度。最多問 10 題。

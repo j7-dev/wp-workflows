@@ -33,10 +33,8 @@ mcpServers:
       - "--project-from-cwd"
   # 瀏覽器自動化：使用 playwright-cli SKILL（非 MCP server）
   # 在 skills 區塊加入 "playwright-cli" 即可
-  # notebook-lm:                        # NotebookLM 知識查詢
-  #   type: stdio
-  #   command: notebooklm-mcp
-  #   args: []
+  # NotebookLM 知識查詢：使用 notebooklm SKILL（非 MCP server）
+  # 在 skills 區塊加入 "wp-workflows:notebooklm" 即可
 
 # === Skills ===
 skills:

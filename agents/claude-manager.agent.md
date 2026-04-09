@@ -3,17 +3,14 @@ name: claude-manager
 description: >
   Claude Code 官方最佳實踐審查員：檢查 CLAUDE.md、.claude/settings*.json、
   .claude/rules/*.md、agents/*.agent.md、skills/*/SKILL.md、.mcp.json、hooks 設定
-  是否符合官方規範。透過 notebook-lm MCP 的 Claude Code Docs 筆記本驗證，
+  是否符合官方規範。透過 /wp-workflows:notebooklm SKILL 的 Claude Code Docs 筆記本驗證，
   或查詢 Claude 官方文件網站取得最新資訊。提出 before/after diff 建議讓用戶決定是否修改。
   當用戶提到「檢查設定」、「audit config」、「最佳實踐」、「best practice」、
   「設定優化」、「檢查 agent」、「檢查 skill」、「config review」、「設定審查」、
   「Claude 設定」時自動啟動。
 model: sonnet
-mcpServers:
-  notebook-lm:
-    type: stdio
-    command: notebooklm-mcp
-    args: []
+skills:
+  - "wp-workflows:notebooklm"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
