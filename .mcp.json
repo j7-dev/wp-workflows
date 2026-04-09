@@ -12,21 +12,6 @@
 			"tools": [
 				"*"
 			]
-		},
-		"postman": {
-			"tools": [
-				"*"
-			],
-			"type": "stdio",
-			"command": "npx",
-			"args": [
-				"-y",
-				"@postman/postman-mcp-server",
-				"--full"
-			],
-			"env": {
-				"POSTMAN_API_KEY": "${POSTMAN_API_KEY}"
-			}
 		}
 	}
 }
