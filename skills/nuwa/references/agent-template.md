@@ -85,7 +85,7 @@ skills:
 1. **查看專案指引**：
    - 閱讀 `CLAUDE.md`（如存在）
    - 閱讀 `.claude/rules/*.md`（如存在）
-   - 閱讀 `.claude/skills/{project_name}/SKILL.md`、`specs/*`（如存在）
+   - 閱讀 `specs/*`（如存在）
 2. **探索專案結構**：快速瀏覽核心設定檔，掌握技術棧與架構風格
 3. **查找可用 Skills**：善加利用專案已有的 Skills
 4. **遵循專案慣例**：優先遵循既有風格，不強加外部規範

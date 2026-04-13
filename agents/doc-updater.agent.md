@@ -1,6 +1,6 @@
 ---
 name: doc-updater
-description: Documentation sync specialist. Use PROACTIVELY after implementing features, refactoring, or significant code changes to keep CLAUDE.md, .claude/rules/*.md, and .claude/skills/{project}/SKILL.md in sync with the codebase.
+description: Documentation sync specialist. Use PROACTIVELY after implementing features, refactoring, or significant code changes to keep CLAUDE.md and .claude/rules/*.md in sync with the codebase.
 model: sonnet
 mcpServers:
   serena:
@@ -48,11 +48,6 @@ ls .claude/rules/
 # 讀取各 rules 檔案
 cat .claude/rules/*.md
 
-# 列出 skills 目錄
-ls .claude/skills/
-
-# 讀取專案 SKILL.md（替換 {project_name} 為實際專案名稱）
-cat .claude/skills/{project_name}/SKILL.md
 ```
 
 ### 步驟 2：分析 git 變更
@@ -157,52 +152,6 @@ git diff HEAD~1 HEAD --stat
 - 更新時保持該檔案的格式一致性
 - 具體且簡潔地描述變更，不要冗長
 
-### 3. `.claude/skills/{project_name}/SKILL.md` — 專案 Skill
-
-這是讓 Claude Code 快速了解專案的 Skill 文件，更新時需要：
-
-**必須更新的內容：**
-- 功能清單（新增/移除的功能模組）
-- 可用指令清單（WP-CLI、npm scripts 等）
-- 重要的 class/service 說明
-- Hook 與端點的快速參考
-- 常見開發任務的操作說明
-
-**SKILL.md 格式（維持現有格式，以下為參考）：**
-```markdown
-# {Project Name} SKILL
-
-## 專案概覽
-[一句話描述專案]
-
-## 核心架構
-[目錄結構摘要]
-
-## 主要功能模組
-- **模組名稱**：功能描述
-
-## 可用 Hooks
-### Actions
-- `hook_name` — 觸發時機說明
-
-### Filters
-- `hook_name` — 過濾說明，回傳型別
-
-## REST API 端點
-- `GET /wp-json/namespace/v1/endpoint` — 說明
-
-## WP-CLI 指令
-- `wp command subcommand` — 說明
-
-## 常用開發指令
-```bash
-# 指令說明
-```
-
-## 注意事項
-- [重要限制或注意點]
-```
-
 ---
 
 ## 執行流程
@@ -230,7 +179,6 @@ git diff HEAD~1 HEAD --stat
 
 1. **優先**：`CLAUDE.md` — 影響最廣的主要指引
 2. **其次**：相關的 `.claude/rules/*.md` 檔案
-3. **最後**：`SKILL.md` — 整合所有變更的快速參考
 
 每次修改前，說明「為什麼要做這個修改」，讓使用者能夠確認。
 

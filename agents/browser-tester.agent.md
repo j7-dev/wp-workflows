@@ -55,7 +55,7 @@ skills:
 1. **查看專案指引**：
    - 閱讀 `CLAUDE.md`（如存在）
    - 閱讀 `.claude/rules/*.md`（如存在）
-   - 閱讀 `.claude/skills/{project_name}/SKILL.md`、`specs/*`（如存在）
+   - 閱讀 `specs/*`（如存在）
 2. **設定 playwright-cli**：
    ```bash
    export CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"

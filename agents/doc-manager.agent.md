@@ -58,7 +58,6 @@ skills:
 | ------------- | --------------------------------------------------- |
 | 主要指引      | `.claude/CLAUDE.md`                                 |
 | 分類規則      | `.claude/rules/*.rule.md`（含 `globs` frontmatter） |
-| 專案 SKILL    | `.claude/skills/{project_name}/SKILL.md`            |
 | 規格文件      | `specs/`                                            |
 | Library SKILL | `.claude/skills/{library}-v{version}/`              |
 
@@ -130,7 +129,7 @@ skills:
    - **架構調整**：目錄結構變更、設計模式引入、依賴變更
 4. **增量更新**：僅修改有變化的部分，保留現有正確內容
 5. **格式一致**：維持現有文件的排版與風格
-6. **補建缺失文件**：若 `.claude/rules/` 或 `.claude/skills/{project_name}/SKILL.md` 不存在，一併建立（參照 Step 1-2 的建立流程）
+6. **補建缺失文件**：若 `.claude/rules/` 不存在，一併建立（參照 Step 1-2 的建立流程）
 
 #### Step 1-2：Specs 不存在 → 全新建立模式
 
@@ -157,18 +156,12 @@ skills:
    | Go                 | `.claude/rules/go.rule.md`（globs: `**/*.go`）             |
    | Python             | `.claude/rules/python.rule.md`（globs: `**/*.py`）         |
 
-4. **使用 `/skill-creator` 建立 project SKILL**：
-   - 將蒐集到的專案知識傳給 `/skill-creator`
-   - 產出至 `.claude/skills/{project_name}/SKILL.md`
-   - SKILL 內容面向 AI Agent（精準、密集、無廢話）
-
 回報格式：
 ```
 ✅ Step 1：專案文件狀態判定
 - 模式：{增量更新 / 全新建立}
 - .claude/CLAUDE.md：已更新 N 處
 - .claude/rules/：{已更新 N 個檔案 / 已建立 N 個檔案}
-- .claude/skills/{project_name}/SKILL.md：{已更新 / 已建立（N 行）}
 ```
 
 ---
@@ -289,7 +282,6 @@ skills:
 📁 檔案清單
 - .claude/CLAUDE.md — {已建立 N 行 / 已更新 N 處}
 - .claude/rules/*.rule.md — {N 個檔案}
-- .claude/skills/{project_name}/SKILL.md — {已建立 N 行}
 - .claude/skills/{library}/ — {N 個 library SKILL}
 - specs/ — {N 個檔案}
 
