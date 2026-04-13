@@ -1,120 +1,148 @@
-# E2E 測試程式碼模板
+# E2E 測試程式碼模板（核心業務流程）
 
-## 使用者情境測試模板
+> ⚠️ **本檔案僅提供「核心業務流程」測試範例。**
+> 邊緣案例、權限矩陣、API 邊界測試屬於整合測試範疇，請改用 `wp-integration-testing` skill。
+
+E2E 測試只覆蓋兩個分組：
+
+- 🔥 **冒煙測試（`@smoke`）** — 1 分鐘內，最關鍵路徑
+- ✅ **快樂路徑（`@happy`）** — 標準使用者完整流程
+
+---
+
+## 冒煙測試模板
+
+冒煙測試只驗證「環境沒炸」與「最關鍵的價值交付」。每個 spec 的冒煙測試應該在數秒內完成。
 
 ```typescript
-// tests/e2e/02-frontend/course-access.spec.ts
+// tests/e2e/smoke/smoke.spec.ts
+import { test, expect } from '@playwright/test'
+
+test.setTimeout(60_000)
+
+test.describe('🔥 冒煙測試', () => {
+
+  test('@smoke 首頁可以正常載入', async ({ page }) => {
+    await page.goto('/', { timeout: 30_000 })
+    await expect(page).toHaveTitle(/.+/)
+  })
+
+  test('@smoke wp-admin 登入頁面可以正常載入', async ({ page }) => {
+    await page.goto('/wp-login.php', { timeout: 30_000 })
+    await expect(page.locator('#loginform')).toBeVisible({ timeout: 10_000 })
+  })
+
+  test('@smoke 已購買使用者可以進入課程教室', async ({ page }) => {
+    await loginAs(page, 'student_purchased', 'password')
+    await page.goto('/classroom/course-1/', { timeout: 30_000 })
+    await expect(page.locator('[data-testid="video-player"]')).toBeVisible({ timeout: 10_000 })
+  })
+
+})
+```
+
+---
+
+## 快樂路徑模板（核心業務流程）
+
+每個核心業務流程一個 spec 檔案，從使用者進入到拿到價值的最短路徑。
+
+```typescript
+// tests/e2e/happy/course-purchase.spec.ts
 import { test, expect } from '@playwright/test'
 import { loginAs } from '../helpers/frontend-setup'
 import { COURSES } from '../fixtures/test-data'
 
-const accessScenarios = [
-  {
-    role: 'guest',
-    setup: async (page) => { /* 不登入 */ },
-    expected: 'redirect-to-login',
-  },
-  {
-    role: 'subscriber-not-purchased',
-    setup: async (page) => loginAs(page, 'subscriber', 'password'),
-    expected: 'show-purchase-prompt',
-  },
-  {
-    role: 'purchased-student',
-    setup: async (page) => loginAs(page, 'student_purchased', 'password'),
-    expected: 'full-access',
-  },
-  {
-    role: 'expired-student',
-    setup: async (page) => loginAs(page, 'student_expired', 'password'),
-    expected: 'show-expired-message',
-  },
-]
+test.setTimeout(60_000)
 
-for (const scenario of accessScenarios) {
-  test(`課程教室存取 — ${scenario.role}`, async ({ page }) => {
-    await scenario.setup(page)
-    await page.goto(COURSES.PUBLISHED.classroomUrl)
+test.describe('✅ 課程購買快樂路徑', () => {
 
-    switch (scenario.expected) {
-      case 'redirect-to-login':
-        await expect(page).toHaveURL(/wp-login\.php/)
-        break
-      case 'show-purchase-prompt':
-        await expect(page.locator('[data-testid="purchase-prompt"]')).toBeVisible()
-        break
-      case 'full-access':
-        await expect(page.locator('[data-testid="video-player"]')).toBeVisible()
-        break
-      case 'show-expired-message':
-        await expect(page.locator('[data-testid="expired-notice"]')).toBeVisible()
-        break
-    }
+  test('@happy 使用者可以完成課程購買並進入教室', async ({ page }) => {
+    // Arrange：以一般使用者身份登入
+    await loginAs(page, 'student', 'password')
+
+    // Act 1：瀏覽課程商品頁
+    await page.goto(COURSES.PUBLISHED.productUrl, { timeout: 30_000 })
+    await expect(page.locator('h1.product_title')).toBeVisible({ timeout: 10_000 })
+
+    // Act 2：加入購物車
+    await page.locator('button.single_add_to_cart_button').click()
+    await expect(page.locator('.woocommerce-message')).toBeVisible({ timeout: 10_000 })
+
+    // Act 3：前往結帳並完成付款
+    await page.goto('/checkout/', { timeout: 30_000 })
+    await page.locator('#place_order').click()
+    await expect(page).toHaveURL(/order-received/, { timeout: 30_000 })
+
+    // Assert：使用者可以進入課程教室並看到影片播放器
+    await page.goto(COURSES.PUBLISHED.classroomUrl, { timeout: 30_000 })
+    await expect(page.locator('[data-testid="video-player"]')).toBeVisible({ timeout: 10_000 })
   })
-}
+
+})
 ```
 
 ---
 
-## 邊緣案例測試模板
+## 多步驟流程模板（含 API 前置資料準備）
+
+當核心業務流程需要複雜的前置資料（課程、訂單、會員等），用 REST API 建立，避免在 UI 上點來點去浪費時間。
 
 ```typescript
-// tests/e2e/03-integration/edge-cases.spec.ts
-import { test, expect } from '@playwright/test'
+// tests/e2e/happy/course-completion.spec.ts
+import { test, expect, Browser } from '@playwright/test'
+import { loginAs } from '../helpers/frontend-setup'
 import { wpPost, wpDelete } from '../helpers/api-client'
 
-test.describe('邊緣案例：課程存取控制', () => {
+test.setTimeout(60_000)
 
-  test('商品刪除後已購買使用者仍保有存取權', async ({ page, request }) => {
-    // Arrange：建立課程、購買、刪除 WC 商品
-    const courseId = await createTestCourse(request)
-    const orderId  = await purchaseCourse(page, courseId)
-    await wpDelete(request, `wc/v3/products/${productId}?force=true`)
+async function setupApiWithLongTimeout(browser: Browser) {
+  const context = await browser.newContext({
+    storageState: 'tests/e2e/.auth/admin.json',
+    ignoreHTTPSErrors: true,
+    serviceWorkers: 'block',
+  })
+  context.setDefaultTimeout(60_000)
+  return context.request
+}
 
-    // Act：已購買使用者嘗試存取教室
-    await loginAs(page, 'student_purchased', 'password')
-    await page.goto(`/classroom/${courseId}/`)
+test.describe('✅ 課程學習完成快樂路徑', () => {
+  let courseId: number
+  let chapterId: number
 
-    // Assert：仍有存取權（存取記錄不依賴商品存在）
-    await expect(page.locator('[data-testid="video-player"]')).toBeVisible()
+  test.beforeAll(async ({ browser }) => {
+    // 用 REST API 建立測試資料（不依賴 UI）
+    const api = await setupApiWithLongTimeout(browser)
+    const course = await wpPost(api, 'wp/v2/course', { title: '測試課程', status: 'publish' })
+    courseId = course.id
+    const chapter = await wpPost(api, 'wp/v2/chapter', {
+      title: '第一章',
+      status: 'publish',
+      parent: courseId,
+    })
+    chapterId = chapter.id
   })
 
-  test('同時開啟兩個結帳頁面不會重複授予存取權', async ({ browser }) => {
-    // 開兩個 browser context 模擬兩個 tab
-    const ctx1 = await browser.newContext()
-    const ctx2 = await browser.newContext()
-    const page1 = await ctx1.newPage()
-    const page2 = await ctx2.newPage()
-
-    // 兩個 tab 同時結帳
-    await Promise.all([
-      completePurchase(page1, COURSES.PUBLISHED.productUrl),
-      completePurchase(page2, COURSES.PUBLISHED.productUrl),
-    ])
-
-    // Assert：使用者的存取記錄只有一筆（冪等）
-    const accessCount = await getAccessCount(page1, COURSES.PUBLISHED.id)
-    expect(accessCount).toBe(1)
-
-    await ctx1.close()
-    await ctx2.close()
+  test.afterAll(async ({ browser }) => {
+    const api = await setupApiWithLongTimeout(browser)
+    await wpDelete(api, `wp/v2/chapter/${chapterId}?force=true`)
+    await wpDelete(api, `wp/v2/course/${courseId}?force=true`)
   })
 
-  test('存取到期後立即刷新頁面', async ({ page }) => {
-    // Arrange：建立即將到期（1 秒後）的存取記錄
-    const expiry = new Date(Date.now() + 1000).toISOString()
-    await setAccessExpiry(page, studentId, courseId, expiry)
-
-    // Act：等待到期後刷新
+  test('@happy 已購買使用者完成章節後可以看到進度更新', async ({ page }) => {
     await loginAs(page, 'student_purchased', 'password')
-    await page.goto(`/classroom/${courseId}/`)
-    await expect(page.locator('[data-testid="video-player"]')).toBeVisible()
 
-    await page.waitForTimeout(2000)  // 等待到期
-    await page.reload()
+    // 進入章節頁
+    await page.goto(`/classroom/${courseId}/chapter/${chapterId}/`, { timeout: 30_000 })
+    await expect(page.locator('[data-testid="chapter-content"]')).toBeVisible({ timeout: 10_000 })
 
-    // Assert：到期後被拒絕
-    await expect(page.locator('[data-testid="expired-notice"]')).toBeVisible()
+    // 標記章節完成
+    await page.locator('[data-testid="mark-complete"]').click()
+    await expect(page.locator('[data-testid="completed-badge"]')).toBeVisible({ timeout: 10_000 })
+
+    // 回到課程頁，確認進度顯示為 100%
+    await page.goto(`/classroom/${courseId}/`, { timeout: 30_000 })
+    await expect(page.locator('[data-testid="progress-bar"]')).toContainText('100%')
   })
 
 })
@@ -122,41 +150,28 @@ test.describe('邊緣案例：課程存取控制', () => {
 
 ---
 
-## API 邊界測試模板
+## 寫測試時的禁區
+
+下列情境**絕對不要**寫進 E2E spec，請改寫整合測試：
 
 ```typescript
-// tests/e2e/03-integration/api-edge-cases.spec.ts
-test.describe('REST API 邊緣案例', () => {
+// ❌ 禁止：權限矩陣覆蓋
+for (const role of ['guest', 'subscriber', 'admin', 'expired']) {
+  test(`${role} 存取課程`, ...)
+}
 
-  test('未授權請求應回傳 401', async ({ request }) => {
-    const res = await request.get('/wp-json/plugin/v1/courses', {
-      headers: { /* 不帶 nonce */ }
-    })
-    expect(res.status()).toBe(401)
-  })
+// ❌ 禁止：邊界值與特殊輸入
+test('課程標題包含 XSS 字串', ...)
+test('課程價格為 0', ...)
+test('Unicode 與 Emoji 標題', ...)
 
-  test('存取不存在的課程應回傳 404', async ({ request, page }) => {
-    await loginAs(page, 'admin', 'password')
-    const nonce = await extractNonce(page)
+// ❌ 禁止：API 邊界
+test('未授權請求應回傳 401', ...)
+test('SQL injection 防護', ...)
 
-    const res = await request.get('/wp-json/plugin/v1/courses/99999999', {
-      headers: { 'X-WP-Nonce': nonce }
-    })
-    expect(res.status()).toBe(404)
-  })
-
-  test('SQL injection 防護', async ({ request, page }) => {
-    await loginAs(page, 'admin', 'password')
-    const nonce = await extractNonce(page)
-
-    const res = await request.get("/wp-json/plugin/v1/courses?id=1' OR '1'='1", {
-      headers: { 'X-WP-Nonce': nonce }
-    })
-    // 應回傳正常錯誤，不應洩漏資料
-    expect(res.status()).toBeOneOf([400, 404])
-    const body = await res.text()
-    expect(body).not.toContain('wp_')  // 不洩漏資料表名稱
-  })
-
-})
+// ❌ 禁止：並發與競態條件
+test('兩個 tab 同時結帳', ...)
+test('到期前後刷新頁面', ...)
 ```
+
+> 這些情境的測試價值很高，但成本應該由整合測試承擔。E2E 跑這些東西只會慢、不穩、難維護。
