@@ -168,7 +168,7 @@ Phase 4：整合與清理（風險：中高）
 **適用場景**：業務邏輯圍繞某個核心概念（訂單、課程、會員等）
 
 **步驟**：
-1. 從 spec 確認 Entity 的屬性與行為
+1. 從 `./specs` 確認 Entity 的屬性與行為
 2. 建立 `Domain/{Context}/Entities/XxxEntity.php`
 3. 將相關業務邏輯封裝到 Entity 方法中
 4. Repository 回傳 Entity 而非 raw data
@@ -208,7 +208,7 @@ inc/src/
 2. **小步前進** — 每個任務的改動範圍控制在可 review 的程度
 3. **行為不變** — 重構只改結構，不改功能
 4. **漸進式** — 不需要一次到位，允許過渡狀態
-5. **spec 為本** — 以 spec 定義的業務領域做為 Bounded Context 劃分依據
+5. **specs 為本** — 以 `./specs` 定義的業務領域做為 Bounded Context 劃分依據
 
 ---
 
@@ -220,4 +220,4 @@ inc/src/
 - 要做什麼（移動/提取/重命名/建立）
 - 具體涉及哪些檔案與類別
 - 預期的目標結構
-- 相關的 spec 區段（業務上下文）
+- 相關的 `./specs` 區段（業務上下文）

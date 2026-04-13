@@ -231,7 +231,7 @@ npx vitest run 2>&1; echo "EXIT_CODE=$?"
 
 | 失敗情境 | 處理方式 |
 |----------|----------|
-| test-creator 無法產生測試（spec 不存在） | 中止，回報「缺少 specs/ 規格，請先用 @wp-workflows:clarifier 產生」 |
+| test-creator 無法產生測試（`./specs/` 不存在） | 中止，回報「缺少 `./specs/` 規格，請先用 @wp-workflows:clarifier 產生」 |
 | Red Gate 不通過（無測試檔案） | 退回 test-creator，最多重試 2 次 |
 | Red Gate 不通過（測試全部通過） | test-creator 的斷言有誤，退回修正 |
 | Green Gate 不通過（測試失敗） | 退回 Developer Teammate，最多重試 3 次 |
