@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schemas.specflow.org/specflow-3.9.json",
+  "stepAssemblies": [
+    {
+      "assembly": "${ProjectName}.IntegrationTests"
+    }
+  ],
+  "language": {
+    "feature": "zh-TW"
+  },
+  "bindingCulture": {
+    "name": "zh-TW"
+  },
+  "runtime": {
+    "missingOrPendingStepsOutcome": "Error"
+  }
+}

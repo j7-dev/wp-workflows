@@ -1,100 +1,170 @@
 ---
 name: aibdd.auto.php.it.handlers.query
-description: 當在 Gherkin 中撰寫 Query 操作步驟時，務必參考此規範。直接呼叫 Service 方法，結果存入 $this->queryResult。
-user-invocable: false
+description: >
+  處理 When 步驟中執行讀取操作（Query）的 handler 參考文件。觸發關鍵字：查詢、取得、列出、搜尋。
+  非 user-invocable，由 /aibdd.auto.php.it.red 在實作測試方法時載入。
 ---
 
-# Query-Handler (Integration Test Version)
+# Handler: query
 
-## Role
+## Trigger 辨識
 
-負責實作 `When` 步驟中的 Query（查詢）操作。
+本 handler 適用於 **When** 步驟中的讀取操作：
 
-**核心任務**：呼叫 Service 方法執行讀取操作，將結果儲存到 `$this->queryResult`。
+- 「用戶 Alice **查詢**課程 1 的進度」
+- 「管理者 **取得**訂單 ORD-001 的詳情」
+- 「用戶 Alice **列出**購物車中的所有商品」
+- 「用戶 Alice **搜尋**關鍵字 "React" 的課程」
 
----
+關鍵字：`查詢`、`取得`、`列出`、`搜尋`、`檢視`、`讀取`
 
-## ⚠️ 與 Behat 版本的差異
+## 任務
 
-| 項目 | Behat 版本 | Integration Test 版本 |
-|------|-----------|----------------------|
-| 結果存取 | `$this->feature->queryResult` | **`$this->queryResult`** |
-| 錯誤存取 | `$this->feature->lastError` | **`$this->lastError`** |
-| Service 存取 | `$this->feature->services->*` | **`$this->services->*`** |
-| ID 映射 | `$this->feature->ids[$userName]` | **`$this->ids[$userName]`** |
-| 注入方式 | 建構子注入 FeatureContext | **繼承 IntegrationTestCase** |
+呼叫 Service 的讀取方法，將結果存入 `$this->queryResult`，供後續 Then 步驟驗證。**必須 try/catch**，錯誤仍存入 `$this->lastError`（可能的 Query 失敗情境如權限不足）。
 
----
+## 與其他 Handler 的區別
 
-## ⚠️ 與 Command 的差異
+| 項目 | Query | Command |
+|---|---|---|
+| 修改系統狀態 | 否 | 是 |
+| Service 方法前綴 | `get`、`find`、`list`、`search` | `create`、`update`、`delete`、`submit` |
+| 結果儲存 | `$this->queryResult` | 無（不驗證回傳） |
+| Then 對應 handler | readmodel-then | aggregate-then / success-failure |
 
-| 項目 | Command | Query |
-|------|---------|-------|
-| 目的 | 修改系統狀態 | 讀取資料 |
-| 回傳值 | 通常無回傳 | **有回傳值** |
-| 結果處理 | 捕獲錯誤 | **儲存查詢結果** |
+## 實作流程
 
----
+1. **從 `$this->ids` 取得查詢主體 ID**：`$userId = $this->ids['Alice'];`
+2. **呼叫 Service query 方法**：回傳結果賦值給 `$this->queryResult`。
+3. **try/catch 錯誤儲存**：失敗時 `$this->queryResult = null`，錯誤存入 `$this->lastError`。
+4. **不做斷言**：斷言交給 readmodel-then / success-failure handler。
 
-## 實作範例
+## BDD 模式與程式碼範例
+
+### 單一記錄查詢
+
+```gherkin
+When 用戶 "Alice" 查詢課程 1 的進度
+```
 
 ```php
-class LessonProgressTest extends IntegrationTestCase
-{
-    public function test_query_progress(): void
-    {
-        // Given ...
-
-        // When 用戶 Alice 查詢課程 101 的進度
-        $userId = $this->ids['Alice'];
-        try {
-            $result = $this->services->lesson->getLessonProgress((string) $userId, 101);
-            $this->queryResult = $result;
-            $this->lastError = null;
-        } catch (\Throwable $e) {
-            $this->queryResult = null;
-            $this->lastError = $e;
-        }
-
-        // Then ...
-    }
+$userId = $this->ids['Alice'];
+try {
+    $this->queryResult = $this->services->lesson->getProgress($userId, 1);
+} catch (\Throwable $e) {
+    $this->lastError = $e;
+    $this->queryResult = null;
 }
 ```
 
----
+### List Query（列表查詢）
 
-## 查詢列表
+```gherkin
+When 用戶 "Alice" 查詢購物車中的所有商品
+```
 
 ```php
-public function test_query_all_progress(): void
-{
-    // Given ...
+$userId = $this->ids['Alice'];
+try {
+    $this->queryResult = $this->services->cart->listItems($userId);
+} catch (\Throwable $e) {
+    $this->lastError = $e;
+    $this->queryResult = null;
+}
+```
 
-    // When 用戶 Alice 查詢所有課程進度
-    $userId = $this->ids['Alice'];
-    try {
-        $this->queryResult = $this->services->lesson->getAllProgress((string) $userId);
+### Query with 多重參數
+
+```gherkin
+When 用戶 "Alice" 查詢第 1 章的所有課程
+```
+
+```php
+$userId = $this->ids['Alice'];
+try {
+    $this->queryResult = $this->services->lesson->listByChapter($userId, chapterId: 1);
+} catch (\Throwable $e) {
+    $this->lastError = $e;
+    $this->queryResult = null;
+}
+```
+
+### Search Query（含 filter）
+
+```gherkin
+When 用戶 "Alice" 搜尋關鍵字 "React" 的課程
+```
+
+```php
+$userId = $this->ids['Alice'];
+try {
+    $this->queryResult = $this->services->course->search(
+        keyword: 'React',
+        userId: $userId,
+    );
+} catch (\Throwable $e) {
+    $this->lastError = $e;
+    $this->queryResult = null;
+}
+```
+
+### Query 帶分頁
+
+```gherkin
+When 用戶 "Alice" 查詢第 2 頁的訂單（每頁 10 筆）
+```
+
+```php
+$userId = $this->ids['Alice'];
+try {
+    $this->queryResult = $this->services->order->listByUser(
+        userId: $userId,
+        page: 2,
+        perPage: 10,
+    );
+} catch (\Throwable $e) {
+    $this->lastError = $e;
+    $this->queryResult = null;
+}
+```
+
+## IntegrationTestCase 基類（參考）
+
+```php
+abstract class IntegrationTestCase extends \Yoast\WPTestUtils\WPIntegration\TestCase
+{
+    protected ?\Throwable $lastError = null;
+    protected mixed $queryResult = null;  // ← Query 結果存這裡
+    protected array $ids = [];
+    protected object $repos;
+    protected object $services;
+
+    abstract protected function configure_dependencies(): void;
+
+    public function set_up(): void {
+        parent::set_up();
         $this->lastError = null;
-    } catch (\Throwable $e) {
         $this->queryResult = null;
-        $this->lastError = $e;
+        $this->ids = [];
+        $this->repos = new \stdClass();
+        $this->services = new \stdClass();
+        $this->configure_dependencies();
     }
-
-    // Then ...
 }
 ```
 
----
+## 共用規則 R1-R6
 
-## Critical Rules
+- **R1（唯讀）**：Query 絕對不修改系統狀態，禁止呼叫任何 `createXxx`、`updateXxx`、`deleteXxx`。
+- **R2（結果儲存）**：結果必須存入 `$this->queryResult`，為後續 readmodel-then 使用。
+- **R3（錯誤雙存）**：catch 時 `$this->queryResult = null` 且 `$this->lastError = $e`；供 success-failure 驗證錯誤。
+- **R4（Service 方法）**：僅使用讀取方法（`getXxx`、`listXxx`、`findXxx`、`searchXxx`）。
+- **R5（不斷言）**：不做 assert，斷言屬 Then handler。
+- **R6（不重查）**：一個 When + Query 僅執行一次查詢，不得重複呼叫覆蓋 `$this->queryResult`。
 
-### R1: Query 必須儲存結果到 $this->queryResult
-### R2: Query 也需要捕獲錯誤
-### R3: 從 $this->services 取得 Service（不需要 FeatureContext）
-### R4: userName → userId 轉換透過 $this->ids
-### R5: queryResult 是 IntegrationTestCase 的 protected 屬性
+## 完成條件
 
----
-
-**文件版本**：Integration Test PHPUnit Version 1.0
-**適用框架**：PHP 8.2+ + PHPUnit 9.x + wp-env + WordPress
+- [ ] Service query 方法已呼叫，結果存入 `$this->queryResult`
+- [ ] try/catch 完整，錯誤同時存入 `$this->lastError`
+- [ ] 查詢參數皆從 `$this->ids` 或 Gherkin 實值取得
+- [ ] 無任何 assert 斷言
+- [ ] 無任何寫入操作

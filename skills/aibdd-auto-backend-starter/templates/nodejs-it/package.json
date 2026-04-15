@@ -1,0 +1,35 @@
+{
+  "name": "${PROJECT_SLUG}",
+  "version": "0.0.1",
+  "description": "${PROJECT_DESCRIPTION}",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch ${NODE_APP_DIR}/server.ts",
+    "test": "cucumber-js",
+    "test:dry-run": "cucumber-js --dry-run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "drizzle-orm": "^0.38.0",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^10.9.0",
+    "@testcontainers/postgresql": "^10.13.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/pg": "^8.11.10",
+    "@types/supertest": "^6.0.2",
+    "drizzle-kit": "^0.31.0",
+    "supertest": "^7.0.0",
+    "testcontainers": "^10.13.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

@@ -1,91 +1,158 @@
 ---
 name: aibdd.auto.php.it.code-quality
-description: PHP Integration Test 程式碼品質規範合集。包含 SOLID 設計原則、Test Class 組織規範、Meta 註記清理、WordPress 特定品質規範、程式架構、程式碼品質等規範。供 refactor 階段嚴格遵守。
-user-invocable: false
+description: >
+  PHP WordPress 整合測試程式碼品質規範。涵蓋 SOLID、Test Class 組織、
+  IntegrationTestCase 基類規範、Meta 清理、WordPress 特有安全實踐、3 層架構、程式碼品質。
+  由 /aibdd.auto.php.it.refactor 載入作為重構依據。非 user-invocable。
 ---
 
-# SOLID 設計原則
+# PHP IT Code Quality 規範
 
-## S - Single Responsibility Principle（單一職責原則）
+本 skill 定義 PHP WordPress 整合測試與生產程式碼的品質標準，作為 `/aibdd.auto.php.it.refactor` 的重構依據。
+
+---
+
+## 1. SOLID 設計原則
+
+### S - 單一職責 (Single Responsibility)
+
+一個 class 只做一件事。將 Service、Repository、NotificationService 分離。
 
 ```php
-// ❌ Service 做太多事
-class AssignmentService {
-    public function submit(string $userId, string $content): void {
-        if (!$this->checkPermission($userId)) throw new \UnauthorizedError();
-        if (strlen($content) < 10) throw new \InvalidArgumentException();
-        $this->repo->save(new Assignment($userId, $content));
-        $this->sendEmail($userId);
+// ❌ 錯誤：一個 class 混合多種職責
+class LessonService
+{
+    public function updateProgress(int $userId, int $lessonId, int $progress): void
+    {
+        // 直接操作 DB
+        global $wpdb;
+        $wpdb->update('lesson_progress', ...);
+
+        // 直接寄 email
+        wp_mail($email, '進度更新', '...');
+
+        // 計算業務規則
+        if ($progress >= 100) { ... }
     }
 }
 
-// ✅ 職責分離
-class AssignmentService {
+// ✅ 正確：職責分離
+class LessonService
+{
     public function __construct(
-        private readonly AssignmentRepository $assignmentRepo,
-        private readonly PermissionValidator $permissionValidator,
-        private readonly NotificationService $notificationService,
+        private LessonProgressRepository $repo,
+        private NotificationService $notifier
     ) {}
 
-    public function submit(string $userId, string $content): void {
-        $this->permissionValidator->validate($userId);
-        $this->assignmentRepo->save(new Assignment($userId, $content));
-        $this->notificationService->notify($userId);
+    public function updateProgress(int $userId, int $lessonId, int $progress): void
+    {
+        $this->validateProgress($progress);
+        $this->repo->save($userId, $lessonId, $progress);
+        if ($progress >= self::COMPLETION_THRESHOLD) {
+            $this->notifier->notifyCompletion($userId, $lessonId);
+        }
     }
 }
 ```
 
-## D - Dependency Inversion Principle（依賴反轉原則）
+### O - 開放封閉 (Open/Closed)
+
+透過 interface 與 strategy pattern 擴展，不修改既有程式碼。
 
 ```php
-// ✅ Service 透過建構子注入 Repository
-class LessonService {
+interface PaymentGatewayInterface
+{
+    public function charge(int $amount, string $currency): PaymentResult;
+}
+
+class StripeGateway implements PaymentGatewayInterface { /* ... */ }
+class PaypalGateway implements PaymentGatewayInterface { /* ... */ }
+
+class OrderService
+{
+    public function __construct(private PaymentGatewayInterface $gateway) {}
+}
+```
+
+### L - 里氏替換 (Liskov Substitution)
+
+子類別必須能完全替換父類別，不破壞契約。
+
+### I - 介面隔離 (Interface Segregation)
+
+小而專一的 interface，優於肥大的 interface。
+
+```php
+// ✅ 正確
+interface ReadableRepository { public function find(int $id); }
+interface WritableRepository { public function save($entity): void; }
+
+class LessonRepository implements ReadableRepository, WritableRepository { /* ... */ }
+```
+
+### D - 依賴反轉 (Dependency Inversion)
+
+高層模組不依賴低層模組，皆依賴抽象。Service 以 constructor 注入 Repository。
+
+```php
+class LessonService
+{
     public function __construct(
-        private readonly LessonProgressRepository $lessonProgressRepo,
+        private LessonProgressRepositoryInterface $progressRepo,
+        private LessonRepositoryInterface $lessonRepo,
     ) {}
-
-    public function updateProgress(string $userId, int $lessonId, int $progress): void {
-        $current = $this->lessonProgressRepo->find($userId, $lessonId);
-        // 業務邏輯...
-    }
 }
 ```
 
 ---
 
-## 檢查清單
-- [ ] 每個類別/方法只負責一件事
-- [ ] Service 透過建構子注入 Repository
-- [ ] 高層模組不直接依賴低層模組
+## 2. Test Class 組織規範
+
+### 目錄結構
+
+```
+tests/integration/
+├── IntegrationTestCase.php        # 基類
+├── Lesson/
+│   ├── UpdateVideoProgressTest.php
+│   └── CompleteLessonTest.php
+├── Order/
+│   ├── CreateOrderTest.php
+│   └── RefundOrderTest.php
+├── Product/
+│   └── ListProductsTest.php
+└── Helpers/
+    └── StatusMapper.php
+```
+
+### 命名規範
+
+| 元件 | 風格 | 範例 |
+|------|------|------|
+| Test Class | PascalCase + `Test` 後綴 | `UpdateVideoProgressTest` |
+| Test Method | `test_` 前綴 + snake_case/中文 | `test_成功增加影片進度` |
+| Subdomain 目錄 | PascalCase | `Lesson/`, `Order/` |
+| Helper Class | PascalCase | `StatusMapper` |
+
+### 對應關係
+
+- 一個 `.feature` 檔 → 一個 Test Class
+- 一個 `Scenario` / `Example` → 一個 `test_*` method
+- Gherkin 步驟 → `// Given / // When / // Then` 註解
 
 ---
 
-# Test Class 組織規範
+## 3. IntegrationTestCase 基類規範
 
-## 組織原則
-
-- 使用 PHPUnit Test Class 組織
-- 按 Subdomain 和功能模組組織
-- IntegrationTestCase 作為共用基礎類別
-
-## 目錄結構
-
-```
-tests/
-├── bootstrap.php                    # WP 測試引導
-├── integration/
-│   ├── IntegrationTestCase.php      # 共用基礎類別
-│   ├── Lesson/                      # {Subdomain}
-│   │   └── LessonProgressTest.php   # 一個 Feature 一個 Test class
-│   └── Order/
-│       └── OrderCreationTest.php
-phpunit.xml.dist
-.wp-env.json
-```
-
-## IntegrationTestCase 基礎類別
+所有整合測試皆繼承此基類。**禁止**各 Test class 自行實作 set_up / tear_down 基礎邏輯。
 
 ```php
+<?php
+
+declare(strict_types=1);
+
+namespace Tests\Integration;
+
 abstract class IntegrationTestCase extends \Yoast\WPTestUtils\WPIntegration\TestCase
 {
     protected ?\Throwable $lastError = null;
@@ -94,7 +161,10 @@ abstract class IntegrationTestCase extends \Yoast\WPTestUtils\WPIntegration\Test
     protected object $repos;
     protected object $services;
 
-    protected function set_up(): void {
+    abstract protected function configure_dependencies(): void;
+
+    public function set_up(): void
+    {
         parent::set_up();
         $this->lastError = null;
         $this->queryResult = null;
@@ -104,137 +174,326 @@ abstract class IntegrationTestCase extends \Yoast\WPTestUtils\WPIntegration\Test
         $this->configure_dependencies();
     }
 
-    abstract protected function configure_dependencies(): void;
-
-    protected function assert_operation_succeeded(): void {
-        $this->assertNull($this->lastError,
-            sprintf('預期操作成功，但發生錯誤：%s', $this->lastError));
+    protected function assert_operation_succeeded(): void
+    {
+        $this->assertNull(
+            $this->lastError,
+            '預期操作成功，但發生錯誤: ' . ($this->lastError?->getMessage() ?? '')
+        );
     }
 
-    protected function assert_operation_failed(): void {
-        $this->assertNotNull($this->lastError, '預期操作失敗，但沒有發生錯誤');
+    protected function assert_operation_failed(): void
+    {
+        $this->assertNotNull($this->lastError, '預期操作失敗，但成功執行');
     }
 
-    protected function assert_operation_failed_with_type(string $type): void {
-        $this->assertNotNull($this->lastError, '預期操作失敗');
-        $actualType = (new \ReflectionClass($this->lastError))->getShortName();
-        $this->assertSame($type, $actualType);
+    protected function assert_operation_failed_with_type(string $type): void
+    {
+        $this->assert_operation_failed();
+        $this->assertInstanceOf($type, $this->lastError);
     }
 
-    protected function assert_operation_failed_with_message(string $msg): void {
-        $this->assertNotNull($this->lastError, '預期操作失敗');
+    protected function assert_operation_failed_with_message(string $msg): void
+    {
+        $this->assert_operation_failed();
         $this->assertStringContainsString($msg, $this->lastError->getMessage());
     }
 }
 ```
 
----
+### 使用規則
 
-# Meta 註記清理規範
-
-## 刪除的內容
-- `// TODO: [事件風暴部位: ...]`
-- `// TODO: 參考 xxx 實作`
-- 其他臨時標記
-
-## 保留的內容
-- 必要的業務邏輯註解
-- PHPDoc 文檔註解
+- `$this->ids` 儲存 Gherkin 中的人/物識別（如 `$this->ids['Alice'] = 123`）
+- `$this->repos` 與 `$this->services` 為依賴容器
+- `configure_dependencies()` 僅做 DI wiring，不做資料準備
+- 借 WP 自動 rollback（transactional tests），**不要**手動 `TRUNCATE`
 
 ---
 
-# 程式架構規範（Integration Test 3 層）
+## 4. Meta 註記清理
 
-```
-src/
-├── Models/          # Plain PHP class
-├── Repositories/    # WP DB Repository（真實 WordPress 資料庫操作）
-├── Services/        # Service（業務邏輯）
-└── Exceptions/      # 自定義例外
-```
+重構階段（Phase A）**必須刪除**：
+
+- `// TODO: ...`
+- `// [Handler: aggregate-given]` 等 Handler 標註
+- `// 參考 /aibdd.auto.php.it.handlers.xxx` 連結提示
+- `$this->markTestIncomplete(...)` 佔位呼叫
+
+**必須保留**：
+
+- `// Given / // When / // Then` 業務語意註解
+- PHPDoc (`@test`, `@testdox`, `@dataProvider`, `@group`)
+- 必要的業務邏輯說明註解
 
 ---
 
-# WordPress 特定品質規範
+## 5. WordPress 特有品質規範（重點）
 
-## 資料庫操作
+### 5.1 SQL Injection 防護
+
+所有 `$wpdb` 查詢**必須**使用 `prepare()`。
 
 ```php
-// ❌ 直接字串拼接 SQL
-$wpdb->query("SELECT * FROM {$wpdb->posts} WHERE post_title = '$title'");
+global $wpdb;
 
-// ✅ 使用 prepared statements
-$wpdb->get_results(
-    $wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE post_title = %s", $title)
+// ❌ 錯誤：直接字串插值
+$row = $wpdb->get_row("SELECT * FROM {$table} WHERE id = $id");
+
+// ✅ 正確：使用 prepare + placeholder
+$row = $wpdb->get_row(
+    $wpdb->prepare("SELECT * FROM {$table} WHERE id = %d", $id)
+);
+
+// ✅ 多參數
+$wpdb->prepare(
+    "SELECT * FROM {$table} WHERE user_id = %d AND status = %s",
+    $userId,
+    $status
 );
 ```
 
-## 資料清理
+Placeholder 速查：`%d` 整數、`%f` 浮點、`%s` 字串、`%i` 識別符（欄位名）。
+
+### 5.2 輸入清理（Sanitization）
+
+| 情境 | 函數 |
+|------|------|
+| 一般文字輸入 | `sanitize_text_field()` |
+| 整數 ID | `absint()` |
+| Email | `sanitize_email()` |
+| URL | `esc_url_raw()` |
+| HTML 內容（受限標籤） | `wp_kses_post()` |
+| 檔名 | `sanitize_file_name()` |
+
+### 5.3 輸出跳脫（Escaping）
+
+| 情境 | 函數 |
+|------|------|
+| HTML 內文 | `esc_html()` |
+| HTML 屬性 | `esc_attr()` |
+| URL 輸出 | `esc_url()` |
+| JavaScript 內嵌 | `esc_js()` |
+| 允許部分 HTML | `wp_kses()` |
+
+### 5.4 Nonce 驗證
 
 ```php
-// ✅ 輸入清理
-$clean_title = sanitize_text_field($raw_title);
-$clean_email = sanitize_email($raw_email);
-$clean_url = esc_url_raw($raw_url);
+// 表單端
+wp_nonce_field('myplugin_update_lesson', '_myplugin_nonce');
 
-// ✅ 輸出轉義
-echo esc_html($user_input);
-echo esc_attr($attribute_value);
+// 處理端
+if (!wp_verify_nonce($_POST['_myplugin_nonce'] ?? '', 'myplugin_update_lesson')) {
+    wp_die('Security check failed');
+}
+
+// Admin page
+check_admin_referer('myplugin_update_lesson');
 ```
 
-## Nonce 檢查
+### 5.5 權限檢查
+
+任何寫入/刪除/敏感動作前，**必須**檢查：
 
 ```php
-// ✅ REST API 中不需要 nonce（使用 permission_callback）
-// ✅ Admin AJAX / Form POST 需要 nonce
-if (!wp_verify_nonce($_POST['_wpnonce'], 'my_action')) {
-    wp_die('Security check failed');
+if (!current_user_can('edit_lesson', $lessonId)) {
+    throw new PermissionDeniedException('無權編輯此課程');
+}
+```
+
+### 5.6 WPCS 命名慣例
+
+| 元件 | 慣例 | 範例 |
+|------|------|------|
+| Plugin 全域函數 | `{prefix}_{action}` | `myplugin_update_lesson()` |
+| Class（傳統） | `{Prefix}_{Name}` | `MyPlugin_LessonService` |
+| Class（PSR-4 推薦） | Namespace | `App\Services\LessonService` |
+| Hook 名稱 | `{prefix}_{event}` | `myplugin_lesson_updated` |
+| Option key | `{prefix}_{name}` | `myplugin_settings` |
+| DB table 前綴 | `{$wpdb->prefix}{plugin}_{name}` | `wp_myplugin_lessons` |
+
+---
+
+## 6. 3 層架構
+
+```
+src/
+├── Models/              # Plain PHP objects（不依賴 WordPress）
+│   └── LessonProgress.php
+├── Repositories/        # WordPress DB 抽象層
+│   └── LessonProgressRepository.php
+├── Services/            # 業務邏輯層
+│   └── LessonService.php
+└── Exceptions/          # 自訂例外
+    ├── InvalidStateException.php
+    └── NotFoundException.php
+```
+
+### 各層職責
+
+| 層 | 職責 | 允許使用 | 禁止 |
+|----|------|---------|------|
+| Models | 資料容器 + 純行為 | PHP 標準庫 | WordPress 全域函數、`$wpdb` |
+| Repositories | DB / WP API 封裝 | `$wpdb`、WP function | 業務規則、拋業務例外 |
+| Services | 業務規則、協調 Repo | Repositories、Models | `$wpdb` 直接呼叫 |
+| Exceptions | 業務錯誤訊息 | - | 包含邏輯 |
+
+### 違規範例
+
+```php
+// ❌ Service 直接操作 $wpdb
+class LessonService
+{
+    public function update(int $id): void
+    {
+        global $wpdb;
+        $wpdb->update(...); // 應透過 Repository
+    }
+}
+
+// ❌ Model 依賴 WordPress
+class LessonProgress
+{
+    public function save(): void
+    {
+        update_post_meta(...); // Model 不該知道 WP
+    }
+}
+
+// ❌ Repository 含業務邏輯
+class LessonProgressRepository
+{
+    public function save($progress): void
+    {
+        if ($progress->value < 0) {
+            throw new InvalidStateException(...); // 應在 Service
+        }
+    }
 }
 ```
 
 ---
 
-# 程式碼品質規範
+## 7. 程式碼品質
 
-## Early Return
+### 7.1 Early Return / Guard Clause
 
 ```php
 // ❌ 深層巢狀
-function process(?Data $data): void {
-    if ($data !== null) {
-        if ($data->isValid()) {
-            processData($data);
-        } else { throw new ValidationException(); }
-    } else { throw new DataException(); }
+public function updateProgress(int $userId, int $lessonId, int $progress): void
+{
+    if ($this->userExists($userId)) {
+        if ($this->lessonExists($lessonId)) {
+            if ($progress >= 0 && $progress <= 100) {
+                // 實際邏輯
+            }
+        }
+    }
 }
 
-// ✅ Early return
-function process(?Data $data): void {
-    if ($data === null) throw new DataException();
-    if (!$data->isValid()) throw new ValidationException();
-    processData($data);
+// ✅ Early Return
+public function updateProgress(int $userId, int $lessonId, int $progress): void
+{
+    if (!$this->userExists($userId)) {
+        throw new NotFoundException('用戶不存在');
+    }
+    if (!$this->lessonExists($lessonId)) {
+        throw new NotFoundException('課程不存在');
+    }
+    if ($progress < 0 || $progress > 100) {
+        throw new InvalidStateException('進度必須在 0-100 之間');
+    }
+
+    // 實際邏輯
 }
 ```
 
-## 命名規範
-- PascalCase：類別名稱
-- camelCase：方法、屬性、變數
-- snake_case：WordPress 函式（遵循 WordPress 慣例時）
+### 7.2 Class Constants
 
-## DRY 原則
-消除重複邏輯，提取共用方法。
+```php
+class LessonService
+{
+    private const COMPLETION_THRESHOLD = 100;
+    private const STATUS_MAPPING = [
+        'not_started' => '未開始',
+        'in_progress' => '進行中',
+        'completed'   => '已完成',
+    ];
+}
+```
+
+### 7.3 Nullable / Optional 處理
+
+```php
+// ✅ 明確 nullable 型別
+public function find(int $id): ?LessonProgress
+{
+    // ...
+}
+
+// ✅ 呼叫端 null coalescing throw (PHP 8+)
+$progress = $this->repo->find($id)
+    ?? throw new NotFoundException("進度 {$id} 不存在");
+```
+
+### 7.4 DRY 原則
+
+三次以上重複才抽取共用方法。**勿過早抽象**。
+
+### 7.5 命名表達意圖
+
+| ❌ 模糊 | ✅ 清晰 |
+|---------|---------|
+| `process($data)` | `updateVideoProgress(int $userId, int $lessonId, int $progress)` |
+| `handle()` | `refundOrder()` |
+| `$d` | `$lessonId` |
+| `$flag` | `$isCompleted` |
+
+### 7.6 布林方法命名
+
+以 `is`, `has`, `can`, `should` 開頭：
+
+```php
+public function isCompleted(): bool
+public function hasPermission(int $userId): bool
+public function canEdit(User $user): bool
+public function shouldNotify(): bool
+```
 
 ---
 
-## 檢查清單
-- [ ] 使用 Early Return
-- [ ] 命名遵循 PHP/WordPress 慣例
-- [ ] 消除重複邏輯
-- [ ] SQL 使用 prepared statements
-- [ ] 輸入清理 / 輸出轉義
-- [ ] 權限檢查到位
+## 8. 檢查清單
 
----
+重構完成前逐項確認：
 
-**文件版本**：Integration Test PHPUnit Version 1.0
-**適用框架**：PHP 8.2+ + PHPUnit 9.x + wp-env + WordPress
+### 結構
+- [ ] 無 `// TODO:` 殘留
+- [ ] 無 `// [Handler: xxx]` 標註
+- [ ] 所有檔頭有 `declare(strict_types=1);`
+- [ ] 所有 class 置於正確 namespace
+
+### 型別
+- [ ] 所有方法參數有型別宣告
+- [ ] 所有方法有回傳型別
+- [ ] Nullable 型別使用 `?Type` 明確標註
+
+### SOLID
+- [ ] 每個 class 單一職責
+- [ ] Service 透過 constructor 注入 Repository
+- [ ] 無跨層違規（Service 直接用 $wpdb 等）
+
+### WordPress 安全
+- [ ] 所有 $wpdb 查詢使用 `prepare()`
+- [ ] 輸入經 sanitize_*
+- [ ] 輸出經 esc_*
+- [ ] 敏感動作前檢查 nonce + capability
+
+### 品質
+- [ ] Early Return 取代深層 if 巢狀
+- [ ] Magic number 已抽為 constants
+- [ ] 方法命名表達意圖
+- [ ] 布林方法以 is/has/can 開頭
+
+### 測試
+- [ ] Phase A 後所有測試仍全綠
+- [ ] Phase B 後所有測試仍全綠
+- [ ] 無新增跳過的測試

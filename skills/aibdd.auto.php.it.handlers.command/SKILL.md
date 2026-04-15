@@ -1,143 +1,175 @@
 ---
 name: aibdd.auto.php.it.handlers.command
-description: 當在 Gherkin 中撰寫寫入操作步驟（Given 已完成 / When 執行中），務必參考此規範。直接呼叫 Service 方法。
-user-invocable: false
+description: >
+  處理 Given/When 步驟中執行寫入操作（Command）的 handler 參考文件。觸發關鍵字：已訂閱、已建立、已新增、更新、建立、刪除、提交。
+  非 user-invocable，由 /aibdd.auto.php.it.red 在實作測試方法時載入。
 ---
 
-# Command-Handler (Integration Test Version)
+# Handler: command
 
-## Role
+## Trigger 辨識
 
-負責實作 `Given`（已完成的動作）和 `When`（執行中的動作）步驟中的 Command 操作。
+本 handler 適用於呼叫 **Service 寫入方法** 的步驟：
 
-**核心任務**：直接呼叫 Service 方法執行寫入操作。
+- **Given 過去式**（描述已發生的業務行為）：
+  - 「用戶 Alice **已訂閱**課程 1」
+  - 「訂單 ORD-001 **已建立**」
+  - 「管理者 Bob **已新增**商品 PROD-001」
+- **When 現在式**（當下觸發的業務行為，可能失敗）：
+  - 「用戶 Alice **更新**課程 1 的影片進度為 80%」
+  - 「管理者 **建立**新商品 PROD-002」
+  - 「用戶 Alice **刪除**購物車中的商品 PROD-001」
+  - 「用戶 Alice **提交**訂單」
 
----
+關鍵字（Given）：`已訂閱`、`已建立`、`已新增`、`已更新`、`已刪除`
+關鍵字（When）：`更新`、`建立`、`新增`、`刪除`、`提交`、`取消`、`完成`
 
-## ⚠️ 與 Behat 版本的差異
+## 任務
 
-| 項目 | Behat 版本 | Integration Test 版本 |
-|------|-----------|----------------------|
-| Service 存取 | `$this->feature->services->*` | **`$this->services->*`** |
-| 錯誤存取 | `$this->feature->lastError` | **`$this->lastError`** |
-| ID 映射 | `$this->feature->ids[$userName]` | **`$this->ids[$userName]`** |
-| 注入方式 | 建構子注入 FeatureContext | **繼承 IntegrationTestCase** |
-| DataTable | `TableNode $table` | **PHP array** |
-| DocString | `PyStringNode $content` | **PHP string literal** |
+直接呼叫 `$this->services->xxx->method(...)`：
+- **Given + Command**：不預期失敗，無需 try/catch
+- **When + Command**：可能失敗，必須 try/catch 將錯誤存入 `$this->lastError`
 
----
+## 與其他 Handler 的區別
 
-## ⚠️ 呼叫方式：直接呼叫 Service
+| 項目 | Command | Query |
+|---|---|---|
+| 系統狀態 | 修改 | 不修改 |
+| Service 方法 | `updateXxx`、`createXxx`、`deleteXxx`、`subscribeXxx` | `getXxx`、`findXxx`、`listXxx` |
+| 儲存位置 | `$this->lastError`（失敗時） | `$this->queryResult` |
+| 驗證方式 | 由 success-failure handler | 由 readmodel-then handler |
 
-| 項目 | E2E 版本 | Integration Test 版本 |
-|------|---------|----------------------|
-| 執行方式 | HTTP POST | **直接呼叫 Service 方法** |
-| 認證 | Cookie/Session | **不需認證** |
-| 結果處理 | HTTP Response | **捕獲 Throwable** |
-| 依賴注入 | WordPress hooks | **IntegrationTestCase set_up()** |
+另與 `aggregate-given` 的差異：aggregate-given 透過 Repository.save() 建立資料（fixture），command 則呼叫 Service 觸發完整業務流程。
 
----
+## 實作流程
 
-## Given vs When
+1. **判斷 Given vs When**：依關鍵字與時機選擇是否加 try/catch。
+2. **從 `$this->ids` 取得依賴 ID**：`$userId = $this->ids['Alice'];`
+3. **呼叫 Service 方法**：方法名 = `api.yml` 的 `operationId`（camelCase）。
+4. **When 必加 try/catch**：捕捉 `\Throwable` 存入 `$this->lastError`。
+5. **不驗證回傳值**：驗證交給 Then 步驟（aggregate-then / readmodel-then / success-failure）。
 
-### Given（已完成的動作）
+## BDD 模式與程式碼範例
+
+### Given + Command（不預期失敗）
+
+```gherkin
+Given 用戶 "Alice" 已訂閱課程 1
+```
 
 ```php
-public function test_scenario(): void
-{
-    // Given 用戶 Alice 已訂閱旅程 101
-    $userId = $this->ids['Alice'];
-    // Given 假設成功，不需要 try-catch
-    $this->services->journey->subscribe((string) $userId, 101);
+$userId = $this->ids['Alice'];
+$this->services->subscription->subscribe($userId, 1);
+```
 
-    // When ...
-    // Then ...
+```gherkin
+Given 用戶 "Alice" 已建立訂單 "ORD-001"，包含商品 "PROD-001" 數量 2
+```
+
+```php
+$userId = $this->ids['Alice'];
+$orderId = $this->services->order->create($userId, [
+    ['productId' => 'PROD-001', 'quantity' => 2],
+]);
+$this->ids['ORD-001'] = $orderId;
+```
+
+### When + Command（可能失敗）
+
+```gherkin
+When 用戶 "Alice" 更新課程 1 的影片進度為 80%
+```
+
+```php
+$userId = $this->ids['Alice'];
+try {
+    $this->services->lesson->updateVideoProgress($userId, 1, 80);
+} catch (\Throwable $e) {
+    $this->lastError = $e;
 }
 ```
 
-### When（執行中的動作）
+```gherkin
+When 用戶 "Alice" 提交訂單
+```
 
 ```php
-public function test_update_progress(): void
-{
-    // Given ...
+$userId = $this->ids['Alice'];
+try {
+    $this->services->order->submit($userId);
+} catch (\Throwable $e) {
+    $this->lastError = $e;
+}
+```
 
-    // When 用戶 Alice 更新課程 101 的影片進度為 80%
-    $userId = $this->ids['Alice'];
-    try {
-        $this->services->lesson->updateVideoProgress((string) $userId, 101, 80);
-        $this->lastError = null;
-    } catch (\Throwable $e) {
-        $this->lastError = $e;
+### 含 DataTable 的 Command
+
+```gherkin
+When 管理者建立以下商品:
+  | 商品 ID   | 名稱       | 價格 |
+  | PROD-001 | iPhone 16  | 30000 |
+  | PROD-002 | MacBook    | 60000 |
+```
+
+```php
+$products = [
+    ['商品 ID' => 'PROD-001', '名稱' => 'iPhone 16', '價格' => 30000],
+    ['商品 ID' => 'PROD-002', '名稱' => 'MacBook',   '價格' => 60000],
+];
+try {
+    foreach ($products as $row) {
+        $this->services->product->create(
+            id: $row['商品 ID'],
+            name: $row['名稱'],
+            price: (int) $row['價格'],
+        );
     }
-
-    // Then ...
+} catch (\Throwable $e) {
+    $this->lastError = $e;
 }
 ```
 
----
+## IntegrationTestCase 基類（參考）
 
-## 處理 DataTable（轉為 PHP array）
+所有 Test class 均繼承此基類：
 
 ```php
-public function test_batch_create_users(): void
+abstract class IntegrationTestCase extends \Yoast\WPTestUtils\WPIntegration\TestCase
 {
-    // When 管理員批次建立以下用戶
-    $users = [
-        ['name' => 'Alice', 'email' => 'alice@example.com'],
-        ['name' => 'Bob', 'email' => 'bob@example.com'],
-    ];
+    protected ?\Throwable $lastError = null;
+    protected mixed $queryResult = null;
+    protected array $ids = [];
+    protected object $repos;
+    protected object $services;
 
-    try {
-        foreach ($users as $row) {
-            $this->services->user->register($row['name'], $row['email']);
-        }
+    abstract protected function configure_dependencies(): void;
+
+    public function set_up(): void {
+        parent::set_up();
         $this->lastError = null;
-    } catch (\Throwable $e) {
-        $this->lastError = $e;
+        $this->queryResult = null;
+        $this->ids = [];
+        $this->repos = new \stdClass();
+        $this->services = new \stdClass();
+        $this->configure_dependencies();
     }
-
-    // Then ...
 }
 ```
 
----
+## 共用規則 R1-R7
 
-## 處理 DocString（轉為 PHP string）
+- **R1（不驗證回傳）**：Command 執行後不做斷言，驗證交給 Then 步驟。
+- **R2（When 必 try/catch）**：When + Command 必須包 try/catch 儲存 `$this->lastError`。
+- **R3（Given 不 try/catch）**：Given + Command 預設成功；若失敗應拋出視為測試環境錯誤。
+- **R4（依賴 ID）**：從 `$this->ids` 取得依賴 ID，禁止硬編或另行查詢。
+- **R5（Service 方法名）**：一律使用 `api.yml` 的 `operationId`（camelCase）。
+- **R6（禁直連 DB）**：禁止在 command handler 內使用 `$wpdb` 或 Repository 繞過 Service。
+- **R7（失敗不拋出）**：try/catch 後 **不要** 重新拋出，交由 Then 步驟透過 `assert_operation_*` 驗證。
 
-```php
-public function test_submit_assignment(): void
-{
-    // Given ...
+## 完成條件
 
-    // When 用戶 Alice 提交作業
-    $userId = $this->ids['Alice'];
-    $content = "這是作業內容\n包含多行文字";
-
-    try {
-        $this->services->assignment->submit((string) $userId, $content);
-        $this->lastError = null;
-    } catch (\Throwable $e) {
-        $this->lastError = $e;
-    }
-
-    // Then ...
-}
-```
-
----
-
-## Critical Rules
-
-### R1: 所有 When 步驟必須捕獲錯誤（try-catch）
-### R2: Given 通常不需要捕獲錯誤
-### R3: 從 $this->services 取得 Service（不需要 FeatureContext）
-### R4: userName → userId 轉換透過 $this->ids
-### R5: DataTable 轉為 PHP array（不使用 TableNode）
-### R6: DocString 轉為 PHP string literal（不使用 PyStringNode）
-### R7: lastError 是 IntegrationTestCase 的 protected 屬性
-
----
-
-**文件版本**：Integration Test PHPUnit Version 1.0
-**適用框架**：PHP 8.2+ + PHPUnit 9.x + wp-env + WordPress
+- [ ] Given + Command 均有直接 Service 呼叫
+- [ ] When + Command 均包含 try/catch 錯誤儲存
+- [ ] 所有依賴 ID 皆從 `$this->ids` 取得
+- [ ] 無任何直接 `$wpdb` 或 Repository 呼叫（該層屬 aggregate-given）
+- [ ] 無任何斷言（斷言屬 Then 步驟）
