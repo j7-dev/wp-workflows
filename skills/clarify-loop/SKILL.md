@@ -21,6 +21,33 @@ user-invocable: true
 
 ---
 
+## 通訊工具（依執行層級）
+
+此 skill 定義的是**問題內容的範本**，實際「投遞」問題給用戶時，必須依執行層級選對工具，否則用戶看不到：
+
+| 執行層級 | 偵測方式 | 通訊工具 |
+|---------|---------|---------|
+| **主窗口** | 無上層 Agent tool 呼叫 | 直接輸出下方定義的 Markdown 範本；用戶可直接看到 |
+| **Sub-agent（terminal）** | 由上層 Agent tool 啟動 + `GITHUB_ACTIONS` 未設或為 `false` | **必須使用 `AskUserQuestion` 工具**——sub-agent 的純文字輸出只會變成 tool result 回傳給上層，用戶 terminal 上看不到 |
+| **Sub-agent（CI）** | 由上層 Agent tool 啟動 + `GITHUB_ACTIONS=true` | 使用 `gh issue comment` 發問到 Issue 討論串 |
+
+> ⚠️ **嚴禁 sub-agent 只輸出 Markdown 文字當作提問**——那些文字用戶完全看不到，等於沒問。這是本 skill 最常見的誤用。
+
+### AskUserQuestion 對齊本 skill 格式
+
+將本 skill 的 Markdown 範本映射到工具參數：
+
+| Markdown 範本 | AskUserQuestion 參數 |
+|--------------|---------------------|
+| `[QN/M] 問題描述` | `question` / `questionText` 文字 |
+| `**推薦：X** — 理由` | 在 question 文字尾加「（推薦：X — <理由>）」，並在對應 option 的 description 前綴加 `(推薦) ` |
+| `\| 選項 \| 說明 \|` 表格每列 | `options` 陣列一項（`label` = 選項代號或簡短名，`description` = 說明） |
+| —（Markdown 無對應） | 一律額外加入 `其他（請簡述）` option，允許用戶自由輸入 |
+
+澄清紀錄（`${CLARIFY_DIR}/` 的 session 檔案）仍以 Markdown 格式寫入，不受通訊工具影響。
+
+---
+
 ## 提問格式
 
 **選擇題（優先使用）：**

@@ -19,12 +19,12 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "wp-workflows:aibdd.discovery"
-  - "wp-workflows:aibdd.auto.frontend.msw-api-layer"
-  - "wp-workflows:aibdd.form.activity-spec"
-  - "wp-workflows:aibdd.form.api-spec"
-  - "wp-workflows:aibdd.form.entity-spec"
-  - "wp-workflows:aibdd.form.feature-spec"
+  - "wp-workflows:aibdd-discovery"
+  - "wp-workflows:aibdd-auto-frontend-msw-api-layer"
+  - "wp-workflows:aibdd-form-activity"
+  - "wp-workflows:aibdd-form-api-spec"
+  - "wp-workflows:aibdd-form-entity-spec"
+  - "wp-workflows:aibdd-form-feature-spec"
   - "wp-workflows:clarify-loop"
 ---
 
@@ -95,15 +95,10 @@ skills:
 
 ---
 
-## 主要使用的 Skills
+## 可用 Skills（WHAT）
 
-- `/aibdd.discovery`
-- `/aibdd.auto.frontend.msw-api-layer`
-- `/aibdd.form.activity-spec`
-- `/aibdd.form.api-spec`
-- `/aibdd.form.entity-spec`
-- `/aibdd.form.feature-spec`
-- `/clarify-loop`
+- `/aibdd-discovery`、`/aibdd-auto-frontend-msw-api-layer`、`/clarify-loop`
+- `/aibdd-form-activity`、`/aibdd-form-api-spec`、`/aibdd-form-entity-spec`、`/aibdd-form-feature-spec`
 
 ---
 
@@ -129,11 +124,34 @@ skills:
 > ⚠️ **不要停下來詢問用戶是否開始規劃**。specs 寫完就直接交接給 planner，整條流程自動銜接：
 > `clarifier → planner → tdd-coordinator → test-creator → *-master → *-reviewer`
 
-## CI 環境行為
+## 運行環境行為
+
+### 通訊工具（依環境）
+
+**提問工具依執行環境決定**，詳細映射規則請見 `/clarify-loop` skill 的「通訊工具（依執行層級）」章節。本 agent 只列本地總覽：
+
+| 環境 | 偵測方式 | 通訊工具 |
+|------|---------|---------|
+| Terminal（本地互動） | `GITHUB_ACTIONS` 未設或為 `false` | **必須使用 `AskUserQuestion`**——作為 sub-agent 跑時，Markdown 文字用戶看不到 |
+| CI（GitHub Actions） | `GITHUB_ACTIONS=true` | 使用 `gh issue comment` 發到 Issue 討論串（不使用 mcp comment 工具） |
+
+> ⚠️ **嚴禁只輸出 Markdown 文字當作提問**。你作為 sub-agent 跑時，文字輸出只會回傳給主窗口當 tool result，用戶 terminal 上空空如也，等於沒問。
+
+---
+
+### Terminal 環境行為
+
+- 每次澄清只問 1 題，依 `/clarify-loop` 的「AskUserQuestion 對齊本 skill 格式」規則填入工具參數
+- 用戶回答後，靜默更新對應的產出檔案（`./specs/` 內的 feature / activity / api.yml / erm.dbml），不展示更新內容、不要求用戶確認寫入結果
+- 所有釐清完成後依「完成後交接」段落執行（寫 specs → 交接 planner → tdd-coordinator）
+
+---
+
+### CI 環境行為（GitHub Actions）
 
 當在 GitHub Actions 環境中運作時（`GITHUB_ACTIONS=true`），行為取決於 prompt 中的模式指令：
 
-### 模式 A：互動澄清模式（預設，用戶觸發 `@claude`）
+#### 模式 A：互動澄清模式（預設，用戶觸發 `@claude`）
 
 **自動判斷 + 最低提問數機制：**
 
@@ -145,7 +163,7 @@ skills:
 4. 每次 run 最多問 1 個問題
 5. 用戶隨時可留言 `@claude 確認` 或 `@claude 開工` 跳過提問限制，直接啟動管線
 
-### 模式 B：全流程管線模式（用戶觸發 `@claude 開工/確認/OK`）
+#### 模式 B：全流程管線模式（用戶觸發 `@claude 開工/確認/OK`）
 
 **一氣呵成：specs → planner → tdd-coordinator**
 
@@ -154,9 +172,10 @@ skills:
 3. Planner 完成後使用 Agent tool 啟動 `@wp-workflows:tdd-coordinator`
 4. 整條鏈路自動執行到底，中間不等待用戶回覆
 
+---
+
 ### 通用規則
 
-- **通訊方式**：使用 `gh issue comment` 與用戶互動，不使用 mcp comment 工具
 - **禁止直接實作**：clarifier 永遠不直接寫功能程式碼，實作由 tdd-coordinator 負責
 
 ---

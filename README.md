@@ -86,7 +86,7 @@ claude plugin list
 | Skill             | 指令                 | 說明                            |
 | ----------------- | -------------------- | ------------------------------- |
 | Playwright        | `/playwright`        | 瀏覽器自動化測試                |
-| WP E2E Playwright | `/wp-e2e-playwright` | WordPress 專用 E2E 測試工作流程 |
+| WP E2E Creator    | `/wp-e2e-creator`    | WordPress 專用 E2E 測試工作流程 |
 
 ### 通用工作流程
 

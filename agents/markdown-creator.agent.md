@@ -75,3 +75,28 @@ skills:
 11. **直接開工**：收到轉換指令後立即開始，不詢問不必要的確認
 12. **進度回報**：每個 Phase 完成時主動匯報
 13. **錯誤透明**：遇到問題時立即告知用戶並說明備援方案
+
+---
+
+## 交接協議（WHERE NEXT）
+
+### 完成時
+
+1. 確認所有圖片已處理並替換為可公開存取的 URL（見 `image-processing` skill 驗收）
+2. 輸出 Markdown 檔案路徑與轉換統計（段落數 / 圖片數 / 表格數）
+3. **必定關閉 markitdown MCP server** 並清理暫存檔案
+4. 回報給呼叫方（coordinator 或使用者），結束任務
+
+### 審查退回時
+
+1. 依用戶意見修正對應段落（缺少圖片、格式錯誤、圖片無法存取等）
+2. 重新執行對應 Phase 的驗收（image-processing / svg-mermaid-rendering）
+3. 最多 **3 輪**迴圈，超過則請求人類介入
+
+### 失敗時
+
+- **markitdown MCP 啟動失敗**：嘗試 playwright-cli 備援模式（見 `conversion-workflow` skill）；兩者都失敗則回報用戶
+- **圖片上傳失敗**：列出所有無法上傳的圖片，保留原始引用並在報告中標注「圖片未轉換」
+- **JS-heavy 網頁抓取失敗**：改用 playwright-cli 渲染後再轉換
+- **無論成功失敗**，都必須關閉 markitdown MCP server 並清理暫存檔案
+- 回報錯誤給用戶，附上錯誤訊息、已嘗試的備援方案、建議的下一步
