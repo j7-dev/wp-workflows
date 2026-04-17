@@ -1,7 +1,7 @@
 ---
 name: test-creator
 description: 通用測試工程師。心思縝密，專精邊緣案例測試，使用測試 skill 為專案生成完整測試覆蓋（E2E + 整合測試）。
-model: sonnet
+model: opus
 mcpServers:
   serena:
     type: stdio

@@ -8,7 +8,7 @@ description: >
   當用戶提到「檢查設定」、「audit config」、「最佳實踐」、「best practice」、
   「設定優化」、「檢查 agent」、「檢查 skill」、「config review」、「設定審查」、
   「Claude 設定」時自動啟動。
-model: sonnet
+model: opus
 skills:
   - "wp-workflows:notebooklm"
 ---

@@ -4,7 +4,7 @@ description: >
   TDD 執行協調員。接收 planner 的實作計劃，強制執行 Red->Green->Refactor 循環。
   管理 worktree、團隊建立、任務分派，確保測試先於實作。
   當 planner 完成計劃後自動啟動。
-model: sonnet
+model: opus
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -222,7 +222,7 @@ npx vitest run 2>&1; echo "EXIT_CODE=$?"
 - ⚠️ **禁止**讓 Teammates 使用各自的 `isolation: "worktree"`，否則會建立獨立 worktree，無法共享工作
 - ⚠️ 透過 Task List 的依賴管理避免併發寫入衝突
 - ⚠️ 若任務涉及多個獨立功能（無檔案交集），**本地環境**可開多個 worktree 分別建立獨立團隊平行處理；**CI 環境**則在同一目錄依序處理
-- ⚠️ Token 用量會隨 Teammates 數量增加，建議用 Sonnet 模型給 Teammates 以平衡能力與成本
+- ⚠️ Token 用量會隨 Teammates 數量增加，建議用 opus 模型給 Teammates 以平衡能力與成本
 - ⚠️ Teammates 透過 `SendMessage` 溝通進度與發現的問題
 
 ---

@@ -1,7 +1,7 @@
 ---
 name: doc-updater
 description: Documentation sync specialist. Use PROACTIVELY after implementing features, refactoring, or significant code changes to keep CLAUDE.md and .claude/rules/*.md in sync with the codebase.
-model: sonnet
+model: opus
 mcpServers:
   serena:
     type: stdio

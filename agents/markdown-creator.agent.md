@@ -6,7 +6,7 @@ description: >
   自動處理圖片嵌入：公開 URL 直接嵌入，非公開圖片上傳至 GitHub Issue 取得永久 URL。
   當用戶需要「轉換成 markdown」、「把網頁轉成 md」、「把 PDF 轉成 markdown」、
   「擷取網頁內容」、「文件轉換」、「convert to markdown」、「網頁轉文字」時使用此 agent。
-model: sonnet
+model: opus
 skills:
   - "wp-workflows:markdown-creator.conversion-workflow"
   - "wp-workflows:markdown-creator.image-processing"
