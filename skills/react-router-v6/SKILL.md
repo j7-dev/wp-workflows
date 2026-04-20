@@ -1,6 +1,18 @@
 ---
 name: react-router-v6
-description: API reference and code patterns for react-router-dom v6 (specifically v6.28.x). Use this skill whenever the user is writing, reading, debugging, or migrating code that imports from "react-router-dom" v6 — including HashRouter, BrowserRouter, createBrowserRouter, RouterProvider, Outlet, useOutletContext, useParams, useNavigate, useLocation, useSearchParams, Link, NavLink, loaders/actions, errorElement. Also use this whenever the user asks about v6 vs v7 differences, or when a repo's package.json pins `react-router-dom ^6.x` — do NOT let a v7 skill answer v6 questions, the APIs differ in subtle and dangerous ways.
+description: >
+  API reference and code patterns for react-router-dom v6 (specifically v6.28.x).
+  **Version routing first**: before using this skill, read package.json —
+  use this skill when pinned to `react-router-dom ^6.x`;
+  switch to react-router-v7 skill when pinned to `react-router ^7.x`
+  (note the package name changed: v6 is `react-router-dom`, v7 is `react-router`).
+  Covers HashRouter, BrowserRouter, createBrowserRouter, RouterProvider, Outlet,
+  useOutletContext, useParams, useNavigate, useLocation, useSearchParams, Link, NavLink,
+  loaders/actions, errorElement, and v6 vs v7 migration guidance.
+  ⚠️ Many hooks (`useNavigate`, `useParams`, `Link` etc.) share names across v6/v7 but
+  their import path and underlying behavior differ — do NOT trigger this skill on hook
+  names alone; confirm the project is v6 first.
+  v6 and v7 APIs differ in subtle and dangerous ways; do NOT let a v7 skill answer v6 questions.
 ---
 
 # react-router-dom v6 (v6.28.x)

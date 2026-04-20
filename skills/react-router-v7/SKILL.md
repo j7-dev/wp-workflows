@@ -2,15 +2,17 @@
 name: react-router-v7
 description: >
   React Router v7 完整技術參考，對應 react-router ^7.1.5。
-  當程式碼涉及 createBrowserRouter、RouterProvider、useNavigate、useParams、useLoaderData、
+  **版本判斷優先**：使用前先讀 package.json——
+  若 pin 為 `react-router ^7.x`（注意是 `react-router`，不是 `react-router-dom`），
+  使用此 skill；若 pin 為 `react-router-dom ^6.x`，改用 react-router-v6 skill。
+  涵蓋 createBrowserRouter、RouterProvider、useNavigate、useParams、useLoaderData、
   useActionData、useNavigation、useFetcher、useMatches、useRouteError、useOutletContext、
-  Link、NavLink、Form、Outlet、Await、ScrollRestoration、Navigate 等任何 React Router 相關
-  import 或用法時，必須使用此 skill。即使使用者沒有明確說出 React Router，只要任務涉及
-  SPA 路由、data loading、form action、error boundary、lazy route、layout route、
-  route 型別定義、loader 函式、action 函式、redirect、isRouteErrorResponse、
-  deferred data、streaming、route params、search params、navigation state 等概念，
-  也應優先使用此 skill 而不是搜尋 web。
-  此 skill 對應 react-router v7.x（SPA/Library 模式），不適用於 v6 或 Framework 模式（SSR）。
+  Link、NavLink、Form、Outlet、Await、ScrollRestoration、Navigate、isRouteErrorResponse、
+  lazy route、layout route、loader/action 函式、deferred data、streaming、
+  route params、search params、navigation state 等 v7 API。
+  ⚠️ 許多 hook 名稱（useNavigate、useParams、Link 等）v6/v7 共用，但底層行為與 import
+  來源不同——不可單憑 hook 名稱觸發本 skill，必須先確認專案為 v7。
+  此 skill 對應 v7.x SPA/Library 模式，不適用於 v6 或 Framework 模式（SSR）。
 ---
 
 # React Router v7

@@ -1,6 +1,17 @@
 ---
 name: tailwindcss-v3
-description: API reference and idioms for Tailwind CSS v3 (v3.4.x) — the JavaScript-config era. Use this skill whenever the user is writing, reading, debugging, or migrating code that uses a `tailwind.config.js` file, the `@tailwind base/components/utilities` directives, or utility classes targeting a v3 setup. Also use this when the user mentions v3 vs v4 migration, CSS custom properties exposed as utilities (`bg-brand` → CSS var), arbitrary values like `bg-[--color-surface]`, or asks why a v4 snippet from the modern docs doesn't work in their project — v3 and v4 are architecturally different and snippets do not cross-compile.
+description: >
+  API reference and idioms for Tailwind CSS v3 (v3.4.x) — the JavaScript-config era.
+  **Version routing first**: before using this skill, read package.json's `tailwindcss` version —
+  use this skill when pinned to `^3.x` or when `tailwind.config.js` exists in the repo;
+  switch to tailwindcss-v4 skill when pinned to `^4.x` or when `@tailwindcss/vite` /
+  `@tailwindcss/postcss` is present.
+  Covers `tailwind.config.js`, `@tailwind base/components/utilities` directives, content globs,
+  theme extension, plugins, CSS custom properties exposed as utilities (`bg-brand` → CSS var),
+  arbitrary values like `bg-[--color-surface]`, and v3 vs v4 migration guidance.
+  ⚠️ Utility classes (`bg-*`, `text-*`, `flex`, `grid`, `hover:` etc.) are shared between v3/v4 —
+  do NOT trigger this skill on class names alone; confirm the project is v3 first.
+  v3 and v4 are architecturally different; snippets do not cross-compile.
 ---
 
 # Tailwind CSS v3 (v3.4.x)

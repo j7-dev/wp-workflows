@@ -2,14 +2,15 @@
 name: tailwindcss-v4
 description: >
   TailwindCSS v4 的完整技術參考，採用 CSS-first 設定（非 v3 的 JS config）。
-  當任務涉及 Tailwind、tailwindcss、CSS utilities、@theme 指令、@custom-variant、
-  @utility、@source、@plugin、design tokens、utility classes、responsive design、
-  dark mode、container queries、3D transforms、@starting-style、field-sizing、
-  prose 排版、@tailwindcss/vite、@tailwindcss/typography 時，必須使用此 skill。
-  即使用戶沒有明確說出「Tailwind」，只要任務涉及 bg-*、text-*、flex、grid、
-  hover:、dark:、md:、rounded、shadow、transition、animate 等 class 命名模式，
-  也應該使用此 skill 而不是去搜尋 web。
-  此 skill 對應 v4.x，與 v3 有重大差異（無 tailwind.config.js，改用 @theme）。
+  **版本判斷優先**：使用前先讀 package.json 的 `tailwindcss` 版本——
+  若 pin 為 `^4.x` 或存在 `@tailwindcss/vite` / `@tailwindcss/postcss` 依賴，
+  使用此 skill；若為 `^3.x` 或存在 `tailwind.config.js`，改用 tailwindcss-v3 skill。
+  涵蓋 @theme 指令、@custom-variant、@utility、@source、@plugin、design tokens、
+  container queries、3D transforms、@starting-style、field-sizing、prose 排版、
+  @tailwindcss/vite、@tailwindcss/typography 等 v4 專屬 API。
+  ⚠️ utility class（bg-*、text-*、flex、grid、hover: 等）v3/v4 共用語法，
+  不可單憑這些 class 名稱觸發本 skill——必須先確認專案為 v4。
+  v3 與 v4 架構不相容，snippets 無法跨版互通。
 ---
 
 # TailwindCSS v4
