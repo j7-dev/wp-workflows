@@ -341,6 +341,174 @@ zenbu-powers/
 
 ---
 
+## 使用範例
+
+安裝完成後，Claude 在 session 啟動時已自動載入 Orchestrator 心法。你只需要用**自然語言**描述需求，Claude 會判斷要委派哪個 Agent、呼叫哪個 Skill。無需記憶指令清單。
+
+### 範例 1：開發一個全新 WordPress 外掛
+
+```
+我要做一個 WooCommerce 訂單匯出外掛，支援 HPOS，要有 REST API
+```
+
+Claude 的自動流程：
+
+1. **`/brainstorming`** — Socratic 對話精煉需求（支援哪些欄位？權限？Rate limit？）
+2. **`@clarifier`** — 輸出結構化使用者故事與驗收標準
+3. **`@planner`** — 產出實作計畫
+4. **`@wordpress-master`** — 依計畫實作，過程中自動參考 `/wp-plugin-development`、`/wp-rest-api`、`/woocommerce-hpos`
+5. **`@wordpress-reviewer` + `@security-reviewer`** — 平行審查，不通過退回 master 形成迴圈
+6. **`/git-commit`** — 產生符合慣例的 Commit Message
+
+### 範例 2：修一個棘手的 bug
+
+```
+正式環境有個 race condition，某個訂單狀態偶爾會跳回舊值
+```
+
+Claude 的自動流程：
+
+1. **`/systematic-debugging`** — 啟動 4 階段根因調查（Reproduce → Isolate → Root Cause → Fix & Verify）
+2. 依需要委派 **`@wordpress-master`** 或 **`@nestjs-master`** 深入分析
+3. 確認根因後才開始修，避免「瞎改到好」
+
+### 範例 3：AIBDD 全自動 BDD 開發（TypeScript 專案）
+
+```
+/aibdd-kickoff
+```
+
+啟動 AIBDD 儀式後，Claude 依序引導：
+
+1. **`/aibdd-discovery`** → **`/aibdd-form-feature-spec`** → **`/aibdd-form-entity-spec`** → **`/aibdd-form-api-spec`**
+2. **`@tdd-coordinator`** 接管，依序執行 `aibdd.auto.ts.it.red` → `green` → `refactor`
+3. 全程由 skill 約束，確保測試先於實作、測試覆蓋各種 Handler 類型（Command / Query / Aggregate / ReadModel）
+
+### 範例 4：NestJS API 新功能
+
+```
+幫我在現有 NestJS 專案加一個使用者通知模組，用 BullMQ 做背景寄信
+```
+
+Claude 的自動流程：
+
+1. **`@planner`** — 依現有模組結構產出模組化設計
+2. **`@nestjs-master`** — 實作，自動參考 `/nestjs-v11`、`/bullmq-v5`、`/typeorm-v0-3`、`/zod-v3`
+3. **`@nestjs-reviewer`** — 審查 DI、Guards、DTO 驗證
+
+### 範例 5：直接叫用特定 Skill 或 Agent
+
+```
+/brainstorming 設計一個多租戶權限系統
+```
+
+```
+@security-reviewer 幫我審查剛剛寫的 REST API 端點
+```
+
+```
+/finishing-branch
+```
+
+### 範例 6：跨平台一致性重構
+
+```
+把所有提到 old-plugin-name 的地方，全部改成 new-plugin-name
+```
+
+Claude 自動套用**全域一致性守則**：
+
+1. **`/aho-corasick-skill`** `scan` 模式批次掃描所有命中
+2. 逐一替換
+3. 重新掃描確認零殘留
+
+---
+
+## 常見問題（FAQ）
+
+### Q1：已經安裝 `obra/superpowers`，還需要裝 zenbu-powers 嗎？反過來呢？
+
+**答：不建議同時安裝。** zenbu-powers 已完整涵蓋 superpowers 的核心方法論（`systematic-debugging`、`finishing-branch`、`tdd-workflow` 的 verification-gate、SessionStart hook 架構、`brainstorming`、`dispatching-parallel-agents`），並在此基礎上擴充為 zenbu org 的完整技術棧（WordPress 全棧 / React 生態 / NestJS / AIBDD 三語言整合測試）。
+
+兩者同時安裝會導致：
+- **Skill 命名衝突** — 同名 skill 行為可能差異
+- **SessionStart hook 重複觸發** — context 被注入兩次
+- **Agent 職責重疊** — Claude 判斷該派誰時會猶豫
+
+**建議**：直接用 zenbu-powers 即可，已經是 superpowers 的超集。
+
+### Q2：我只寫 React / Node.js，用不到 WordPress，裝這個會不會太肥？
+
+**答：不會影響。** Skill 是**被動載入**的——只有 Claude 判斷當前任務需要時才會讀取對應 skill 的內容，不會佔用你的 context。你寫 React 時，`wp-*` skills 就只是硬碟上的檔案，完全不會干擾。
+
+### Q3：SessionStart hook 沒觸發怎麼辦？
+
+**答：** 依以下順序檢查：
+
+1. 確認 plugin 已正確安裝：`claude plugin list`
+2. Windows 使用者確認有裝 Git Bash（hook 需要 bash 解析）
+3. 重新啟動 Claude Code session
+4. 若仍無效，可手動執行 `/using-zenbu-powers` 載入 Orchestrator 心法
+
+### Q4：如何新增自己專案專屬的 Agent 或 Skill？
+
+**答：** zenbu-powers 是**全域 plugin**，放置共用能力。專案專屬的 agent / skill 應放在專案根目錄：
+
+```
+專案根目錄/
+├── .claude/
+│   ├── agents/          # 專案專屬 agent
+│   ├── skills/          # 專案專屬 skill
+│   ├── rules/           # 專案專屬規則
+│   └── CLAUDE.md        # 專案說明
+```
+
+若要建立新 skill，呼叫 `@lib-skill-creator` 自動爬取官方文件並產出 API reference 級別的 SKILL.md。
+
+### Q5：Claude 沒有自動委派 Agent，一直自己寫 code，怎麼辦？
+
+**答：** 通常是 SessionStart hook 沒成功注入。可以：
+
+1. 手動執行 `/using-zenbu-powers` 重新載入心法
+2. 在對話中明確提醒：「請以 orchestrator 模式處理，委派給合適的 agent」
+3. 直接 `@<agent-name>` 點名（例如 `@wordpress-master 幫我實作這個功能`）
+
+### Q6：AIBDD 是什麼？跟一般 TDD 有何不同？
+
+**答：** AIBDD（AI Behavior-Driven Development）是 zenbu-powers 獨家設計的 AI 驅動 BDD 方法論：
+
+- **一般 TDD** — 工程師手寫測試 → 手寫實作 → 手動重構
+- **AIBDD** — 透過表單（feature / entity / api spec）結構化需求 → AI 依 skill 自動產生失敗測試 → 自動實作 → 自動重構
+
+差別在於 AIBDD 有**完整的 skill 約束**確保 AI 不會偷跑、不會跳步，且支援 TypeScript / PHP / C# 三語言的 Handler 模式（Command / Query / Aggregate / ReadModel）。
+
+### Q7：可以只用 Skill 不用 Agent 嗎？反之？
+
+**答：可以。** 兩者獨立運作：
+
+- **只用 Skill** — Claude 以主窗口身份執行，參考 skill 的知識，適合小型任務
+- **只用 Agent** — 直接 `@<agent>` 點名委派，skip 掉 Orchestrator 的判斷流程
+
+但**建議讓 Orchestrator 自動判斷**，通常選擇最優。
+
+### Q8：MCP Server（Playwright / Serena）一定要裝嗎？
+
+**答：不一定。** `browser-tester`、`uiux-reviewer`、`wp-e2e-creator` 需要 Playwright MCP。`ddd-architect`、大型專案的 symbol 搜尋需要 Serena MCP。若不使用這些功能，不裝也可以，其餘 skill / agent 不受影響。
+
+### Q9：更新 plugin 後，原本的設定會不會被覆蓋？
+
+**答：不會。** `claude plugin update` 只更新 plugin 本身的 agent / skill / hook 定義，不影響：
+
+- 使用者的 `~/.claude/` 個人設定
+- 專案的 `.claude/` 專案設定
+- 聊天紀錄與 memory
+
+### Q10：遇到 bug 或想提需求？
+
+**答：** 到 [GitHub Issues](https://github.com/zenbuapps/zenbu-powers/issues) 開 issue，或直接發 PR。
+
+---
+
 ## 致謝
 
 `systematic-debugging`、`finishing-branch`、`tdd-workflow` 的 verification-gate 設計，以及 SessionStart hook 架構（polyglot wrapper、三平台輸出適配），方法論承襲自 [obra/superpowers](https://github.com/obra/superpowers)，並在地化為 zenbu org 的技術棧場景。
