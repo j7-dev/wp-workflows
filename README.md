@@ -90,14 +90,19 @@ claude plugin list
 
 ### 通用工作流程
 
-| Skill          | 指令                      | 說明                            |
-| -------------- | ------------------------- | ------------------------------- |
-| 需求規劃       | `/plan`                   | 任務分解與實作規劃              |
-| 新需求         | `/new-requirement`        | 行為發現、API 推導、Entity 推導 |
-| Git Commit     | `/git-commit`             | 產生符合慣例的 Commit Message   |
-| 需求表述       | `/formulation`            | 需求文件撰寫                    |
-| React 編碼標準 | `/react-coding-standards` | React / TypeScript 最佳實踐     |
-| Refine         | `/refine`                 | Ant Design + Refine 框架開發    |
+| Skill            | 指令                       | 說明                                                          |
+| ---------------- | -------------------------- | ------------------------------------------------------------- |
+| 需求規劃         | `/plan`                    | 任務分解與實作規劃                                            |
+| 新需求           | `/new-requirement`         | 行為發現、API 推導、Entity 推導                               |
+| Git Commit       | `/git-commit`              | 產生符合慣例的 Commit Message                                 |
+| 分支收尾         | `/finishing-branch`        | Merge / PR / Keep / Discard 4 選項決策樹 + worktree 清理      |
+| 系統化除錯       | `/systematic-debugging`    | 4 階段根因調查流程，含 WP / React / AIBDD 常見 bug 模式對照表 |
+| TDD 流程         | `/tdd-workflow`            | Red → Green → Refactor 執行 playbook，含 Evidence 鐵律         |
+| 需求表述         | `/formulation`             | 需求文件撰寫                                                  |
+| React 編碼標準   | `/react-coding-standards`  | React / TypeScript 最佳實踐                                   |
+| Refine           | `/refine`                  | Ant Design + Refine 框架開發                                  |
+
+> 💡 **與 obra/superpowers 的關係**：本 Plugin 的 `systematic-debugging`、`finishing-branch`、`tdd-workflow` 的 verification-gate 三項，方法論承襲自 `obra/superpowers`，並在地化為 WordPress / React / AIBDD 場景。若同時安裝 superpowers，兩者可平行使用：本 Plugin 提供 WP 領域實作，superpowers 提供通用流程版本。詳見比較報告（`.claude/plans/agents-skills-vivid-puzzle.md`）。
 
 ---
 

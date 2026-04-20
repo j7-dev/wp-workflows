@@ -33,6 +33,9 @@ npx vitest run 2>&1; echo "EXIT_CODE=$?"
 2. 測試命令的 exit code ≠ 0（測試必須失敗，代表 Red 狀態）
 3. 失敗原因是「斷言失敗」或「類別/方法不存在」，而非語法錯誤或環境問題
 
+> 🚨 **Evidence 鐵律**：宣稱 Red Gate 通過時，**必須在當前訊息貼上剛剛跑命令的輸出**（含 EXIT_CODE 與失敗清單）。
+> 完整證據格式與藉口對照表見 [verification-gate.md](verification-gate.md)。
+
 **若 Red Gate 不通過：**
 
 - 若無測試檔案 → 退回 Step 2，要求 test-creator 重新產生
@@ -60,6 +63,10 @@ npx vitest run 2>&1; echo "EXIT_CODE=$?"
 **驗證條件：**
 
 - 測試命令的 exit code = 0（所有測試通過）
+
+> 🚨 **Evidence 鐵律**：宣稱 Green Gate 通過時，**必須在當前訊息貼上剛剛跑命令的輸出**（含 EXIT_CODE 與「N passed / 0 failed」摘要）。
+> 信任 Sub-agent 的「我做完了」回報而沒自己跑命令 = 違反鐵律。
+> 詳見 [verification-gate.md](verification-gate.md)。
 
 **若 Green Gate 不通過：**
 

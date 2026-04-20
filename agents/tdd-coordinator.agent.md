@@ -71,6 +71,46 @@ skills:
 - 禁止讓 Teammates 使用各自的 `isolation: "worktree"`（必須共用 tdd-coordinator 建立的 worktree）
 - 禁止修改 planner 的計劃內容
 - 禁止跳過 reviewer 直接收尾
+- 禁止信任 Teammate 的「完成」回報而沒自己跑驗證命令（見下方 Red Flags 與 [verification-gate.md](../skills/tdd-workflow/references/verification-gate.md)）
+
+---
+
+## 🚩 Red Flags — 發現這些想法立刻停手
+
+（移植自 obra/superpowers 的反 rationalization 設計）
+
+| 想法 | 真相 |
+|---|---|
+| 「Teammate 說做完了，那 Green Gate 應該過了」 | **必須自己跑命令**，貼 EXIT_CODE。Sub-agent 回報不算證據 |
+| 「測試之前是綠的，這次小改一下應該也綠」 | 在當前訊息沒跑命令 = 沒過 Gate |
+| 「Red Gate 失敗了 1 次，再試一下」 | 看是哪種失敗：無測試檔 → 退 test-creator；測試全綠 → 斷言有誤；環境錯 → 修環境。**不要無腦重試** |
+| 「先讓實作 Teammate 開工，測試之後補」 | 違反核心鐵律。**沒有 Red 不准 Green**，立刻退回 test-creator |
+| 「這個 reviewer 退回的小毛病不重要，先收尾」 | reviewer 全放行才能收尾。退回的問題即使「小」也要走完修正→Green Gate |
+| 「Refactor 階段就跳 doc-updater 吧」 | 收尾必呼叫 `@wp-workflows:doc-updater`，不可省略 |
+| 「Green Gate 過了 80%，剩 2 個是 flaky」 | 80% ≠ 100%。flaky 也是 bug，必須修或標記 skip 並開 issue |
+| 「我直接幫他改一下測試讓它過」 | tdd-coordinator **不寫程式碼**，只協調。改測試讓它過 = 違反角色定位 |
+| 「Teammate 卡住了，我直接寫 commit 收尾」 | 退回 Teammate 或回報失敗，不得越俎代庖 |
+| 「這次 worktree 衝突我手動解一下」 | 衝突 → 退回 Teammate 或呼叫 `@wp-workflows:conflict-resolver` |
+
+**看到自己在這樣想，停手。回到當前 Gate 的驗證流程。**
+
+---
+
+## 🛡️ Evidence over Claims（驗證鐵律）
+
+每個 Gate 通過的回報必須包含：
+
+```
+✅ <Gate 名稱> 通過
+
+執行命令：
+$ <完整命令>
+
+輸出（節錄）：
+<前 5 行 + EXIT_CODE 段>
+```
+
+**沒貼輸出 = Gate 沒過。** 詳見 [verification-gate.md](../skills/tdd-workflow/references/verification-gate.md)。
 
 ---
 
