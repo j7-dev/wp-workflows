@@ -1,5 +1,5 @@
 ---
-name: drizzle-orm
+name: drizzle-orm-v0.38
 description: >
   drizzle-orm v0.38 與 drizzle-kit v0.31 的完整技術參考（PostgreSQL 方言，postgres.js driver）。
   涵蓋所有 Schema 定義 API、Query Builder（select/insert/update/delete）、Relational Query API、

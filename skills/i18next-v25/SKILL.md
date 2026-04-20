@@ -1,5 +1,5 @@
 ---
-name: i18next
+name: i18next-v25
 description: >
   i18next v25 與 react-i18next v16 的完整技術參考。涵蓋所有初始化設定、API、TypeScript 型別系統、翻譯語法與 React 整合模式。
   當程式碼中出現任何以下情況時，必須使用此 SKILL：

@@ -1,5 +1,5 @@
 ---
-name: vidstack-hls
+name: vidstack-hls-v1
 description: >
   Vidstack Player (@vidstack/react v1.x) + HLS.js (hls.js v1.x) complete technical reference.
   Covers all React components (MediaPlayer, MediaProvider, DefaultVideoLayout, DefaultAudioLayout),

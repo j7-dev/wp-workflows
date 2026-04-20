@@ -1,5 +1,5 @@
 ---
-name: vite-for-wp
+name: vite-for-wp-v0.12
 user-invocable: false
 description: >
   Vite for WordPress (kucrut/vite-for-wp, @kucrut/vite-for-wp) complete technical reference.

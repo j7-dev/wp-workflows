@@ -1,5 +1,5 @@
 ---
-name: pdf-lib
+name: pdf-lib-v1.17
 user-invocable: false
 description: >
   pdf-lib v1.17 complete technical reference for creating and modifying PDF documents in JavaScript/TypeScript.

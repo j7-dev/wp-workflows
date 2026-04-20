@@ -1,5 +1,5 @@
 ---
-name: ant-design-pro-components
+name: ant-design-pro-v2
 user-invocable: false
 description: >
   Ant Design Pro Components (@ant-design/pro-components) complete technical reference.

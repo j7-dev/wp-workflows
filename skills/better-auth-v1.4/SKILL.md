@@ -1,5 +1,5 @@
 ---
-name: better-auth
+name: better-auth-v1.4
 description: >
   Better Auth v1.4 完整技術參考。當程式碼出現 import from 'better-auth'、
   'better-auth/plugins'、'better-auth/adapters/drizzle'、'better-auth/node'、

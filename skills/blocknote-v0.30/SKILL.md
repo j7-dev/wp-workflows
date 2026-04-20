@@ -1,5 +1,5 @@
 ---
-name: blocknote
+name: blocknote-v0.30
 user-invocable: false
 description: >
   BlockNote block-based rich text editor for React. Complete API reference covering useCreateBlockNote,

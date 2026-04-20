@@ -1,5 +1,5 @@
 ---
-name: refine
+name: refine-v4
 description: Refine React meta-framework 開發專家。精通 CRUD-heavy 應用程式架構、Data/Auth/Router Provider 系統、Ant Design UI 整合、REST Data Provider (@refinedev/rest)。當使用者需要建立 Refine 應用程式、實作 Provider、整合 Ant Design 元件、配置路由或資料層時，請啟用此技能。
 ---
 
