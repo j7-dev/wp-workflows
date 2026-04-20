@@ -79,7 +79,7 @@ claude plugin list   # 列出已安裝的 Plugin
 |---|---|
 | `react-master` | React 18 / TypeScript，Refine、Ant Design、TanStack Query |
 | `react-reviewer` | React 程式碼審查，注重效能、Accessibility、Hooks 設計 |
-| `uiux-reviewer` | 以真實使用者視角操作 Playwright，走完業務流程提出體驗改善 |
+| `uiux-reviewer` | 以真實使用者視角透過 `playwright-cli` 操作網站，走完業務流程提出體驗改善 |
 
 ### NestJS / Node.js
 
@@ -308,8 +308,9 @@ Hook 透過 `hooks/run-hook.cmd` 這個 polyglot wrapper 實作：
 
 | MCP Server | 說明 |
 |---|---|
-| Playwright | 瀏覽器自動化，用於 E2E 測試與截圖 |
 | Serena | 程式碼語意搜尋，快速定位引用關係與符號 |
+
+> 💡 **為什麼沒有 Playwright MCP？** zenbu-powers 的瀏覽器自動化統一改用 **`playwright-cli` SKILL**（直接呼叫 CLI），不走 MCP server。這樣做的好處：啟動快、無需常駐 process、跨平台穩定、debug 時可直接在終端重現指令。`browser-tester`、`uiux-reviewer`、`wp-e2e-creator`、`markdown-creator` 等 agent 皆已改用此模式。
 
 ---
 
@@ -334,9 +335,9 @@ zenbu-powers/
 │   ├── aibdd-*/               # AIBDD 全自動 BDD 套件
 │   ├── wp-*/                  # WordPress 全棧 skills
 │   └── ...
-├── workflows/                 # GitHub Copilot coding agent 工作流程（參考用）
-└── mcp/
-    └── mcp-config.json        # MCP Server 設定
+├── prompts/                   # Prompt 範本
+├── scripts/                   # 輔助腳本
+└── .mcp.json                  # MCP Server 設定（目前只有 Serena）
 ```
 
 ---
@@ -491,9 +492,14 @@ Claude 自動套用**全域一致性守則**：
 
 但**建議讓 Orchestrator 自動判斷**，通常選擇最優。
 
-### Q8：MCP Server（Playwright / Serena）一定要裝嗎？
+### Q8：MCP Server 跟 playwright-cli SKILL 差在哪？一定要裝嗎？
 
-**答：不一定。** `browser-tester`、`uiux-reviewer`、`wp-e2e-creator` 需要 Playwright MCP。`ddd-architect`、大型專案的 symbol 搜尋需要 Serena MCP。若不使用這些功能，不裝也可以，其餘 skill / agent 不受影響。
+**答：** zenbu-powers 目前只依賴 **Serena MCP**（程式碼 symbol 搜尋），**不再使用 Playwright MCP**。
+
+- **瀏覽器自動化** → 改用 `playwright-cli` SKILL，直接呼叫 CLI 指令。優勢：啟動快、無常駐 process、跨平台穩定、debug 可在終端重現
+- **程式碼 symbol 搜尋** → 使用 Serena MCP。若不用 `@ddd-architect` 或大型重構功能，不裝也可以，其餘 skill / agent 不受影響
+
+第一次使用 `playwright-cli` 時會自動下載 Playwright runtime，之後執行會很快。
 
 ### Q9：更新 plugin 後，原本的設定會不會被覆蓋？
 
