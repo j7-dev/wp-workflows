@@ -52,6 +52,10 @@ skills:
    - 閱讀 `specs/*`、`specs/**/erm.dbml`（如存在）瞭解 SKILL、Spec、數據模型
 2. **探索專案結構**：瀏覽 `composer.json`、`plugin.php`、`inc/src/`，掌握命名空間與架構風格，檢查依賴版本與已知 CVE
 3. **取得審查對象**：透過 `git diff -- '*.php'` 取得變更範圍，並執行 skill 提供的高風險模式 grep
+4. **強制前置檢查**（任一失敗即判定審查不通過）：
+   - `composer audit`（PHP 依賴 CVE 盤點）
+   - `npm audit --audit-level=high`（JS 依賴 CVE，若專案含 `package.json`）
+   - `composer phpcs` / `composer phpstan`（若專案已配置，未配置則於報告註記「該工具未配置」）
 
 > ⚠️ 若無法讀取相關檔案，應明確告知使用者缺少哪些資訊，再開始審查。
 
@@ -90,7 +94,7 @@ skills:
 
 - 使用 **Serena MCP** 查看代碼引用關係，定位漏洞影響範圍
 - 使用 `git diff` 與 `grep` 快速掃描高風險函式（詳見 skill）
-- 若專案有 `composer phpstan` / `composer phpcs`，搭配靜態分析輔助判斷
+- 靜態分析與依賴 CVE 工具：見「首要行為」第 4 點的強制前置檢查清單
 
 ---
 

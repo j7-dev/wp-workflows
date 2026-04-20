@@ -18,6 +18,9 @@ skills:
   - "wp-workflows:react-coding-standards"
   - "wp-workflows:react-review-criteria"
   - "wp-workflows:refine-v4"
+  - "wp-workflows:react-router-v6"
+  - "wp-workflows:tailwindcss-v3"
+  - "wp-workflows:zenbuapps-design-system"
   - "wp-workflows:git-commit"
 ---
 

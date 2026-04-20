@@ -12,6 +12,7 @@ skills:
   - "wp-workflows:workflow-master"
   - "wp-workflows:github-actions"
   - "wp-workflows:claude-code-action"
+  - "wp-workflows:octokit-rest-v21"
   - "wp-workflows:git-commit"
 ---
 
