@@ -19,7 +19,7 @@ coordinator 依序啟動：
 
 ### 完成時
 1. 輸出結果摘要
-2. **自動交接**給 `@wp-workflows:next-agent`，傳遞 {具體產出物}
+2. **自動交接**給 `@zenbu-powers:next-agent`，傳遞 {具體產出物}
 
 ### 失敗時
 - 回報給 coordinator 或使用者

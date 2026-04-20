@@ -1,13 +1,13 @@
 ---
 name: dispatching-parallel-agents
-description: Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies. Core orchestration skill for deciding when parallel agent dispatch is safe and effective in wp-workflows projects.
+description: Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies. Core orchestration skill for deciding when parallel agent dispatch is safe and effective in zenbu-powers projects.
 ---
 
 # Dispatching Parallel Agents
 
 ## Overview
 
-As the Orchestrator of wp-workflows, you delegate tasks to specialized agents (`@wordpress-master`, `@react-master`, `@security-reviewer`, etc.) with isolated context. By precisely crafting their instructions and context, you ensure they stay focused and succeed at their task. They should never inherit your session's context or history — you construct exactly what they need. This also preserves your own context for coordination work.
+As the Orchestrator of zenbu-powers, you delegate tasks to specialized agents (`@wordpress-master`, `@react-master`, `@security-reviewer`, etc.) with isolated context. By precisely crafting their instructions and context, you ensure they stay focused and succeed at their task. They should never inherit your session's context or history — you construct exactly what they need. This also preserves your own context for coordination work.
 
 When you have multiple unrelated tasks (different PHP files, different React components, different failing tests, different reviews), handling them sequentially wastes time. Each task is independent and can happen in parallel.
 
@@ -78,9 +78,9 @@ Each agent gets:
 Use a single message with multiple Agent tool calls (the CC harness runs them concurrently):
 
 ```
-Agent(subagent_type: "wp-workflows:wordpress-reviewer", ...)   // review PHP files
-Agent(subagent_type: "wp-workflows:react-reviewer", ...)       // review TSX files
-Agent(subagent_type: "wp-workflows:security-reviewer", ...)    // security pass
+Agent(subagent_type: "zenbu-powers:wordpress-reviewer", ...)   // review PHP files
+Agent(subagent_type: "zenbu-powers:react-reviewer", ...)       // review TSX files
+Agent(subagent_type: "zenbu-powers:security-reviewer", ...)    // security pass
 ```
 
 All three run concurrently.
@@ -102,7 +102,7 @@ Good agent prompts are:
 2. **Self-contained** — all context needed to understand the problem (paste error messages, file paths, relevant code excerpts)
 3. **Specific about output** — what should the agent return?
 
-Example for wp-workflows:
+Example for zenbu-powers:
 
 ```markdown
 Review the PHP files changed in this PR for security issues:
@@ -147,7 +147,7 @@ Return:
 
 ---
 
-## When NOT to Use (wp-workflows specific examples)
+## When NOT to Use (zenbu-powers specific examples)
 
 | Situation | Why not parallel | Alternative |
 |-----------|------------------|-------------|
@@ -159,7 +159,7 @@ Return:
 
 ---
 
-## Real-World wp-workflows Scenarios
+## Real-World zenbu-powers Scenarios
 
 ### Scenario A — Multi-reviewer PR review
 
@@ -196,7 +196,7 @@ Parallel OK: each test file is its own domain. If you notice they share a fixtur
 
 All three agents touch **overlapping files** (any of them might edit `CLAUDE.md`). Race → partial updates → inconsistent state.
 
-**Correct approach:** Single agent + `/aho-corasick-skill` scan to guarantee global consistency. See `using-wp-workflows` global-consistency section.
+**Correct approach:** Single agent + `/aho-corasick-skill` scan to guarantee global consistency. See `using-zenbu-powers` global-consistency section.
 
 ---
 

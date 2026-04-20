@@ -22,7 +22,7 @@ mcpServers:
       - "--project-from-cwd"
 skills:
   - "playwright-cli"
-  - "wp-workflows:uiux-review-playbook"
+  - "zenbu-powers:uiux-review-playbook"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -115,8 +115,8 @@ skills:
 ### 審查完成時
 
 - **難用 / 堪用**：輸出完整體驗報告（嚴重性分級 + 功能建議），由用戶決定交給哪個 agent 修改
-  - 前端類問題 → 建議 `@wp-workflows:react-master`
-  - 後端/渲染類問題 → 建議 `@wp-workflows:wordpress-master`
+  - 前端類問題 → 建議 `@zenbu-powers:react-master`
+  - 後端/渲染類問題 → 建議 `@zenbu-powers:wordpress-master`
 - **好用**：輸出精簡版報告（亮點 + 錦上添花建議），標記通過
 
 ### 複審流程（回環模式）

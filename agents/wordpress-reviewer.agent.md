@@ -1,6 +1,6 @@
 ---
 name: wordpress-reviewer
-description: WordPress / PHP 程式碼審查專家，專精於 WordPress 安全性、Hook 系統、REST API、HPOS 相容、效能與 PHP 8.1+ 最佳實踐。發現問題後提供具體改善建議，不主動重寫程式碼。審查不通過時使用 @wp-workflows:wordpress-master 退回修改，形成審查迴圈。Use for all WordPress plugin/theme PHP code reviews.
+description: WordPress / PHP 程式碼審查專家，專精於 WordPress 安全性、Hook 系統、REST API、HPOS 相容、效能與 PHP 8.1+ 最佳實踐。發現問題後提供具體改善建議，不主動重寫程式碼。審查不通過時使用 @zenbu-powers:wordpress-master 退回修改，形成審查迴圈。Use for all WordPress plugin/theme PHP code reviews.
 model: opus
 mcpServers:
   serena:
@@ -15,22 +15,22 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "wp-workflows:wordpress-review-criteria"
-  - "wp-workflows:wordpress-coding-standards"
-  - "wp-workflows:wordpress-router"
-  - "wp-workflows:wp-abilities-api"
-  - "wp-workflows:wp-block-development"
-  - "wp-workflows:wp-block-themes"
-  - "wp-workflows:wp-interactivity-api"
-  - "wp-workflows:wp-performance"
-  - "wp-workflows:wp-phpstan"
-  - "wp-workflows:wp-playground"
-  - "wp-workflows:wp-plugin-development"
-  - "wp-workflows:wp-project-triage"
-  - "wp-workflows:wp-rest-api"
-  - "wp-workflows:wp-wpcli-and-ops"
-  - "wp-workflows:wpds"
-  - "wp-workflows:git-commit"
+  - "zenbu-powers:wordpress-review-criteria"
+  - "zenbu-powers:wordpress-coding-standards"
+  - "zenbu-powers:wordpress-router"
+  - "zenbu-powers:wp-abilities-api"
+  - "zenbu-powers:wp-block-development"
+  - "zenbu-powers:wp-block-themes"
+  - "zenbu-powers:wp-interactivity-api"
+  - "zenbu-powers:wp-performance"
+  - "zenbu-powers:wp-phpstan"
+  - "zenbu-powers:wp-playground"
+  - "zenbu-powers:wp-plugin-development"
+  - "zenbu-powers:wp-project-triage"
+  - "zenbu-powers:wp-rest-api"
+  - "zenbu-powers:wp-wpcli-and-ops"
+  - "zenbu-powers:wpds"
+  - "zenbu-powers:git-commit"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -113,12 +113,12 @@ skills:
 
 ## 交接協議（WHERE NEXT）
 
-> **Team 模式偵測**：若你是由 `@wp-workflows:tdd-coordinator` 作為 Teammate 啟動的，審查結果一律透過 `SendMessage` 回報給 tdd-coordinator（Team Lead）。**不要自行呼叫 master agent、不要 git push、不要建立 PR**。以下流程僅適用於**非 Team 模式**。
+> **Team 模式偵測**：若你是由 `@zenbu-powers:tdd-coordinator` 作為 Teammate 啟動的，審查結果一律透過 `SendMessage` 回報給 tdd-coordinator（Team Lead）。**不要自行呼叫 master agent、不要 git push、不要建立 PR**。以下流程僅適用於**非 Team 模式**。
 
 ### 審查不通過時（回環模式）
 
 - 存在 🔴 / 🟠 問題，或任何測試失敗
-- 透過 `SendMessage` 通知 `@wp-workflows:wordpress-master`，附上嚴重性分級問題清單（🔴/🟠/🟡/🔵）、位置、改善方案
+- 透過 `SendMessage` 通知 `@zenbu-powers:wordpress-master`，附上嚴重性分級問題清單（🔴/🟠/🟡/🔵）、位置、改善方案
 - 詳細退回格式見 `/wordpress-review-criteria` references/review-output-template.md
 - 最多 **3 輪**迴圈（見下方「迴圈限制」），超過則 `SendMessage` 通知 coordinator 請求人類介入
 

@@ -15,14 +15,14 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "wp-workflows:react-coding-standards"
-  - "wp-workflows:react-dev-workflow"
-  - "wp-workflows:refine-v4"
-  - "wp-workflows:react-router-v6"
-  - "wp-workflows:tailwindcss-v3"
-  - "wp-workflows:zenbuapps-design-system"
-  - "wp-workflows:cloudflare-pages-wrangler"
-  - "wp-workflows:git-commit"
+  - "zenbu-powers:react-coding-standards"
+  - "zenbu-powers:react-dev-workflow"
+  - "zenbu-powers:refine-v4"
+  - "zenbu-powers:react-router-v6"
+  - "zenbu-powers:tailwindcss-v3"
+  - "zenbu-powers:zenbuapps-design-system"
+  - "zenbu-powers:cloudflare-pages-wrangler"
+  - "zenbu-powers:git-commit"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -61,7 +61,7 @@ skills:
 
 > **重要**：以下規則與範例使用通用的命名做示範。實際開發時，請替換為當前專案的路徑別名、命名空間和慣例。
 
-> **TDD 交接規則**：當從 `@wp-workflows:tdd-coordinator` 接收任務時，測試檔案已存在於 worktree 中。
+> **TDD 交接規則**：當從 `@zenbu-powers:tdd-coordinator` 接收任務時，測試檔案已存在於 worktree 中。
 > 你的實作目標是讓這些測試通過（Green）。不得刪除或修改測試檔案，除非 tdd-coordinator 明確指示你這樣做。
 
 ---
@@ -147,12 +147,12 @@ vi.mocked(useQuery).mockReturnValue({
 ### 完成時
 
 1. 執行所有測試確認通過（詳見 `/react-dev-workflow`）
-2. **必須**呼叫 `@wp-workflows:react-reviewer` 進行代碼審查
+2. **必須**呼叫 `@zenbu-powers:react-reviewer` 進行代碼審查
 
 ### 審查退回時
 
 1. 依照 reviewer 意見逐一修復
-2. 重新執行測試 → 再次呼叫 `@wp-workflows:react-reviewer`
+2. 重新執行測試 → 再次呼叫 `@zenbu-powers:react-reviewer`
 3. 最多 **3 輪**審查迴圈，超過則請求人類介入
 
 ### 失敗時

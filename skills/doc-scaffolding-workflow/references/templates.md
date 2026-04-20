@@ -134,7 +134,7 @@ description: {該 rule 一句話說明}
 
 ## 3. `.claude/skills/{lib}-v{ver}/SKILL.md` 模板
 
-Library SKILL 由 `@wp-workflows:lib-skill-creator` 自動產出，本 skill 不直接寫。但 doc-manager 在驗證時需確認格式：
+Library SKILL 由 `@zenbu-powers:lib-skill-creator` 自動產出，本 skill 不直接寫。但 doc-manager 在驗證時需確認格式：
 
 ```markdown
 ---
@@ -175,7 +175,7 @@ description: {一句話說明：這個 SKILL 何時被觸發}
 
 ## 4. `specs/arguments.yml` 模板（若專案使用 aibdd）
 
-由 `@wp-workflows:aibdd-kickoff` 互動產出，doc-manager 不直接建立，但可偵測：
+由 `@zenbu-powers:aibdd-kickoff` 互動產出，doc-manager 不直接建立，但可偵測：
 
 ```yaml
 project_name: {name}

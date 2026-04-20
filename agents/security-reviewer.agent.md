@@ -15,8 +15,8 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "wp-workflows:wordpress-coding-standards"
-  - "wp-workflows:security-review-criteria"
+  - "zenbu-powers:wordpress-coding-standards"
+  - "zenbu-powers:security-review-criteria"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -79,8 +79,8 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/wp-workflows:security-review-criteria` — 完整審查 checklist、嚴重度分級、輸出模板、高風險情境對照表（審查的主要依據）
-- `/wp-workflows:wordpress-coding-standards` — WordPress / PHP 編碼標準完整參考
+- `/zenbu-powers:security-review-criteria` — 完整審查 checklist、嚴重度分級、輸出模板、高風險情境對照表（審查的主要依據）
+- `/zenbu-powers:wordpress-coding-standards` — WordPress / PHP 編碼標準完整參考
 
 > 審查時依維度載入對應 references：
 > - OWASP 對應 → `references/owasp-checklist.md`
@@ -100,7 +100,7 @@ skills:
 
 ## 交接協議（WHERE NEXT）
 
-> **Team 模式偵測**：若由 `@wp-workflows:tdd-coordinator` 作為 Teammate 啟動，
+> **Team 模式偵測**：若由 `@zenbu-powers:tdd-coordinator` 作為 Teammate 啟動，
 > 審查結果一律透過 `SendMessage` 回報給 coordinator，不自行呼叫 master agent。
 > 以下流程僅適用於非 Team 模式（例如開發者手動 `/review` 或 CI trigger）。
 
@@ -112,7 +112,7 @@ skills:
 ### 發現問題（退回修復，回環模式）
 1. 依嚴重度排序漏洞，合併建議標註為 🚫 阻擋合併 / ⚠️ 謹慎合併
 2. 附「Top 3 優先修補項目」供開發者排序處理
-3. 透過 `SendMessage` 通知對應實作 agent（PHP 類 → `@wp-workflows:wordpress-master`、JS/TS 類 → `@wp-workflows:react-master`），附上嚴重性分級漏洞清單與修補建議
+3. 透過 `SendMessage` 通知對應實作 agent（PHP 類 → `@zenbu-powers:wordpress-master`、JS/TS 類 → `@zenbu-powers:react-master`），附上嚴重性分級漏洞清單與修補建議
 4. 修復後再次呼叫本 agent 複審
 5. 最多 **3 輪**審查迴圈，超過則 `SendMessage` 通知 coordinator 請求人類介入
 

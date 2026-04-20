@@ -1,13 +1,13 @@
 {
-  "name": "wp-workflows",
+  "name": "zenbu-powers",
   "version": "3.0.0",
   "description": "專為 WordPress 開發設計的 Claude Code Plugin，內建 SessionStart hook 在每次 session 開始時自動注入 orchestrator 心法，搭配完整的 Agent、Skill 與 MCP Server 設定，涵蓋 WordPress 外掛開發、主題開發、Gutenberg 區塊、WooCommerce、REST API、Interactivity API、效能優化等完整工作流程。",
   "author": {
     "name": "j7-dev",
     "email": "j7.dev.gg@gmail.com"
   },
-  "homepage": "https://github.com/j7-dev/wp-workflows",
-  "repository": "https://github.com/j7-dev/wp-workflows",
+  "homepage": "https://github.com/zenbuapps/zenbu-powers",
+  "repository": "https://github.com/zenbuapps/zenbu-powers",
   "license": "MIT",
   "keywords": [
     "wordpress", "woocommerce", "gutenberg", "php",

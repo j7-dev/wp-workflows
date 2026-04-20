@@ -1,11 +1,11 @@
 ---
 name: nestjs-review-criteria
-description: NestJS 10+ / TypeScript 程式碼審查 checklist，專精模組邊界、Dependency Injection、Guards/Interceptors/Pipes/Filters、TypeORM/Prisma Repository Pattern、class-validator DTO、JWT/Passport 認證與 Jest 測試覆蓋檢查。提供可逐項勾選的審查清單、嚴重性分級、before/after 對比範例與輸出報告模板，供 @wp-workflows:nestjs-reviewer 審查時照表操作。與 @wp-workflows:nestjs-coding-standards 搭配：該 skill 寫「規範本身」，本 skill 寫「審查時照著跑的 checklist」。
+description: NestJS 10+ / TypeScript 程式碼審查 checklist，專精模組邊界、Dependency Injection、Guards/Interceptors/Pipes/Filters、TypeORM/Prisma Repository Pattern、class-validator DTO、JWT/Passport 認證與 Jest 測試覆蓋檢查。提供可逐項勾選的審查清單、嚴重性分級、before/after 對比範例與輸出報告模板，供 @zenbu-powers:nestjs-reviewer 審查時照表操作。與 @zenbu-powers:nestjs-coding-standards 搭配：該 skill 寫「規範本身」，本 skill 寫「審查時照著跑的 checklist」。
 ---
 
 # NestJS 10+ 程式碼審查 Checklist
 
-專供程式碼審查流程使用的結構化 checklist 與輸出模板。與 `@wp-workflows:nestjs-coding-standards` 的分工：
+專供程式碼審查流程使用的結構化 checklist 與輸出模板。與 `@zenbu-powers:nestjs-coding-standards` 的分工：
 
 | Skill | 定位 |
 |-------|------|

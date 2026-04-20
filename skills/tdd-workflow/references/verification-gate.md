@@ -2,7 +2,7 @@
 
 每個 TDD Gate（Red Gate / Green Gate / Refactor 收尾）通過之前必讀。
 
-改寫自 obra/superpowers 的 `verification-before-completion` skill，融合 wp-workflows 的 Gate 流程。
+改寫自 obra/superpowers 的 `verification-before-completion` skill，融合 zenbu-powers 的 Gate 流程。
 
 ---
 
@@ -172,10 +172,10 @@ git stash pop
 
 | 上游 / 下游 | 角色 |
 |---|---|
-| `wp-workflows:tdd-workflow` SKILL.md | 在 Gate 通過前 Read 本檔 |
+| `zenbu-powers:tdd-workflow` SKILL.md | 在 Gate 通過前 Read 本檔 |
 | `red-green-refactor-cycle.md` | Red Gate / Green Gate 細節中引用本檔的證據格式 |
 | `superpowers:verification-before-completion` | 通用版本（非 TDD 場景也適用），可平行使用 |
-| `wp-workflows:systematic-debugging` Phase 4 | 修 bug 後必過本檔的 Regression Test 驗證 |
+| `zenbu-powers:systematic-debugging` Phase 4 | 修 bug 後必過本檔的 Regression Test 驗證 |
 
 ---
 

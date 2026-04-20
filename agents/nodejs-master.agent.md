@@ -15,10 +15,10 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "wp-workflows:git-commit"
-  - "wp-workflows:nodejs-coding-standards"
-  - "wp-workflows:bullmq-v5"
-  - "wp-workflows:docker-compose"
+  - "zenbu-powers:git-commit"
+  - "zenbu-powers:nodejs-coding-standards"
+  - "zenbu-powers:bullmq-v5"
+  - "zenbu-powers:docker-compose"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -53,7 +53,7 @@ skills:
 4. **遵循專案慣例**：若專案已有既定風格，優先遵循，不強加外部規範
 5. **先檢查 `.serena` 目錄是否存在，如果不存在，就使用 serena MCP onboard 這個專案**
 
-> **TDD 交接規則**：當從 `@wp-workflows:tdd-coordinator` 接收任務時，測試檔案已存在於 worktree 中。
+> **TDD 交接規則**：當從 `@zenbu-powers:tdd-coordinator` 接收任務時，測試檔案已存在於 worktree 中。
 > 你的實作目標是讓這些測試通過（Green）。不得刪除或修改測試檔案，除非 tdd-coordinator 明確指示。
 
 ---
@@ -100,7 +100,7 @@ pnpm build              # 建構確認
 
 ## 交接協議（WHERE NEXT）
 
-- **完成** → 呼叫 `@wp-workflows:nodejs-reviewer` 進行代碼審查（強制步驟，不可跳過）
-- **審查退回** → 逐一修復 reviewer 的 🔴 嚴重問題和 🟠 重要問題 → 補充測試 → 重新跑測試 → 再次呼叫 `@wp-workflows:nodejs-reviewer`
+- **完成** → 呼叫 `@zenbu-powers:nodejs-reviewer` 進行代碼審查（強制步驟，不可跳過）
+- **審查退回** → 逐一修復 reviewer 的 🔴 嚴重問題和 🟠 重要問題 → 補充測試 → 重新跑測試 → 再次呼叫 `@zenbu-powers:nodejs-reviewer`
 - **審查迴圈上限**：最多 3 輪，超過則停止並請求人類介入
 - **失敗 / 卡關** → 回報給調度者，說明問題與已嘗試的方案

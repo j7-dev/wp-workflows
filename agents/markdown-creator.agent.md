@@ -8,10 +8,10 @@ description: >
   「擷取網頁內容」、「文件轉換」、「convert to markdown」、「網頁轉文字」時使用此 agent。
 model: opus
 skills:
-  - "wp-workflows:markdown-creator.conversion-workflow"
-  - "wp-workflows:markdown-creator.image-processing"
-  - "wp-workflows:markdown-creator.svg-mermaid-rendering"
-  - "wp-workflows:markdown-creator.output-and-cleanup"
+  - "zenbu-powers:markdown-creator.conversion-workflow"
+  - "zenbu-powers:markdown-creator.image-processing"
+  - "zenbu-powers:markdown-creator.svg-mermaid-rendering"
+  - "zenbu-powers:markdown-creator.output-and-cleanup"
   - "playwright-cli"
 ---
 

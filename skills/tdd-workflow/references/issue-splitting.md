@@ -51,7 +51,7 @@
 
 當需求涉及安裝新的 library 或第三方套件時，需評估該工具的複雜性：
 
-- **複雜度高**（API 面廣、有大量慣例或設定、團隊不熟悉）：使用 `@wp-workflows:lib-skill-creator` 為該 library 建立專屬 SKILL
+- **複雜度高**（API 面廣、有大量慣例或設定、團隊不熟悉）：使用 `@zenbu-powers:lib-skill-creator` 為該 library 建立專屬 SKILL
 - **複雜度低**（功能單一、用法直觀、官方文件足夠）：不需要額外建立 SKILL
 
 ---
@@ -89,4 +89,4 @@
 
 ### 相關文件
 
-- Claude Code 代理團隊的使用方法可以透過 `/wp-workflows:notebooklm` SKILL 查詢 Claude Code Docs 筆記本
+- Claude Code 代理團隊的使用方法可以透過 `/zenbu-powers:notebooklm` SKILL 查詢 Claude Code Docs 筆記本

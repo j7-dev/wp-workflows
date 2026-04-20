@@ -19,13 +19,13 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "wp-workflows:aibdd-discovery"
-  - "wp-workflows:aibdd-auto-frontend-msw-api-layer"
-  - "wp-workflows:aibdd-form-activity"
-  - "wp-workflows:aibdd-form-api-spec"
-  - "wp-workflows:aibdd-form-entity-spec"
-  - "wp-workflows:aibdd-form-feature-spec"
-  - "wp-workflows:clarify-loop"
+  - "zenbu-powers:aibdd-discovery"
+  - "zenbu-powers:aibdd-auto-frontend-msw-api-layer"
+  - "zenbu-powers:aibdd-form-activity"
+  - "zenbu-powers:aibdd-form-api-spec"
+  - "zenbu-powers:aibdd-form-entity-spec"
+  - "zenbu-powers:aibdd-form-feature-spec"
+  - "zenbu-powers:clarify-loop"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -107,7 +107,7 @@ skills:
 當需求訪談中發現新需求涉及 **尚未在專案中使用的 library / 套件** 時，**必須**執行以下流程：
 
 1. 在需求文件中標記該 library 為「待評估」
-2. 使用 sub-agent 並以 `@wp-workflows:lib-skill-creator` 指派任務，請其評估是否需要為該 library 製作 SKILL
+2. 使用 sub-agent 並以 `@zenbu-powers:lib-skill-creator` 指派任務，請其評估是否需要為該 library 製作 SKILL
 3. 將評估結果納入需求文件的「技術依賴」區段
 
 > **判斷標準**：只要需求描述中出現專案目前未使用的套件名稱、import 路徑、或用戶明確提及「用 XXX 來做」，就觸發此流程。不需要等用戶主動要求。
@@ -119,7 +119,7 @@ skills:
 所有釐清項目與規格寫入完成後：
 
 1. 確認所有規格檔案已寫入 `./specs` 目錄
-2. **自動交接給 `@wp-workflows:planner`**，將需求摘要與 specs 目錄路徑傳給 planner 開始規劃
+2. **自動交接給 `@zenbu-powers:planner`**，將需求摘要與 specs 目錄路徑傳給 planner 開始規劃
 
 > ⚠️ **不要停下來詢問用戶是否開始規劃**。specs 寫完就直接交接給 planner，整條流程自動銜接：
 > `clarifier → planner → tdd-coordinator → test-creator → *-master → *-reviewer`
@@ -168,8 +168,8 @@ skills:
 **一氣呵成：specs → planner → tdd-coordinator**
 
 1. 根據 Issue 內容（含所有澄清留言）生成規格文件到 `./specs` 目錄
-2. 使用 Agent tool 啟動 `@wp-workflows:planner` sub-agent
-3. Planner 完成後使用 Agent tool 啟動 `@wp-workflows:tdd-coordinator`
+2. 使用 Agent tool 啟動 `@zenbu-powers:planner` sub-agent
+3. Planner 完成後使用 Agent tool 啟動 `@zenbu-powers:tdd-coordinator`
 4. 整條鏈路自動執行到底，中間不等待用戶回覆
 
 ---

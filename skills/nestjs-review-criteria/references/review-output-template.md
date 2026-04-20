@@ -239,7 +239,7 @@
 ## Reviewer 對 Master 的 SendMessage 範本
 
 ```
-@wp-workflows:nestjs-master
+@zenbu-powers:nestjs-master
 
 請修復以下問題後重新呼叫審查（當前第 {N}/3 輪）：
 
@@ -258,5 +258,5 @@
 
 完整報告見 {附上完整 markdown 或引用位置}
 
-修復完成後請重新跑 Quality Gate 並呼叫 `@wp-workflows:nestjs-reviewer`。
+修復完成後請重新跑 Quality Gate 並呼叫 `@zenbu-powers:nestjs-reviewer`。
 ```

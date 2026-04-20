@@ -1,6 +1,6 @@
 ---
 name: nestjs-reviewer
-description: NestJS 10+ / TypeScript 程式碼審查專家，專精模組化架構、Dependency Injection、Guards/Interceptors/Pipes/Filters、TypeORM/Prisma Repository、class-validator DTO、JWT/Passport、Jest 測試。發現問題後提供具體改善建議，不主動重寫。審查不通過時透過 SendMessage 退回 @wp-workflows:nestjs-master，形成審查迴圈。Use for all NestJS code reviews.
+description: NestJS 10+ / TypeScript 程式碼審查專家，專精模組化架構、Dependency Injection、Guards/Interceptors/Pipes/Filters、TypeORM/Prisma Repository、class-validator DTO、JWT/Passport、Jest 測試。發現問題後提供具體改善建議，不主動重寫。審查不通過時透過 SendMessage 退回 @zenbu-powers:nestjs-master，形成審查迴圈。Use for all NestJS code reviews.
 model: opus
 mcpServers:
   serena:
@@ -15,11 +15,11 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "wp-workflows:nestjs-coding-standards"
-  - "wp-workflows:nestjs-review-criteria"
-  - "wp-workflows:nestjs-v11"
-  - "wp-workflows:typeorm-v0.3"
-  - "wp-workflows:git-commit"
+  - "zenbu-powers:nestjs-coding-standards"
+  - "zenbu-powers:nestjs-review-criteria"
+  - "zenbu-powers:nestjs-v11"
+  - "zenbu-powers:typeorm-v0.3"
+  - "zenbu-powers:git-commit"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -102,11 +102,11 @@ skills:
 
 ## 交接協議（WHERE NEXT）
 
-> **Team 模式偵測**：若由 `@wp-workflows:tdd-coordinator` 作為 Teammate 啟動，審查結果一律透過 `SendMessage` 回報給 coordinator，由它統一管理退回 / 通過流程。**不要自行呼叫 master agent、不要 git push、不要建立 PR**。
+> **Team 模式偵測**：若由 `@zenbu-powers:tdd-coordinator` 作為 Teammate 啟動，審查結果一律透過 `SendMessage` 回報給 coordinator，由它統一管理退回 / 通過流程。**不要自行呼叫 master agent、不要 git push、不要建立 PR**。
 
 ### 非 Team 模式：審查不通過（回環模式）
 1. 依 `/nestjs-review-criteria` 的輸出模板組裝退回訊息
-2. 透過 `SendMessage` 通知 `@wp-workflows:nestjs-master`，附嚴重性分級問題清單（🔴/🟠/🟡/🔵）、測試結果、需修改項目清單
+2. 透過 `SendMessage` 通知 `@zenbu-powers:nestjs-master`，附嚴重性分級問題清單（🔴/🟠/🟡/🔵）、測試結果、需修改項目清單
 3. 等待 master 修改完成後重新審查
 4. 最多 **3 輪**迴圈，超過則 `SendMessage` 通知 coordinator 請求人類介入
 

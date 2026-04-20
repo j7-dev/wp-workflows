@@ -6,7 +6,7 @@ description: Documentation sync playbook（分析維度 / 更新規則 / Serena 
 # Doc Sync Playbook
 
 實作完成後同步 `CLAUDE.md` 與 `.claude/rules/*.md` 的完整操作手冊。
-此 Skill 由 `@wp-workflows:doc-updater` agent 載入，拆解文件同步的三大決策層次：
+此 Skill 由 `@zenbu-powers:doc-updater` agent 載入，拆解文件同步的三大決策層次：
 
 1. **分析變更**：識別哪些 git 變更值得記錄到文件
 2. **更新規則**：CLAUDE.md 與 rules 檔案的更新原則與格式

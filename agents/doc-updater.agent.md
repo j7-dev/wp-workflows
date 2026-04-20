@@ -15,9 +15,9 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "wp-workflows:doc-sync-playbook"
-  - "wp-workflows:aho-corasick-skill"
-  - "wp-workflows:git-commit"
+  - "zenbu-powers:doc-sync-playbook"
+  - "zenbu-powers:aho-corasick-skill"
+  - "zenbu-powers:git-commit"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。

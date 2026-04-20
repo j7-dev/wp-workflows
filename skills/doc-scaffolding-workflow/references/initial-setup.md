@@ -115,7 +115,7 @@
 ### 4-3 委派 clarifier
 
 ```
-呼叫 @wp-workflows:clarifier
+呼叫 @zenbu-powers:clarifier
 傳入：
   • specs 草稿路徑
   • 已識別的便條紙清單
@@ -127,7 +127,7 @@
 ## Step 5：Library SKILL 評估
 
 ```
-呼叫 @wp-workflows:lib-skill-creator
+呼叫 @zenbu-powers:lib-skill-creator
 傳入：專案根目錄路徑
 讓 lib-skill-creator 掃描：
   • package.json（dependencies，忽略 devDependencies）
@@ -142,7 +142,7 @@
 ## Step 6：合規審查（必須執行，不可跳過）
 
 ```
-呼叫 @wp-workflows:claude-manager
+呼叫 @zenbu-powers:claude-manager
 傳入：
   • .claude/CLAUDE.md
   • .claude/rules/*.rule.md

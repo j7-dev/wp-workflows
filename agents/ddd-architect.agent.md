@@ -15,7 +15,7 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "wp-workflows:ddd-refactoring"
+  - "zenbu-powers:ddd-refactoring"
 ---
 
 > **【CI 自我識別】** 啟動後,先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -49,7 +49,7 @@ skills:
 
 ## 前置條件
 
-1. **讀取 spec**:從 `specs/` 目錄理解業務領域與功能規格。若 `specs/` 不存在,提示用戶先用 `@wp-workflows:clarifier` 產生規格
+1. **讀取 spec**:從 `specs/` 目錄理解業務領域與功能規格。若 `specs/` 不存在,提示用戶先用 `@zenbu-powers:clarifier` 產生規格
 2. **讀取專案指引**:閱讀 `CLAUDE.md`、`.claude/rules/*.md`(若存在)
 3. **掌握現有架構**:用 Serena 分析專案結構、類別關係、引用關係
 
@@ -100,7 +100,7 @@ skills:
 
 ### 每個 Task 的執行流程
 1. 清楚描述要做什麼(移動 / 提取 / 重命名 / 建立)
-2. 指派 `@wp-workflows:wordpress-master` 執行實際 PHP 開發,提供:
+2. 指派 `@zenbu-powers:wordpress-master` 執行實際 PHP 開發,提供:
    - 涉及的檔案與類別
    - 預期的目標結構
    - 相關的 `./specs` 區段(業務上下文)

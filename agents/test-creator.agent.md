@@ -16,32 +16,32 @@ mcpServers:
       - "--project-from-cwd"
 skills:
   # --- 通用測試策略 playbook ---
-  - "wp-workflows:test-creation-playbook"
+  - "zenbu-powers:test-creation-playbook"
   # --- WordPress 測試框架 ---
-  - "wp-workflows:wp-e2e-creator"
-  - "wp-workflows:wp-integration-testing"
+  - "zenbu-powers:wp-e2e-creator"
+  - "zenbu-powers:wp-integration-testing"
   # --- AIBDD：規格探索與視圖 ---
-  - "wp-workflows:aibdd-discovery"
-  - "wp-workflows:aibdd-form-activity"
-  - "wp-workflows:aibdd-form-api-spec"
-  - "wp-workflows:aibdd-form-entity-spec"
-  - "wp-workflows:aibdd-form-feature-spec"
+  - "zenbu-powers:aibdd-discovery"
+  - "zenbu-powers:aibdd-form-activity"
+  - "zenbu-powers:aibdd-form-api-spec"
+  - "zenbu-powers:aibdd-form-entity-spec"
+  - "zenbu-powers:aibdd-form-feature-spec"
   # --- AIBDD：前端測試 ---
-  - "wp-workflows:aibdd-auto-frontend-msw-api-layer"
+  - "zenbu-powers:aibdd-auto-frontend-msw-api-layer"
   # --- AIBDD：PHP Integration Test 自動化流程 ---
-  - "wp-workflows:aibdd.auto.php.it.control-flow"
-  - "wp-workflows:aibdd.auto.php.it.test-skeleton"
-  - "wp-workflows:aibdd.auto.php.it.red"
-  - "wp-workflows:aibdd.auto.php.it.green"
-  - "wp-workflows:aibdd.auto.php.it.refactor"
-  - "wp-workflows:aibdd.auto.php.it.code-quality"
+  - "zenbu-powers:aibdd.auto.php.it.control-flow"
+  - "zenbu-powers:aibdd.auto.php.it.test-skeleton"
+  - "zenbu-powers:aibdd.auto.php.it.red"
+  - "zenbu-powers:aibdd.auto.php.it.green"
+  - "zenbu-powers:aibdd.auto.php.it.refactor"
+  - "zenbu-powers:aibdd.auto.php.it.code-quality"
   # --- AIBDD：PHP IT Step Handlers ---
-  - "wp-workflows:aibdd.auto.php.it.handlers.aggregate-given"
-  - "wp-workflows:aibdd.auto.php.it.handlers.aggregate-then"
-  - "wp-workflows:aibdd.auto.php.it.handlers.command"
-  - "wp-workflows:aibdd.auto.php.it.handlers.query"
-  - "wp-workflows:aibdd.auto.php.it.handlers.readmodel-then"
-  - "wp-workflows:aibdd.auto.php.it.handlers.success-failure"
+  - "zenbu-powers:aibdd.auto.php.it.handlers.aggregate-given"
+  - "zenbu-powers:aibdd.auto.php.it.handlers.aggregate-then"
+  - "zenbu-powers:aibdd.auto.php.it.handlers.command"
+  - "zenbu-powers:aibdd.auto.php.it.handlers.query"
+  - "zenbu-powers:aibdd.auto.php.it.handlers.readmodel-then"
+  - "zenbu-powers:aibdd.auto.php.it.handlers.success-failure"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -71,8 +71,8 @@ skills:
 每次被指派任務時：
 
 1. **查看專案指引**：閱讀 `CLAUDE.md`、`.claude/rules/*.md`、`specs/*`（如存在）
-2. **specs 缺失即中止**：若 `./specs/` 不存在，**立即中止**，提示用戶先用 `@wp-workflows:clarifier` 產生規格
-3. **載入 playbook**：啟動 `@wp-workflows:test-creation-playbook` 取得邊緣案例目錄與覆蓋策略
+2. **specs 缺失即中止**：若 `./specs/` 不存在，**立即中止**，提示用戶先用 `@zenbu-powers:clarifier` 產生規格
+3. **載入 playbook**：啟動 `@zenbu-powers:test-creation-playbook` 取得邊緣案例目錄與覆蓋策略
 4. **探索專案結構**：瀏覽測試框架設定檔，掌握既有測試風格
 
 ---
@@ -127,7 +127,7 @@ skills:
 ## 工具使用
 
 - 使用 **Serena MCP** 查看代碼引用關係與符號定義（避免整檔讀取）
-- 測試指令範例與邊緣案例清單一律從 `@wp-workflows:test-creation-playbook` 的 references 取得
+- 測試指令範例與邊緣案例清單一律從 `@zenbu-powers:test-creation-playbook` 的 references 取得
 
 ---
 
@@ -141,7 +141,7 @@ skills:
 ### 完成時
 1. 確認測試已分組（Smoke / Happy / Error / Edge / Security）
 2. 確認分層正確（E2E 只測核心、IT/UT 展開邊緣）
-3. 回報測試檔案清單 + 執行指令給呼叫方（通常是 `@wp-workflows:tdd-coordinator`）
+3. 回報測試檔案清單 + 執行指令給呼叫方（通常是 `@zenbu-powers:tdd-coordinator`）
 
 ### 審查退回時
 1. 依 reviewer 意見逐一修復

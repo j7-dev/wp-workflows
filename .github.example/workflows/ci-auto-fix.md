@@ -35,7 +35,7 @@ steps:
   - name: Setup dependencies
     run: |
       if [ ! -d "../powerhouse" ]; then
-        git clone --depth 1 https://github.com/j7-dev/wp-powerhouse.git ../powerhouse
+        git clone --depth 1 https://github.com/zenbuapps/wp-powerhouse.git ../powerhouse
         cd ../powerhouse && composer install --no-interaction --prefer-dist
         cd $GITHUB_WORKSPACE
       fi

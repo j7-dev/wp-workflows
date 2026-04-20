@@ -121,11 +121,11 @@ description: >
 
 ### Step 5.2｜NotebookLM 最佳實踐驗證（必要步驟）
 
-使用 `/wp-workflows:notebooklm` SKILL 查詢 **Claude Code Docs** 筆記本（ID: `de80e438-3645-4d94-8977-ce1f3218cd6e`）驗證產出的 SKILL。
+使用 `/zenbu-powers:notebooklm` SKILL 查詢 **Claude Code Docs** 筆記本（ID: `de80e438-3645-4d94-8977-ce1f3218cd6e`）驗證產出的 SKILL。
 
 #### 5.2.1｜執行 3 組驗證查詢
 
-使用 `/wp-workflows:notebooklm` SKILL 的 `ask_question.py` 工具，每組查詢時附上待驗證的 SKILL 內容：
+使用 `/zenbu-powers:notebooklm` SKILL 的 `ask_question.py` 工具，每組查詢時附上待驗證的 SKILL 內容：
 
 **查詢 1 — Frontmatter 與觸發機制驗證：**
 ```
@@ -187,7 +187,7 @@ NotebookLM 最佳實踐驗證結果：
 驗證依據：Claude Code Docs 筆記本（65 份官方文件來源）
 ```
 
-> **注意**：如果 `/wp-workflows:notebooklm` SKILL 不可用或查詢失敗，記錄錯誤原因並告知用戶，改為人工對照 Step 5.1 的自我檢查清單進行驗證。
+> **注意**：如果 `/zenbu-powers:notebooklm` SKILL 不可用或查詢失敗，記錄錯誤原因並告知用戶，改為人工對照 Step 5.1 的自我檢查清單進行驗證。
 
 ### Step 5.3｜向用戶呈現成果
 

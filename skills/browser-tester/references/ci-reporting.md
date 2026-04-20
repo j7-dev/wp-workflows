@@ -1,6 +1,6 @@
 # CI 報告參考文件
 
-> **注意（ wp-workflows CI 架構）**
+> **注意（ zenbu-powers CI 架構）**
 >
 > 在此架構中，agent **只需**將 `test-report.md` 寫入磁碟路徑
 > `output/playwright/browser-test/test-report.md`。

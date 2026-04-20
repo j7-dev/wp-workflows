@@ -34,13 +34,13 @@ mcpServers:
   # 瀏覽器自動化：使用 playwright-cli SKILL（非 MCP server）
   # 在 skills 區塊加入 "playwright-cli" 即可
   # NotebookLM 知識查詢：使用 notebooklm SKILL（非 MCP server）
-  # 在 skills 區塊加入 "wp-workflows:notebooklm" 即可
+  # 在 skills 區塊加入 "zenbu-powers:notebooklm" 即可
 
 # === Skills ===
 skills:
-  - "wp-workflows:skill-a"
-  - "wp-workflows:skill-b"
-  - "wp-workflows:git-commit"
+  - "zenbu-powers:skill-a"
+  - "zenbu-powers:skill-b"
+  - "zenbu-powers:git-commit"
   # - "playwright-cli"               # 瀏覽器自動化（全域 SKILL）
 
 # === 進階（通常不需要）===
@@ -126,11 +126,11 @@ skills:
 
 ### 完成時
 1. {完成條件檢查}
-2. **必須**呼叫 `@wp-workflows:{downstream-agent}` 進行 {下游動作}
+2. **必須**呼叫 `@zenbu-powers:{downstream-agent}` 進行 {下游動作}
 
 ### 審查退回時
 1. 依照 reviewer 意見逐一修復
-2. 重新執行檢查 → 再次呼叫 `@wp-workflows:{downstream-agent}`
+2. 重新執行檢查 → 再次呼叫 `@zenbu-powers:{downstream-agent}`
 3. 最多 **3 輪**迴圈，超過則請求人類介入
 
 ### 失敗時

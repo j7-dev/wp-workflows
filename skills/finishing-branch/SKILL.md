@@ -2,8 +2,8 @@
 name: finishing-branch
 description: >
   開發分支收尾決策樹。當實作完成、所有測試通過後使用，引導使用者在 Merge / PR / Keep / Discard 4 個選項中做出選擇，並執行對應的 git + worktree 清理流程。
-  與 wp-workflows:git-commit 互補：git-commit 處理「commit 訊息產出」，本 skill 處理「commit 之後到底要 merge / 開 PR / 保留 / 丟掉」。
-  改寫自 obra/superpowers 的 finishing-a-development-branch skill，整合 wp-workflows 的 worktree 與 CI 雙模式。
+  與 zenbu-powers:git-commit 互補：git-commit 處理「commit 訊息產出」，本 skill 處理「commit 之後到底要 merge / 開 PR / 保留 / 丟掉」。
+  改寫自 obra/superpowers 的 finishing-a-development-branch skill，整合 zenbu-powers 的 worktree 與 CI 雙模式。
 ---
 
 # 開發分支收尾劇本
@@ -25,7 +25,7 @@ description: >
 
 **上游觸發者：**
 
-- `@wp-workflows:tdd-coordinator` 收尾階段
+- `@zenbu-powers:tdd-coordinator` 收尾階段
 - 使用者直接呼叫
 
 ---
@@ -50,7 +50,7 @@ npx vitest run 2>&1; echo "EXIT_CODE=$?"
 
 [貼失敗清單與 EXIT_CODE]
 
-請先修復測試，或回 @wp-workflows:tdd-coordinator 重跑 Green Gate。
+請先修復測試，或回 @zenbu-powers:tdd-coordinator 重跑 Green Gate。
 ```
 
 **停在這裡，不進 Step 2。**
@@ -119,7 +119,7 @@ git branch -d <feature-branch>
 git push -u origin <feature-branch>
 ```
 
-呼叫 `@wp-workflows:git-commit` 確認所有 commit 訊息符合 conventional commits，然後：
+呼叫 `@zenbu-powers:git-commit` 確認所有 commit 訊息符合 conventional commits，然後：
 
 ```bash
 gh pr create --title "<type>(<scope>): <description>" --body "$(cat <<'EOF'
@@ -196,7 +196,7 @@ git worktree remove <worktree-path>
 無互動環境，直接走「Push + 開 PR」：
 
 1. 確認測試全綠（貼證據）
-2. 確認所有變更已 commit（必要時呼叫 `@wp-workflows:git-commit`）
+2. 確認所有變更已 commit（必要時呼叫 `@zenbu-powers:git-commit`）
 3. `git push -u origin <feature-branch>`
 4. `gh pr create` 開 PR（同 Option 2 範本）
 5. 由 GitHub Actions 後續自動化處理
@@ -250,12 +250,12 @@ git worktree remove <worktree-path>
 
 **上游呼叫：**
 
-- `@wp-workflows:tdd-coordinator` 在 Reviewer 全放行後呼叫本 skill 收尾
+- `@zenbu-powers:tdd-coordinator` 在 Reviewer 全放行後呼叫本 skill 收尾
 - 使用者直接喊「收尾」「開 PR」「合 main」
 
 **搭配使用：**
 
-- `wp-workflows:git-commit` — Step 5 Option 2 開 PR 前，確認 commit 訊息品質
-- `wp-workflows:tdd-workflow` references/verification-gate.md — Step 1 測試證據格式
-- `wp-workflows:tdd-workflow` references/ci-local-dual-mode.md — CI 模式行為對照
+- `zenbu-powers:git-commit` — Step 5 Option 2 開 PR 前，確認 commit 訊息品質
+- `zenbu-powers:tdd-workflow` references/verification-gate.md — Step 1 測試證據格式
+- `zenbu-powers:tdd-workflow` references/ci-local-dual-mode.md — CI 模式行為對照
 - `superpowers:finishing-a-development-branch` — 通用版本，可平行使用

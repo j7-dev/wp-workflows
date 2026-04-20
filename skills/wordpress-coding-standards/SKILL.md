@@ -1,11 +1,11 @@
 ---
 name: wordpress-coding-standards
-description: WordPress / PHP 編碼標準完整參考手冊，涵蓋安全性、命名規範、型別系統、架構模式、Hook 系統、WooCommerce 相容等。供 @wp-workflows:wordpress-reviewer 及 @wp-workflows:wordpress-master agent 使用。當開發或審查任何 WordPress Plugin/Theme 的 PHP 程式碼時，請啟用此技能。
+description: WordPress / PHP 編碼標準完整參考手冊，涵蓋安全性、命名規範、型別系統、架構模式、Hook 系統、WooCommerce 相容等。供 @zenbu-powers:wordpress-reviewer 及 @zenbu-powers:wordpress-master agent 使用。當開發或審查任何 WordPress Plugin/Theme 的 PHP 程式碼時，請啟用此技能。
 ---
 
 # WordPress / PHP 編碼標準完整參考
 
-本文件為 WordPress Plugin / Theme 開發的完整編碼標準，供 `@wp-workflows:wordpress-reviewer` 審查時參考。
+本文件為 WordPress Plugin / Theme 開發的完整編碼標準，供 `@zenbu-powers:wordpress-reviewer` 審查時參考。
 
 ---
 

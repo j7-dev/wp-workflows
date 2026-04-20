@@ -12,7 +12,7 @@ enable_by_default: true
 
 - **筆記本 ID**：`de80e438-3645-4d94-8977-ce1f3218cd6e`
 - **內容**：65 份 Claude Code 官方文件來源
-- **使用方式**：透過 `/wp-workflows:notebooklm` SKILL 查詢，將用戶的實際設定內容附在 query 中供比對
+- **使用方式**：透過 `/zenbu-powers:notebooklm` SKILL 查詢，將用戶的實際設定內容附在 query 中供比對
 - **工具呼叫格式**：
   ```bash
   python scripts/run.py ask_question.py --question "你的查詢內容，附上用戶的設定內容" --notebook-url "https://notebooklm.google.com/notebook/de80e438-3645-4d94-8977-ce1f3218cd6e"
@@ -20,7 +20,7 @@ enable_by_default: true
 
 ## 2. Claude 官方文件網站（備援來源）
 
-當 `/wp-workflows:notebooklm` SKILL 不可用或查詢結果不足以判斷時，使用 WebFetch 直接查閱官方文件：
+當 `/zenbu-powers:notebooklm` SKILL 不可用或查詢結果不足以判斷時，使用 WebFetch 直接查閱官方文件：
 
 | 主題 | URL |
 |------|-----|
@@ -39,7 +39,7 @@ enable_by_default: true
 
 ### NotebookLM 不可用
 
-如果 `/wp-workflows:notebooklm` SKILL 執行失敗或查詢超時：
+如果 `/zenbu-powers:notebooklm` SKILL 執行失敗或查詢超時：
 
 1. **告知用戶**：「NotebookLM 目前不可用，改用官方文件網站作為備援」
 2. **切換至備援**：使用 WebFetch 逐一查閱上方「備援來源」表格中的 URL

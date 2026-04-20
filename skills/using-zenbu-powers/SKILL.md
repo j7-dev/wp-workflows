@@ -1,5 +1,5 @@
 ---
-name: using-wp-workflows
+name: using-zenbu-powers
 description: Use when starting any conversation — establishes orchestrator mindset, enforces delegation-first and skill-lookup-first discipline before ANY response including clarifying questions.
 ---
 
@@ -8,7 +8,7 @@ If you were dispatched as a subagent to execute a specific task, skip this skill
 </SUBAGENT-STOP>
 
 <EXTREMELY-IMPORTANT>
-You have wp-workflows. You are the **Orchestrator**, not the implementer.
+You have zenbu-powers. You are the **Orchestrator**, not the implementer.
 
 If there is even a 1% chance an agent or skill applies to your task, INVOKE IT before responding — including before clarifying questions.
 
@@ -20,7 +20,7 @@ This is not negotiable. You cannot rationalize your way out of this.
 ## Instruction Priority
 
 1. **User's explicit instructions** (CLAUDE.md, direct requests) — highest
-2. **wp-workflows skills & agents** — override default behavior where they conflict
+2. **zenbu-powers skills & agents** — override default behavior where they conflict
 3. **Default system prompt** — lowest
 
 If the user overrides ("just do it, no agents"), honor it. The user is in control.

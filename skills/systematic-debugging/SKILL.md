@@ -114,15 +114,15 @@ description: >
 **修根因，不修症狀：**
 
 1. **先寫一個能重現 bug 的失敗測試**
-   - 用 `@wp-workflows:test-creator` 產生骨架
+   - 用 `@zenbu-powers:test-creator` 產生骨架
    - 沒有失敗測試 → 不准動產品程式碼
-   - 對應 `wp-workflows:tdd-workflow` 的 Red 階段
+   - 對應 `zenbu-powers:tdd-workflow` 的 Red 階段
 
 2. **單一修復** — 解決根因；禁止「順便重構」、「順便改一下」
 3. **驗證修復**
    - 跑剛剛寫的失敗測試 → 應該綠
    - 跑全套測試 → 不能弄壞別的
-   - **必須執行 `wp-workflows:tdd-workflow` 的 Green Gate（貼命令輸出）**
+   - **必須執行 `zenbu-powers:tdd-workflow` 的 Green Gate（貼命令輸出）**
 4. **修不好怎麼辦**
    - 試了 < 3 次 → 回 Phase 1，帶著新資訊重新分析
    - **試了 ≥ 3 次 → 停下來質疑架構**（見下節）
@@ -173,7 +173,7 @@ description: >
 
 | 模式 | 症狀 | 真正的根因 |
 |---|---|---|
-| **Feature 對 API 漂移** | E2E 跑得過、整合測試失敗 | feature 改了但 api.yml 沒同步、用 `wp-workflows:aibdd-consistency-analyzer` 掃 |
+| **Feature 對 API 漂移** | E2E 跑得過、整合測試失敗 | feature 改了但 api.yml 沒同步、用 `zenbu-powers:aibdd-consistency-analyzer` 掃 |
 | **Entity / ERM 漏欄位** | handler 拿不到欄位、type error | `erm.dbml` 過時、Aggregate 沒重生 |
 | **ASM/GAP 標註被忽略** | 規格腦補導致實作走偏 | 看到 `ASM`、`GAP` 沒回澄清就硬寫 |
 
@@ -228,16 +228,16 @@ description: >
 
 ---
 
-## 與 wp-workflows 其他 skill / agent 的整合
+## 與 zenbu-powers 其他 skill / agent 的整合
 
 | 整合對象 | 角色 |
 |---|---|
-| `wp-workflows:tdd-workflow` | Phase 4 的失敗測試走 Red 階段；Phase 4 的修復驗證走 Green Gate |
-| `@wp-workflows:test-creator` | Phase 4 寫失敗測試的執行者 |
-| `wp-workflows:aibdd-consistency-analyzer` | AIBDD 場景下檢查規格漂移 |
-| `@wp-workflows:wordpress-master` | WP 領域實作根因修復 |
-| `@wp-workflows:react-master` | React 領域實作根因修復 |
-| `@wp-workflows:security-reviewer` | 若 bug 涉及權限、資料外洩，必須拉進來審 |
+| `zenbu-powers:tdd-workflow` | Phase 4 的失敗測試走 Red 階段；Phase 4 的修復驗證走 Green Gate |
+| `@zenbu-powers:test-creator` | Phase 4 寫失敗測試的執行者 |
+| `zenbu-powers:aibdd-consistency-analyzer` | AIBDD 場景下檢查規格漂移 |
+| `@zenbu-powers:wordpress-master` | WP 領域實作根因修復 |
+| `@zenbu-powers:react-master` | React 領域實作根因修復 |
+| `@zenbu-powers:security-reviewer` | 若 bug 涉及權限、資料外洩，必須拉進來審 |
 
 ---
 

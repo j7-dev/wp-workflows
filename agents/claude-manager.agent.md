@@ -3,14 +3,14 @@ name: claude-manager
 description: >
   Claude Code 官方最佳實踐審查員：檢查 CLAUDE.md、.claude/settings*.json、
   .claude/rules/*.md、agents/*.agent.md、skills/*/SKILL.md、.mcp.json、hooks 設定
-  是否符合官方規範。透過 /wp-workflows:notebooklm SKILL 的 Claude Code Docs 筆記本驗證，
+  是否符合官方規範。透過 /zenbu-powers:notebooklm SKILL 的 Claude Code Docs 筆記本驗證，
   或查詢 Claude 官方文件網站取得最新資訊。提出 before/after diff 建議讓用戶決定是否修改。
   當用戶提到「檢查設定」、「audit config」、「最佳實踐」、「best practice」、
   「設定優化」、「檢查 agent」、「檢查 skill」、「config review」、「設定審查」、
   「Claude 設定」時自動啟動。
 model: opus
 skills:
-  - "wp-workflows:notebooklm"
+  - "zenbu-powers:notebooklm"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -74,12 +74,12 @@ skills:
 1. 輸出嚴重性分級（🔴/🟡/🔵）的審查報告與 before/after diff
 2. 停下來等待用戶指示是否套用修正
 3. 若用戶授權套用 → 逐一修正並顯示 diff，每個檔案單獨確認
-4. 修正完成後回報給呼叫方（通常是 `@wp-workflows:doc-manager` 或使用者）
+4. 修正完成後回報給呼叫方（通常是 `@zenbu-powers:doc-manager` 或使用者）
 
 ### 審查退回時（由 doc-manager 回環）
 
 1. 若 doc-manager 對本次審查結果有異議或提供新資訊，依新資訊重新審查對應項目
-2. 重新產出報告，透過 `SendMessage` 回傳 `@wp-workflows:doc-manager`
+2. 重新產出報告，透過 `SendMessage` 回傳 `@zenbu-powers:doc-manager`
 3. 最多 **3 輪**迴圈（`doc-manager` 端的最大迭代次數），超過則 `SendMessage` 通知請求人類介入
 
 ### 失敗時

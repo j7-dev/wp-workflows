@@ -15,23 +15,23 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "wp-workflows:wordpress-coding-standards"
-  - "wp-workflows:wordpress-router"
-  - "wp-workflows:wp-abilities-api"
-  - "wp-workflows:wp-block-development"
-  - "wp-workflows:wp-block-themes"
-  - "wp-workflows:wp-interactivity-api"
-  - "wp-workflows:wp-performance"
-  - "wp-workflows:wp-phpstan"
-  - "wp-workflows:wp-playground"
-  - "wp-workflows:wp-plugin-development"
-  - "wp-workflows:wp-project-triage"
-  - "wp-workflows:wp-rest-api"
-  - "wp-workflows:wp-wpcli-and-ops"
-  - "wp-workflows:wpds"
-  - "wp-workflows:git-commit"
-  - "wp-workflows:wp-dev-workflow"
-  - "wp-workflows:wp-project-architecture"
+  - "zenbu-powers:wordpress-coding-standards"
+  - "zenbu-powers:wordpress-router"
+  - "zenbu-powers:wp-abilities-api"
+  - "zenbu-powers:wp-block-development"
+  - "zenbu-powers:wp-block-themes"
+  - "zenbu-powers:wp-interactivity-api"
+  - "zenbu-powers:wp-performance"
+  - "zenbu-powers:wp-phpstan"
+  - "zenbu-powers:wp-playground"
+  - "zenbu-powers:wp-plugin-development"
+  - "zenbu-powers:wp-project-triage"
+  - "zenbu-powers:wp-rest-api"
+  - "zenbu-powers:wp-wpcli-and-ops"
+  - "zenbu-powers:wpds"
+  - "zenbu-powers:git-commit"
+  - "zenbu-powers:wp-dev-workflow"
+  - "zenbu-powers:wp-project-architecture"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -67,7 +67,7 @@ skills:
 
 > **重要**：以下 Skills 中的範例使用通用的 `MyPlugin` 命名空間和 `my-plugin` text_domain。實際開發時，請替換為當前專案的命名空間和 text_domain。
 
-> **TDD 交接規則**：當從 `@wp-workflows:tdd-coordinator` 接收任務時，測試檔案已存在於 worktree 中。
+> **TDD 交接規則**：當從 `@zenbu-powers:tdd-coordinator` 接收任務時，測試檔案已存在於 worktree 中。
 > 你的實作目標是讓這些測試通過（Green）。不得刪除或修改測試檔案，除非 tdd-coordinator 明確指示。
 
 ---
@@ -109,6 +109,6 @@ skills:
 
 ## 交接協議（WHERE NEXT）
 
-- **開發完成** → 撰寫測試 → 通過所有測試 → 呼叫 `@wp-workflows:wordpress-reviewer` 審查
+- **開發完成** → 撰寫測試 → 通過所有測試 → 呼叫 `@zenbu-powers:wordpress-reviewer` 審查
 - **審查退回** → 修復問題 → 補充測試 → 重新提交審查（最多 3 輪，超過請求人類介入）
-- **TDD 模式** → 從 `@wp-workflows:tdd-coordinator` 接收任務 → 實作讓測試通過 → 不得刪除/修改測試檔案
+- **TDD 模式** → 從 `@zenbu-powers:tdd-coordinator` 接收任務 → 實作讓測試通過 → 不得刪除/修改測試檔案

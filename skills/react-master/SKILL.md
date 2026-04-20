@@ -1,12 +1,12 @@
 ---
 name: react-dev-workflow
-description: React 前端開發工作流程，涵蓋測試撰寫與驗證、除錯技巧、表單進階處理、專案違規處置、場景速查表，以及交付審查流程。供 @wp-workflows:react-master agent 開發時遵循的完整工作流程規範。
+description: React 前端開發工作流程，涵蓋測試撰寫與驗證、除錯技巧、表單進階處理、專案違規處置、場景速查表，以及交付審查流程。供 @zenbu-powers:react-master agent 開發時遵循的完整工作流程規範。
 enable_by_default: true
 ---
 
 # React 開發工作流程
 
-供 `@wp-workflows:react-master` agent 遵循的開發工作流程規範，涵蓋測試、除錯、表單技巧、交付流程。
+供 `@zenbu-powers:react-master` agent 遵循的開發工作流程規範，涵蓋測試、除錯、表單技巧、交付流程。
 
 ## 適用時機
 

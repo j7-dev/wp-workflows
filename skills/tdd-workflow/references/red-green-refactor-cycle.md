@@ -8,7 +8,7 @@
 
 ### Step 2：分派 Test Creator
 
-- 將 planner 計劃中的「測試策略」與「架構變更」section 傳給 `@wp-workflows:test-creator`
+- 將 planner 計劃中的「測試策略」與「架構變更」section 傳給 `@zenbu-powers:test-creator`
 - test-creator 根據 `specs/` 目錄的規格產生完整測試骨架
 - 測試骨架包含：整合測試（PHPUnit）和/或 E2E 測試（Playwright），視功能性質決定
 
@@ -87,9 +87,9 @@ npx vitest run 2>&1; echo "EXIT_CODE=$?"
 
 **審查團隊組成（根據專案技術棧選擇）：**
 
-- `@wp-workflows:wordpress-reviewer` — PHP/WordPress 程式碼審查
-- `@wp-workflows:react-reviewer` — React/TypeScript 程式碼審查
-- `@wp-workflows:security-reviewer` — 安全性審查（**WordPress Plugin 專案必須包含**，與其他 reviewer 平行執行）
+- `@zenbu-powers:wordpress-reviewer` — PHP/WordPress 程式碼審查
+- `@zenbu-powers:react-reviewer` — React/TypeScript 程式碼審查
+- `@zenbu-powers:security-reviewer` — 安全性審查（**WordPress Plugin 專案必須包含**，與其他 reviewer 平行執行）
 
 ---
 
@@ -97,7 +97,7 @@ npx vitest run 2>&1; echo "EXIT_CODE=$?"
 
 | 失敗情境 | 處理方式 |
 |----------|----------|
-| test-creator 無法產生測試（`./specs/` 不存在） | 中止，回報「缺少 `./specs/` 規格，請先用 @wp-workflows:clarifier 產生」 |
+| test-creator 無法產生測試（`./specs/` 不存在） | 中止，回報「缺少 `./specs/` 規格，請先用 @zenbu-powers:clarifier 產生」 |
 | Red Gate 不通過（無測試檔案） | 退回 test-creator，最多重試 2 次 |
 | Red Gate 不通過（測試全部通過） | test-creator 的斷言有誤，退回修正 |
 | Green Gate 不通過（測試失敗） | 退回 Developer Teammate，最多重試 3 次 |
@@ -109,17 +109,17 @@ npx vitest run 2>&1; echo "EXIT_CODE=$?"
 ## 核心 Agent 依賴
 
 **TDD 流程：**
-- `@wp-workflows:test-creator` — 第一棒，強制呼叫，負責在實作前產生所有測試骨架；如果沒有產生測試，必須交代原因
+- `@zenbu-powers:test-creator` — 第一棒，強制呼叫，負責在實作前產生所有測試骨架；如果沒有產生測試，必須交代原因
 
 **開發團隊（依專案技術棧選擇）：**
-- `@wp-workflows:wordpress-master` — WordPress/PHP 實作
-- `@wp-workflows:react-master` — React/TypeScript 前端實作
-- `@wp-workflows:nodejs-master` — Node.js 後端實作
+- `@zenbu-powers:wordpress-master` — WordPress/PHP 實作
+- `@zenbu-powers:react-master` — React/TypeScript 前端實作
+- `@zenbu-powers:nodejs-master` — Node.js 後端實作
 
 **審查團隊（依專案技術棧選擇）：**
-- `@wp-workflows:wordpress-reviewer` — WordPress/PHP 程式碼審查
-- `@wp-workflows:react-reviewer` — React/TypeScript 程式碼審查
-- `@wp-workflows:security-reviewer` — 安全性審查（WordPress Plugin 專案必須）
+- `@zenbu-powers:wordpress-reviewer` — WordPress/PHP 程式碼審查
+- `@zenbu-powers:react-reviewer` — React/TypeScript 程式碼審查
+- `@zenbu-powers:security-reviewer` — 安全性審查（WordPress Plugin 專案必須）
 
 **收尾：**
-- `@wp-workflows:doc-updater` — 完成後同步更新專案文件
+- `@zenbu-powers:doc-updater` — 完成後同步更新專案文件

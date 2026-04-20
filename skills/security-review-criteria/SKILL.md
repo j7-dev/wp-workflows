@@ -1,11 +1,11 @@
 ---
 name: security-review-criteria
-description: WordPress Plugin 資安審查完整 checklist 與決策邏輯，涵蓋 OWASP Top 10、WordPress 特有漏洞（XSS / SQLi / CSRF / 能力檢查 / 路徑穿越 / SSRF / REST API）、依賴套件漏洞、敏感資訊洩漏、競爭條件、LLM 輸出信任邊界，並定義審查報告輸出格式與嚴重度分級。供 @wp-workflows:security-reviewer agent 於審查時參考，也可於開發階段作為自我檢查清單。當審查 PHP 程式碼、評估 WordPress Plugin 安全性、撰寫資安報告、判斷漏洞嚴重度，或需要 before/after 修補範例時，請啟用此技能。
+description: WordPress Plugin 資安審查完整 checklist 與決策邏輯，涵蓋 OWASP Top 10、WordPress 特有漏洞（XSS / SQLi / CSRF / 能力檢查 / 路徑穿越 / SSRF / REST API）、依賴套件漏洞、敏感資訊洩漏、競爭條件、LLM 輸出信任邊界，並定義審查報告輸出格式與嚴重度分級。供 @zenbu-powers:security-reviewer agent 於審查時參考，也可於開發階段作為自我檢查清單。當審查 PHP 程式碼、評估 WordPress Plugin 安全性、撰寫資安報告、判斷漏洞嚴重度，或需要 before/after 修補範例時，請啟用此技能。
 ---
 
 # WordPress Plugin 資安審查 Criteria
 
-供 `@wp-workflows:security-reviewer` agent 使用的完整審查依據。包含 13 個審查維度、常見誤判排除、輸出模板與高風險情境對照表。
+供 `@zenbu-powers:security-reviewer` agent 使用的完整審查依據。包含 13 個審查維度、常見誤判排除、輸出模板與高風險情境對照表。
 
 ## 適用時機
 

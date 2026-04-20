@@ -8,7 +8,7 @@ description: >
 
 # /plan — 規劃劇本
 
-提供建立完整實作計劃所需的流程、輸出格式與檢查清單。供 `@wp-workflows:planner` agent 執行規劃任務時載入。
+提供建立完整實作計劃所需的流程、輸出格式與檢查清單。供 `@zenbu-powers:planner` agent 執行規劃任務時載入。
 
 ---
 
@@ -276,5 +276,5 @@ INPUT ──▶ VALIDATION ──▶ TRANSFORM ──▶ PERSIST ──▶ OUTPU
 | 名稱 | 用途 |
 | --- | --- |
 | `/clarify-loop` | 澄清疑點時依此 skill 的規則提問 |
-| `@wp-workflows:planner` | 載入此 skill 執行規劃任務；規劃完成後交接給 tdd-coordinator |
-| `@wp-workflows:tdd-coordinator` | 計劃完成後接手執行 TDD 流程（Red → Green → Refactor） |
+| `@zenbu-powers:planner` | 載入此 skill 執行規劃任務；規劃完成後交接給 tdd-coordinator |
+| `@zenbu-powers:tdd-coordinator` | 計劃完成後接手執行 TDD 流程（Red → Green → Refactor） |

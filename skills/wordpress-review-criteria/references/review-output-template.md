@@ -52,7 +52,7 @@
 
 ## 審查完成後的動作（非 Team 模式）
 
-> **Team 模式偵測**：若你是由 `@wp-workflows:tdd-coordinator` 作為 Teammate 啟動的，審查結果一律透過 `SendMessage` 回報給 tdd-coordinator（Team Lead），由它統一管理退回/通過流程。**不要自行呼叫 master agent、不要 git push、不要建立 PR**。
+> **Team 模式偵測**：若你是由 `@zenbu-powers:tdd-coordinator` 作為 Teammate 啟動的，審查結果一律透過 `SendMessage` 回報給 tdd-coordinator（Team Lead），由它統一管理退回/通過流程。**不要自行呼叫 master agent、不要 git push、不要建立 PR**。
 >
 > 以下流程僅適用於**非 Team 模式**（獨立審查）。
 
@@ -66,7 +66,7 @@
 **必須執行的動作**：使用 `@` 將審查報告交回開發者修改：
 
 ```
-@wp-workflows:wordpress-master
+@zenbu-powers:wordpress-master
 
 ## 🚫 審查未通過,請修改後重新提交
 

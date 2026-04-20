@@ -64,7 +64,7 @@
 ## 審查不通過：退回開發者訊息
 
 ```
-@wp-workflows:react-master
+@zenbu-powers:react-master
 
 ## 🚫 審查未通過，請修改後重新提交
 
@@ -140,7 +140,7 @@ gh pr create --title "功能描述" --body "審查摘要..."
 
 ## Team 模式特別說明
 
-若是由 `@wp-workflows:tdd-coordinator` 作為 Teammate 啟動：
+若是由 `@zenbu-powers:tdd-coordinator` 作為 Teammate 啟動：
 
 - 審查結果一律透過 `SendMessage` 回報給 tdd-coordinator（Team Lead）
 - 由 coordinator 統一管理退回 / 通過流程

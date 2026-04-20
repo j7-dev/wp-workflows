@@ -6,8 +6,8 @@ description: >
   (2) 轉換模式（偵測到「轉換」關鍵字時啟用）— 將提示詞從一個用途/技術轉換為另一個，保留核心邏輯。
 model: opus
 skills:
-  - "wp-workflows:prompt-optimization"
-  - "wp-workflows:clarify-loop"
+  - "zenbu-powers:prompt-optimization"
+  - "zenbu-powers:clarify-loop"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。

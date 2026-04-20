@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# SessionStart hook for wp-workflows plugin
-# Injects using-wp-workflows skill into the session context so Claude
+# SessionStart hook for zenbu-powers plugin
+# Injects using-zenbu-powers skill into the session context so Claude
 # knows about the orchestrator mindset, agent roster, and skill catalog
 # from the very first turn.
 
@@ -10,8 +10,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
-# Read using-wp-workflows content
-using_wpwf_content=$(cat "${PLUGIN_ROOT}/skills/using-wp-workflows/SKILL.md" 2>&1 || echo "Error reading using-wp-workflows skill")
+# Read using-zenbu-powers content
+using_zp_content=$(cat "${PLUGIN_ROOT}/skills/using-zenbu-powers/SKILL.md" 2>&1 || echo "Error reading using-zenbu-powers skill")
 
 # Escape string for JSON embedding using bash parameter substitution.
 # Each ${s//old/new} is a single C-level pass - orders of magnitude
@@ -26,8 +26,8 @@ escape_for_json() {
     printf '%s' "$s"
 }
 
-using_wpwf_escaped=$(escape_for_json "$using_wpwf_content")
-session_context="<EXTREMELY_IMPORTANT>\nYou have wp-workflows.\n\n**Below is the full content of your 'wp-workflows:using-wp-workflows' skill - your introduction to the orchestrator mindset, agent roster, and skill catalog. For all other skills, use the 'Skill' tool:**\n\n${using_wpwf_escaped}\n</EXTREMELY_IMPORTANT>"
+using_zp_escaped=$(escape_for_json "$using_zp_content")
+session_context="<EXTREMELY_IMPORTANT>\nYou have zenbu-powers.\n\n**Below is the full content of your 'zenbu-powers:using-zenbu-powers' skill - your introduction to the orchestrator mindset, agent roster, and skill catalog. For all other skills, use the 'Skill' tool:**\n\n${using_zp_escaped}\n</EXTREMELY_IMPORTANT>"
 
 # Output context injection as JSON.
 # Cursor hooks expect additional_context (snake_case).

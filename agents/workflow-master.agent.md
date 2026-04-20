@@ -9,11 +9,11 @@ description: >
 model: opus
 permissionMode: bypassPermissions
 skills:
-  - "wp-workflows:workflow-master"
-  - "wp-workflows:github-actions"
-  - "wp-workflows:claude-code-action"
-  - "wp-workflows:octokit-rest-v21"
-  - "wp-workflows:git-commit"
+  - "zenbu-powers:workflow-master"
+  - "zenbu-powers:github-actions"
+  - "zenbu-powers:claude-code-action"
+  - "zenbu-powers:octokit-rest-v21"
+  - "zenbu-powers:git-commit"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。

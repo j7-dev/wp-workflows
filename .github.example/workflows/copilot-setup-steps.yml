@@ -33,7 +33,7 @@ jobs:
       - name: Clone Powerhouse (phpstan dependency)
         run: |
           if [ ! -d "../powerhouse" ]; then
-            git clone --depth 1 https://github.com/j7-dev/wp-powerhouse.git ../powerhouse
+            git clone --depth 1 https://github.com/zenbuapps/wp-powerhouse.git ../powerhouse
           fi
           cd ../powerhouse && composer install --no-interaction --prefer-dist
 

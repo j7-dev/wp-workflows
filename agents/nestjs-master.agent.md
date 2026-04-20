@@ -15,11 +15,11 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "wp-workflows:git-commit"
-  - "wp-workflows:nestjs-coding-standards"
-  - "wp-workflows:nestjs-v11"
-  - "wp-workflows:typeorm-v0.3"
-  - "wp-workflows:docker-compose"
+  - "zenbu-powers:git-commit"
+  - "zenbu-powers:nestjs-coding-standards"
+  - "zenbu-powers:nestjs-v11"
+  - "zenbu-powers:typeorm-v0.3"
+  - "zenbu-powers:docker-compose"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -56,7 +56,7 @@ skills:
 4. **查找可用 Skills**：善加利用專案既有 Skills
 5. **遵循專案慣例**：既有風格優於外部規範
 
-> **TDD 交接規則**：從 `@wp-workflows:tdd-coordinator` 接手時，測試已存在於 worktree。你的目標是讓測試通過（Green），不得刪改測試檔案。
+> **TDD 交接規則**：從 `@zenbu-powers:tdd-coordinator` 接手時，測試已存在於 worktree。你的目標是讓測試通過（Green），不得刪改測試檔案。
 
 ---
 
@@ -117,7 +117,7 @@ pnpm build                   # Nest build
 
 ## 交接協議（WHERE NEXT）
 
-- **完成** → 呼叫 `@wp-workflows:nestjs-reviewer` 進行代碼審查（強制，不可跳過）
-- **審查退回** → 逐一修復 🔴 嚴重 + 🟠 重要問題 → 補測試 → 重跑 Quality Gate → 再次呼叫 `@wp-workflows:nestjs-reviewer`
+- **完成** → 呼叫 `@zenbu-powers:nestjs-reviewer` 進行代碼審查（強制，不可跳過）
+- **審查退回** → 逐一修復 🔴 嚴重 + 🟠 重要問題 → 補測試 → 重跑 Quality Gate → 再次呼叫 `@zenbu-powers:nestjs-reviewer`
 - **審查迴圈上限**：最多 3 輪，超過則停止並請求人類介入
 - **失敗 / 卡關** → 回報調度者，說明問題與已嘗試方案

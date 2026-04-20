@@ -1,12 +1,12 @@
 {
-  "name": "wp-workflows",
+  "name": "zenbu-powers",
   "owner": {
-    "name": "j7-dev",
+    "name": "zenbuapps",
     "email": "j7.dev.gg@gmail.com"
   },
   "plugins": [
     {
-      "name": "wp-workflows",
+      "name": "zenbu-powers",
       "source": "./"
     }
   ]
