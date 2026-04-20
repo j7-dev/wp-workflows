@@ -105,7 +105,7 @@ claude plugin list
 | TDD 流程              | `/tdd-workflow`                  | Red → Green → Refactor 執行 playbook，含 Evidence 鐵律         |
 | 需求表述              | `/formulation`                   | 需求文件撰寫                                                  |
 | React 編碼標準        | `/react-coding-standards`        | React / TypeScript 最佳實踐                                   |
-| Refine                | `/refine`                        | Ant Design + Refine 框架開發                                  |
+| Refine                | `/refine-v4`                     | Ant Design + Refine 框架開發                                  |
 
 > 💡 **與 obra/superpowers 的關係**：本 Plugin 的 `systematic-debugging`、`finishing-branch`、`tdd-workflow` 的 verification-gate 三項（v1.18.0）、SessionStart hook 架構 + `using-wp-workflows`、`brainstorming`、`dispatching-parallel-agents`（v2.0.0），方法論與基礎設施皆承襲自 `obra/superpowers`，並在地化為 WordPress / React / AIBDD 場景。若同時安裝 superpowers，兩者可平行使用：本 Plugin 提供 WP 領域實作，superpowers 提供通用流程版本。
 

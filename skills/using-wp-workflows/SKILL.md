@@ -127,10 +127,10 @@ digraph orchestrator {
 
 ### React / Frontend
 - `/react-master`, `/react-coding-standards`, `/react-review-criteria`
-- `/tanstack-query-v5`, `/tanstack-query-v4`, `/refine`, `/ant-design-pro`
-- `/react-router-v7`, `/react-flow-v12`, `/vidstack-hls`
-- `/i18next`, `/zod-v3`, `/tailwindcss-v4`, `/blocknote`
-- `/vite-for-wp`, `/frontend-design`
+- `/tanstack-query-v5`, `/tanstack-query-v4`, `/refine-v4`, `/ant-design-pro-v2`
+- `/react-router-v7`, `/react-flow-v12`, `/vidstack-hls-v1`
+- `/i18next-v25`, `/zod-v3`, `/tailwindcss-v4`, `/blocknote-v0.30`
+- `/vite-for-wp-v0.12`, `/frontend-design`
 
 ### AIBDD 系列（入口）
 - `/aibdd-specformula` — 需求層級全流程工程計畫產生器（入口）
@@ -146,7 +146,7 @@ digraph orchestrator {
 - `/aho-corasick-skill` — **全域一致性掃描必備**
 - `/claude-api` — Anthropic SDK / Claude API 開發
 - `/github-actions`, `/claude-code-action`
-- `/notebooklm`, `/pdf-lib`, `/better-auth`, `/drizzle-orm`
+- `/notebooklm`, `/pdf-lib-v1.17`, `/better-auth-v1.4`, `/drizzle-orm-v0.38`
 
 ---
 

@@ -17,7 +17,7 @@ mcpServers:
 skills:
   - "wp-workflows:react-coding-standards"
   - "wp-workflows:react-review-criteria"
-  - "wp-workflows:refine"
+  - "wp-workflows:refine-v4"
   - "wp-workflows:git-commit"
 ---
 
@@ -82,7 +82,7 @@ skills:
 
 - `/react-review-criteria` — 審查 checklist、嚴重性等級、框架專項檢查、輸出模板（本角色核心）
 - `/react-coding-standards` — 編碼規範本身（命名、型別、結構），審查意見引用此作為判準
-- `/refine` — Refine.dev 資料層與 Provider 系統深度參考
+- `/refine-v4` — Refine.dev 資料層與 Provider 系統深度參考
 - `/git-commit` — 審查通過後建立 commit 與 PR 使用
 
 > 如果專案有定義額外的 Skills，請自行查找並善加利用。

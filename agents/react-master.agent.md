@@ -17,7 +17,7 @@ mcpServers:
 skills:
   - "wp-workflows:react-coding-standards"
   - "wp-workflows:react-dev-workflow"
-  - "wp-workflows:refine"
+  - "wp-workflows:refine-v4"
   - "wp-workflows:git-commit"
 ---
 
@@ -123,7 +123,7 @@ vi.mocked(useQuery).mockReturnValue({
 
 - `/react-coding-standards` — TypeScript / React 編碼標準、命名規範、元件結構、效能、狀態管理
 - `/react-dev-workflow` — 測試撰寫、除錯技巧、表單進階處理、場景速查、交付審查流程
-- `/refine` — Refine.dev CRUD 框架（useTable、useForm、useCustom、dataProvider）
+- `/refine-v4` — Refine.dev CRUD 框架（useTable、useForm、useCustom、dataProvider）
 - `/git-commit` — Git commit 操作
 
 > 如果專案有定義額外的 Skills，請自行查找並善加利用。
