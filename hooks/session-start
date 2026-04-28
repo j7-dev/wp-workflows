@@ -6,6 +6,9 @@
 
 set -euo pipefail
 
+# Guard: only run when ZENBU_HOOKS_ENABLED=1 (set via env in settings.json)
+[ "${ZENBU_HOOKS_ENABLED:-}" != "1" ] && exit 0
+
 # Determine plugin root directory
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
