@@ -12,14 +12,14 @@
 
 ## 前置檢查結果
 
-| 項目 | 結果 | 備註 |
-|------|------|------|
-| `tsc --noEmit` | ✅ / ❌ | {若失敗，貼錯誤訊息} |
-| `eslint` | ✅ / ❌ | {若失敗，列違規檔案} |
-| `prettier --check` | ✅ / ❌ | |
-| `jest`（unit） | ✅ / ❌ | {X passed / Y failed} |
-| `jest --e2e` | ✅ / ❌ / ⊘ | ⊘ 表示未配置 |
-| `nest build` | ✅ / ❌ | |
+| 項目               | 結果      | 備註                  |
+| ------------------ | --------- | --------------------- |
+| `tsc --noEmit`     | ✅ / ❌     | {若失敗，貼錯誤訊息}  |
+| `eslint`           | ✅ / ❌     | {若失敗，列違規檔案}  |
+| `prettier --check` | ✅ / ❌     |                       |
+| `jest`（unit）     | ✅ / ❌     | {X passed / Y failed} |
+| `jest --e2e`       | ✅ / ❌ / ⊘ | ⊘ 表示未配置          |
+| `nest build`       | ✅ / ❌     |                       |
 
 {若有任一 ❌ → 審查不通過，下方僅列需修復項目，不出正向反饋}
 
@@ -239,7 +239,7 @@
 ## Reviewer 對 Master 的 SendMessage 範本
 
 ```
-@zenbu-powers-lite:nestjs-master
+@zenbu-powers:nestjs-master
 
 請修復以下問題後重新呼叫審查（當前第 {N}/3 輪）：
 
@@ -258,5 +258,5 @@
 
 完整報告見 {附上完整 markdown 或引用位置}
 
-修復完成後請重新跑 Quality Gate 並呼叫 `@zenbu-powers-lite:nestjs-reviewer`。
+修復完成後請重新跑 Quality Gate 並呼叫 `@zenbu-powers:nestjs-reviewer`。
 ```

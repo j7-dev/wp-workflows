@@ -15,8 +15,8 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "zenbu-powers-lite:nestjs-coding-standards"
-  - "zenbu-powers-lite:nestjs-v11"
+  - "zenbu-powers:nestjs-coding-standards"
+  - "zenbu-powers:nestjs-v11"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -114,7 +114,7 @@ pnpm build                   # Nest build
 
 ## 交接協議（WHERE NEXT）
 
-- **完成** → 呼叫 `@zenbu-powers-lite:nestjs-reviewer` 進行代碼審查（強制，不可跳過）
-- **審查退回** → 逐一修復 🔴 嚴重 + 🟠 重要問題 → 補測試 → 重跑 Quality Gate → 再次呼叫 `@zenbu-powers-lite:nestjs-reviewer`
+- **完成** → 呼叫 `@zenbu-powers:nestjs-reviewer` 進行代碼審查（強制，不可跳過）
+- **審查退回** → 逐一修復 🔴 嚴重 + 🟠 重要問題 → 補測試 → 重跑 Quality Gate → 再次呼叫 `@zenbu-powers:nestjs-reviewer`
 - **審查迴圈上限**：最多 3 輪，超過則停止並請求人類介入
 - **失敗 / 卡關** → 回報調度者，說明問題與已嘗試方案

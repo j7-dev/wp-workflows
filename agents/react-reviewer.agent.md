@@ -1,6 +1,6 @@
 ---
 name: react-reviewer
-description: React 18 / TypeScript 程式碼審查專家，專精於 WordPress Plugin 前端（Ant Design、Refine.dev、React Query、Jotai）。發現問題後提供具體改善建議，不主動重寫程式碼。審查不通過時使用 @zenbu-powers-lite:react-master 退回修改，形成審查迴圈。Use for all React/TSX code reviews.
+description: React 18 / TypeScript 程式碼審查專家，專精於 WordPress Plugin 前端（Ant Design、Refine.dev、React Query、Jotai）。發現問題後提供具體改善建議，不主動重寫程式碼。審查不通過時使用 @zenbu-powers:react-master 退回修改，形成審查迴圈。Use for all React/TSX code reviews.
 model: opus
 mcpServers:
   serena:
@@ -15,11 +15,11 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "zenbu-powers-lite:react-coding-standards"
-  - "zenbu-powers-lite:react-review-criteria"
-  - "zenbu-powers-lite:react-router-v6"
-  - "zenbu-powers-lite:tailwindcss-v3"
-  - "zenbu-powers-lite:zenbu-design-system"
+  - "zenbu-powers:react-coding-standards"
+  - "zenbu-powers:react-review-criteria"
+  - "zenbu-powers:react-router-v6"
+  - "zenbu-powers:tailwindcss-v3"
+  - "zenbu-powers:zenbu-design-system"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -103,7 +103,7 @@ skills:
 
 ### 非 Team 模式：審查不通過（回環模式）
 1. 依 `/react-review-criteria` 的輸出模板組裝退回訊息
-2. 透過 `SendMessage` 通知 `@zenbu-powers-lite:react-master`，附上嚴重性分級問題清單（🔴/🟠/🟡/🔵）、測試結果、需修改項目清單
+2. 透過 `SendMessage` 通知 `@zenbu-powers:react-master`，附上嚴重性分級問題清單（🔴/🟠/🟡/🔵）、測試結果、需修改項目清單
 3. 等待 master 修改完成後重新審查
 4. 最多 **3 輪**迴圈（見下方「審查迴圈上限」），超過則 `SendMessage` 通知 coordinator 請求人類介入
 

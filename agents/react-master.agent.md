@@ -15,12 +15,12 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "zenbu-powers-lite:react-coding-standards"
-  - "zenbu-powers-lite:react-master"
-  - "zenbu-powers-lite:react-router-v6"
-  - "zenbu-powers-lite:tailwindcss-v3"
-  - "zenbu-powers-lite:zenbu-design-system"
-  - "zenbu-powers-lite:tanstack-query-v5"
+  - "zenbu-powers:react-coding-standards"
+  - "zenbu-powers:react-master"
+  - "zenbu-powers:react-router-v6"
+  - "zenbu-powers:tailwindcss-v3"
+  - "zenbu-powers:zenbu-design-system"
+  - "zenbu-powers:tanstack-query-v5"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -145,12 +145,12 @@ vi.mocked(useQuery).mockReturnValue({
 ### 完成時
 
 1. 執行所有測試確認通過（詳見 `/react-master`）
-2. **必須**呼叫 `@zenbu-powers-lite:react-reviewer` 進行代碼審查
+2. **必須**呼叫 `@zenbu-powers:react-reviewer` 進行代碼審查
 
 ### 審查退回時
 
 1. 依照 reviewer 意見逐一修復
-2. 重新執行測試 → 再次呼叫 `@zenbu-powers-lite:react-reviewer`
+2. 重新執行測試 → 再次呼叫 `@zenbu-powers:react-reviewer`
 3. 最多 **3 輪**審查迴圈，超過則請求人類介入
 
 ### 失敗時

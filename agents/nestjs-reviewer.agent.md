@@ -1,6 +1,6 @@
 ---
 name: nestjs-reviewer
-description: NestJS 10+ / TypeScript 程式碼審查專家，專精模組化架構、Dependency Injection、Guards/Interceptors/Pipes/Filters、TypeORM/Prisma Repository、class-validator DTO、JWT/Passport、Jest 測試。發現問題後提供具體改善建議，不主動重寫。審查不通過時透過 SendMessage 退回 @zenbu-powers-lite:nestjs-master，形成審查迴圈。Use for all NestJS code reviews.
+description: NestJS 10+ / TypeScript 程式碼審查專家，專精模組化架構、Dependency Injection、Guards/Interceptors/Pipes/Filters、TypeORM/Prisma Repository、class-validator DTO、JWT/Passport、Jest 測試。發現問題後提供具體改善建議，不主動重寫。審查不通過時透過 SendMessage 退回 @zenbu-powers:nestjs-master，形成審查迴圈。Use for all NestJS code reviews.
 model: opus
 mcpServers:
   serena:
@@ -15,9 +15,9 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "zenbu-powers-lite:nestjs-coding-standards"
-  - "zenbu-powers-lite:nestjs-review-criteria"
-  - "zenbu-powers-lite:nestjs-v11"
+  - "zenbu-powers:nestjs-coding-standards"
+  - "zenbu-powers:nestjs-review-criteria"
+  - "zenbu-powers:nestjs-v11"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -104,7 +104,7 @@ skills:
 
 ### 非 Team 模式：審查不通過（回環模式）
 1. 依 `/nestjs-review-criteria` 的輸出模板組裝退回訊息
-2. 透過 `SendMessage` 通知 `@zenbu-powers-lite:nestjs-master`，附嚴重性分級問題清單（🔴/🟠/🟡/🔵）、測試結果、需修改項目清單
+2. 透過 `SendMessage` 通知 `@zenbu-powers:nestjs-master`，附嚴重性分級問題清單（🔴/🟠/🟡/🔵）、測試結果、需修改項目清單
 3. 等待 master 修改完成後重新審查
 4. 最多 **3 輪**迴圈，超過則 `SendMessage` 通知 coordinator 請求人類介入
 

@@ -1,17 +1,17 @@
 ---
 name: nestjs-coding-standards
-description: NestJS 10+ / TypeScript 5+ 編碼標準與最佳實踐，涵蓋模組化架構、Dependency Injection、Controller/Service/Repository 分層、DTO + class-validator、Guards/Interceptors/Pipes/Filters、TypeORM/Prisma Repository Pattern、JWT/Passport 認證、Jest + supertest 測試規範與命名慣例。供 @zenbu-powers-lite:nestjs-master 開發時遵循，並作為 @zenbu-powers-lite:nestjs-reviewer 的判準。當開發或審查 NestJS 程式碼、建立新 Module、重構後端、或確認命名與型別慣例時請啟用此技能。
+description: NestJS 10+ / TypeScript 5+ 編碼標準與最佳實踐，涵蓋模組化架構、Dependency Injection、Controller/Service/Repository 分層、DTO + class-validator、Guards/Interceptors/Pipes/Filters、TypeORM/Prisma Repository Pattern、JWT/Passport 認證、Jest + supertest 測試規範與命名慣例。供 @zenbu-powers:nestjs-master 開發時遵循，並作為 @zenbu-powers:nestjs-reviewer 的判準。當開發或審查 NestJS 程式碼、建立新 Module、重構後端、或確認命名與型別慣例時請啟用此技能。
 ---
 
 # NestJS 10+ 編碼標準
 
-NestJS 後端開發的統一編碼規範。與 `@zenbu-powers-lite:nestjs-master` 開發 agent、`@zenbu-powers-lite:nestjs-reviewer` 審查 agent 配合使用。
+NestJS 後端開發的統一編碼規範。與 `@zenbu-powers:nestjs-master` 開發 agent、`@zenbu-powers:nestjs-reviewer` 審查 agent 配合使用。
 
 ## 適用時機
 
 - 開始新 Module / Controller / Service 開發
 - 重構既有程式碼以符合 NestJS 慣例
-- 審查 PR 時對照規範（搭配 `@zenbu-powers-lite:nestjs-review-criteria`）
+- 審查 PR 時對照規範（搭配 `@zenbu-powers:nestjs-review-criteria`）
 - 新成員熟悉專案編碼慣例
 - 確立命名、DI、分層、錯誤處理的一致性
 

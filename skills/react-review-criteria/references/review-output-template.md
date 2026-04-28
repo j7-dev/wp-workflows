@@ -64,7 +64,7 @@
 ## 審查不通過：退回開發者訊息
 
 ```
-@zenbu-powers-lite:react-master
+@zenbu-powers:react-master
 
 ## 🚫 審查未通過，請修改後重新提交
 

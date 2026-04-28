@@ -1,15 +1,15 @@
 ---
 name: react-coding-standards
-description: TypeScript / React 18 編碼標準與最佳實踐，適用於 WordPress Plugin 前端（Ant Design、Refine.dev、Jotai）。供 @zenbu-powers-lite:react-reviewer agent 審查時參考，也可作為開發時的規範指引。當開發或審查任何 React/TypeScript 程式碼、建立新元件、重構前端、或需要確認命名與型別慣例時，請啟用此技能。
+description: TypeScript / React 18 編碼標準與最佳實踐，適用於 WordPress Plugin 前端（Ant Design、Refine.dev、Jotai）。供 @zenbu-powers:react-reviewer agent 審查時參考，也可作為開發時的規範指引。當開發或審查任何 React/TypeScript 程式碼、建立新元件、重構前端、或需要確認命名與型別慣例時，請啟用此技能。
 ---
 
 # TypeScript / React 編碼標準
 
-適用於 WordPress Plugin 前端的 TypeScript 與 React 18 編碼規範。與 `@zenbu-powers-lite:react-reviewer` agent 配合使用，作為審查與開發的共同準則。
+適用於 WordPress Plugin 前端的 TypeScript 與 React 18 編碼規範。與 `@zenbu-powers:react-reviewer` agent 配合使用，作為審查與開發的共同準則。
 
 ## 適用時機
 
-- 審查 React / TypeScript 程式碼品質（搭配 `@zenbu-powers-lite:react-reviewer`）
+- 審查 React / TypeScript 程式碼品質（搭配 `@zenbu-powers:react-reviewer`）
 - 開始新模組或元件開發
 - 重構現有程式碼以符合規範
 - 確立命名、格式、型別的一致性

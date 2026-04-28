@@ -1,11 +1,11 @@
 ---
 name: react-review-criteria
-description: React 18 / TypeScript 程式碼審查 checklist，專精 hooks、效能、a11y 與 Ant Design / Refine / React Query 整合檢查。提供可逐項勾選的審查清單與 before/after 對比範例，供 @zenbu-powers-lite:react-reviewer 審查時照表操作。與 @zenbu-powers-lite:react-coding-standards 搭配：該 skill 寫「規範本身」，本 skill 寫「審查時照著跑的 checklist」。
+description: React 18 / TypeScript 程式碼審查 checklist，專精 hooks、效能、a11y 與 Ant Design / Refine / React Query 整合檢查。提供可逐項勾選的審查清單與 before/after 對比範例，供 @zenbu-powers:react-reviewer 審查時照表操作。與 @zenbu-powers:react-coding-standards 搭配：該 skill 寫「規範本身」，本 skill 寫「審查時照著跑的 checklist」。
 ---
 
 # React 18 程式碼審查 Checklist
 
-專供程式碼審查流程使用的結構化 checklist 與輸出模板。與 `@zenbu-powers-lite:react-coding-standards` 的分工：
+專供程式碼審查流程使用的結構化 checklist 與輸出模板。與 `@zenbu-powers:react-coding-standards` 的分工：
 
 | Skill | 定位 |
 |-------|------|
