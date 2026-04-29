@@ -54,16 +54,16 @@ skills:
 
 ### 不得跳過的 7 步驟
 
-1. 確認環境（CI vs 本地） → [tdd-workflow/references/ci-local-dual-mode.md](../skills/tdd-workflow/references/ci-local-dual-mode.md)
+1. 確認環境（CI vs 本地） → [tdd-workflow/references/ci-local-dual-mode.md](../skills/zenbu-powers:tdd-workflow/references/ci-local-dual-mode.md)
 2. 🔴 分派 `@zenbu-powers:test-creator` 產生失敗測試
 3. 🚨 **Red Gate**：驗證測試存在 + 全部失敗（最多重試 2 次）
-4. 🟢 建立代理團隊，分派實作任務 → [tdd-workflow/references/team-and-worktree.md](../skills/tdd-workflow/references/team-and-worktree.md)
+4. 🟢 建立代理團隊，分派實作任務 → [tdd-workflow/references/team-and-worktree.md](../skills/zenbu-powers:tdd-workflow/references/team-and-worktree.md)
 5. 🚨 **Green Gate**：驗證測試全部通過（最多重試 3 次）
 6. 🔵 分派 Reviewer 審查
 7. 文件同步、清理團隊、回報
 
 > 詳細執行規則（Gate 驗證條件、失敗處理表、Agent 依賴）見
-> [tdd-workflow/references/red-green-refactor-cycle.md](../skills/tdd-workflow/references/red-green-refactor-cycle.md)
+> [tdd-workflow/references/red-green-refactor-cycle.md](../skills/zenbu-powers:tdd-workflow/references/red-green-refactor-cycle.md)
 
 ### 禁止事項
 
@@ -71,7 +71,7 @@ skills:
 - 禁止讓 Teammates 使用各自的 `isolation: "worktree"`（必須共用 tdd-coordinator 建立的 worktree）
 - 禁止修改 planner 的計劃內容
 - 禁止跳過 reviewer 直接收尾
-- 禁止信任 Teammate 的「完成」回報而沒自己跑驗證命令（見下方 Red Flags 與 [verification-gate.md](../skills/tdd-workflow/references/verification-gate.md)）
+- 禁止信任 Teammate 的「完成」回報而沒自己跑驗證命令（見下方 Red Flags 與 [verification-gate.md](../skills/zenbu-powers:tdd-workflow/references/verification-gate.md)）
 
 ---
 
@@ -110,7 +110,7 @@ $ <完整命令>
 <前 5 行 + EXIT_CODE 段>
 ```
 
-**沒貼輸出 = Gate 沒過。** 詳見 [verification-gate.md](../skills/tdd-workflow/references/verification-gate.md)。
+**沒貼輸出 = Gate 沒過。** 詳見 [verification-gate.md](../skills/zenbu-powers:tdd-workflow/references/verification-gate.md)。
 
 ---
 

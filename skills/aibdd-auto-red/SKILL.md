@@ -29,11 +29,11 @@ description: >
 | java | e2e | `web-backend/variants/java-e2e.md` | HTTP 404 |
 | python | ut | `web-backend/variants/python-ut.md` | NotImplementedError |
 | nodejs | it | `web-backend/variants/nodejs-it.md` | HTTP 404 |
-| typescript | it | （standalone: `/aibdd.auto.ts.it.red`）| UI element not found（`TestingLibraryElementError`）|
+| typescript | it | （standalone: `/zenbu-powers:aibdd.auto.ts.it.red`）| UI element not found（`TestingLibraryElementError`）|
 
 **Handler 和 variant 的物理位置**：`bdd-analysis/references/web-backend/`
 
-**特殊路由**：`typescript + it` 組合對應 React **前端**整合測試（jsdom + @testing-library + MSW），由獨立的 standalone skill set `/aibdd.auto.ts.it.*` 處理。統一核心 Red 階段會直接委派 `/aibdd.auto.ts.it.red`。與 `nodejs + it`（後端 Express IT）不同。
+**特殊路由**：`typescript + it` 組合對應 React **前端**整合測試（jsdom + @testing-library + MSW），由獨立的 standalone skill set `/zenbu-powers:aibdd.auto.ts.it.*` 處理。統一核心 Red 階段會直接委派 `/zenbu-powers:aibdd.auto.ts.it.red`。與 `nodejs + it`（後端 Express IT）不同。
 
 啟動時 Read 對應的 variant reference，全程保持在 context 中。
 

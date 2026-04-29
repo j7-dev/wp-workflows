@@ -17,7 +17,7 @@
 | **One-shot TDD** | 該 feature 的 IMPL_IMPACT 只有 `NEW_OPERATION` 或無 | 完整 Red → Green → Refactor |
 | **Targeted Fix** | 該 feature 有具體 impact type（`SENTENCE_PATTERN` / `DATATABLE_SCHEMA` / `FIELD_CHANGE` 等） | 定位受影響的 implementation artifact → 定向修復 → 回歸測試 |
 
-觸發 skill：`/aibdd-auto-control-flow`（內部自動從 arguments.yml 路由語言變體）
+觸發 skill：`/zenbu-powers:aibdd-auto-control-flow`（內部自動從 arguments.yml 路由語言變體）
 control-flow 內部有 N features × 3 phases 的 TodoWrite，自管進度。
 
 **依賴**：Phase 04 必須在 `done/` 中。
@@ -40,13 +40,13 @@ carry-on Step 05.2 觸發時：
 
 ### One-shot TDD（正常模式）
 
-**DELEGATE `/aibdd-auto-control-flow`**，對每個 new feature 依序走：
+**DELEGATE `/zenbu-powers:aibdd-auto-control-flow`**，對每個 new feature 依序走：
 
 | Phase | Skill | 做什麼 |
 |-------|-------|--------|
-| Red | `/aibdd-auto-red` | Schema Analysis → Step Template → 寫 E2E 測試（欄位名 = api.yml） |
-| Green | `/aibdd-auto-green` | 實作至測試通過 |
-| Refactor | `/aibdd-auto-refactor` | 程式碼品質提升 |
+| Red | `/zenbu-powers:aibdd-auto-red` | Schema Analysis → Step Template → 寫 E2E 測試（欄位名 = api.yml） |
+| Green | `/zenbu-powers:aibdd-auto-green` | 實作至測試通過 |
+| Refactor | `/zenbu-powers:aibdd-auto-refactor` | 程式碼品質提升 |
 
 ### Targeted Fix（定向修復模式）
 

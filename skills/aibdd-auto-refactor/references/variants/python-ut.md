@@ -80,7 +80,7 @@ behave ${PY_TEST_FEATURES_DIR}/ --tags=~@ignore
 def step_impl(context, user_name, lesson_id, progress, status):
     """
     TODO: [事件風暴部位: Aggregate - LessonProgress]
-    TODO: 參考 /aibdd-auto-python-ut-handlers-aggregate-given 實作
+    TODO: 參考 /zenbu-powers:aibdd-auto-python-ut-handlers-aggregate-given 實作
     """
     ...
 

@@ -11,7 +11,7 @@ description: >
 
 在 Red 階段開始前，分析 `.feature` + `api.yml` 所需的 API endpoints 與資料結構，
 確保現有的 Zod Schemas、API Client 函式、MSW Handlers 能滿足測試需求。
-若不一致則修正或委派 `/aibdd-auto-frontend-msw-api-layer` 重建。
+若不一致則修正或委派 `/zenbu-powers:aibdd-auto-frontend-msw-api-layer` 重建。
 
 ## 與後端 Schema Analysis 的差異
 
@@ -57,7 +57,7 @@ description: >
 | 狀態 | 行動 |
 |------|------|
 | 全部一致 | GO — 直接進入 Step Template |
-| 缺 Zod Schema / API Client / MSW Handler | 委派 `/aibdd-auto-frontend-msw-api-layer` 補齊後 GO |
+| 缺 Zod Schema / API Client / MSW Handler | 委派 `/zenbu-powers:aibdd-auto-frontend-msw-api-layer` 補齊後 GO |
 | 缺 Component Stub | 自動建立最小 stub（`<div>TODO</div>`）後 GO |
 | 有衝突需人工判斷 | 暫停，報告差異 |
 
@@ -66,7 +66,7 @@ description: >
 ## 自動修正流程
 
 ### 缺 Zod Schema / API Client / MSW Handler
-→ 呼叫 `/aibdd-auto-frontend-msw-api-layer`，此 skill 會從 `api.yml` 重新生成 Schemas / Fixtures / Handlers / Client。
+→ 呼叫 `/zenbu-powers:aibdd-auto-frontend-msw-api-layer`，此 skill 會從 `api.yml` 重新生成 Schemas / Fixtures / Handlers / Client。
 
 ### 缺 Component Stub
 → 直接建立最小 stub：

@@ -50,9 +50,9 @@ skills:
 
 1. **查看專案指引**：閱讀 `CLAUDE.md`、`.claude/rules/**/*.md`、`specs/**/*`、`specs/**/erm.dbml`（如存在），掌握專案指引、數據模型、text_domain、建構指令
 2. **探索專案結構**：瀏覽 `package.json`、`tsconfig.json`、`vite.config.*`、`js/src/` 或 `src/`
-3. **查找可用 Skills**：檢查專案是否有額外 `/react-*`、`/typescript-*` 等技能可用
+3. **查找可用 Skills**：檢查專案是否有額外 `/zenbu-powers:react-*`、`/zenbu-powers:typescript-*` 等技能可用
 4. **取得審查對象**：`git diff -- '*.tsx' '*.ts' '*.jsx' '*.js'`
-5. **強制跑過前置檢查**（詳見 `/react-review-criteria`）：tsc / eslint / prettier / vitest / jest 全部執行，任一失敗即判定審查不通過
+5. **強制跑過前置檢查**（詳見 `/zenbu-powers:react-review-criteria`）：tsc / eslint / prettier / vitest / jest 全部執行，任一失敗即判定審查不通過
 
 > ⚠️ 無法讀取必要檔案時，明確告知使用者缺少哪些資訊，再開始審查。
 
@@ -70,7 +70,7 @@ skills:
 - **測試必須通過**：任一非 e2e 測試失敗直接判定審查不通過
 
 ### 嚴重性與判定
-嚴重性等級（🔴 嚴重 / 🟠 重要 / 🟡 建議 / 🔵 備註）、判定條件、十大審查類別 checklist 與框架專項檢查，一律以 `/react-review-criteria` 為準。
+嚴重性等級（🔴 嚴重 / 🟠 重要 / 🟡 建議 / 🔵 備註）、判定條件、十大審查類別 checklist 與框架專項檢查，一律以 `/zenbu-powers:react-review-criteria` 為準。
 
 ### 禁止事項
 - 禁止在未跑完測試前出具通過結論
@@ -81,9 +81,9 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/react-review-criteria` — 審查 checklist、嚴重性等級、框架專項檢查、輸出模板（本角色核心）
-- `/react-coding-standards` — 編碼規範本身（命名、型別、結構），審查意見引用此作為判準
-- `/zenbu-design-system` — ZenbuApps 統一設計系統參考
+- `/zenbu-powers:react-review-criteria` — 審查 checklist、嚴重性等級、框架專項檢查、輸出模板（本角色核心）
+- `/zenbu-powers:react-coding-standards` — 編碼規範本身（命名、型別、結構），審查意見引用此作為判準
+- `/zenbu-powers:zenbu-design-system` — ZenbuApps 統一設計系統參考
 
 > 如果專案有定義額外的 Skills，請自行查找並善加利用。
 
@@ -102,7 +102,7 @@ skills:
 > **Team 模式偵測**：若由 Teammate 模式啟動，審查結果一律透過 `SendMessage` 回報給調度者，由它統一管理退回 / 通過流程。**不要自行呼叫 master agent、不要 git push、不要建立 PR**。
 
 ### 非 Team 模式：審查不通過（回環模式）
-1. 依 `/react-review-criteria` 的輸出模板組裝退回訊息
+1. 依 `/zenbu-powers:react-review-criteria` 的輸出模板組裝退回訊息
 2. 透過 `SendMessage` 通知 `@zenbu-powers:react-master`，附上嚴重性分級問題清單（🔴/🟠/🟡/🔵）、測試結果、需修改項目清單
 3. 等待 master 修改完成後重新審查
 4. 最多 **3 輪**迴圈（見下方「審查迴圈上限」），超過則 `SendMessage` 通知 coordinator 請求人類介入
@@ -111,7 +111,7 @@ skills:
 1. `git status` 確認所有變更已 commit
 2. `git push -u origin HEAD` 推送至遠端
 3. `gh pr create` 建立 PR（title < 70 字元，body 包含實作摘要 / 測試結果 / 審查結果）
-4. 輸出最終結果訊息（格式見 `/react-review-criteria` 的 `review-output-template.md`）
+4. 輸出最終結果訊息（格式見 `/zenbu-powers:react-review-criteria` 的 `review-output-template.md`）
 
 ### 審查迴圈上限
 最多 **3 輪**。若第 3 輪仍未通過，輸出完整審查報告並建議人類介入。

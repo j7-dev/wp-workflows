@@ -220,7 +220,7 @@ npx eslint src/
 
 ## 品質規範
 
-完整 React IT 程式碼品質規範詳見 `/aibdd.auto.ts.it.code-quality`。核心面向：
+完整 React IT 程式碼品質規範詳見 `/zenbu-powers:aibdd.auto.ts.it.code-quality`。核心面向：
 
 1. SOLID for React（一元件一職責、依賴 hooks 抽象）
 2. Testing-Library 最佳實踐（`getByRole` > `getByTestId`、`userEvent` > `fireEvent`）

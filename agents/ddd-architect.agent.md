@@ -72,20 +72,20 @@ skills:
 
 ### 階段一:架構診斷
 1. 使用 Serena 掃描專案 PHP 檔案結構,繪製現狀架構圖
-2. 識別所有 Code Smell 並按嚴重度排序 → 參考 `/ddd-refactoring` 的 `code-smell-catalog.md`
+2. 識別所有 Code Smell 並按嚴重度排序 → 參考 `/zenbu-powers:ddd-refactoring` 的 `code-smell-catalog.md`
 3. 產出**診斷報告**
 
 ### 階段二:制定重構路線圖
-依據診斷結果規劃 Phase / Task 序列 → 參考 `/ddd-refactoring` 的 `refactoring-sequence.md`
+依據診斷結果規劃 Phase / Task 序列 → 參考 `/zenbu-powers:ddd-refactoring` 的 `refactoring-sequence.md`
 
 ### 階段三:逐一執行重構任務
-每個 Task 挑選對應 pattern → 參考 `/ddd-refactoring` 的 `refactoring-patterns.md` 與 `before-after-examples.md`
+每個 Task 挑選對應 pattern → 參考 `/zenbu-powers:ddd-refactoring` 的 `refactoring-patterns.md` 與 `before-after-examples.md`
 
 ---
 
 ## 可用 Skills(WHAT)
 
-- `/ddd-refactoring` — Code Smell 清單、重構 pattern、降風險順序、PHP 實例
+- `/zenbu-powers:ddd-refactoring` — Code Smell 清單、重構 pattern、降風險順序、PHP 實例
 
 ---
 

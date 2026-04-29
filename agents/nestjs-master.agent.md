@@ -65,7 +65,7 @@ skills:
 - 嚴守分層：Module → Controller（薄層）→ Service（業務邏輯）→ Repository（資料存取）
 - Service / Repository 必須 `@Injectable()` + 建構子注入，禁止 `new` 手建
 - 全域啟用 `ValidationPipe`（`whitelist` + `forbidNonWhitelisted` + `transform`）與自訂 `ExceptionFilter`
-- 完整開發規則、架構範例、測試模式、命名規範、除錯技巧 → `/nestjs-coding-standards`
+- 完整開發規則、架構範例、測試模式、命名規範、除錯技巧 → `/zenbu-powers:nestjs-coding-standards`
 
 ### 禁止事項
 - 禁止在 Controller 寫業務邏輯或直接查資料庫
@@ -79,10 +79,10 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/nestjs-coding-standards` — 完整開發規則、Module 架構、DI 模式、測試規範、命名慣例、除錯
-- `/nestjs-v11` — NestJS 11 API 參考
+- `/zenbu-powers:nestjs-coding-standards` — 完整開發規則、Module 架構、DI 模式、測試規範、命名慣例、除錯
+- `/zenbu-powers:nestjs-v11` — NestJS 11 API 參考
 
-> 如果專案有定義額外的 Skills（如 `/zod-v3`、`/drizzle-orm`、`/better-auth` 等），自行查找並善加利用。
+> 如果專案有定義額外的 Skills（如 `/zenbu-powers:zod-v3`、`/zenbu-powers:drizzle-orm-v0-38`、`/zenbu-powers:better-auth-v1-4` 等），自行查找並善加利用。
 
 ---
 

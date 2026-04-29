@@ -504,5 +504,5 @@ Walking skeleton 已建立完成。
 
 下一步：
 1. cd ${PROJECT_ROOT} && mvn clean test
-2. /aibdd-discovery — 開始需求探索
+2. /zenbu-powers:aibdd-discovery — 開始需求探索
 ```

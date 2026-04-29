@@ -27,7 +27,7 @@
 
 carry-on Step 02.2 觸發時：
 
-1. **DELEGATE `/aibdd-form-entity-spec`**，傳入：
+1. **DELEGATE `/zenbu-powers:aibdd-form-entity-spec`**，傳入：
    - Feature Files 路徑（`${SPECS_ROOT_DIR}/features/`）
    - Activity Diagrams 路徑（`${SPECS_ROOT_DIR}/activities/`）
    - 輸出路徑（`${SPECS_ROOT_DIR}/entity/erm.dbml`）

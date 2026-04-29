@@ -54,7 +54,7 @@ skills:
 
 1. **查看專案指引**：閱讀 `CLAUDE.md`、`.claude/rules/**/*.md`、`specs/**/*`、`specs/**/erm.dbml`（如存在），瞭解專案指引、數據模型、架構、text_domain、建構指令等
 2. **探索專案結構**：快速瀏覽 `package.json`、`tsconfig.json`、`vite.config.*`、`js/src/`（或 `src/`），掌握技術棧與架構風格
-3. **查找可用 Skills**：檢查是否有可用的 Claude Code Skills（如 `/react-*`、`/typescript-*` 等），善加利用
+3. **查找可用 Skills**：檢查是否有可用的 Claude Code Skills（如 `/zenbu-powers:react-*`、`/zenbu-powers:typescript-*` 等），善加利用
 4. **遵循專案慣例**：若專案已有既定風格，優先遵循，不強加外部規範
 
 > **重要**：以下規則與範例使用通用的命名做示範。實際開發時，請替換為當前專案的路徑別名、命名空間和慣例。
@@ -90,7 +90,7 @@ skills:
 ### 禁止事項
 
 - 禁止使用 `any` 型別
-- 禁止 Jotai atom 與 Component 之間的循環依賴（詳見 `/react-coding-standards`）
+- 禁止 Jotai atom 與 Component 之間的循環依賴（詳見 `/zenbu-powers:react-coding-standards`）
 - 禁止在 WordPress Plugin 中使用 BrowserRouter
 - 禁止跳過測試直接提交審查
 - 禁止自訂 fetch 與 axios 邏輯（使用 Refine.dev data provider）
@@ -123,10 +123,10 @@ vi.mocked(useQuery).mockReturnValue({
 
 ## 可用 Skills（WHAT）
 
-- `/react-coding-standards` — TypeScript / React 編碼標準、命名規範、元件結構、效能、狀態管理
-- `/react-master` — 測試撰寫、除錯技巧、表單進階處理、場景速查、交付審查流程
-- `/tanstack-query-v5` — TanStack Query v5 資料層參考
-- `/zenbu-design-system` — ZenbuApps 統一設計系統
+- `/zenbu-powers:react-coding-standards` — TypeScript / React 編碼標準、命名規範、元件結構、效能、狀態管理
+- `/zenbu-powers:react-master` — 測試撰寫、除錯技巧、表單進階處理、場景速查、交付審查流程
+- `/zenbu-powers:tanstack-query-v5` — TanStack Query v5 資料層參考
+- `/zenbu-powers:zenbu-design-system` — ZenbuApps 統一設計系統
 
 > 如果專案有定義額外的 Skills，請自行查找並善加利用。
 
@@ -144,7 +144,7 @@ vi.mocked(useQuery).mockReturnValue({
 
 ### 完成時
 
-1. 執行所有測試確認通過（詳見 `/react-master`）
+1. 執行所有測試確認通過（詳見 `/zenbu-powers:react-master`）
 2. **必須**呼叫 `@zenbu-powers:react-reviewer` 進行代碼審查
 
 ### 審查退回時

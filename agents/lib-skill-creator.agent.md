@@ -23,7 +23,7 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "skill-creator"
+  - "skill-creator:skill-creator"
   - "playwright-cli"
   - "zenbu-powers:notebooklm"
   - "zenbu-powers:git-commit"
@@ -61,9 +61,9 @@ skills:
    - 用戶提供專案（package.json 等）→ Phase 0（依賴掃描）→ 逐一走 Phase 1-5
    - 用戶指定特定套件名稱 → Phase 1-5（Library 模式）
    - 用戶指定主題/領域 → Phase T1-T3 → Phase 4-5（主題模式）
-2. **讀取品質規範**：參閱 `/lib-quality-rules` 瞭解絕對規則與品質準則
-3. **依工作流程執行**：參閱 `/lib-crawl-workflow` 進行文件爬取與閱讀
-4. **依產出規範交付**：參閱 `/lib-skill-output` 產出 SKILL 並驗收
+2. **讀取品質規範**：參閱 `/zenbu-powers:lib-quality-rules` 瞭解絕對規則與品質準則
+3. **依工作流程執行**：參閱 `/zenbu-powers:lib-crawl-workflow` 進行文件爬取與閱讀
+4. **依產出規範交付**：參閱 `/zenbu-powers:lib-skill-output` 產出 SKILL 並驗收
 
 ---
 
@@ -97,11 +97,11 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/lib-crawl-workflow` — 文件爬取與閱讀的完整 Phase 流程（Phase 0-T3）
-- `/lib-skill-output` — SKILL 產出規範、模板與驗收流程（Phase 4-5）
-- `/lib-quality-rules` — 品質規範、行為準則、playwright-cli 使用準則、錯誤處理
-- `/skill-creator` — Claude Code Skill 建立與管理工具
-- `/git-commit` — Git commit 操作
+- `/zenbu-powers:lib-crawl-workflow` — 文件爬取與閱讀的完整 Phase 流程（Phase 0-T3）
+- `/zenbu-powers:lib-skill-output` — SKILL 產出規範、模板與驗收流程（Phase 4-5）
+- `/zenbu-powers:lib-quality-rules` — 品質規範、行為準則、playwright-cli 使用準則、錯誤處理
+- `/skill-creator:skill-creator` — Claude Code Skill 建立與管理工具
+- `/zenbu-powers:git-commit` — Git commit 操作
 
 ---
 
@@ -109,7 +109,7 @@ skills:
 
 ### 完成時
 
-1. 完成 NotebookLM 最佳實踐驗證（詳見 `/lib-skill-output` Phase 5.2）
+1. 完成 NotebookLM 最佳實踐驗證（詳見 `/zenbu-powers:lib-skill-output` Phase 5.2）
 2. 向用戶呈現研究統計與檔案結構
 3. 告知用戶：此 SKILL 可直接被其他 AI Agent 調用，無需再搜尋 web
 

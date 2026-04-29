@@ -74,7 +74,7 @@ Steps/*.cs、Hooks、Helpers 的可讀性與組織。
    var mapped = StatusMapper.Map(status);
    ```
 
-2. **移除 TODO 註解**（見 `/aibdd.auto.csharp.code-quality` §3）
+2. **移除 TODO 註解**（見 `/zenbu-powers:aibdd.auto.csharp.code-quality` §3）
 
 3. **統一 ScenarioContext 存取模式**
    ```csharp
@@ -289,12 +289,12 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ## 品質規範
 
-完整 C# 品質規範見 `/aibdd.auto.csharp.code-quality`。
+完整 C# 品質規範見 `/zenbu-powers:aibdd.auto.csharp.code-quality`。
 
 ## 完成條件
 
 - [ ] 所有測試通過（`dotnet test --filter "Category!=Ignore"`）
 - [ ] 沒有 TODO / META 標記殘留
-- [ ] 程式碼符合 `/aibdd.auto.csharp.code-quality` 檢查清單
+- [ ] 程式碼符合 `/zenbu-powers:aibdd.auto.csharp.code-quality` 檢查清單
 - [ ] 沒有引入新功能或改變 API 契約
 - [ ] `dotnet build -warnaserror` 無警告（可選）

@@ -75,13 +75,13 @@ specformula 層（Layer 0）— 固定 16 任務（8 Phase + 8 Gate）
 
 | Phase doing 時 | LOAD 的 Skills |
 |---------------|---------------|
-| Phase 01 | `/aibdd-discovery`（統一流程：組成分析 → Structural Read → Impact → 行為設計） |
-| Phase 02 | `/aibdd-form-entity-spec` |
-| Phase 03 | `/aibdd-form-bdd-analysis`（內部 lazy load web-backend preset） |
-| Phase 04 | `/aibdd-form-api-spec` |
-| Phase 05 | `/aibdd-auto-control-flow` → 內部呼叫 `/aibdd-auto-red`、`green`、`refactor`（各自 lazy load variant references） |
-| Phase 06 | `/aibdd-auto-frontend-apifirst-msw-starter` → `msw-api-layer` → `nextjs-pages`（依序載入） |
-| Phase 07 | `/aibdd-frontend-e2e-activity-testplan` |
+| Phase 01 | `/zenbu-powers:aibdd-discovery`（統一流程：組成分析 → Structural Read → Impact → 行為設計） |
+| Phase 02 | `/zenbu-powers:aibdd-form-entity-spec` |
+| Phase 03 | `/zenbu-powers:aibdd-form-bdd-analysis`（內部 lazy load web-backend preset） |
+| Phase 04 | `/zenbu-powers:aibdd-form-api-spec` |
+| Phase 05 | `/zenbu-powers:aibdd-auto-control-flow` → 內部呼叫 `/zenbu-powers:aibdd-auto-red`、`green`、`refactor`（各自 lazy load variant references） |
+| Phase 06 | `/zenbu-powers:aibdd-auto-frontend-apifirst-msw-starter` → `msw-api-layer` → `nextjs-pages`（依序載入） |
+| Phase 07 | `/zenbu-powers:aibdd-frontend-e2e-activity-testplan` |
 | Phase 08 | 無新 skill，重用 Phase 07 的 test plan |
 
 **跨 skill 切換時必定重新 LOAD**（non-negotiable）— 確保 context 中涵蓋正確的規則。

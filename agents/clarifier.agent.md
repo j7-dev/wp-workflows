@@ -44,7 +44,7 @@ skills:
 
 **釐清事項完畢之後，如果沒有要釐清的項目：**
 1. **【嚴禁跳過】將規格文件寫入 `./specs` 目錄**（包含 .feature、.activity、api.yml、erm.dbml 等所有產出的規格檔案）
-2. 將整個 `aibdd.discovery` 或 `clarify-loop` SKILL 連續接續做完，不要停下來問用戶下一步要不要執行
+2. 將整個 `zenbu-powers:aibdd-discovery` 或 `zenbu-powers:clarify-loop` SKILL 連續接續做完，不要停下來問用戶下一步要不要執行
 **先檢查 `.serena` 目錄是否存在，如果不存在，就使用 serena MCP onboard 這個專案**
 ---
 
@@ -97,8 +97,8 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/aibdd-discovery`、`/aibdd-auto-frontend-msw-api-layer`、`/clarify-loop`
-- `/aibdd-form-activity`、`/aibdd-form-api-spec`、`/aibdd-form-entity-spec`、`/aibdd-form-feature-spec`
+- `/zenbu-powers:aibdd-discovery`、`/zenbu-powers:aibdd-auto-frontend-msw-api-layer`、`/zenbu-powers:clarify-loop`
+- `/zenbu-powers:aibdd-form-activity`、`/zenbu-powers:aibdd-form-api-spec`、`/zenbu-powers:aibdd-form-entity-spec`、`/zenbu-powers:aibdd-form-feature-spec`
 
 ---
 
@@ -128,7 +128,7 @@ skills:
 
 ### 通訊工具（依環境）
 
-**提問工具依執行環境決定**，詳細映射規則請見 `/clarify-loop` skill 的「通訊工具（依執行層級）」章節。本 agent 只列本地總覽：
+**提問工具依執行環境決定**，詳細映射規則請見 `/zenbu-powers:clarify-loop` skill 的「通訊工具（依執行層級）」章節。本 agent 只列本地總覽：
 
 | 環境 | 偵測方式 | 通訊工具 |
 |------|---------|---------|
@@ -141,7 +141,7 @@ skills:
 
 ### Terminal 環境行為
 
-- 每次澄清只問 1 題，依 `/clarify-loop` 的「AskUserQuestion 對齊本 skill 格式」規則填入工具參數
+- 每次澄清只問 1 題，依 `/zenbu-powers:clarify-loop` 的「AskUserQuestion 對齊本 skill 格式」規則填入工具參數
 - 用戶回答後，靜默更新對應的產出檔案（`./specs/` 內的 feature / activity / api.yml / erm.dbml），不展示更新內容、不要求用戶確認寫入結果
 - 所有釐清完成後依「完成後交接」段落執行（寫 specs → 交接 planner → tdd-coordinator）
 

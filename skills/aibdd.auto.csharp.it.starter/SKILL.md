@@ -119,11 +119,11 @@ docker compose down
 ## 與其他 skill 的關係
 
 ```
-使用者呼叫 /aibdd.auto.csharp.it.starter
+使用者呼叫 /zenbu-powers:aibdd.auto.csharp.it.starter
     ↓
 產出完整骨架（專案結構 + 框架配置）
     ↓
-後續由 /aibdd.auto.csharp.it.control-flow 驅動：
+後續由 /zenbu-powers:aibdd.auto.csharp.it.control-flow 驅動：
     → schema-analysis 填入 Models/
     → step-template 填入 Steps/
     → red 填入 Repositories/ Services/（空實作）

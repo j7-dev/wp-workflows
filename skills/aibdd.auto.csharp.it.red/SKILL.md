@@ -33,15 +33,15 @@ description: >
 ## 三步驟流程
 
 ```
-Step 1: Schema Analysis → 引用 /aibdd.auto.csharp.it.schema-analysis
+Step 1: Schema Analysis → 引用 /zenbu-powers:aibdd.auto.csharp.it.schema-analysis
         確保 EF Core Entity / DbContext / Migration 與 spec 對齊
 
-Step 2: Step Template   → 引用 /aibdd.auto.csharp.it.step-template
+Step 2: Step Template   → 引用 /zenbu-powers:aibdd.auto.csharp.it.step-template
         為 feature 產出 SpecFlow step class 骨架（含 TODO + PendingStepException）
 
 Step 3: Red Implementation → 對每個 TODO step：
         - 讀 TODO 取得 handler type
-        - 引用對應 /aibdd.auto.csharp.it.handlers.{type}
+        - 引用對應 /zenbu-powers:aibdd.auto.csharp.it.handlers.{type}
         - 將 PendingStepException 替換為完整測試程式碼
         - 同時建立基礎設施（Models / Repositories / Services 介面）
         - 執行 dotnet test 驗證紅燈（預期 HTTP 404）
@@ -49,7 +49,7 @@ Step 3: Red Implementation → 對每個 TODO step：
 
 ### Step 1: Schema Analysis
 
-引用 `/aibdd.auto.csharp.it.schema-analysis`。
+引用 `/zenbu-powers:aibdd.auto.csharp.it.schema-analysis`。
 
 核心任務：
 1. 讀取 .feature + api.yml + erm.dbml
@@ -59,7 +59,7 @@ Step 3: Red Implementation → 對每個 TODO step：
 
 ### Step 2: Step Template Generation
 
-引用 `/aibdd.auto.csharp.it.step-template`。
+引用 `/zenbu-powers:aibdd.auto.csharp.it.step-template`。
 
 核心任務：
 1. 解析 Feature 的 Given/When/Then steps
@@ -75,7 +75,7 @@ Step 3: Red Implementation → 對每個 TODO step：
 對每個含 TODO 的 step definition：
 
 1. 讀 TODO 取得 handler type
-2. 引用對應 handler skill（例如 `/aibdd.auto.csharp.it.handlers.command`）
+2. 引用對應 handler skill（例如 `/zenbu-powers:aibdd.auto.csharp.it.handlers.command`）
 3. 將 `PendingStepException` 替換為完整測試代碼
 4. 需要時注入額外依賴（`HttpClient`, `AppDbContext`, `JwtHelper`）
 

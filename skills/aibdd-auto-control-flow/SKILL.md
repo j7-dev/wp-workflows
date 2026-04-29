@@ -21,11 +21,11 @@ description: >
 | java | e2e | `mvn clean test` | 含 Schema Analysis |
 | python | ut | `behave ${FEATURES_DIR}/ --tags=~@ignore` | 無 Schema Analysis |
 | nodejs | it | `npx cucumber-js --tags "not @ignore"` | 含 Schema Analysis |
-| typescript | it | `npx vitest run` | 5 phases；委派 standalone `/aibdd.auto.ts.it.control-flow` |
+| typescript | it | `npx vitest run` | 5 phases；委派 standalone `/zenbu-powers:aibdd.auto.ts.it.control-flow` |
 
-**E2E 變體在 Red 前多一步 Schema Analysis（由 `/aibdd-auto-red` 內部處理）。**
-**UT 變體跳過 Schema Analysis（由 `/aibdd-auto-red` 的 variant reference 控制）。**
-**TypeScript IT 變體（React 前端）有完整 5 phase 流程（schema-analysis → step-template → red → green → refactor），由 standalone skill set `/aibdd.auto.ts.it.*` 處理。**
+**E2E 變體在 Red 前多一步 Schema Analysis（由 `/zenbu-powers:aibdd-auto-red` 內部處理）。**
+**UT 變體跳過 Schema Analysis（由 `/zenbu-powers:aibdd-auto-red` 的 variant reference 控制）。**
+**TypeScript IT 變體（React 前端）有完整 5 phase 流程（schema-analysis → step-template → red → green → refactor），由 standalone skill set `/zenbu-powers:aibdd.auto.ts.it.*` 處理。**
 
 ---
 
@@ -33,7 +33,7 @@ description: >
 
 驗證 backend 骨架是否存在（依變體檢查：Python → `requirements.txt`、Java → `pom.xml`、Node.js → `package.json`）。
 
-- **不存在** → 詢問使用者「偵測到尚未建立 backend 骨架，是否先執行 `/aibdd-auto-backend-starter`？」→ 使用者確認後觸發 `/aibdd-auto-backend-starter`，完成後再繼續
+- **不存在** → 詢問使用者「偵測到尚未建立 backend 骨架，是否先執行 `/zenbu-powers:aibdd-auto-backend-starter`？」→ 使用者確認後觸發 `/zenbu-powers:aibdd-auto-backend-starter`，完成後再繼續
 - **存在** → 直接進入 Step 1
 
 ## Step 1：掃描 Feature 檔案
@@ -80,9 +80,9 @@ TodoWrite([
 
 | 任務 phase | 呼叫的 Skill |
 |-----------|-------------|
-| Red | `/aibdd-auto-red` |
-| Green | `/aibdd-auto-green` |
-| Refactor | `/aibdd-auto-refactor` |
+| Red | `/zenbu-powers:aibdd-auto-red` |
+| Green | `/zenbu-powers:aibdd-auto-green` |
+| Refactor | `/zenbu-powers:aibdd-auto-refactor` |
 
 所有 Skill 內部自行讀取 arguments.yml 決定語言變體，control-flow 不需路由。
 

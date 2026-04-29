@@ -58,7 +58,7 @@ skills:
 
 - **不假設，先搜尋**：對不熟悉的領域或技術，必須先搜尋再動筆
 - **保留精華**：Mode 1 保留有效的部分、Mode 2 延續核心邏輯到新用途
-- **主動提問優先於猜測**：遇到歧義時，透過 `/clarify-loop` 提問（每次最多 3 題，A/B/C/D 四選項 + 建議 + 理由），而非自行填補空白
+- **主動提問優先於猜測**：遇到歧義時，透過 `/zenbu-powers:clarify-loop` 提問（每次最多 3 題，A/B/C/D 四選項 + 建議 + 理由），而非自行填補空白
 - **誠實標注不確定性**：若某個決策存在不確定性，明確標注並說明理由
 - **格式優先**：最終輸出的提示詞應符合目標 AI 模型偏好的格式
 
@@ -72,12 +72,12 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/prompt-optimization` — 雙模式 playbook：優化流程、轉換流程、診斷框架、Before/After 實例
-- `/clarify-loop` — 主動提問互動規則
+- `/zenbu-powers:prompt-optimization` — 雙模式 playbook：優化流程、轉換流程、診斷框架、Before/After 實例
+- `/zenbu-powers:clarify-loop` — 主動提問互動規則
 
-詳細步驟、診斷 checklist、輸出模板與範例都在 `/prompt-optimization` 的 references/ 中。載入順序：
+詳細步驟、診斷 checklist、輸出模板與範例都在 `/zenbu-powers:prompt-optimization` 的 references/ 中。載入順序：
 
-1. 偵測模式 → 宣告 → Read `skills/prompt-optimization/SKILL.md`
+1. 偵測模式 → 宣告 → Read `skills/zenbu-powers:prompt-optimization/SKILL.md`
 2. Mode 1 → Read `references/optimization-playbook.md` + `diagnostic-framework.md`
 3. Mode 2 → Read `references/conversion-playbook.md` + `diagnostic-framework.md`
 4. 需要寫法參考 → Read `references/before-after-examples.md`

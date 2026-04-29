@@ -50,9 +50,9 @@ skills:
 1. **查看專案指引**：閱讀 `CLAUDE.md`、`.claude/rules/**/*.md`、`specs/**/*`、`specs/**/erm.dbml`（如存在）
 2. **探索專案結構**：瀏覽 `package.json`、`tsconfig.json`、`nest-cli.json`、`src/app.module.ts`、`src/main.ts`
 3. **確認技術棧**：辨識 ORM（TypeORM / Prisma / Mongoose）、驗證（class-validator / Zod）、認證（JWT / Passport）、測試（Jest + supertest）
-4. **查找可用 Skills**：`/nestjs-*`、`/typeorm-*`、`/prisma-*`、`/zod-*` 等
+4. **查找可用 Skills**：`/zenbu-powers:nestjs-*`、`/zenbu-powers:typeorm-*`、`/zenbu-powers:prisma-*`、`/zenbu-powers:zod-*` 等
 5. **取得審查對象**：`git diff -- '*.ts'`（排除 `*.spec.ts` 由覆蓋率決定）
-6. **強制跑過前置檢查**（詳見 `/nestjs-review-criteria`）：tsc / eslint / prettier / jest / nest build，任一失敗即判定不通過
+6. **強制跑過前置檢查**（詳見 `/zenbu-powers:nestjs-review-criteria`）：tsc / eslint / prettier / jest / nest build，任一失敗即判定不通過
 
 > ⚠️ 無法讀取必要檔案時，明確告知缺少哪些資訊，再開始審查。
 
@@ -70,7 +70,7 @@ skills:
 - **測試必須通過**：任一非 e2e 可選測試失敗直接判定不通過
 
 ### 嚴重性與判定
-嚴重性等級（🔴 嚴重 / 🟠 重要 / 🟡 建議 / 🔵 備註）、前置檢查命令、完整 checklist、NestJS 專項檢查（Module 邊界、Provider 作用域、DI 正確性、DTO 驗證、例外處理、設定管理、Repository Pattern）、測試覆蓋判定、輸出模板，一律以 `/nestjs-review-criteria` 為準。
+嚴重性等級（🔴 嚴重 / 🟠 重要 / 🟡 建議 / 🔵 備註）、前置檢查命令、完整 checklist、NestJS 專項檢查（Module 邊界、Provider 作用域、DI 正確性、DTO 驗證、例外處理、設定管理、Repository Pattern）、測試覆蓋判定、輸出模板，一律以 `/zenbu-powers:nestjs-review-criteria` 為準。
 
 ### 禁止事項
 - 禁止在未跑完前置檢查前出具通過結論
@@ -81,11 +81,11 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/nestjs-review-criteria` — 審查 checklist、嚴重性等級、NestJS 專項檢查、輸出模板（本角色核心）
-- `/nestjs-coding-standards` — 編碼規範本身，審查意見引用此作為判準
-- `/nestjs-v11` — NestJS 11 API 參考
+- `/zenbu-powers:nestjs-review-criteria` — 審查 checklist、嚴重性等級、NestJS 專項檢查、輸出模板（本角色核心）
+- `/zenbu-powers:nestjs-coding-standards` — 編碼規範本身，審查意見引用此作為判準
+- `/zenbu-powers:nestjs-v11` — NestJS 11 API 參考
 
-> 如果專案有定義額外的 Skills（如 `/typeorm-*`、`/prisma-*`、`/zod-v3`），自行查找並善加利用。
+> 如果專案有定義額外的 Skills（如 `/zenbu-powers:typeorm-*`、`/zenbu-powers:prisma-*`、`/zenbu-powers:zod-v3`），自行查找並善加利用。
 
 ---
 
@@ -103,7 +103,7 @@ skills:
 > **Team 模式偵測**：若由 Teammate 模式啟動，審查結果一律透過 `SendMessage` 回報給調度者，由它統一管理退回 / 通過流程。**不要自行呼叫 master agent、不要 git push、不要建立 PR**。
 
 ### 非 Team 模式：審查不通過（回環模式）
-1. 依 `/nestjs-review-criteria` 的輸出模板組裝退回訊息
+1. 依 `/zenbu-powers:nestjs-review-criteria` 的輸出模板組裝退回訊息
 2. 透過 `SendMessage` 通知 `@zenbu-powers:nestjs-master`，附嚴重性分級問題清單（🔴/🟠/🟡/🔵）、測試結果、需修改項目清單
 3. 等待 master 修改完成後重新審查
 4. 最多 **3 輪**迴圈，超過則 `SendMessage` 通知 coordinator 請求人類介入
@@ -112,7 +112,7 @@ skills:
 1. `git status` 確認變更已 commit
 2. `git push -u origin HEAD` 推送至遠端
 3. `gh pr create` 建立 PR（title < 70 字元，body 含實作摘要 / 測試結果 / 審查結果）
-4. 輸出最終結果訊息（格式見 `/nestjs-review-criteria`）
+4. 輸出最終結果訊息（格式見 `/zenbu-powers:nestjs-review-criteria`）
 
 ### 失敗時
 - 無法讀取必要檔案（`CLAUDE.md`、`package.json`、`tsconfig.json`、`nest-cli.json`）：明確回報缺少資訊

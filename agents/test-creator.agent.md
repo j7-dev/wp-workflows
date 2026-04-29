@@ -105,20 +105,20 @@ skills:
 ## 可用 Skills（WHAT）
 
 ### 通用策略
-- `/test-creation-playbook` — 邊緣案例目錄、測試指令參考、E2E/IT/UT 覆蓋策略（**必載**）
+- `/zenbu-powers:test-creation-playbook` — 邊緣案例目錄、測試指令參考、E2E/IT/UT 覆蓋策略（**必載**）
 
 ### WordPress 測試框架
-- `/wp-e2e-creator` — WordPress Plugin Playwright E2E 測試生成
-- `/wp-integration-testing` — WordPress Plugin PHPUnit 整合測試（WP_UnitTestCase + wp-env）
+- `/zenbu-powers:wp-e2e-creator` — WordPress Plugin Playwright E2E 測試生成
+- `/zenbu-powers:wp-integration-testing` — WordPress Plugin PHPUnit 整合測試（WP_UnitTestCase + wp-env）
 
 ### AIBDD 規格與前端
-- `/aibdd.discovery`、`/aibdd.form.activity-spec`、`/aibdd.form.api-spec`、`/aibdd.form.entity-spec`、`/aibdd.form.feature-spec`
-- `/aibdd.auto.frontend.msw-api-layer`
+- `/zenbu-powers:aibdd-discovery`、`/zenbu-powers:aibdd-form-activity`、`/zenbu-powers:aibdd-form-api-spec`、`/zenbu-powers:aibdd-form-entity-spec`、`/zenbu-powers:aibdd-form-feature-spec`
+- `/zenbu-powers:aibdd-auto-frontend-msw-api-layer`
 
 ### AIBDD PHP IT 自動化流程
-- `/aibdd.auto.php.it.control-flow`（批次迴圈）
-- `/aibdd.auto.php.it.test-skeleton` / `.red` / `.green` / `.refactor` / `.code-quality`
-- `/aibdd.auto.php.it.handlers.*`（aggregate-given / aggregate-then / command / query / readmodel-then / success-failure）
+- `/zenbu-powers:aibdd-auto-php-it-control-flow`（批次迴圈）
+- `/zenbu-powers:aibdd-auto-php-it-test-skeleton` / `-red` / `-green` / `-refactor` / `-code-quality`
+- `/zenbu-powers:aibdd-auto-php-it-handlers-*`（aggregate-given / aggregate-then / command / query / readmodel-then / success-failure）
 
 > 如果專案有定義額外的 Skills，請自行查找並善加利用。
 

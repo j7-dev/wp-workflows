@@ -28,7 +28,7 @@ Stage 4: refactor
 
 ### 模式 A：被 control-flow 呼叫
 
-上游 skill（`/aibdd.auto.php.it.control-flow`）會傳入：
+上游 skill（`/zenbu-powers:aibdd.auto.php.it.control-flow`）會傳入：
 - `feature_file_path`: 絕對路徑
 - `target_subdomain`: 子領域名稱（如 `Lesson`）
 
@@ -87,16 +87,16 @@ class UpdateVideoProgressTest extends IntegrationTestCase
     public function test_成功增加影片進度(): void
     {
         // Given 用戶 "Alice" 在課程 1 的進度為 50%，狀態為 "進行中"
-        // [Handler: aggregate-given] 參考 /aibdd.auto.php.it.handlers.aggregate-given
+        // [Handler: aggregate-given] 參考 /zenbu-powers:aibdd.auto.php.it.handlers.aggregate-given
 
         // When 用戶 "Alice" 更新課程 1 的影片進度為 80%
-        // [Handler: command] 參考 /aibdd.auto.php.it.handlers.command
+        // [Handler: command] 參考 /zenbu-powers:aibdd.auto.php.it.handlers.command
 
         // Then 操作成功
-        // [Handler: success-failure] 參考 /aibdd.auto.php.it.handlers.success-failure
+        // [Handler: success-failure] 參考 /zenbu-powers:aibdd.auto.php.it.handlers.success-failure
 
         // And 用戶 "Alice" 在課程 1 的進度應為 80%
-        // [Handler: aggregate-then] 參考 /aibdd.auto.php.it.handlers.aggregate-then
+        // [Handler: aggregate-then] 參考 /zenbu-powers:aibdd.auto.php.it.handlers.aggregate-then
 
         $this->markTestIncomplete('尚未實作');
     }
@@ -108,13 +108,13 @@ class UpdateVideoProgressTest extends IntegrationTestCase
     public function test_進度倒退時應拋出例外(): void
     {
         // Given 用戶 "Bob" 在課程 2 的進度為 80%
-        // [Handler: aggregate-given] 參考 /aibdd.auto.php.it.handlers.aggregate-given
+        // [Handler: aggregate-given] 參考 /zenbu-powers:aibdd.auto.php.it.handlers.aggregate-given
 
         // When 用戶 "Bob" 更新課程 2 的影片進度為 50%
-        // [Handler: command] 參考 /aibdd.auto.php.it.handlers.command
+        // [Handler: command] 參考 /zenbu-powers:aibdd.auto.php.it.handlers.command
 
         // Then 操作失敗，錯誤類型為 "InvalidStateException"
-        // [Handler: success-failure] 參考 /aibdd.auto.php.it.handlers.success-failure
+        // [Handler: success-failure] 參考 /zenbu-powers:aibdd.auto.php.it.handlers.success-failure
 
         $this->markTestIncomplete('尚未實作');
     }
@@ -188,13 +188,13 @@ public function test_各狀態下更新進度(
     string $result
 ): void {
     // Given 用戶 "<user>" 在課程 <course_id> 的進度為 <initial>%
-    // [Handler: aggregate-given] 參考 /aibdd.auto.php.it.handlers.aggregate-given
+    // [Handler: aggregate-given] 參考 /zenbu-powers:aibdd.auto.php.it.handlers.aggregate-given
 
     // When 用戶 "<user>" 更新課程 <course_id> 的影片進度為 <target>%
-    // [Handler: command] 參考 /aibdd.auto.php.it.handlers.command
+    // [Handler: command] 參考 /zenbu-powers:aibdd.auto.php.it.handlers.command
 
     // Then 結果應為 "<result>"
-    // [Handler: success-failure] 參考 /aibdd.auto.php.it.handlers.success-failure
+    // [Handler: success-failure] 參考 /zenbu-powers:aibdd.auto.php.it.handlers.success-failure
 
     $this->markTestIncomplete('尚未實作');
 }
@@ -282,4 +282,4 @@ public static function 各狀態下更新進度Provider(): array
 - 生成的 Test class 路徑
 - test method 數量
 - 跳過（已存在）的檔案清單
-- 下一步：建議執行 `/aibdd.auto.php.it.red`（Stage 2）
+- 下一步：建議執行 `/zenbu-powers:aibdd.auto.php.it.red`（Stage 2）

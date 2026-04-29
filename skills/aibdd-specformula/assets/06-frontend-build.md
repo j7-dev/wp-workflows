@@ -38,9 +38,9 @@ carry-on Step 06.2 觸發時：
 
 | 順序 | Skill | 做什麼 | 前提 |
 |------|-------|--------|------|
-| 1 | `/aibdd-auto-frontend-apifirst-msw-starter` | 前端骨架 Batch A-F + Gate A-F | — |
-| 2 | `/aibdd-auto-frontend-msw-api-layer` | 從 api.yml 產生 MSW handlers | Starter 完成 |
-| 3 | `/aibdd-auto-frontend-nextjs-pages` | 頁面 + UI 實作 | API Layer 完成 |
+| 1 | `/zenbu-powers:aibdd-auto-frontend-apifirst-msw-starter` | 前端骨架 Batch A-F + Gate A-F | — |
+| 2 | `/zenbu-powers:aibdd-auto-frontend-msw-api-layer` | 從 api.yml 產生 MSW handlers | Starter 完成 |
+| 3 | `/zenbu-powers:aibdd-auto-frontend-nextjs-pages` | 頁面 + UI 實作 | API Layer 完成 |
 
 ### Targeted Fix（定向修復模式）
 
@@ -53,7 +53,7 @@ carry-on Step 06.2 觸發時：
 
 - **Gate A**：`npm install` 通過、`next.config.mjs` rewrites 存在、`BACKEND_URL` 在 `.env`
 - **Gate D**：`MOCK_API=true` → MSW 攔截；`MOCK_API=false` → rewrite proxy 到後端
-- 詳見 `/aibdd-auto-frontend-apifirst-msw-starter` 的 `references/batch-gates.md`
+- 詳見 `/zenbu-powers:aibdd-auto-frontend-apifirst-msw-starter` 的 `references/batch-gates.md`
 
 | # | 交付物 | 路徑 | 狀態 |
 |---|--------|------|------|

@@ -24,7 +24,7 @@ user-invocable: true
 - 任務類型：**新建**（從 idea 生成）或 **更新**（修改現有檔案）
 - Activity 格式：`.mmd`（預設）或 `.activity`
 
-**被 `/discovery` 調用時**，由協調器提供以上資訊（含 `${ACTIVITY_EXT}`），不再詢問。
+**被 `/zenbu-powers:aibdd-discovery` 調用時**，由協調器提供以上資訊（含 `${ACTIVITY_EXT}`），不再詢問。
 
 ---
 
@@ -47,7 +47,7 @@ user-invocable: true
 
 從 idea 找出所有參與者。每個 Actor 對應一個 Actor 宣告行，綁定 `specs/actors/<Actor名>.md`。
 
-**Actor 合法性規則依 `/aibdd-discovery` 定義。** 摘要：僅允許「外部使用者」和「第三方系統」作為 Actor，禁止內建系統邏輯作為 Actor。
+**Actor 合法性規則依 `/zenbu-powers:aibdd-discovery` 定義。** 摘要：僅允許「外部使用者」和「第三方系統」作為 Actor，禁止內建系統邏輯作為 Actor。
 
 ## 2. 推斷 STEP 序列
 

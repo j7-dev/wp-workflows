@@ -21,7 +21,7 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
-  - "skill-creator"
+  - "skill-creator:skill-creator"
   - "zenbu-powers:doc-scaffolding-workflow"
   - "zenbu-powers:git-commit"
 ---
@@ -53,7 +53,7 @@ skills:
 
 1. **前置檢查**：若 `.claude/CLAUDE.md` 不存在 → ⛔ 中斷，要求用戶先跑 `/init`
 2. **讀取專案指引**：`CLAUDE.md`、`.claude/rules/*.md`、`specs/*`（如存在）
-3. **判斷階段**（依 `/doc-scaffolding-workflow` 的 `references/decision-tree.md`）：
+3. **判斷階段**（依 `/zenbu-powers:doc-scaffolding-workflow` 的 `references/decision-tree.md`）：
    - `specs/` 不存在 → **Greenfield** → 由你親自執行 scaffolding 流程
    - `specs/` 存在 → **Incremental** → 委派 `@zenbu-powers:doc-updater`
 4. **向用戶宣告判斷結果**，再開工
@@ -78,11 +78,11 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/doc-scaffolding-workflow` — **Greenfield 場景的文件初建 playbook**（決策樹、serena onboarding、初始化流程、模板）
-- `/skill-creator` — 如需新建 skill 時載入
-- `/git-commit` — 完成後的 commit 操作
+- `/zenbu-powers:doc-scaffolding-workflow` — **Greenfield 場景的文件初建 playbook**（決策樹、serena onboarding、初始化流程、模板）
+- `/skill-creator:skill-creator` — 如需新建 skill 時載入
+- `/zenbu-powers:git-commit` — 完成後的 commit 操作
 
-> 載入 `/doc-scaffolding-workflow` 即會看到 references/ 索引，依 decision-tree → serena-onboarding → initial-setup → templates 的順序推進。
+> 載入 `/zenbu-powers:doc-scaffolding-workflow` 即會看到 references/ 索引，依 decision-tree → serena-onboarding → initial-setup → templates 的順序推進。
 
 ---
 
@@ -96,7 +96,7 @@ skills:
 ## 交接協議（WHERE NEXT）
 
 ### Greenfield 場景（你親自執行）
-1. 載入 `/doc-scaffolding-workflow`，依其 references/ 推進到 CLAUDE.md + rules + specs 草稿完成
+1. 載入 `/zenbu-powers:doc-scaffolding-workflow`，依其 references/ 推進到 CLAUDE.md + rules + specs 草稿完成
 2. 過程中呼叫 `@zenbu-powers:lib-skill-creator` 處理複雜依賴
 3. specs 草稿完成後，呼叫 `@zenbu-powers:clarifier` 做 discovery / clarify-loop
 4. 所有文件就緒後，**必須**呼叫 `@zenbu-powers:claude-manager` 合規審查（最大 3 輪迭代）

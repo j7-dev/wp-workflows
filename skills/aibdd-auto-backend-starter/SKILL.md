@@ -41,7 +41,7 @@ Script-driven 骨架產生器。一行指令建出完整後端專案結構。
 ### Step 2：執行腳本
 
 ```bash
-uv run .claude/skills/aibdd-auto-backend-starter/scripts/generate-skeleton.py \
+uv run .claude/skills/zenbu-powers:aibdd-auto-backend-starter/scripts/generate-skeleton.py \
   --project-dir "${PROJECT_DIR}" \
   --project-name "${PROJECT_NAME}" \
   --variant "${VARIANT}" \

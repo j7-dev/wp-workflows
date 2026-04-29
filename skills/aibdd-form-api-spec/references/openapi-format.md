@@ -65,7 +65,7 @@ components:
 
 YAML 行尾 comment：`# CiC(<CATEGORY>): ...`
 
-完整格式定義見 `../../aibdd-form-activity/references/cic-format.md`。
+完整格式定義見 `../../zenbu-powers:aibdd-form-activity/references/cic-format.md`。
 
 | 代碼 | 何時標記 |
 |------|---------|

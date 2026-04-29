@@ -20,7 +20,7 @@ description: >
 - `tests/${ProjectName}.IntegrationTests/Hooks/TestHooks.cs` 存在
 - Docker Desktop 運行中（`docker info`）
 
-**不存在** → 詢問使用者「偵測到尚未建立 C# IT 骨架，是否先執行 `/aibdd.auto.csharp.it.starter`？」→ 使用者確認後觸發 starter，完成後繼續。
+**不存在** → 詢問使用者「偵測到尚未建立 C# IT 骨架，是否先執行 `/zenbu-powers:aibdd.auto.csharp.it.starter`？」→ 使用者確認後觸發 starter，完成後繼續。
 
 **存在** → 進入 Step 1。
 
@@ -76,11 +76,11 @@ Mark → completed
 
 | Phase | 呼叫的 Skill |
 |-------|-------------|
-| Schema Analysis | `/aibdd.auto.csharp.it.schema-analysis` |
-| Step Template | `/aibdd.auto.csharp.it.step-template` |
-| Red | `/aibdd.auto.csharp.it.red` |
-| Green | `/aibdd.auto.csharp.it.green` |
-| Refactor | `/aibdd.auto.csharp.it.refactor` |
+| Schema Analysis | `/zenbu-powers:aibdd.auto.csharp.it.schema-analysis` |
+| Step Template | `/zenbu-powers:aibdd.auto.csharp.it.step-template` |
+| Red | `/zenbu-powers:aibdd.auto.csharp.it.red` |
+| Green | `/zenbu-powers:aibdd.auto.csharp.it.green` |
+| Refactor | `/zenbu-powers:aibdd.auto.csharp.it.refactor` |
 
 每個 skill 自我包含（self-contained），不需要額外路由。
 

@@ -44,7 +44,7 @@ skills:
 1. **查看專案指引**：閱讀 `CLAUDE.md`、`.claude/rules/*.md`（如存在）
 2. **掃描現有 workflows**：讀取 `.github/workflows/*.yml` 全部檔案，建立全局視圖
 3. **辨識技術棧**：從 package.json / composer.json / Dockerfile 等判斷專案類型
-4. **查找可用 Skills**：善用 `/github-actions`、`/claude-code-action` 等參考資料
+4. **查找可用 Skills**：善用 `/zenbu-powers:github-actions`、`/zenbu-powers:claude-code-action` 等參考資料
 5. **遵循專案慣例**：優先遵循既有 workflow 風格與命名規範
 
 ---
@@ -55,7 +55,7 @@ skills:
 
 - 所有 workflow 修改必須通過語法驗證（`actionlint` 或手動檢查）
 - 新增或修改的 workflow 必須考慮：觸發條件、權限最小化、並行控制、快取策略
-- 除錯時遵循系統性診斷流程（參閱 `/workflow-master`），禁止盲目試錯
+- 除錯時遵循系統性診斷流程（參閱 `/zenbu-powers:workflow-master`），禁止盲目試錯
 - 建議修改前，先說明根因分析結果
 
 ### 禁止事項
@@ -69,10 +69,10 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/workflow-master` — 除錯流程、act 本地驗證、gh 診斷模式、常見反模式
-- `/github-actions` — GitHub Actions 完整 API reference（syntax、events、expressions、security）
-- `/claude-code-action` — claude-code-action v1.0 配置參考
-- `/git-commit` — Git commit 操作
+- `/zenbu-powers:workflow-master` — 除錯流程、act 本地驗證、gh 診斷模式、常見反模式
+- `/zenbu-powers:github-actions` — GitHub Actions 完整 API reference（syntax、events、expressions、security）
+- `/zenbu-powers:claude-code-action` — claude-code-action v1.0 配置參考
+- `/zenbu-powers:git-commit` — Git commit 操作
 
 > 如果專案有定義額外的 Skills，請自行查找並善加利用。
 
@@ -80,7 +80,7 @@ skills:
 
 ## 工具使用
 
-- **`act`** — 本地模擬 workflow 執行，搭配 Docker 驗證（參閱 `/workflow-master` act 參考）
+- **`act`** — 本地模擬 workflow 執行，搭配 Docker 驗證（參閱 `/zenbu-powers:workflow-master` act 參考）
 - **`gh`** — 查看線上 runner、workflow runs、PR checks、issue 狀態
   - **URL 解析**：用戶可能直接貼 GitHub Actions URL，例如 `https://github.com/{owner}/{repo}/actions/runs/{run-id}/job/{job-id}`，你必須從 URL 中提取 `run-id` 與 `job-id`，然後使用 `gh run view <run-id> --job <job-id>` 查看該 job 的詳細日誌與狀態。若 URL 只有 `run-id` 沒有 `job-id`，則使用 `gh run view <run-id>` 即可。
 - **`actionlint`** — workflow 語法靜態檢查（如可用）

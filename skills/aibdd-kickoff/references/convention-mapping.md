@@ -257,17 +257,17 @@ NODE_HOOKS_FILE: ${NODE_SUPPORT_DIR}/hooks.ts
 
 | 技術堆疊 + 測試策略 | Starter Skill |
 |---------------------|---------------|
-| Python + E2E Test | `/aibdd-auto-python-e2e-starter` |
-| Python + Unit Test | `/aibdd-auto-python-ut-starter` |
-| Java + E2E Test | `/aibdd-auto-java-e2e-starter` |
+| Python + E2E Test | `/zenbu-powers:aibdd-auto-python-e2e-starter` |
+| Python + Unit Test | `/zenbu-powers:aibdd-auto-python-ut-starter` |
+| Java + E2E Test | `/zenbu-powers:aibdd-auto-java-e2e-starter` |
 | TypeScript + E2E Test | （尚未建立） |
-| Node.js + Integration Test | `/aibdd-auto-backend-starter` (variant: `nodejs-it`) |
+| Node.js + Integration Test | `/zenbu-powers:aibdd-auto-backend-starter` (variant: `nodejs-it`) |
 
 ### 前端 Starter
 
 | Starter Skill |
 |---------------|
-| `/aibdd-auto-frontend-apifirst-msw-starter` |
+| `/zenbu-powers:aibdd-auto-frontend-apifirst-msw-starter` |
 
 前端 starter 永遠顯示，不受 Q1 技術堆疊選擇影響。
 specformula Phase 03（Frontend Engineering）需要前端骨架已就位。

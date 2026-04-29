@@ -11,4 +11,4 @@
 | F5 | **跨功能一致性** | 同一術語/錯誤訊息/Key 識別方式在不同 .feature 之間是否一致？ | userId 在 A 用 name，在 B 用 ID |
 | F6 | **必要參數 Rule** | 是否有「前置（參數）- 必要參數必須提供」的 Rule？ | 缺少任何必填參數的驗證 Rule |
 
-對 `Missing` / `Partial` 面向，補寫便條紙（CiC 品質標準），重新進入澄清循環。所有面向 `Clear` 後通知 `/discovery` 放行。
+對 `Missing` / `Partial` 面向，補寫便條紙（CiC 品質標準），重新進入澄清循環。所有面向 `Clear` 後通知 `/zenbu-powers:aibdd-discovery` 放行。

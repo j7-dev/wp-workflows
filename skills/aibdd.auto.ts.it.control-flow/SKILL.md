@@ -19,7 +19,7 @@ description: >
 - `vitest.config.ts` 存在
 - `src/test/setup.ts` 存在
 
-**不存在** → 詢問使用者「偵測到尚未建立 React IT 測試基礎建設，是否先執行 `/aibdd.auto.ts.it.starter`？」→ 使用者確認後觸發，完成後再繼續。
+**不存在** → 詢問使用者「偵測到尚未建立 React IT 測試基礎建設，是否先執行 `/zenbu-powers:aibdd.auto.ts.it.starter`？」→ 使用者確認後觸發，完成後再繼續。
 
 **存在** → 直接進入 Step 1。
 
@@ -75,11 +75,11 @@ TodoWrite([
 
 | 任務 phase | 呼叫的 Skill |
 |-----------|-------------|
-| Schema Analysis | `/aibdd.auto.ts.it.schema-analysis` |
-| Step Template | `/aibdd.auto.ts.it.step-template` |
-| Red | `/aibdd.auto.ts.it.red` |
-| Green | `/aibdd.auto.ts.it.green` |
-| Refactor | `/aibdd.auto.ts.it.refactor` |
+| Schema Analysis | `/zenbu-powers:aibdd.auto.ts.it.schema-analysis` |
+| Step Template | `/zenbu-powers:aibdd.auto.ts.it.step-template` |
+| Red | `/zenbu-powers:aibdd.auto.ts.it.red` |
+| Green | `/zenbu-powers:aibdd.auto.ts.it.green` |
+| Refactor | `/zenbu-powers:aibdd.auto.ts.it.refactor` |
 
 **注意**：Red skill 內部已包含 Schema Analysis 和 Step Template 的委派調用，但 control-flow 將它們顯式拆為 5 個 phase，以便在中途可暫停和觀察進度。
 
@@ -107,7 +107,7 @@ tech_stack: typescript
 test_strategy: it
 ```
 
-若統一核心 `/aibdd-auto-control-flow` 被觸發且讀到上述設定，會委派到本 skill。
+若統一核心 `/zenbu-powers:aibdd-auto-control-flow` 被觸發且讀到上述設定，會委派到本 skill。
 
 | tech_stack | test_strategy | 測試命令 | phase 數 |
 |-----------|---------------|---------|----------|

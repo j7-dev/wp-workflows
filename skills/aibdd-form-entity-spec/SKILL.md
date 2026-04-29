@@ -36,7 +36,7 @@ user-invocable: true
 - Feature Files 路徑（預設 `${FEATURE_SPECS_DIR}`）
 - Entity model 輸出路徑（預設 `${ENTITY_SPECS_DIR}/erm.dbml`）
 
-**被 `/discovery` 或 carry-on 調用時**，由呼叫者提供以上資訊 + Execution Plan scope。
+**被 `/zenbu-powers:aibdd-discovery` 或 carry-on 調用時**，由呼叫者提供以上資訊 + Execution Plan scope。
 
 **前提**：所有輸入的 .feature 必須已完成（無便條紙、無 `(待澄清)` 佔位）。若發現未完成的 .feature，暫停並 **REPORT** 給協調器。
 

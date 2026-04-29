@@ -8,7 +8,7 @@ description: >
 
 # PHP IT Code Quality 規範
 
-本 skill 定義 PHP WordPress 整合測試與生產程式碼的品質標準，作為 `/aibdd.auto.php.it.refactor` 的重構依據。
+本 skill 定義 PHP WordPress 整合測試與生產程式碼的品質標準，作為 `/zenbu-powers:aibdd.auto.php.it.refactor` 的重構依據。
 
 ---
 
@@ -216,7 +216,7 @@ abstract class IntegrationTestCase extends \Yoast\WPTestUtils\WPIntegration\Test
 
 - `// TODO: ...`
 - `// [Handler: aggregate-given]` 等 Handler 標註
-- `// 參考 /aibdd.auto.php.it.handlers.xxx` 連結提示
+- `// 參考 /zenbu-powers:aibdd.auto.php.it.handlers.xxx` 連結提示
 - `$this->markTestIncomplete(...)` 佔位呼叫
 
 **必須保留**：

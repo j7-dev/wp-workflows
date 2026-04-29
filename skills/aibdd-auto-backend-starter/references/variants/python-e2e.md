@@ -231,5 +231,5 @@ Walking skeleton 已建立完成。
 
 下一步：
 1. cd ${PROJECT_ROOT} && pip install -r requirements.txt
-2. /aibdd-discovery — 開始需求探索
+2. /zenbu-powers:aibdd-discovery — 開始需求探索
 ```

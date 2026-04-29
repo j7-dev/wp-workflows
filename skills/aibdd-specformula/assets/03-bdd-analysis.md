@@ -34,7 +34,7 @@
 
 carry-on Step 03.2 觸發時：
 
-1. **DELEGATE `/aibdd-form-bdd-analysis`**，傳入：
+1. **DELEGATE `/zenbu-powers:aibdd-form-bdd-analysis`**，傳入：
    - features 資料夾路徑（`${SPECS_ROOT_DIR}/features/`）
    - 澄清紀錄路徑（`${SPECS_ROOT_DIR}/clarify/`）
    - Execution Plan scope（Phase 03 區段）

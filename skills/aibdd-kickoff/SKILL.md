@@ -34,7 +34,7 @@ user-invocable: true
 
 # Q&A 流程
 
-使用 `/clarify-loop` skill 的互動格式（一次一題、附帶推薦、選項式優先）。
+使用 `/zenbu-powers:clarify-loop` skill 的互動格式（一次一題、附帶推薦、選項式優先）。
 
 共 **3 題**，不設回合上限（因為題數固定）。
 
@@ -274,24 +274,24 @@ user-invocable: true
 # 完成後引導
 
 寫入完成後，根據使用者選擇的技術堆疊＋測試策略，提示需要執行的 starter skill（建立 Walking Skeleton），
-以及 starter 全部完成後的下一步 `/aibdd-specformula`。
+以及 starter 全部完成後的下一步 `/zenbu-powers:aibdd-specformula`。
 
 ```
 arguments.yml 已產出。
 
 下一步——建立 Walking Skeleton（基礎架構骨架）：
-1. /aibdd-auto-<backend-starter> — 後端 Walking Skeleton
-2. /aibdd-auto-<frontend-starter> — 前端 Walking Skeleton
+1. /zenbu-powers:aibdd-auto-<backend-starter> — 後端 Walking Skeleton
+2. /zenbu-powers:aibdd-auto-<frontend-starter> — 前端 Walking Skeleton
 
 兩者都完成後：
-→ /aibdd-specformula — 開始完整開發流程（Discovery → Backend TDD → Frontend → Integration）
+→ /zenbu-powers:aibdd-specformula — 開始完整開發流程（Discovery → Backend TDD → Frontend → Integration）
 ```
 
 根據使用者選擇，從對照表查出對應的 starter skill 名稱，替換 `<backend-starter>` 和 `<frontend-starter>`。
 若某一端尚未建立，則該行不顯示。
 
 Starter Skill 對照表見 `references/convention-mapping.md` 末段。
-**Node.js + Integration Test** → `/aibdd-auto-backend-starter`（variant: `nodejs-it`）
+**Node.js + Integration Test** → `/zenbu-powers:aibdd-auto-backend-starter`（variant: `nodejs-it`）
 
 ---
 

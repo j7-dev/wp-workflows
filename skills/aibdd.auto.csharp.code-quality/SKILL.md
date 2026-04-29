@@ -7,7 +7,7 @@ description: >
 
 # C# 程式碼品質規範
 
-供 `/aibdd.auto.csharp.it.refactor` 重構階段嚴格遵守。涵蓋 SOLID、Step Definition 組織、Meta 清理、日誌實踐、程式架構、程式碼品質。
+供 `/zenbu-powers:aibdd.auto.csharp.it.refactor` 重構階段嚴格遵守。涵蓋 SOLID、Step Definition 組織、Meta 清理、日誌實踐、程式架構、程式碼品質。
 
 ---
 
@@ -175,7 +175,7 @@ public static class StatusMapper
 ### 刪除
 
 - `// TODO: [事件風暴部位: ...]`
-- `// TODO: 參考 /aibdd.auto.csharp.it.handlers.xxx 實作`
+- `// TODO: 參考 /zenbu-powers:aibdd.auto.csharp.it.handlers.xxx 實作`
 - `/// <summary> TODO: ... </summary>`
 
 ### 保留
@@ -191,7 +191,7 @@ public static class StatusMapper
 public void GivenUserHasProgress(...)
 {
     // TODO: [事件風暴部位: Aggregate - LessonProgress]
-    // TODO: 參考 /aibdd.auto.csharp.it.handlers.aggregate-given 實作
+    // TODO: 參考 /zenbu-powers:aibdd.auto.csharp.it.handlers.aggregate-given 實作
     var userId = Ids[userName].ToString()!;
     // ...
 }

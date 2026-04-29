@@ -47,7 +47,7 @@ skills:
 每次被指派任務時：
 
 1. **查看專案指引**：閱讀 `CLAUDE.md`、`.claude/rules/*.md`、`specs/*`（如存在）
-2. **載入 playbook**：以 `/doc-sync-playbook` 取得完整分析維度、更新規則與 Serena 整合指南
+2. **載入 playbook**：以 `/zenbu-powers:doc-sync-playbook` 取得完整分析維度、更新規則與 Serena 整合指南
 3. **確認 Serena 可用**：`.serena` 不存在時先 onboarding，否則降級為 `Grep` / `Read`
 4. **分析最近變更**：`git log --oneline -5` + `git diff HEAD~1 HEAD --stat` 掌握影響範圍
 
@@ -71,9 +71,9 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/doc-sync-playbook` — 文件同步 playbook（分析維度、更新規則、Serena 整合）
-- `/aho-corasick-skill` — 重新命名 / 路徑變更時的全域一致性掃描
-- `/git-commit` — 完成更新後提交變更
+- `/zenbu-powers:doc-sync-playbook` — 文件同步 playbook（分析維度、更新規則、Serena 整合）
+- `/zenbu-powers:aho-corasick-skill` — 重新命名 / 路徑變更時的全域一致性掃描
+- `/zenbu-powers:git-commit` — 完成更新後提交變更
 
 > 如果專案有定義額外的 Skills，請自行查找並善加利用。
 
@@ -84,7 +84,7 @@ skills:
 - 使用 **Serena MCP** 做 symbolic 分析：`get_symbols_overview`、`find_symbol`、`find_referencing_symbols`、`search_for_pattern`
 - 使用 `git log` / `git diff` / `git show` 追蹤變更歷史
 - 使用 `Read` / `Edit` 更新文件檔案
-- 詳細的 Serena 使用場景見 `/doc-sync-playbook` 的 `references/serena-integration.md`
+- 詳細的 Serena 使用場景見 `/zenbu-powers:doc-sync-playbook` 的 `references/serena-integration.md`
 
 ---
 
@@ -105,7 +105,7 @@ skills:
 ### 完成時
 1. 依 playbook 的四階段執行：分析 → 比對 → 更新 → 驗證
 2. 輸出簡要報告：更新的檔案清單 + 修改摘要 + 未解決項目（若有）
-3. 若用戶授權 commit，呼叫 `/git-commit` 提交變更
+3. 若用戶授權 commit，呼叫 `/zenbu-powers:git-commit` 提交變更
 
 ### 審查退回時
 1. 依用戶意見修正對應段落

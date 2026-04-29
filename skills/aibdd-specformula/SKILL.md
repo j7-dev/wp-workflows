@@ -14,7 +14,7 @@ description: >
 # 角色
 
 需求工程計畫產生器。你將任意需求轉化為結構化工程計畫，產出 plan.md + Phase 卡片，
-然後委派 `/aibdd-carry-on-engineering-plan` 以 human-in-the-loop 審查機制逐步執行。
+然後委派 `/zenbu-powers:aibdd-carry-on-engineering-plan` 以 human-in-the-loop 審查機制逐步執行。
 
 **你不負責審查迴圈** — 審查、簽核、consistency check 全部由 carry-on 處理。
 **你負責的是「做什麼」** — carry-on 負責「怎麼走」。
@@ -27,7 +27,7 @@ description: >
 
 ```
 1. arguments.yml 存在？
-   → 不存在：「請先執行 /aibdd-kickoff 初始化專案。」
+   → 不存在：「請先執行 /zenbu-powers:aibdd-kickoff 初始化專案。」
 
 2. 技術棧可辨識？
    → 從 arguments.yml 讀取 tech_stack + test_strategy
@@ -64,7 +64,7 @@ description: >
 執行 `scripts/generate-plan.py`，一次產出 plan.md + 8 張 Phase 卡片：
 
 ```bash
-uv run .claude/skills/aibdd-specformula/scripts/generate-plan.py \
+uv run .claude/skills/zenbu-powers:aibdd-specformula/scripts/generate-plan.py \
   --slug "${REQUIREMENT_TITLE}" \
   --summary "${REQUIREMENT_SUMMARY}" \
   --project-root "${PROJECT_ROOT}"
@@ -81,7 +81,7 @@ uv run .claude/skills/aibdd-specformula/scripts/generate-plan.py \
 
 使用者確認後：
 - 將 plan.md 的 Status 從 DRAFT 改為 IN_PROGRESS
-- **DELEGATE `/aibdd-carry-on-engineering-plan`**，傳入 `${PLAN_DIR}` 路徑
+- **DELEGATE `/zenbu-powers:aibdd-carry-on-engineering-plan`**，傳入 `${PLAN_DIR}` 路徑
 
 ---
 
@@ -93,10 +93,10 @@ uv run .claude/skills/aibdd-specformula/scripts/generate-plan.py \
 
 | Phase | 名稱 | Asset 卡片 | 觸發 Skill | 核心產出 |
 |-------|------|-----------|-----------|---------|
-| 01 | Requirement Analysis | `assets/01-requirement-analysis.md` | `/aibdd-discovery` | Execution Plan + Activity Diagrams + Feature Rules |
-| 02 | Entity Modeling | `assets/02-entity.md` | `/aibdd-form-entity-spec` | erm.dbml |
-| 03 | BDD Analysis | `assets/03-bdd-analysis.md` | `/aibdd-form-bdd-analysis` | 系統抽象 + 句型模型 + Feature Examples |
-| 04 | API Contract | `assets/04-api-contract.md` | `/aibdd-form-api-spec` | api.yml |
+| 01 | Requirement Analysis | `assets/01-requirement-analysis.md` | `/zenbu-powers:aibdd-discovery` | Execution Plan + Activity Diagrams + Feature Rules |
+| 02 | Entity Modeling | `assets/02-entity.md` | `/zenbu-powers:aibdd-form-entity-spec` | erm.dbml |
+| 03 | BDD Analysis | `assets/03-bdd-analysis.md` | `/zenbu-powers:aibdd-form-bdd-analysis` | 系統抽象 + 句型模型 + Feature Examples |
+| 04 | API Contract | `assets/04-api-contract.md` | `/zenbu-powers:aibdd-form-api-spec` | api.yml |
 
 **統一流程** — 不區分 greenfield / 新功能 / 改變需求。每個需求都是 current state → desired state 的 delta 操作。Phase 01 產出 Execution Plan，決定 Phase 02-08 各自的工作範圍。
 
@@ -113,7 +113,7 @@ uv run .claude/skills/aibdd-specformula/scripts/generate-plan.py \
 
 | Phase | 名稱 | Asset 卡片 | 觸發 Skill | 核心產出 |
 |-------|------|-----------|-----------|---------|
-| 05 | Backend TDD | `assets/05-backend-tdd.md` | `/aibdd-auto-control-flow` | Step Defs + Models + Endpoints + Migrations |
+| 05 | Backend TDD | `assets/05-backend-tdd.md` | `/zenbu-powers:aibdd-auto-control-flow` | Step Defs + Models + Endpoints + Migrations |
 | 06 | Frontend Build | `assets/06-frontend-build.md` | 3 frontend skills | frontend/ 完整可運行 |
 | 07 | Frontend E2E | `assets/07-frontend-e2e.md` | activity-testplan + Chrome | mock 模式全通過 |
 | 08 | Integration Validation | `assets/08-integration.md` | Chrome E2E real mode | real backend 全通過 |

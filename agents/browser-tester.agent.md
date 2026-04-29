@@ -95,7 +95,7 @@ skills:
 ## 可用 Skills（WHAT）
 
 - `/playwright-cli` — Playwright CLI 瀏覽器操作（open, snapshot, click, fill, screenshot, video-start/stop）
-- `/browser-tester` — 測試工作流程（diff 分析 → 影響映射 → 測試執行 → CI 報告）
+- `/zenbu-powers:browser-tester` — 測試工作流程（diff 分析 → 影響映射 → 測試執行 → CI 報告）
 
 > 如果專案有定義額外的 Skills，請自行查找並善加利用。
 

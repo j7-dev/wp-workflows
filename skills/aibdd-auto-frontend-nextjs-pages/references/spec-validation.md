@@ -36,8 +36,8 @@
   2. Feature Files（.feature 檔案）→ 放入 ${SPECS_HOME}/features/
 
 如需從零開始，建議先執行：
-  - /aibdd-form-activity 產出 Activity Diagram
-  - /aibdd-form-feature-spec 產出 Feature Files
+  - /zenbu-powers:aibdd-form-activity 產出 Activity Diagram
+  - /zenbu-powers:aibdd-form-feature-spec 產出 Feature Files
 ```
 
 ### 規則 3：強行通過（使用者明確要求）

@@ -8,7 +8,7 @@ user-invocable: true
 
 | 方向 | 內容 |
 |------|------|
-| Input | .feature skeleton (from /aibdd-form-activity) &#124; `${ES_SPEC_PATH}` (ES spec) &#124; User idea |
+| Input | .feature skeleton (from /zenbu-powers:aibdd-form-activity) &#124; `${ES_SPEC_PATH}` (ES spec) &#124; User idea |
 | Output | `${FEATURE_SPECS_DIR}/*.feature` |
 
 # 行為探索
@@ -18,7 +18,7 @@ user-invocable: true
 | 檔案 | 何時載入 | 內容 |
 |------|---------|------|
 | `references/rule-writing-guide.md` | 撰寫 Rule + Example | Rule 命名原子化、資料驅動原則、Given 設定、Key 識別、When 格式 |
-| `references/coverage-checklist.md` | Quality Gate（F1-F6） | 6 面向覆蓋率清單，被 /discovery Step 7 調用 |
+| `references/coverage-checklist.md` | Quality Gate（F1-F6） | 6 面向覆蓋率清單，被 /zenbu-powers:aibdd-discovery Step 7 調用 |
 
 ---
 
@@ -28,7 +28,7 @@ user-invocable: true
 
 **輸入來源一：`.feature` 骨架（含便條紙）**
 
-來自 `/aibdd-form-activity` 連動生成的骨架。骨架已有 `@ignore @command` / `@ignore @query` + Feature header + 部分 Rule 框架。
+來自 `/zenbu-powers:aibdd-form-activity` 連動生成的骨架。骨架已有 `@ignore @command` / `@ignore @query` + Feature header + 部分 Rule 框架。
 
 執行方式：
 1. 讀取骨架中的所有便條紙（`CiC(<CATEGORY>): ...`），整理成待澄清清單
@@ -77,7 +77,7 @@ user-invocable: true
 
 ## 便條紙格式（強制規範）
 
-**完整格式定義、品質標準與範例見 `../aibdd-form-activity/references/cic-format.md`。**
+**完整格式定義、品質標準與範例見 `../zenbu-powers:aibdd-form-activity/references/cic-format.md`。**
 
 本 skill 使用 Gherkin 註解前綴：`# CiC(<CATEGORY>): ...`
 
@@ -187,6 +187,6 @@ Background 僅包含「所有 Example 都需要」的共用前置條件。逐條
 
 ## 面向覆蓋率清單（F1-F6）
 
-被 /discovery Step 7 調用。**完整清單**：Read `references/coverage-checklist.md`。
+被 /zenbu-powers:aibdd-discovery Step 7 調用。**完整清單**：Read `references/coverage-checklist.md`。
 
-便條紙清零後，逐一過 F1-F6 六個面向，標記 `Clear` / `Partial` / `Missing`。對 `Missing` / `Partial` 面向補寫便條紙，重新進入澄清循環。所有面向 `Clear` 後通知 `/discovery` 放行。
+便條紙清零後，逐一過 F1-F6 六個面向，標記 `Clear` / `Partial` / `Missing`。對 `Missing` / `Partial` 面向補寫便條紙，重新進入澄清循環。所有面向 `Clear` 後通知 `/zenbu-powers:aibdd-discovery` 放行。

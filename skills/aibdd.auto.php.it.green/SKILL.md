@@ -13,7 +13,7 @@ description: >
 
 本 skill 為 **WordPress PHP 整合測試 4-Phase TDD 流程** 中的 **Stage 3 綠燈實作者**。
 
-接手 Stage 2（`/aibdd.auto.php.it.red`）產出的失敗測試（`BadMethodCallException: 尚未實作`），以 **trial-and-error 最小增量迭代** 的方式，完成：
+接手 Stage 2（`/zenbu-powers:aibdd.auto.php.it.red`）產出的失敗測試（`BadMethodCallException: 尚未實作`），以 **trial-and-error 最小增量迭代** 的方式，完成：
 
 1. Repository 的真實 WordPress DB 操作（user_meta / post_meta / options / custom table / CPT / taxonomy）
 2. Service 的業務邏輯（含輸入驗證、狀態檢查、例外拋出）
@@ -373,7 +373,7 @@ vendor/bin/phpunit --testsuite integration \
 
 1. **每次只修一個失敗**：從第一個失敗的 test method 開始，解決後再重跑。
 2. **不預先實作測試未要求的功能**：例如測試只要求 `findByUserAndLesson`，就不要多寫一個 `findAll`。
-3. **不做順便的重構**：看到舊程式碼風格不一致先忍住，留給 `/aibdd.auto.php.it.refactor`。
+3. **不做順便的重構**：看到舊程式碼風格不一致先忍住，留給 `/zenbu-powers:aibdd.auto.php.it.refactor`。
 4. **不加註解超過必要**：只有演算法難懂處需註解，`// 儲存進度` 這類廢話註解不寫。
 5. **不新增 library**：能用 WP 內建 API（`$wpdb`、`wp_insert_post` 等）就不引入第三方套件。
 
@@ -403,4 +403,4 @@ vendor/bin/phpunit --testsuite integration \
 - [ ] 無多餘程式碼（未被任何測試覆蓋的 method 應刪除）
 - [ ] `composer dump-autoload` 已執行
 
-完成後告知使用者「綠燈完成，可進入 Stage 4 重構階段（`/aibdd.auto.php.it.refactor`）」。
+完成後告知使用者「綠燈完成，可進入 Stage 4 重構階段（`/zenbu-powers:aibdd.auto.php.it.refactor`）」。

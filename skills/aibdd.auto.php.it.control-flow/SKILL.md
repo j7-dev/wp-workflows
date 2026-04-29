@@ -20,9 +20,9 @@ description: >
 4. 所有任務完成後執行最終回歸測試
 
 **觸發條件**：
-- `/aibdd-specformula` 的 Phase 02 自動調用
+- `/zenbu-powers:aibdd-specformula` 的 Phase 02 自動調用
 - 使用者輸入「php it control-flow」、「批次執行」、「PHP 整合測試自動化」
-- 使用者直接呼叫 `/aibdd.auto.php.it.control-flow`
+- 使用者直接呼叫 `/zenbu-powers:aibdd.auto.php.it.control-flow`
 
 ---
 
@@ -30,13 +30,13 @@ description: >
 
 ```
 對每個 Feature 檔案：
-  Phase 1: /aibdd.auto.php.it.test-skeleton  （PHPUnit 測試骨架 + TODO 註解）
+  Phase 1: /zenbu-powers:aibdd.auto.php.it.test-skeleton  （PHPUnit 測試骨架 + TODO 註解）
     ↓
-  Phase 2: /aibdd.auto.php.it.red            （紅燈：Stub + Test 實作）
+  Phase 2: /zenbu-powers:aibdd.auto.php.it.red            （紅燈：Stub + Test 實作）
     ↓
-  Phase 3: /aibdd.auto.php.it.green          （綠燈：WP DB Repository + Service 邏輯）
+  Phase 3: /zenbu-powers:aibdd.auto.php.it.green          （綠燈：WP DB Repository + Service 邏輯）
     ↓
-  Phase 4: /aibdd.auto.php.it.refactor       （重構：消除重複、改名、抽 helper）
+  Phase 4: /zenbu-powers:aibdd.auto.php.it.refactor       （重構：消除重複、改名、抽 helper）
 ```
 
 **必須依序執行，不可跳過、不可顛倒。**
@@ -86,7 +86,7 @@ require_once __DIR__ . '/../vendor/yoast/wp-test-utils/src/WPIntegration/bootstr
 }
 ```
 
-若任一必要項缺失，停下並提示使用者補齊。`IntegrationTestCase.php` 例外 — 告知「將由 `/aibdd.auto.php.it.red` 自動建立」即可繼續。
+若任一必要項缺失，停下並提示使用者補齊。`IntegrationTestCase.php` 例外 — 告知「將由 `/zenbu-powers:aibdd.auto.php.it.red` 自動建立」即可繼續。
 
 ---
 
@@ -162,21 +162,21 @@ TodoWrite([
 
 | 任務 Phase | 呼叫的 Skill | 傳入參數 |
 |-----------|-------------|---------|
-| Test Skeleton | `/aibdd.auto.php.it.test-skeleton` | feature file 絕對路徑 |
-| Red | `/aibdd.auto.php.it.red` | feature file 絕對路徑 |
-| Green | `/aibdd.auto.php.it.green` | feature file 絕對路徑 |
-| Refactor | `/aibdd.auto.php.it.refactor` | feature file 絕對路徑 |
+| Test Skeleton | `/zenbu-powers:aibdd.auto.php.it.test-skeleton` | feature file 絕對路徑 |
+| Red | `/zenbu-powers:aibdd.auto.php.it.red` | feature file 絕對路徑 |
+| Green | `/zenbu-powers:aibdd.auto.php.it.green` | feature file 絕對路徑 |
+| Refactor | `/zenbu-powers:aibdd.auto.php.it.refactor` | feature file 絕對路徑 |
 
 ### 範例
 
 ```
 // 目前: 01-lesson-progress — Test Skeleton [in_progress]
-Skill /aibdd.auto.php.it.test-skeleton specs/features/01-lesson-progress.feature
+Skill /zenbu-powers:aibdd.auto.php.it.test-skeleton specs/features/01-lesson-progress.feature
 → 完成：LessonProgressTest.php 建立 + TODO 註解
 → 標記 completed
 
 // 前進到: 01-lesson-progress — Red [pending → in_progress]
-Skill /aibdd.auto.php.it.red specs/features/01-lesson-progress.feature
+Skill /zenbu-powers:aibdd.auto.php.it.red specs/features/01-lesson-progress.feature
 → 完成：Stub 建立 + Test 實作 + 紅燈驗證
 → 標記 completed
 
@@ -224,7 +224,7 @@ npx wp-env run tests-cli --env-cwd=wp-content/plugins/{plugin} \
 | 面向 | PHP IT | Java / Python |
 |------|--------|--------------|
 | Phase 數量 | **4 phase**（多 test-skeleton） | 3 phase（red / green / refactor） |
-| 骨架來源 | 需額外 `/aibdd.auto.php.it.test-skeleton` 產生 PHPUnit 骨架 | BDD 框架（Cucumber / Behave）自動對映 .feature |
+| 骨架來源 | 需額外 `/zenbu-powers:aibdd.auto.php.it.test-skeleton` 產生 PHPUnit 骨架 | BDD 框架（Cucumber / Behave）自動對映 .feature |
 | Variant routing | **無** arguments.yml 路由（PHP IT 獨立運作） | 有 IT / API / E2E 分流 |
 | 測試命令 | `vendor/bin/phpunit` | Maven `mvn verify` / `behave` |
 | DB rollback | `WP_UnitTestCase` 自動處理 | Testcontainers 手動管理 / Python fixture |

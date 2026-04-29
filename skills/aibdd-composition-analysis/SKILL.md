@@ -25,7 +25,7 @@ user-invocable: false
 
 # 模式路由
 
-本 Skill 支援兩種模式，由 `/aibdd-discovery` DELEGATE 時指定：
+本 Skill 支援兩種模式，由 `/zenbu-powers:aibdd-discovery` DELEGATE 時指定：
 
 | 模式 | 觸發條件 | 輸出 |
 |------|---------|------|

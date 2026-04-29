@@ -13,8 +13,8 @@ description: >
 將靜態 HTML 原型 + 規格文件轉換為動態 Next.js 頁面。
 
 **前提假設**：
-- Walking Skeleton 已由 `/aibdd-auto-frontend-apifirst-msw-starter` 初始化完成
-- MSW API layer 已由 `/aibdd-auto-frontend-msw-api-layer` 產生完成
+- Walking Skeleton 已由 `/zenbu-powers:aibdd-auto-frontend-apifirst-msw-starter` 初始化完成
+- MSW API layer 已由 `/zenbu-powers:aibdd-auto-frontend-msw-api-layer` 產生完成
 - API client 函式（`src/lib/api/`）和 Zod schemas（`src/lib/types/`）已就位
 
 ```
@@ -189,6 +189,6 @@ import type { LeadResponse, CreateLeadRequest } from '@/lib/types/lead.schema'
 ## 注意事項
 
 - **MSW 已就位**：開發階段所有 API 呼叫會被 MSW 攔截，返回 fixtures 資料。不需要真實後端。
-- **不修改 MSW 層**：不要修改 `src/mocks/` 下的檔案。如需新 endpoint，回報給使用者或呼叫 `/aibdd-auto-frontend-msw-api-layer`。
+- **不修改 MSW 層**：不要修改 `src/mocks/` 下的檔案。如需新 endpoint，回報給使用者或呼叫 `/zenbu-powers:aibdd-auto-frontend-msw-api-layer`。
 - **視覺品質不能退化**：拆解後的 React 元件渲染結果必須與 layout.html 視覺一致或更好。
 - **繁體中文產出**：所有 TODO 註解和文件使用繁體中文，但程式碼中的變數名和函式名使用英文。

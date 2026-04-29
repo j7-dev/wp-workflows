@@ -58,7 +58,7 @@ skills:
 
 ## 形式準則（HOW — 原則級別）
 
-- 所有開發規則、代碼風格、架構範例詳見 `/nodejs-master` skill
+- 所有開發規則、代碼風格、架構範例詳見 `/zenbu-powers:nodejs-master` skill
 - 嚴格遵守 9 條核心開發規則（strict mode、Zod 驗證、Repository Pattern、自訂 Error、DI、JSDoc、asyncHandler、命名規範、import 分組）
 - 禁止使用 `any` 型別
 - 所有外部輸入必須經 Zod Schema 驗證
@@ -73,8 +73,8 @@ Mock 複雜介面時（如第三方 library 的回傳型別），使用 `as unkn
 
 ## 可用 Skills（WHAT）
 
-- `/nodejs-master` — 完整開發規則、架構範例、測試規範、除錯技巧
-- `/zod-v3` — Zod 驗證 Schema 參考
+- `/zenbu-powers:nodejs-master` — 完整開發規則、架構範例、測試規範、除錯技巧
+- `/zenbu-powers:zod-v3` — Zod 驗證 Schema 參考
 
 > 如果專案有定義額外的 Skills，請自行查找並善加利用。
 

@@ -14,7 +14,7 @@ description: >
 
 本 skill 為 **WordPress PHP 整合測試 4-Phase TDD 流程** 中的 **Stage 2 紅燈生成器**。
 
-接手 Stage 1（`/aibdd.auto.php.it.test-skeleton`）產出的 PHPUnit 測試骨架（含 `markTestIncomplete` 與 Gherkin TODO 註解），完成下列三件事：
+接手 Stage 1（`/zenbu-powers:aibdd.auto.php.it.test-skeleton`）產出的 PHPUnit 測試骨架（含 `markTestIncomplete` 與 Gherkin TODO 註解），完成下列三件事：
 
 1. 建立 `IntegrationTestCase` 基類（若尚未存在）
 2. 建立 Model / Repository / Service **stub**（方法體拋 `BadMethodCallException`）
@@ -28,10 +28,10 @@ description: >
 
 ### 模式 A：被 control-flow 調用
 
-由 `/aibdd.auto.php.it.control-flow` 批次呼叫，接收 **feature file 絕對路徑** 作為參數：
+由 `/zenbu-powers:aibdd.auto.php.it.control-flow` 批次呼叫，接收 **feature file 絕對路徑** 作為參數：
 
 ```
-/aibdd.auto.php.it.red specs/features/01-lesson-progress.feature
+/zenbu-powers:aibdd.auto.php.it.red specs/features/01-lesson-progress.feature
 ```
 
 直接進入 Step 1，不詢問使用者。
@@ -302,12 +302,12 @@ src/Services/LessonService.php
 
 | Gherkin 句型 | Handler Skill |
 |-------------|---------------|
-| Given 狀態描述（Aggregate 初始狀態） | `/aibdd.auto.php.it.handlers.aggregate-given` |
-| Given 已完成動作 / When 寫入操作 | `/aibdd.auto.php.it.handlers.command` |
-| When 讀取操作 | `/aibdd.auto.php.it.handlers.query` |
-| Then DB 狀態驗證 | `/aibdd.auto.php.it.handlers.aggregate-then` |
-| Then Response / ReadModel 驗證 | `/aibdd.auto.php.it.handlers.readmodel-then` |
-| Then 操作成功/失敗 | `/aibdd.auto.php.it.handlers.success-failure` |
+| Given 狀態描述（Aggregate 初始狀態） | `/zenbu-powers:aibdd.auto.php.it.handlers.aggregate-given` |
+| Given 已完成動作 / When 寫入操作 | `/zenbu-powers:aibdd.auto.php.it.handlers.command` |
+| When 讀取操作 | `/zenbu-powers:aibdd.auto.php.it.handlers.query` |
+| Then DB 狀態驗證 | `/zenbu-powers:aibdd.auto.php.it.handlers.aggregate-then` |
+| Then Response / ReadModel 驗證 | `/zenbu-powers:aibdd.auto.php.it.handlers.readmodel-then` |
+| Then 操作成功/失敗 | `/zenbu-powers:aibdd.auto.php.it.handlers.success-failure` |
 
 ### 更新 `configure_dependencies()`
 
@@ -413,4 +413,4 @@ Tests: 1, Assertions: 0, Errors: 1.
 - [ ] 執行 PHPUnit 看到 `BadMethodCallException: 尚未實作` 錯誤 → 紅燈確認
 - [ ] 無 Type error、Autoload error、Syntax error
 
-完成後告知使用者「紅燈完成，可進入 Stage 3 綠燈階段（`/aibdd.auto.php.it.green`）」。
+完成後告知使用者「紅燈完成，可進入 Stage 3 綠燈階段（`/zenbu-powers:aibdd.auto.php.it.green`）」。

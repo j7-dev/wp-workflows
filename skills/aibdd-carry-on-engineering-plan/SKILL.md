@@ -104,7 +104,7 @@ Phase {NN}: {階段名稱} — 交付物審查
 
 **簽名格式**：`YYYY-MM-DD HH:mm`（只有日期時間，不含姓名）。
 
-## Consistency Check（委派 `/aibdd-consistency-analyzer`）
+## Consistency Check（委派 `/zenbu-powers:aibdd-consistency-analyzer`）
 
 ### 觸發時機
 
@@ -117,8 +117,8 @@ Feedback Loop 中產生實際改動後觸發：
 ### 執行方式
 
 1. 從當前 Phase 卡片中解析所有相關規格、交付物的**絕對路徑**清單。
-2. 觸發 `/aibdd-consistency-analyzer`，傳入這些檔案路徑。
-3. `/aibdd-consistency-analyzer` 會自行完成掃描、展示 issue 清單、互動迴圈（+A/+S/+X）、以及寫入 `{plan_dir}/clarify-log.md`。
+2. 觸發 `/zenbu-powers:aibdd-consistency-analyzer`，傳入這些檔案路徑。
+3. `/zenbu-powers:aibdd-consistency-analyzer` 會自行完成掃描、展示 issue 清單、互動迴圈（+A/+S/+X）、以及寫入 `{plan_dir}/clarify-log.md`。
 4. **Consistency Check 完成後**（所有 issue 已 resolved / skipped / dismissed），回到 Feedback Loop。
 
 ## Skill 委派

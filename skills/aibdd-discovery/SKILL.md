@@ -37,7 +37,7 @@ user-invocable: true
 
 **使用者沒說的，就是不知道。不知道就標記，不標記就不碰。**
 
-此原則貫穿所有階段、所有 Spec Skill。具體規則見 `/aibdd-composition-analysis`。摘要：
+此原則貫穿所有階段、所有 Spec Skill。具體規則見 `/zenbu-powers:aibdd-composition-analysis`。摘要：
 
 - 使用者明確描述的 → 直接記錄
 - 使用者暗示但未明說的 → 標記 `ASM`，列推論依據
@@ -64,7 +64,7 @@ user-invocable: true
 | `.mmd` | ✅ | `*.mmd` |
 | `.activity` | | `*.activity` |
 
-Activity 視圖統一由 `/aibdd-form-activity` 處理。
+Activity 視圖統一由 `/zenbu-powers:aibdd-form-activity` 處理。
 
 **格式決定規則**（優先序由高到低）：
 1. 使用者明確傳入 `--activity-format` → 使用指定格式
@@ -137,7 +137,7 @@ TodoWrite([
 
 | # | 任務 | 標記 `completed` 的條件 |
 |---|------|------------------------|
-| 1 | Composition Analysis | `/aibdd-composition-analysis` DELEGATE 完成、盤點表產出 |
+| 1 | Composition Analysis | `/zenbu-powers:aibdd-composition-analysis` DELEGATE 完成、盤點表產出 |
 | 2 | Flow Alignment | **Greenfield**：Flow Tree 展示 + 使用者 **confirm**。**Existing**：Delta Review 完成 + 使用者確認變更意圖 |
 | 3 | Structural Read | 掃描完成。Greenfield = 回傳空集，快速通過 |
 | 4 | Impact Analysis | Execution Plan 產出 + 展示給使用者 |
@@ -175,7 +175,7 @@ TodoWrite([
 理解需求意圖。
 
 1. 標記 Step 1 → `in_progress`
-2. **DELEGATE** `/aibdd-composition-analysis`
+2. **DELEGATE** `/zenbu-powers:aibdd-composition-analysis`
    - 產出：組成盤點表 + 完整度評估 + Iterative 權重決策
    - 此分析結果約束後續所有生成深度（完整度不足的面向只標記、不編造）
 3. 標記 Step 1 → `completed`
@@ -268,7 +268,7 @@ TodoWrite([
 
 1. 標記 Step 5 → `in_progress`
 2. 依 Execution Plan 逐一處理：
-   - **create**：**DELEGATE** `/aibdd-form-activity` 新建 Activity Diagram + **DELEGATE** `/aibdd-form-feature-spec` 新建 Feature Files（Rules only，無 Examples，標記 `@ignore`）
+   - **create**：**DELEGATE** `/zenbu-powers:aibdd-form-activity` 新建 Activity Diagram + **DELEGATE** `/zenbu-powers:aibdd-form-feature-spec` 新建 Feature Files（Rules only，無 Examples，標記 `@ignore`）
    - **modify**：修改現有 Activity / Feature 的 Rules
    - **delete**：移除不再需要的 Activity / Feature（需使用者確認）
    - 必須遵守「Feature 顆粒度與 Actor 合法性」規則
@@ -285,7 +285,7 @@ TodoWrite([
 處理所有便條紙。
 
 1. 標記 Step 6 → `in_progress`
-2. **LOAD `/clarify-loop` 的完整澄清規則**
+2. **LOAD `/zenbu-powers:clarify-loop` 的完整澄清規則**
 3. 依便條紙優先序逐一解決
 
 ### 便條紙優先序
@@ -337,7 +337,7 @@ TodoWrite([
 
 ### 7b. 面向覆蓋率掃描（F1-F6）
 
-**DELEGATE** `/aibdd-form-feature-spec` 執行 F1-F6 面向覆蓋率清單：
+**DELEGATE** `/zenbu-powers:aibdd-form-feature-spec` 執行 F1-F6 面向覆蓋率清單：
 
 | 結果 | 行動 |
 |------|------|

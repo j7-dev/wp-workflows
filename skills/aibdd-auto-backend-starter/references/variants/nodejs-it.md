@@ -234,5 +234,5 @@ Walking skeleton 已建立完成。
 下一步：
 1. cd ${PROJECT_ROOT} && npm install
 2. 設定 .env（複製 .env.example）
-3. /aibdd-discovery — 開始需求探索
+3. /zenbu-powers:aibdd-discovery — 開始需求探索
 ```

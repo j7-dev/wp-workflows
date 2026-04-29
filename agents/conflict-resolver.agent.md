@@ -76,8 +76,8 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/conflict-resolver` — 完整衝突解決工作流程（分支偵察、衝突分類、解法規劃、測試驗證）
-- `/git-commit` — Git commit 操作
+- `/zenbu-powers:conflict-resolver` — 完整衝突解決工作流程（分支偵察、衝突分類、解法規劃、測試驗證）
+- `/zenbu-powers:git-commit` — Git commit 操作
 
 > 如果專案有定義額外的 Skills，請自行查找並善加利用。
 

@@ -62,9 +62,9 @@ skills:
 1. **查看專案指引**：閱讀 `CLAUDE.md`、`.claude/rules/**/*.md`、`specs/**/*`、`specs/**/erm.dbml`（如存在），瞭解數據模型、架構、text_domain、建構指令
 2. **探索專案結構**：快速瀏覽 `composer.json`、`plugin.php`、`inc/src/`（或其他 PHP 原始碼目錄）
 3. **查找可用 Skills**：檢查可用的 Claude Code Skills，善加利用
-4. **載入審查 Criteria**：使用 `/wordpress-review-criteria` skill，依情境載入 references/ 中的細項
+4. **載入審查 Criteria**：使用 `/zenbu-powers:wordpress-review-criteria` skill，依情境載入 references/ 中的細項
 5. **取得變更範圍**：`git diff -- '*.php'`
-6. **強制執行所有測試**：依 `/wordpress-review-criteria` 的測試清單逐一執行（phpcs / phpstan / psalm / phpunit），失敗直接判定審查不通過
+6. **強制執行所有測試**：依 `/zenbu-powers:wordpress-review-criteria` 的測試清單逐一執行（phpcs / phpstan / psalm / phpunit），失敗直接判定審查不通過
 
 ---
 
@@ -88,15 +88,15 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/wordpress-review-criteria` — 審查 checklist、輸出模板、references 索引（必載入）
-- `/wordpress-coding-standards` — WordPress / PHP 編碼標準完整參考
-- `/wordpress-router` — WordPress 專案類型分類與路由
-- `/wp-abilities-api` / `/wp-rest-api` — REST API 與 Abilities API 審查
-- `/wp-block-development` / `/wp-block-themes` / `/wp-interactivity-api` — 區塊與主題審查
-- `/wp-performance` / `/wp-phpstan` — 效能與靜態分析
-- `/wp-playground` / `/wp-plugin-development` / `/wp-project-triage` — 開發與盤點
-- `/wp-wpcli-and-ops` / `/wpds` — WP-CLI 操作與設計系統
-- `/git-commit` — Git commit 操作
+- `/zenbu-powers:wordpress-review-criteria` — 審查 checklist、輸出模板、references 索引（必載入）
+- `/zenbu-powers:wordpress-coding-standards` — WordPress / PHP 編碼標準完整參考
+- `/zenbu-powers:wordpress-router` — WordPress 專案類型分類與路由
+- `/zenbu-powers:wp-abilities-api` / `/zenbu-powers:wp-rest-api` — REST API 與 Abilities API 審查
+- `/zenbu-powers:wp-block-development` / `/zenbu-powers:wp-block-themes` / `/zenbu-powers:wp-interactivity-api` — 區塊與主題審查
+- `/zenbu-powers:wp-performance` / `/zenbu-powers:wp-phpstan` — 效能與靜態分析
+- `/zenbu-powers:wp-playground` / `/zenbu-powers:wp-plugin-development` / `/zenbu-powers:wp-project-triage` — 開發與盤點
+- `/zenbu-powers:wp-wpcli-and-ops` / `/zenbu-powers:wpds` — WP-CLI 操作與設計系統
+- `/zenbu-powers:git-commit` — Git commit 操作
 
 > 如果專案有定義額外的 Skills，請自行查找並善加利用。
 
@@ -119,13 +119,13 @@ skills:
 
 - 存在 🔴 / 🟠 問題，或任何測試失敗
 - 透過 `SendMessage` 通知 `@zenbu-powers:wordpress-master`，附上嚴重性分級問題清單（🔴/🟠/🟡/🔵）、位置、改善方案
-- 詳細退回格式見 `/wordpress-review-criteria` references/review-output-template.md
+- 詳細退回格式見 `/zenbu-powers:wordpress-review-criteria` references/review-output-template.md
 - 最多 **3 輪**迴圈（見下方「迴圈限制」），超過則 `SendMessage` 通知 coordinator 請求人類介入
 
 ### 審查通過時
 
 - 無 🔴 / 🟠 問題且所有測試通過
-- 執行 `git status` 檢查變更，必要時用 `/git-commit` 建立 commit
+- 執行 `git status` 檢查變更，必要時用 `/zenbu-powers:git-commit` 建立 commit
 - `git push -u origin HEAD` → `gh pr create` 建立 PR
 - 輸出最終結果（分支、PR URL、🟡/🔵 統計）
 

@@ -19,12 +19,12 @@
 
 **每個需求都是 current state → desired state 的 delta 操作。**
 
-觸發 skill：`/aibdd-discovery`
+觸發 skill：`/zenbu-powers:aibdd-discovery`
 
 ## 統一流程（6 步）
 
 ### Step 1: Composition Analysis
-理解需求意圖。DELEGATE `/aibdd-composition-analysis`。
+理解需求意圖。DELEGATE `/zenbu-powers:aibdd-composition-analysis`。
 - 產出：組成盤點表 + 完整度評估
 
 ### Step 2: Structural Read
@@ -125,7 +125,7 @@ Phase 01 的核心產出。儲存於 `${PLAN_DIR}/plan.md`。
 
 carry-on Step 01.2 觸發時：
 
-1. **DELEGATE `/aibdd-discovery`**，傳入需求描述 + `${SPECS_ROOT_DIR}`
+1. **DELEGATE `/zenbu-powers:aibdd-discovery`**，傳入需求描述 + `${SPECS_ROOT_DIR}`
 2. Discovery 執行統一流程（6 步）：
    - Composition Analysis → Structural Read → Impact Analysis
    - → Clarify & Resolve（CiC 歸零）
