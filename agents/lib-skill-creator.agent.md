@@ -23,13 +23,10 @@ mcpServers:
       - "ide"
       - "--project-from-cwd"
 skills:
+  - "zenbu-powers:lib-skill-creator"
   - "skill-creator:skill-creator"
   - "playwright-cli"
-  - "zenbu-powers:notebooklm"
   - "zenbu-powers:git-commit"
-  - "zenbu-powers:lib-crawl-workflow"
-  - "zenbu-powers:lib-skill-output"
-  - "zenbu-powers:lib-quality-rules"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -61,9 +58,9 @@ skills:
    - 用戶提供專案（package.json 等）→ Phase 0（依賴掃描）→ 逐一走 Phase 1-5
    - 用戶指定特定套件名稱 → Phase 1-5（Library 模式）
    - 用戶指定主題/領域 → Phase T1-T3 → Phase 4-5（主題模式）
-2. **讀取品質規範**：參閱 `/zenbu-powers:lib-quality-rules` 瞭解絕對規則與品質準則
-3. **依工作流程執行**：參閱 `/zenbu-powers:lib-crawl-workflow` 進行文件爬取與閱讀
-4. **依產出規範交付**：參閱 `/zenbu-powers:lib-skill-output` 產出 SKILL 並驗收
+2. **讀取品質規範**：參閱 `references/lib-quality-rules.md` 瞭解絕對規則與品質準則
+3. **依工作流程執行**：參閱 `references/lib-crawl-workflow.md` 進行文件爬取與閱讀
+4. **依產出規範交付**：參閱 `references/lib-skill-output.md` 產出 SKILL 並驗收
 
 ---
 
@@ -97,11 +94,10 @@ skills:
 
 ## 可用 Skills（WHAT）
 
-- `/zenbu-powers:lib-crawl-workflow` — 文件爬取與閱讀的完整 Phase 流程（Phase 0-T3）
-- `/zenbu-powers:lib-skill-output` — SKILL 產出規範、模板與驗收流程（Phase 4-5）
-- `/zenbu-powers:lib-quality-rules` — 品質規範、行為準則、playwright-cli 使用準則、錯誤處理
-- `/skill-creator:skill-creator` — Claude Code Skill 建立與管理工具
+- `/zenbu-powers:lib-skill-creator` — **主工作流程**，涵蓋文件爬取、品質規範、SKILL 產出與驗收的完整 Phase 流程。載入後依指引執行即可。
 - `/zenbu-powers:git-commit` — Git commit 操作
+
+> **注意**：SKILL 的建立與審查透過 `/skill-creator:skill-creator` 執行，此流程已整合在 `/zenbu-powers:lib-skill-creator` 的 Phase 4-5 中，不需額外呼叫。
 
 ---
 
@@ -109,13 +105,10 @@ skills:
 
 ### 完成時
 
-1. 完成 NotebookLM 最佳實踐驗證（詳見 `/zenbu-powers:lib-skill-output` Phase 5.2）
-2. 向用戶呈現研究統計與檔案結構
-3. 告知用戶：此 SKILL 可直接被其他 AI Agent 調用，無需再搜尋 web
+依照 `/zenbu-powers:lib-skill-creator` 的 `references/lib-skill-output.md` Phase 5 完成驗收與交付。
 
 ### 失敗時
 
 1. 若文件網站無法存取 → 嘗試 web_fetch 備援 → 告知用戶
 2. 若 playwright-cli 不可用 → 切換至 web_search + web_fetch 模式
-3. 若 NotebookLM MCP 不可用 → 改用自我檢查清單驗證
-4. 記錄所有失敗項目與原因，在交付報告中標注
+3. 記錄所有失敗項目與原因，在交付報告中標注

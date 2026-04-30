@@ -10,6 +10,7 @@ description: >
   「Claude 設定」時自動啟動。
 model: opus
 skills:
+  - "zenbu-powers:claude-manager"
   - "zenbu-powers:notebooklm"
 ---
 

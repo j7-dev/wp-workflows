@@ -3,7 +3,7 @@ name: lib-skill-output
 description: >
   Lib Skill Creator 的 SKILL 產出規範。涵蓋 Phase 4（SKILL 結構設計、SKILL.md 撰寫模板、
   references 檔案規範、frontmatter description 模板）與 Phase 5（自我檢查清單、
-  NotebookLM 最佳實踐驗證流程、交付報告模板）。
+  skill-creator 官方規範審查流程、交付報告模板）。
 enable_by_default: true
 ---
 
@@ -96,9 +96,19 @@ description: >
 - **標注原始文件 URL**：每個段落結尾標注來源，方便回溯查證
 - **範例只取自官方文件**，不可自行捏造
 
-### Step 4.4｜寫入檔案系統
+### Step 4.4｜使用 `/skill-creator:skill-creator` 建立 SKILL
 
-將 SKILL 檔案寫入 `.claude/skills/{領域}-v{版本}/` 目錄。
+> **前提**：此步驟需要 `/skill-creator:skill-creator` plugin。如果 SKILL.md 的 Pre-flight Check 未通過，不可進入此步驟。
+
+將 Step 4.1-4.3 準備好的內容，透過 `/skill-creator:skill-creator` SKILL 建立為正式的 SKILL。
+
+**執行方式：**
+1. 呼叫 `/skill-creator:skill-creator` SKILL，提供以下資訊：
+   - SKILL 名稱（`{領域}-v{版本}` 或 `{主題簡稱}`）
+   - SKILL.md 內容（依 Step 4.2 模板撰寫）
+   - references 檔案清單與內容（依 Step 4.3 規範撰寫）
+2. 由 `/skill-creator:skill-creator` 負責實際的檔案建立、路徑規劃與 frontmatter 驗證
+3. 確認建立完成後，進入 Phase 5 驗收
 
 ---
 
@@ -119,51 +129,21 @@ description: >
 - [ ] SKILL.md 中有 References 導引表
 - [ ] SKILL 的語氣面向 AI Agent（精準、密集、無廢話）
 
-### Step 5.2｜NotebookLM 最佳實踐驗證（必要步驟）
+### Step 5.2｜官方規範審查（必要步驟）
 
-使用 `/zenbu-powers:notebooklm` SKILL 查詢 **Claude Code Docs** 筆記本（ID: `de80e438-3645-4d94-8977-ce1f3218cd6e`）驗證產出的 SKILL。
+> **前提**：此步驟需要 `/skill-creator:skill-creator` plugin。如果 SKILL.md 的 Pre-flight Check 未通過，不可進入此步驟。
 
-#### 5.2.1｜執行 3 組驗證查詢
+使用 `/skill-creator:skill-creator` SKILL 審查產出的 SKILL 是否符合 Claude Code 官方規範與最佳實踐。
 
-使用 `/zenbu-powers:notebooklm` SKILL 的 `ask_question.py` 工具，每組查詢時附上待驗證的 SKILL 內容：
+#### 5.2.1｜執行審查
 
-**查詢 1 — Frontmatter 與觸發機制驗證：**
-```
-驗證以下 SKILL.md 的 frontmatter 是否符合 Claude Code 官方最佳實踐：
-- name 欄位是否符合命名規範（lowercase, hyphens, max 64 chars）？
-- description 是否包含足夠的自然語言關鍵字？
-- 是否需要設定 disable-model-invocation 或 user-invocable？
-- 是否應該加入 allowed-tools 限制工具存取？
+呼叫 `/skill-creator:skill-creator` SKILL，請求其對產出的 SKILL 進行完整審查，審查範圍包括：
 
-以下是待驗證的 frontmatter：
-{貼上產出的 SKILL.md frontmatter}
-```
+1. **Frontmatter 規範**：name 命名規範、description 觸發關鍵字覆蓋度、metadata 欄位正確性
+2. **檔案結構**：SKILL.md 行數限制、references 拆分合理性、引用路徑正確性
+3. **內容品質**：AI Agent 導向的撰寫風格、程式碼範例完整性、版本標注清晰度
 
-**查詢 2 — 檔案結構與內容組織驗證：**
-```
-驗證以下 SKILL 檔案結構是否符合 Claude Code 官方最佳實踐：
-- SKILL.md 是否控制在 500 行以內？
-- 大型參考內容是否正確分離至 references/ 子檔案？
-- SKILL.md 是否有明確指引何時該去讀哪個 reference 檔案？
-- 是否應該使用 context: fork 在 subagent 中執行？
-
-以下是待驗證的檔案結構與 SKILL.md 內容摘要：
-{貼上產出的檔案結構樹 + SKILL.md 前 50 行}
-```
-
-**查詢 3 — 內容品質與 Agent 可用性驗證：**
-```
-驗證以下 SKILL 內容是否符合 Claude Code 官方建議的品質標準：
-- 內容是否面向 AI Agent（精準、密集、無廢話）？
-- 程式碼範例是否包含完整 import 與型別標注？
-- 是否有善用 string substitutions（$ARGUMENTS 等）？
-- references 檔案是否從 SKILL.md 正確引用？
-
-以下是待驗證的 SKILL 內容片段：
-{貼上核心 API 速查 + References 導引表段落}
-```
-
-#### 5.2.2｜分析驗證結果
+#### 5.2.2｜分析審查結果
 
 | 類別 | 處理方式 |
 |------|---------|
@@ -175,19 +155,17 @@ description: >
 - 對所有「必須修正」項目進行修正，修正後重新寫入檔案
 - 對「建議改善」項目逐一評估，修正成本低（< 5 分鐘）則一併修正
 
-#### 5.2.4｜驗證結果回報
+#### 5.2.4｜審查結果回報
 ```
-NotebookLM 最佳實踐驗證結果：
+官方規範審查結果：
 
 符合規範：{N} 項
 已修正：{列出修正項目}
 建議改善（已處理）：{列出已處理的建議}
 建議改善（暫不處理）：{列出暫不處理的建議與原因}
 
-驗證依據：Claude Code Docs 筆記本（65 份官方文件來源）
+審查工具：/skill-creator:skill-creator
 ```
-
-> **注意**：如果 `/zenbu-powers:notebooklm` SKILL 不可用或查詢失敗，記錄錯誤原因並告知用戶，改為人工對照 Step 5.1 的自我檢查清單進行驗證。
 
 ### Step 5.3｜向用戶呈現成果
 
@@ -201,7 +179,7 @@ NotebookLM 最佳實踐驗證結果：
 - 識別陷阱 / deprecated：{N} 個
 
 品質驗證：
-- NotebookLM 最佳實踐驗證：通過（{N} 項符合 / {N} 項已修正）
+- 官方規範審查：通過（{N} 項符合 / {N} 項已修正，審查工具：/skill-creator:skill-creator）
 
 檔案結構：
 .claude/skills/{領域}-v{版本}/

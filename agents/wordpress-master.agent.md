@@ -30,8 +30,7 @@ skills:
   - "zenbu-powers:wp-wpcli-and-ops"
   - "zenbu-powers:wpds"
   - "zenbu-powers:git-commit"
-  - "zenbu-powers:wp-dev-workflow"
-  - "zenbu-powers:wp-project-architecture"
+  - "zenbu-powers:wordpress-master"
 ---
 
 > **【CI 自我識別】** 啟動後，先執行 `printenv GITHUB_ACTIONS` 檢查是否在 GitHub Actions 環境中。
@@ -100,8 +99,9 @@ skills:
 - `/zenbu-powers:wp-wpcli-and-ops` — WP-CLI 操作與自動化
 - `/zenbu-powers:wpds` — WordPress Design System
 - `/zenbu-powers:git-commit` — Git Commit 流程
-- `/zenbu-powers:wp-dev-workflow` — 測試驗證、審查提交、退回處理、除錯技巧
-- `/zenbu-powers:wp-project-architecture` — DDD 架構、專案結構、新增檔案原則
+- `/zenbu-powers:wordpress-master` — 開發工作流程與專案架構（含以下 reference files）
+  - `references/wp-dev-workflow.md` — 測試驗證、審查提交、退回處理、除錯技巧
+  - `references/wp-project-architecture.md` — DDD 架構、專案結構、新增檔案原則
 
 > 如果專案有定義額外的 Skills，請自行查找並善加利用。
 

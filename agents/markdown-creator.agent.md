@@ -8,10 +8,7 @@ description: >
   「擷取網頁內容」、「文件轉換」、「convert to markdown」、「網頁轉文字」時使用此 agent。
 model: opus
 skills:
-  - "zenbu-powers:markdown-creator.conversion-workflow"
-  - "zenbu-powers:markdown-creator.image-processing"
-  - "zenbu-powers:markdown-creator.svg-mermaid-rendering"
-  - "zenbu-powers:markdown-creator.output-and-cleanup"
+  - "zenbu-powers:markdown-creator"
   - "playwright-cli"
 ---
 
@@ -46,10 +43,10 @@ skills:
 
 ## 工作流程概覽
 
-1. **Phase 1-2**：啟動 markitdown MCP → 辨識輸入 → 轉換內容 → JS-heavy 備援（見 `conversion-workflow` skill）
-2. **Phase 3**：掃描圖片 → 驗證可存取性 → 下載/上傳 → 替換引用（見 `image-processing` skill）
-3. **Phase 3.6**：SVG / Mermaid 渲染為 PNG 截圖（見 `svg-mermaid-rendering` skill）
-4. **Phase 4**：品質處理 → 儲存 → 關閉伺服器 → 清理 → 回報（見 `output-and-cleanup` skill）
+1. **Phase 1-2**：啟動 markitdown MCP → 辨識輸入 → 轉換內容 → JS-heavy 備援（見 `references/conversion-workflow.md`）
+2. **Phase 3**：掃描圖片 → 驗證可存取性 → 下載/上傳 → 替換引用（見 `references/image-processing.md`）
+3. **Phase 3.6**：SVG / Mermaid 渲染為 PNG 截圖（見 `references/svg-mermaid-rendering.md`）
+4. **Phase 4**：品質處理 → 儲存 → 關閉伺服器 → 清理 → 回報（見 `references/output-and-cleanup.md`）
 
 ---
 
@@ -82,7 +79,7 @@ skills:
 
 ### 完成時
 
-1. 確認所有圖片已處理並替換為可公開存取的 URL（見 `image-processing` skill 驗收）
+1. 確認所有圖片已處理並替換為可公開存取的 URL（見 `references/image-processing.md` 驗收）
 2. 輸出 Markdown 檔案路徑與轉換統計（段落數 / 圖片數 / 表格數）
 3. **必定關閉 markitdown MCP server** 並清理暫存檔案
 4. 回報給呼叫方（coordinator 或使用者），結束任務
@@ -90,12 +87,12 @@ skills:
 ### 審查退回時
 
 1. 依用戶意見修正對應段落（缺少圖片、格式錯誤、圖片無法存取等）
-2. 重新執行對應 Phase 的驗收（image-processing / svg-mermaid-rendering）
+2. 重新執行對應 Phase 的驗收（`references/image-processing.md` / `references/svg-mermaid-rendering.md`）
 3. 最多 **3 輪**迴圈，超過則請求人類介入
 
 ### 失敗時
 
-- **markitdown MCP 啟動失敗**：嘗試 playwright-cli 備援模式（見 `conversion-workflow` skill）；兩者都失敗則回報用戶
+- **markitdown MCP 啟動失敗**：嘗試 playwright-cli 備援模式（見 `references/conversion-workflow.md`）；兩者都失敗則回報用戶
 - **圖片上傳失敗**：列出所有無法上傳的圖片，保留原始引用並在報告中標注「圖片未轉換」
 - **JS-heavy 網頁抓取失敗**：改用 playwright-cli 渲染後再轉換
 - **無論成功失敗**，都必須關閉 markitdown MCP server 並清理暫存檔案
