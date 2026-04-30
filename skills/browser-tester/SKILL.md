@@ -159,25 +159,28 @@ Serena 不可用時：
 # 1. 開啟頁面
 "$PWCLI" open "${BASE_URL}${path}" --headed
 
-# 2. 開始錄影（必須在所有操作之前）
+# 2. 統一視窗解析度為 1920x1080
+"$PWCLI" resize 1920 1080
+
+# 3. 開始錄影（必須在所有操作之前）
 "$PWCLI" video-start
 
-# 3. 取得頁面元素參考
+# 4. 取得頁面元素參考
 "$PWCLI" snapshot
 
-# 4. 執行測試操作（見 3.2 各類型操作指引）
+# 5. 執行測試操作（見 3.2 各類型操作指引）
 # ...
 
-# 5. 截圖重點時刻（見 3.3 截圖指引）
+# 6. 截圖重點時刻（見 3.3 截圖指引）
 "$PWCLI" screenshot
 
-# 6. 檢查 console 錯誤
+# 7. 檢查 console 錯誤
 "$PWCLI" console warning
 
-# 7. 檢查網路請求
+# 8. 檢查網路請求
 "$PWCLI" network
 
-# 8. 停止錄影並儲存
+# 9. 停止錄影並儲存
 "$PWCLI" video-stop --filename "output/playwright/browser-test/videos/${scenario_name}.webm"
 ```
 
