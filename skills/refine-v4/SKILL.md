@@ -404,6 +404,22 @@ useList({
 
 ---
 
+## 專案規則自動安裝
+
+當偵測到專案使用 Refine v4（package.json 中有 `@refinedev/core` ^4.x），**必須**執行以下 script 將 Refine 開發規範寫入專案的 `.claude/rules/`：
+
+```bash
+bash ~/.claude/skills/refine-v4/scripts/install-rule.sh /path/to/project
+```
+
+此 rule 確保：
+- 所有 `.ts` / `.tsx` 檔案套用 Refine v4 資料存取規範
+- 禁止直接 API 呼叫，強制使用 Data Hooks
+- 提醒開發者優先參考 SKILL 文件
+- 標記正確的 v4 API 命名（`data`、`isLoading`、`metaData`、`sort` 等）
+
+---
+
 ## 參考文件
 
 依需要載入對應的詳細文件：
