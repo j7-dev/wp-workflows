@@ -113,8 +113,6 @@ skills:
 
 ## 交接協議（WHERE NEXT）
 
-> **Team 模式偵測**：若你是由 `@zenbu-powers:tdd-coordinator` 作為 Teammate 啟動的，審查結果一律透過 `SendMessage` 回報給 tdd-coordinator（Team Lead）。**不要自行呼叫 master agent、不要 git push、不要建立 PR**。以下流程僅適用於**非 Team 模式**。
-
 ### 審查不通過時（回環模式）
 
 - 存在 🔴 / 🟠 問題，或任何測試失敗

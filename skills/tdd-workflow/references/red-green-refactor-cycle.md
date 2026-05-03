@@ -47,14 +47,16 @@ npx vitest run 2>&1; echo "EXIT_CODE=$?"
 
 ## 階段 2：🟢 Green — 最小實作讓測試通過
 
-### Step 4：建立代理團隊，分派實作任務
+### Step 4：主窗口逐一 spawn `*-master` 實作
 
-細節見 [team-and-worktree.md](team-and-worktree.md)。重點：
+預設使用純 sub-agent 鏈式委派：
 
-- 根據計劃指定的技術棧組建代理團隊，tdd-coordinator 擔任 **Team Lead**
-- 使用 `TeamCreate` 加入 Teammates，將實作計劃拆解為 Task List（含依賴關係）
+- 根據 tdd-coordinator 藍圖第 4 節列出的 master 清單，主窗口**逐一**呼叫 `Agent(subagent_type="zenbu-powers:*-master", prompt=...)`
+- 一位 master 完成回報後，主窗口讀取結果再 spawn 下一位（避免併發寫入衝突）
 - **每個實作任務都必須對應至少一個已存在的測試**；若測試不存在，先回 Step 2 補測試
-- 建議團隊規模：3-5 個 Teammates，每人 5-6 個任務
+- 建議規模：每階段 1-3 位 master，任務量過大時拆 sub-issue 分多輪跑
+
+> **進階模式（opt-in）**：若使用者明確要求多 master 平行 + SendMessage 退回迴圈，參考 [team-and-worktree.md](team-and-worktree.md)。預設不主動使用。
 
 ### Step 5：🚨 Green Gate — 驗證測試全部通過
 

@@ -100,10 +100,6 @@ skills:
 
 ## 交接協議（WHERE NEXT）
 
-> **Team 模式偵測**：若由 `@zenbu-powers:tdd-coordinator` 作為 Teammate 啟動，
-> 審查結果一律透過 `SendMessage` 回報給 coordinator，不自行呼叫 master agent。
-> 以下流程僅適用於非 Team 模式（例如開發者手動 `/review` 或 CI trigger）。
-
 ### 審查通過時
 1. 產出「安全審查報告」，合併建議標註為 ✅ 可合併
 2. 列出「安全亮點」至少 2-3 點，正向反饋開發者

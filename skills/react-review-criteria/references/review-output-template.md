@@ -138,12 +138,3 @@ gh pr create --title "功能描述" --body "審查摘要..."
 
 ---
 
-## Team 模式特別說明
-
-若由 Teammate 模式啟動：
-
-- 審查結果一律透過 `SendMessage` 回報給調度者（Team Lead）
-- 由調度者統一管理退回 / 通過流程
-- **不要自行呼叫 master agent、不要 git push、不要建立 PR**
-
-以上「通過後的後續動作」僅適用於**非 Team 模式**（獨立審查）。

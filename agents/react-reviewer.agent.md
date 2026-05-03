@@ -99,9 +99,7 @@ skills:
 
 ## 交接協議（WHERE NEXT）
 
-> **Team 模式偵測**：若由 Teammate 模式啟動，審查結果一律透過 `SendMessage` 回報給調度者，由它統一管理退回 / 通過流程。**不要自行呼叫 master agent、不要 git push、不要建立 PR**。
-
-### 非 Team 模式：審查不通過（回環模式）
+### 審查不通過（回環模式）
 1. 依 `/zenbu-powers:react-review-criteria` 的輸出模板組裝退回訊息
 2. 透過 `SendMessage` 通知 `@zenbu-powers:react-master`，附上嚴重性分級問題清單（🔴/🟠/🟡/🔵）、測試結果、需修改項目清單
 3. 等待 master 修改完成後重新審查
