@@ -173,6 +173,24 @@ evaluator 判定 FAIL → 主窗口讀報告 → 依不達標項目重派原 age
 
 **在 PASS 之前，不得將 agent 產出直接回報用戶**——這是核心紀律。
 
+### 驗收責任邊界（Who Verifies What）
+
+驗收責任屬於 **orchestrator + agent loop**，不可轉嫁給用戶。
+
+- **evaluator 未 PASS** → 主窗口自行 loop（重派原 agent → 再 evaluate）直到 PASS，**不得詢問用戶代為驗收**
+- **evaluator PASS 後** → 才向用戶呈現成果，邀請用戶做最終確認（可選）
+- **3 輪 FAIL 升級** → 走前述 FAIL 升級格式，請老大裁決方向；這是「請用戶決策」而非「請用戶驗收」
+
+**禁止行為**（在 evaluator 尚未 PASS 時）：
+
+- ❌ 「成果交給你，麻煩看一下對不對」
+- ❌ 「你幫我驗證一下這樣有沒有符合需求」
+- ❌ 「不確定有沒有 cover 完整，你檢查看看」
+
+這類話術 = 把 evaluator 的責任偷塞給用戶。**用戶只該做最終確認，不該做品質把關**——品質把關是 `@zenbu-powers:acceptance-evaluator` 與 orchestrator 的工作。
+
+輕量任務（orchestrator 自 eval）同樣適用：自評未 PASS 前不得詢問用戶驗收。
+
 ### 與 reviewer 的職責邊界
 
 `@zenbu-powers:acceptance-evaluator` 與 `*-reviewer` agents **正交不重疊**：
