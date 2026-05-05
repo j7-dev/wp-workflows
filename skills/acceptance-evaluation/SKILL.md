@@ -38,7 +38,16 @@ description: 驗收標準對齊評估方法論。給定用戶原始任務需求 
 
 ### Step 2：對齊產出與 criteria
 
-逐條檢視產出有沒有覆蓋到每一條 criterion，採用 4 大評估維度：
+**先過 Reality Check 前置鐵律，再走 4 大維度**：
+
+#### 維度 0：Reality Check（前置鐵律 — 必先過）
+
+主動掃描產出中所有反向訊號（錯誤、警告、未啟用、不可用）+ 驗證第三方依賴可用性 + 走完證據鏈到最終狀態。
+**不可假設「沒看到 = 沒發生」、不可把過程訊號（跳轉成功、exit 0、200）當現實訊號**。
+
+詳見 `references/zero-assumption-verification.md`（**必讀，列入強制前置動作**）。
+
+#### 4 大評估維度（Reality Check 過後才走）
 
 1. **需求覆蓋度**（Coverage）：用戶要的功能/變更**有沒有都做到**
 2. **邊界完整性**（Boundary）：邊界 case、錯誤處理、相關連動**有沒有遺漏**
@@ -74,16 +83,20 @@ description: 驗收標準對齊評估方法論。給定用戶原始任務需求 
 
 | 檔案 | 用途 | 何時讀 |
 |------|------|--------|
+| [zero-assumption-verification.md](references/zero-assumption-verification.md) | **零假設驗收原則 + 反向訊號清單 + 強制前置動作（鐵律）** | **Step 2 之前必讀** |
 | [extracting-testable-criteria.md](references/extracting-testable-criteria.md) | 從用戶任務萃取可驗收標準的方法 | Step 1 必讀 |
-| [evaluation-dimensions.md](references/evaluation-dimensions.md) | 4 大評估維度的判斷準則與範例 | Step 2 必讀 |
-| [project-type-verification.md](references/project-type-verification.md) | WEB / 桌面 / CLI / 純文件的驗收手法分流 | Step 3 必讀 |
-| [report-template.md](references/report-template.md) | 標準報告格式範本 | Step 4 必讀 |
+| [evaluation-dimensions.md](references/evaluation-dimensions.md) | Reality Check + 4 大評估維度的判斷準則與範例 | Step 2 必讀 |
+| [project-type-verification.md](references/project-type-verification.md) | WEB / 桌面 / CLI / 純文件的驗收手法分流（含反向訊號清單） | Step 3 必讀 |
+| [report-template.md](references/report-template.md) | 標準報告格式範本（含反向訊號掃描結果欄位） | Step 4 必讀 |
 | [scope-boundary.md](references/scope-boundary.md) | 與 reviewer agents 的職責邊界守則 | 遇到「這該不該管」的灰色地帶時讀 |
 
 ## 黃金原則
 
-1. **二元判定**：PASS 就 PASS、FAIL 就 FAIL，不允許「大致達標」這種曖昧用詞
-2. **對應到 criterion**：每個 FAIL 必須指出對應哪一條沒過
-3. **改善建議要具體**：不寫「再仔細看看」這類空話
-4. **不越界做 code review**：發現 code 品質問題，標 out-of-scope，建議 orchestrator 補派 reviewer
-5. **不主動修改檔案**：只產報告，改的事交給 orchestrator 重派
+1. **零假設**：不假設「沒看到 = 沒發生」、不假設「過程訊號 = 現實訊號」、不假設第三方依賴可用——
+   全部要主動掃描並出示證據（必先讀 `zero-assumption-verification.md`）
+2. **反向訊號優先**：當「畫面有反向訊號」與「criterion 看起來達成」衝突時，**永遠相信反向訊號**
+3. **二元判定**：PASS 就 PASS、FAIL 就 FAIL，不允許「大致達標」這種曖昧用詞
+4. **對應到 criterion**：每個 FAIL 必須指出對應哪一條沒過（Reality Check FAIL 也要指出哪個訊號）
+5. **改善建議要具體**：不寫「再仔細看看」這類空話
+6. **不越界做 code review**：發現 code 品質問題，標 out-of-scope，建議 orchestrator 補派 reviewer
+7. **不主動修改檔案**：只產報告，改的事交給 orchestrator 重派
