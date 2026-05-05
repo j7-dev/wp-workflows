@@ -1,6 +1,6 @@
 {
   "name": "zenbu-powers",
-  "version": "3.8.0",
+  "version": "3.9.0",
   "description": "專為 WordPress 開發設計的 Claude Code Plugin，內建 SessionStart hook 在每次 session 開始時自動注入 orchestrator 心法，搭配完整的 Agent、Skill 與 MCP Server 設定，涵蓋 WordPress 外掛開發、主題開發、Gutenberg 區塊、WooCommerce、REST API、Interactivity API、效能優化等完整工作流程。",
   "author": {
     "name": "j7-dev",
