@@ -1,6 +1,87 @@
-# 4 大評估維度
+# 評估維度（含 Reality Check 前置維度）
 
-驗收評估從 4 個正交維度檢視產出。每個維度有自己的判斷準則與失敗模式。
+驗收評估從 **1 個前置維度（Reality Check）+ 4 個正交維度**檢視產出。
+**Reality Check 是強制前置門檻**——它不過則其他維度都不需評，直接 FAIL。
+
+> 詳細的零假設方法論、反向訊號清單、強制前置動作見 [`zero-assumption-verification.md`](zero-assumption-verification.md)。
+
+---
+
+## 維度 0：Reality Check（現實核對）— 前置鐵律
+
+### 核心問題
+> 產出畫面/輸出中**有沒有反向訊號**（錯誤、警告、未啟用、不可用）？
+> 涉及的第三方依賴**真的可用**嗎？
+> 「過程訊號」（跳轉、200、exit 0）有沒有被誤當「現實訊號」？
+
+### 為什麼放在前面
+
+最致命的驗收事故是「**假設一切正常**」：
+- agent 看到目標元素 render → PASS，但**沒讀畫面其他文字**
+- agent 看到指令 exit 0 → PASS，但**沒看 stderr 的 warning**
+- agent 看到能跳轉到第三方頁 → PASS，但**第三方頁面正文寫著「服務未啟用」**
+
+這類失敗不是 4 大維度其中之一，而是**驗收行為本身偷懶**。
+所以必須在 4 大維度之前先過 Reality Check。
+
+### 強制執行動作（必跑，不可省）
+
+1. **全域反向訊號掃描**：對驗收對象（頁面/輸出/檔案）做**整體**讀取，不只目標範圍
+   - WEB：截圖 + 讀取整頁可見文字
+   - CLI：完整 stdout + stderr
+   - API：完整 body + headers + status
+   - 文件：Read 整檔
+   - 截圖：視覺掃整張圖
+2. **反向訊號 grep**：對掃描結果 grep 反向訊號關鍵字清單（見 `zero-assumption-verification.md`）
+3. **第三方依賴驗證**：列出所有外部依賴，逐一驗證可用性（status page、dashboard、sandbox 是否啟用）
+4. **證據鏈完整性**：多步驟流程必須驗每一步的**最終狀態**（DB、queue、第三方紀錄），不只看跳轉成功
+
+### FAIL 觸發條件
+
+- 掃到任一**阻擋性反向訊號**且與 criterion 直接或間接相關
+- 第三方依賴實際**不可用**（沙箱未啟用、服務暫停、credentials 失效）
+- 「過程訊號 PASS」但**最終狀態未驗證或驗證失敗**（例：跳轉成功但 DB 沒訂單）
+- 驗收者**無法證明已執行掃描動作**（報告中沒有反向訊號掃描結果欄位 = 視同未掃 = FAIL）
+
+### 失敗模式範例
+
+**範例 R1（金流案例 — 真實事故）**：
+用戶讓 agent 驗收第三方金流 E2E。agent 操作到金流頁面 render 成功，
+但畫面正文**明確寫著「尚未啟用信用卡服務」**，agent 仍判 PASS。
+- 缺漏：未掃畫面正文反向訊號
+- 訊號：「尚未啟用」是阻擋性反向訊號，與「能完成付款」criterion 直接相關
+- 判定：FAIL [Reality Check]
+- 正確處置：報告必須記錄此訊號，判定 FAIL，建議「先確認沙箱信用卡服務啟用後再驗」
+
+**範例 R2（過程訊號誤判）**：
+用戶要求驗收「下單功能」。agent 模擬點擊結帳 → 看到跳轉成功 → 判 PASS。
+- 缺漏：未驗證 DB 訂單狀態，未確認金流 dashboard 有對應交易
+- 判定：FAIL [Reality Check]
+- 正確處置：補驗 `SELECT * FROM orders WHERE ...` + 第三方交易紀錄
+
+**範例 R3（stderr warning 被忽略）**：
+agent 驗收 migration 指令。`exit 0` → 判 PASS。
+但 stderr 有 `WARNING: foreign key constraint not enforced`。
+- 缺漏：未掃 stderr
+- 判定：FAIL [Reality Check]（warning 與 migration 正確性直接相關）
+
+**範例 R4（第三方未驗證）**：
+agent 驗收「寄送驗證信」功能。後端 API 回 200 → 判 PASS。
+- 缺漏：未確認 mailtrap / 收件匣**真的收到信**
+- 判定：FAIL [Reality Check]
+
+### 與其他維度的順序
+
+```
+[Reality Check] ─→ 通過 ─→ 4 大維度評估 ─→ 全 PASS → PASS
+       │
+       └── 不通過 ─→ 直接 FAIL，不繼續評其他維度
+```
+
+> **理由**：Reality Check 不通過代表「現實狀態本身不對」，
+> 此時討論「需求覆蓋」「邊界完整」沒有意義——前提就崩了。
+
+---
 
 ## 維度 1：需求覆蓋度（Coverage）
 
@@ -140,24 +221,30 @@
 
 ---
 
-## 4 維度的優先順序
+## 維度的優先順序（含 Reality Check）
 
-當判定衝突時（例如 Coverage 過了但 Off-Topic 翻車），優先順序：
+當判定衝突時，優先順序：
 
-1. **Quality Floor** 不過 → 直接 FAIL（連 work 都沒辦法談對齊）
+0. **Reality Check** 不過 → **直接 FAIL**（現實本身不對，談對齊沒意義）⚠️ 前置鐵律
+1. **Quality Floor** 不過 → FAIL（連 work 都沒辦法談對齊）
 2. **Coverage** 不過 → FAIL（用戶要的沒做到）
 3. **Boundary** 不過 → FAIL（不完整等於沒做完）
 4. **Off-Topic** 不過 → FAIL（偏題等於做錯方向）
 
-**全部 4 維度 PASS** → 整體判定 PASS
+**Reality Check + 4 維度全 PASS** → 整體判定 PASS
+
+> 注意：Reality Check 不只是「沒看到問題」，而是「主動掃描後確認沒問題」。
+> 報告中**必須**有反向訊號掃描結果欄位明示已執行掃描，否則視同未過 Reality Check。
 
 ## 報告中的維度標註
 
 每條評估結果在報告中明確標註是哪個維度：
 
 ```
+- ❌ FAIL [Reality Check]: 金流頁面正文「尚未啟用信用卡服務」，第三方依賴不可用
 - ❌ FAIL [Coverage]: 用戶要求加註冊頁但產出只有登入頁
 - ⚠️ PASS w/ Note [Boundary]: happy path 完整，但建議補錯誤處理（< [derived, 60%] criterion，可選）
 - ❌ FAIL [Off-Topic]: 產出修改了 .mcp.json 但用戶任務僅針對 CLAUDE.md
 - ✅ PASS [Quality Floor]: markdown 語法正確、結構可讀
+- ✅ PASS [Reality Check]: 已掃描整頁文字、stderr、第三方 dashboard，未發現反向訊號
 ```

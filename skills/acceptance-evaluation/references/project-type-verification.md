@@ -13,6 +13,10 @@
 
 用錯動作 = 驗收結果失真。
 
+> **⚠️ 不論哪種類型，都必先執行 Reality Check 前置鐵律**：
+> 主動掃描反向訊號 + 驗證第三方依賴 + 走證據鏈到最終狀態。
+> 詳見 [`zero-assumption-verification.md`](zero-assumption-verification.md)。
+
 ---
 
 ## 類型 1：WEB 應用
@@ -52,6 +56,38 @@
 | API 整合 | 模擬操作 → 攔截/觀察 network → 斷言 request/response |
 | 錯誤處理 | 注入錯誤 input → 斷言錯誤訊息 |
 | 響應式 | 切換 viewport size → 截圖比對 |
+
+### WEB 反向訊號掃描清單（強制執行）
+
+每次截圖後**必跑**：
+
+1. **整頁文字 dump**：用 playwright `page.innerText('body')` 取得整頁文字，**不只截圖**
+2. **grep 反向訊號**（中英文）：
+   - 服務不可用：`尚未啟用 / 未啟用 / 服務暫停 / 維護中 / coming soon / unavailable / disabled / not enabled`
+   - 認證失敗：`未授權 / 權限不足 / 請先登入 / unauthorized / forbidden / 401 / 403`
+   - 錯誤：`錯誤 / 失敗 / 異常 / error / failed / exception`
+   - 警告：`警告 / 注意 / warning / deprecated`
+3. **DOM 屬性掃描**：找所有 `[disabled]`、`[aria-disabled="true"]`、CSS class 含 `error|warning|disabled|unavailable`
+4. **Network 掃描**：列出所有 4xx/5xx response，即使是非阻擋性的也要記錄
+5. **Console 掃描**：listen `pageerror` + `console.error` + unhandled promise rejection
+6. **第三方 iframe / 外連頁面**：跳轉到第三方（金流、OAuth）時，**也要對該頁做整頁文字 dump 與 grep**——
+   不是「能跳轉」就 PASS，要驗第三方頁面**內容**沒有反向訊號
+
+### 第三方依賴顯式驗證（金流 / OAuth / 外部 API）
+
+當涉及第三方時：
+1. 列出所有第三方依賴（綠界、藍新、Stripe、Google OAuth、AWS S3、SendGrid 等）
+2. 對每個依賴：
+   - 該服務在當前環境（prod / sandbox / staging）是否啟用 → 查商家後台 / dashboard / status page
+   - credentials（API key / secret）是否有效 → 用最小測試請求驗證
+   - 若是金流，**測試卡號是否能完成模擬交易**（不是「能跳轉到金流頁」）
+3. 任一未驗證 → 報告中明示「第三方 X 可用性未驗證」，PASS 結論不涵蓋此面向
+
+### 證據鏈（多步驟流程）
+
+例如「下單 → 付款 → 確認訂單」流程：
+- ❌ 不及格：跳轉到金流頁 → 截圖 → PASS
+- ✅ 合格：跳轉 + 第三方頁無反向訊號 + 提交測試卡 + 跳回商家頁 + **查 DB 訂單表** + **查金流商交易紀錄** + **查確認信寄送紀錄**
 
 ### CI 環境注意
 
@@ -102,6 +138,18 @@ CI 中沒有 GUI，必須用 headless mode（playwright-cli 預設支援）。Cl
 | 操作流程 | 多張截圖對照狀態轉移 |
 | 錯誤訊息 | 觸發錯誤後的截圖 |
 
+### 桌面反向訊號掃描清單
+
+讀截圖時（用 Read multimodal）**必須**：
+
+1. **視覺掃整張圖**，不只目標區域
+2. 列出所有可見文字，特別注意：
+   - 紅色/黃色提示框、tooltip、modal
+   - 任何「錯誤、警告、未啟用、停用、需要升級、需要設定」字樣
+   - title bar / status bar 是否有異常標示
+   - 任何 disabled / greyed out 的元件
+3. 若截圖中**有目標元件但同畫面有反向訊號**，必須優先記錄反向訊號
+
 ---
 
 ## 類型 3：CLI / API / Backend Service
@@ -131,6 +179,27 @@ CI 中沒有 GUI，必須用 headless mode（playwright-cli 預設支援）。Cl
 | 副作用 | 跑前後狀態對比（檔案存在性、DB row 數、queue 長度）|
 | 錯誤處理 | 故意傳錯誤 input → 斷言錯誤碼與訊息 |
 | 效能 | 跑指令 + `time`，但**只看「是否超過 criterion 提的閾值」**，不做效能優化建議（那是 reviewer 的事）|
+
+### CLI / API 反向訊號掃描清單（強制執行）
+
+1. **完整 stdout** 不只看最後一行，整段 grep：
+   - `WARNING / ERROR / FAIL / FATAL / DEPRECATED / DOWN / UNHEALTHY / RETRY`
+   - `failed / cannot / unable to / refused`
+2. **stderr 必看**，即使 exit 0：
+   - 很多工具用 stderr 輸出 warning，會被「exit 0 → PASS」誤判遮蔽
+   - 例：`migration completed (exit 0)` 但 stderr 有 `WARNING: foreign key not enforced`
+3. **HTTP response**：
+   - status code（4xx/5xx 直接 FAIL）
+   - body 含 `error / errors / code / message` 欄位且非空 → FAIL
+   - 即使 200，也要看 body 是否含業務層面的失敗訊號（`{"success": false, ...}`）
+4. **副作用驗證**：
+   - DB：跑 `SELECT` 確認資料真的進去
+   - Queue：確認 job enqueued 且狀態正確
+   - 檔案系統：確認檔案真的建立 + 內容正確
+5. **第三方 API 顯式驗證**：
+   - 不要只看自己這邊的 API 成功
+   - 要查第三方的回應 / dashboard / log
+   - sandbox 環境特別注意「服務未啟用 / 限額 / 凍結」等狀態
 
 ---
 
@@ -163,6 +232,20 @@ CI 中沒有 GUI，必須用 headless mode（playwright-cli 預設支援）。Cl
 | 一致性 | 與其他相關文件交叉比對（aho-corasick-skill 可批次掃描）|
 | 連結有效 | 對 markdown link 確認目標檔案存在（用 Glob）|
 | 語意正確 | 仔細 Read，對照用戶意圖判斷敘述是否準確 |
+
+### 文件反向訊號掃描清單（強制執行）
+
+1. **未完成標記** grep：`TODO / FIXME / XXX / TBD / 待補 / 待確認 / @todo`
+2. **語法瑕疵**：
+   - 未閉合 code block（``` 數量為奇數）
+   - 未閉合 list / table
+   - broken link（href 對應檔案不存在 → Glob 驗證）
+3. **內容矛盾**：
+   - 前後段相互衝突（例：開頭說「禁止 X」結尾又允許 X）
+   - 與其他相關文件的描述不一致
+4. **過時痕跡**：
+   - 引用已不存在的 agent / skill / 檔案路徑
+   - 引用已 deprecate 的 API / 設定欄位
 
 ### 範例：本次任務（優化 CLAUDE.md）的驗收
 
