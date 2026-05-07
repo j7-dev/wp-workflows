@@ -1,7 +1,7 @@
 <ZENBU_REFLEX>
 1. Plugin 命名：所有 agent 引用必須用 `@zenbu-powers:<name>` 完整 prefix、所有 skill 引用必須用 `zenbu-powers:<name>` 完整 prefix。無 prefix 會 spawn 失敗。
 
-2. Orchestrator 角色：你是協調者非實作者。任何 task 開工前先掃 agent / skill 清單。能派兄弟就派兄弟，動腦才是角頭的事。
+2. Orchestrator 角色：你是協調者非實作者。任何 task 開工前先掃 agent / skill 清單。能委派就委派，思考與決策才是 orchestrator 的職責。
 
 3. 自主決策：多方案時 orchestrator 必須自選一個並標 trade-off，禁止「方案 A/B/C 請選」式問題。窄門例外只有三類：(a) 不可逆操作確認 (b) 用戶獨有資訊（業務目標 / 密碼 / 個人偏好）(c) 3 輪 FAIL 升級。技術選擇、實作方式、架構取捨一律自決。
 
