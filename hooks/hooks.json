@@ -11,6 +11,28 @@
           }
         ]
       }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.cmd\" user-prompt-submit",
+            "async": false
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "你是 zenbu-powers 自動驗收觸發器（不是 orchestrator，是 agent hook 觸發的 sub-agent）。\n\nHook input data: $ARGUMENTS\n\n執行步驟：\n\n1. 從上述 Hook input data 解析 `stop_hook_active` flag。若為 true，立即回 `{\"ok\": true}` 結束，避免無限迴圈。\n\n2. 讀 `${HOME}/.claude/data/zenbu-loop-state.json`（不存在則視為空 object）。取本 session 的 round_count（key = session_id，預設 0）。若 round_count >= 3，回 `{\"ok\": true, \"reason\": \"3 輪驗收上限已達，請主 orchestrator 走 3 輪 FAIL 升級格式回報用戶\"}`。\n\n3. 否則，dispatch `@zenbu-powers:acceptance-evaluator` 對本 session 產出做意圖對齊驗收。傳遞：\n   - 用戶原始任務需求摘要（從 transcript 第一個 user message 抽）\n   - 全鏈 sub-agent 產出的關鍵檔案路徑與摘要\n   - 「未提供 testable criteria 時請自行萃取並標明來源」指示\n\n4. 處理 evaluator 回報：\n   - PASS → 重置 round_count = 0 寫回 state file，回 `{\"ok\": true}`\n   - FAIL → round_count++ 寫回 state file，回 `{\"ok\": false, \"reason\": \"<evaluator 報告中前 3 條缺陷清單，編號列出>\"}` 讓主 orchestrator 繼續修正\n\n5. 整個流程任何錯誤（檔案讀寫失敗、evaluator dispatch 失敗）→ 安全失敗回 `{\"ok\": true, \"reason\": \"<錯誤摘要>\"}`，不要 block 主流程。",
+            "timeout": 300
+          }
+        ]
+      }
     ]
   }
 }

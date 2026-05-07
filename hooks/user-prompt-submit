@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# UserPromptSubmit hook for zenbu-powers plugin
+# Injects the reflex dictionary (6 zenbu rules) into every user turn,
+# unless the user's prompt contains an override keyword indicating they
+# want Claude to skip orchestration / agent dispatch / reflex injection.
+#
+# Safe-fail policy: any error -> exit 0 (no JSON output, no block).
+# Hook framework treats empty stdout as "no additionalContext", main flow
+# proceeds normally without the reflex injection.
+
+set -uo pipefail
+
+# Guard: only run when ZENBU_HOOKS_ENABLED=1 (matches session-start convention)
+[ "${ZENBU_HOOKS_ENABLED:-}" != "1" ] && exit 0
+
+# Determine plugin root directory
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)" || exit 0
+DICT_FILE="${SCRIPT_DIR}/reflex-dictionary.txt"
+
+# If dictionary file missing, silently skip
+[ -f "$DICT_FILE" ] || exit 0
+
+# Read stdin (Claude Code hook standard interface)
+input=$(cat 2>/dev/null) || exit 0
+
+# Extract user prompt text
+# - With jq: parse .prompt field (handles JSON escaping correctly)
+# - Without jq: best-effort grep + sed (good enough for keyword detection)
+if command -v jq >/dev/null 2>&1; then
+    user_prompt=$(printf '%s' "$input" | jq -r '.prompt // empty' 2>/dev/null) || user_prompt=""
+else
+    # Fallback: extract "prompt": "..." value via sed
+    # Limitation: doesn't unescape \n, \", \\ — but for keyword presence check it's sufficient
+    user_prompt=$(printf '%s' "$input" | sed -n 's/.*"prompt"[[:space:]]*:[[:space:]]*"\(.*\)".*/\1/p' | head -c 8192)
+fi
+
+# Override keyword detection — if any of these substrings appear in the user prompt,
+# the user has explicitly opted out of orchestration; do NOT inject reflex.
+# Pattern is OR-joined (grep -E alternation). All 11 keywords are literal substrings;
+# Chinese has no word boundary issue.
+override_pattern='直接|跳過 skill|不用派|不要派|自己來|就你處理|不用 sub-agent|不要 sub-agent|你做就好|不用查 skill|不用走流程'
+
+if printf '%s' "$user_prompt" | grep -Eq "$override_pattern"; then
+    # User opted out — exit cleanly, no injection
+    exit 0
+fi
+
+# Read reflex dictionary content
+dict_content=$(cat "$DICT_FILE" 2>/dev/null) || exit 0
+
+# Build additionalContext payload with proper JSON escaping
+if command -v jq >/dev/null 2>&1; then
+    # jq path: -Rs reads raw input as a single JSON string with full escaping
+    escaped_dict=$(printf '%s' "$dict_content" | jq -Rs . 2>/dev/null) || exit 0
+    # escaped_dict already includes surrounding quotes, e.g. "<ZENBU_REFLEX>\n..."
+    printf '{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":%s}}\n' "$escaped_dict"
+else
+    # Fallback: pure bash parameter substitution (same pattern as session-start)
+    s="$dict_content"
+    s="${s//\\/\\\\}"
+    s="${s//\"/\\\"}"
+    s="${s//$'\n'/\\n}"
+    s="${s//$'\r'/\\r}"
+    s="${s//$'\t'/\\t}"
+    printf '{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"%s"}}\n' "$s"
+fi
+
+exit 0
