@@ -1,25 +1,17 @@
 ---
 name: typeorm-v0.3
 description: >
-  TypeORM v0.3 完整技術參考，對應 typeorm ^0.3.x。
-  當程式碼出現任何以下情況時，必須使用此 skill：
-  import from 'typeorm'、import from '@nestjs/typeorm'；
-  new DataSource、DataSourceOptions、createQueryBuilder、
-  @Entity、@PrimaryColumn、@PrimaryGeneratedColumn、@ObjectIdColumn、@Column、@Generated、
-  @CreateDateColumn、@UpdateDateColumn、@DeleteDateColumn、@VersionColumn、
-  @OneToOne、@OneToMany、@ManyToOne、@ManyToMany、@JoinColumn、@JoinTable、@RelationId、
-  @Tree、@TreeParent、@TreeChildren、@TreeLevelColumn、@Index、@Unique、@Check、@Exclusion、
-  @BeforeInsert、@AfterInsert、@BeforeUpdate、@AfterUpdate、@BeforeRemove、@AfterRemove、
-  @BeforeSoftRemove、@AfterSoftRemove、@BeforeRecover、@AfterRecover、@AfterLoad、
-  @EventSubscriber、EntitySubscriberInterface、
-  Repository、EntityManager、QueryRunner、SelectQueryBuilder、
-  FindOptionsWhere、FindManyOptions、FindOneOptions、
-  Not、LessThan、LessThanOrEqual、MoreThan、MoreThanOrEqual、Equal、Like、ILike、Between、In、Any、IsNull、
-  ArrayContains、ArrayContainedBy、ArrayOverlap、JsonContains、Raw、Brackets、NotBrackets、
-  MigrationInterface、TypeOrmModule.forRoot、TypeOrmModule.forRootAsync、TypeOrmModule.forFeature、
-  @InjectRepository、@InjectDataSource、@InjectEntityManager。
-  預設對 PostgreSQL（但 API 本身 DB-agnostic）。v0.3 對 v0.2 有多項 breaking changes：DataSource 取代 Connection、
-  Repository 不再是抽象類、QueryBuilder 使用命名參數改版、FindOptions API 強型別化。
+  TypeORM v0.3 技術參考，對應 typeorm ^0.3.x，需 TypeScript 4.5+、Node.js 16+，
+  experimentalDecorators 與 emitDecoratorMetadata 開啟。預設對 PostgreSQL 但 API DB-agnostic。
+  當 import from 'typeorm' 或 '@nestjs/typeorm' 時必須使用此 skill。代表性 trigger：
+  new DataSource、createQueryBuilder、@Entity、@Column、@PrimaryGeneratedColumn、
+  @CreateDateColumn/@UpdateDateColumn/@DeleteDateColumn、@OneToMany/@ManyToOne/@ManyToMany、
+  @JoinColumn/@JoinTable、Repository、EntityManager、SelectQueryBuilder、FindOptionsWhere、
+  FindManyOptions、Not/LessThan/MoreThan/Between/In/IsNull/Like/ILike/Raw、Brackets、
+  MigrationInterface、TypeOrmModule.forRoot/forFeature、@InjectRepository、@InjectDataSource。
+  v0.3 對 v0.2 重要 breaking changes：DataSource 取代 Connection、Repository 不再是抽象類、
+  QueryBuilder 改用命名參數、FindOptions API 強型別化。涵蓋 Entity、Relations、Repository API、
+  Find Options、QueryBuilder、Transactions、Migrations、Listeners/Subscribers、NestJS 整合。
 ---
 
 # TypeORM v0.3

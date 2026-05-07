@@ -1,24 +1,18 @@
 ---
 name: nextjs-v16
 description: >
-  Next.js 16 (App Router) complete technical reference with React 19.2 and Turbopack.
-  Covers App Router file conventions (layout, page, loading, error, not-found, route groups,
-  parallel routes, intercepting routes), Server vs Client Components ("use client" boundary),
-  Cache Components ("use cache" directive, cacheLife, cacheTag, updateTag, refresh),
-  cacheComponents config, Partial Prerendering (PPR), proxy.ts (replacement for middleware.ts),
-  data fetching (async Server Components, streaming, Suspense), Server Actions ("use server"),
-  Route Handlers (route.ts), next.config.ts (turbopack, cacheComponents, reactCompiler,
-  rewrites, redirects, images, output: standalone), Image optimization (next/image),
-  Metadata API (generateMetadata, opengraph-image), caching and revalidation (revalidatePath,
-  revalidateTag with cacheLife profile, updateTag, refresh), ISR, static vs dynamic rendering,
-  React 19.2 features (View Transitions, useEffectEvent, Activity), React Compiler support,
-  Turbopack (stable default bundler), and v16 breaking changes (fully async request APIs,
-  middleware renamed to proxy, image defaults, ESLint changes, parallel routes default.js
-  requirement). Use this skill whenever writing, reviewing, or debugging code that imports
-  from "next", "next/image", "next/link", "next/navigation", "next/headers", "next/cache",
-  "next/server", or "next/og", or when working with App Router file conventions, proxy.ts,
-  next.config, Cache Components, or ISR/revalidation logic. Also use when the user mentions
-  Next.js 16, upgrading to v16, or any v16-specific features like Cache Components or proxy.ts.
+  Next.js 16 (App Router) with React 19.2 and Turbopack. Covers App Router file
+  conventions, Server / Client Components, Cache Components ("use cache",
+  cacheLife, cacheTag, updateTag), Partial Prerendering, proxy.ts (replaces
+  middleware.ts), Server Actions, Route Handlers, next.config.ts, Image
+  optimization, Metadata API, ISR / revalidation, React Compiler, and v16
+  breaking changes (fully async request APIs, middleware → proxy, parallel
+  routes default.js requirement). Use this skill whenever code imports from
+  "next", "next/image", "next/link", "next/navigation", "next/headers",
+  "next/cache", "next/server", or "next/og", or when working with App Router
+  file conventions, proxy.ts, next.config, Cache Components, or
+  ISR/revalidation. Also use when the user mentions Next.js 16, upgrading to
+  v16, Cache Components, or proxy.ts.
 ---
 
 # Next.js 16 -- App Router Technical Reference

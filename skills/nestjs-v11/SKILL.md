@@ -1,24 +1,17 @@
 ---
 name: nestjs-v11
 description: >
-  NestJS v11 完整技術參考，對應 @nestjs/core ^11.x、@nestjs/common ^11.x。
-  當程式碼出現任何以下情況時，必須使用此 skill：
-  import from '@nestjs/core'、'@nestjs/common'、'@nestjs/config'、'@nestjs/testing'、
-  '@nestjs/typeorm'、'@nestjs/bullmq'、'@nestjs/platform-express'、'@nestjs/platform-fastify'；
-  @Module、@Controller、@Injectable、@Get/@Post/@Put/@Delete/@Patch/@Options/@Head/@All、
-  @Body/@Query/@Param/@Headers/@Session/@Ip/@HostParam、@Req/@Res、@HttpCode/@Header/@Redirect、
-  @Global、@Optional、@Inject、@UsePipes、@UseGuards、@UseInterceptors、@UseFilters、
-  @Catch、@SetMetadata、createParamDecorator、applyDecorators、
-  NestFactory.create、CanActivate、NestInterceptor、PipeTransform、ExceptionFilter、
-  NestMiddleware、MiddlewareConsumer、HttpException、BadRequestException、UnauthorizedException、
-  NotFoundException、ForbiddenException、ConflictException、InternalServerErrorException、
-  ValidationPipe、ParseIntPipe、ParseUUIDPipe、ParseBoolPipe、ParseArrayPipe、ParseEnumPipe、
-  DefaultValuePipe、ParseFilePipe、ParseFloatPipe、ParseDatePipe、
-  ConfigModule、ConfigService、registerAs、ConfigType、
-  Test.createTestingModule、TestingModule、APP_GUARD、APP_PIPE、APP_INTERCEPTOR、APP_FILTER、
-  ConfigurableModuleBuilder、forRoot/forRootAsync/forFeature/forFeatureAsync/register/registerAsync、
-  ContextIdFactory、Reflector、ExecutionContext、CallHandler、ArgumentsHost、ArgumentMetadata。
-  主要技術：TypeScript ^5.x、RxJS ^7.x、reflect-metadata ^0.2.x。v11 需要 Node.js 20+。
+  NestJS v11 技術參考，對應 @nestjs/core ^11.x、@nestjs/common ^11.x，需 Node.js 20+、
+  TypeScript 5.x、RxJS 7.x。decorator 驅動的 Node.js 後端框架，採 Angular 風格 DI 與模組系統。
+  當 import from '@nestjs/core'、'@nestjs/common'、'@nestjs/config'、'@nestjs/testing'、
+  '@nestjs/typeorm'、'@nestjs/bullmq'、'@nestjs/platform-express' 或
+  '@nestjs/platform-fastify' 時必須使用此 skill。代表性 trigger：@Module、@Controller、
+  @Injectable、@Get/@Post/@Put/@Delete、@Body/@Query/@Param、@UseGuards/@UseInterceptors/
+  @UsePipes/@UseFilters、NestFactory.create、CanActivate、PipeTransform、ExceptionFilter、
+  ValidationPipe、HttpException、ConfigService、Test.createTestingModule、APP_GUARD/APP_PIPE/
+  APP_INTERCEPTOR/APP_FILTER、forRoot/forRootAsync/forFeature、Reflector、ExecutionContext。
+  涵蓋 Modules、Controllers、Providers、Pipes、Guards、Interceptors、Exception Filters、
+  Middleware、Custom Decorators、Dynamic Modules、@nestjs/config、@nestjs/testing。
 ---
 
 # NestJS v11 (@nestjs/core, @nestjs/common)

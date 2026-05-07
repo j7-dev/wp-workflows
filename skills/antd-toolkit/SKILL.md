@@ -1,51 +1,17 @@
 ---
 name: antd-toolkit
 description: >
-  antd-toolkit (j7-dev/antd-toolkit) v1.3.x complete API reference. A React component
-  library that bundles wrapped antd v5 components & hooks, Refine integration helpers,
-  WordPress / WooCommerce specific UI, BlockNote-based rich-text editor, and a Bunny
-  Stream media library. Use this skill whenever code imports from 'antd-toolkit',
-  'antd-toolkit/wp', or 'antd-toolkit/refine'. Triggers include any of these symbols:
-  LocaleProvider, useLocale, EnvProvider, useEnv, ActionButton, Amount, BooleanIndicator,
-  BooleanRadioButton, BooleanSegmented, BreathLight, Card (the wrapped one with showCard),
-  Countdown, DateTime, CopyText, ObjectTable, ToggleContent, SelectedRecord, SimpleImage,
-  Heading, SecondToStr, PopconfirmDelete, NameId, TrendIndicator, ExtIcon, CheckIcon,
-  AltIcon, SimpleModal, useSimpleModal, SimpleDrawer, useSimpleDrawer, Portal, Switch,
-  Segmented, VideoInput, DatePicker, RangePicker, VideoLength, DoubleConfirmSwitch, Limit,
-  BlockNote, BlockNoteDrawer, DescriptionDrawer, useBlockNote, useColor, useColumnSearch,
-  useConstantSelect, useRowSelection, useUpdateRecord, dataProvider, bunnyStreamDataProvider,
-  notificationProvider, notificationProps, useDeleteButtonProps, defaultDeleteButtonProps,
-  objToCrudFilters, onProductSearch, BunnyProvider, useBunny, MediaLibrary, MediaLibraryModal,
-  useMediaLibraryModal, useListVideo, useGetVideo, FilterTags, BindItems, UnbindItems,
-  GrantUsers, RevokeUsers, UpdateBoundItems, UpdateGrantedUsers, ActionArea, SelectedItem,
-  ProductFilter, useItemSelect, useWoocommerce, useCountries, useCountryOptions,
-  useProductTaxonomies, BackToWpAdmin, CopyResources, OnChangeUpload, useOnChangeUpload,
-  Upload (the wp wrapper), useUpload, FileUpload, MediaLibraryNotification, ProductName,
-  ProductType, ProductPrice, ProductStock, ProductTotalSales, ProductCat, ProductBoundItems,
-  UserName, UserAvatarUpload, UserFilter, UserRole, useBooleanOptions, usePostStatus,
-  useUserRoles, useBackorders, useProductStockStatus, useProductDateFields, useProductTypes,
-  useProductCatalogVisibilities, useOrderStatus, useProductFilterLabels, stringToBool,
-  boolToString, BOOLEAN_OPTIONS, POST_STATUS, USER_ROLES, ORDER_STATUS, PRODUCT_TYPES,
-  PRODUCT_STATUS, PRODUCT_STOCK_STATUS, PRODUCT_DATE_FIELDS, PRODUCT_CATALOG_VISIBILITIES,
-  BACKORDERS, getProductFilterLabels, isVariable, isVariation, isSubscription, getOrderStatus,
-  defaultImage, defaultImageVideo, fakeImage, cn, renderHTML, escapeHtml, getCopyableJson,
-  getQueryString, getCurrencyString, filterObjKeys, keyToWord, isUsingBlockEditor,
-  removeTrailingSlash, getGCDItems, getFileExtension, isImageFile, isAudioFile, isVideoFile,
-  simpleDecrypt, getTextContent, valueStringify, getColumnFilterProps, useDefaultPaginationProps,
-  getDefaultPaginationProps, formatDateRangeData, defaultSelectProps, useDefaultSelectProps,
-  defaultBooleanRadioButtonProps, defaultTableProps, formatRangePickerValue, parseRangePickerValue,
-  formatDatePickerValue, parseDatePickerValue, getYoutubeVideoId, getVimeoVideoId,
-  getEstimateUploadTimeInSeconds, getVideoUrl, safeParse, toFormData, zh_TW, en_US, ja_JP,
-  TLocale, TConstant, TGetColumnFilterProps, THttpMethods, THttpMethodsWithBody, TOrderBy,
-  TOrder, TLimit, TLimitType, TLimitUnit, TVideo, TVideoType, TEnv, TExpireDate, TImage,
-  TTerm, TPostStatus, TOrderStatus, TUserBaseRecord, TProductBaseRecord, TProductVariationBase,
-  TProductAttribute, TProductType, TProductStockStatus, TBackorders, TWoocommerce,
-  WoocommerceSchema, TaxonomySchema, TTaxonomy, DEFAULT_WOOCOMMERCE, TBunnyVideo,
-  TGetVideosResponse, TUploadVideoResponse, TUploadStatus, TFileInQueue, TMediaLibraryProps,
-  TFileStatus, TAttachment, TGrantedItemBase, TProductFilterProps, UseCustomMutationParams,
-  TBoundItemData, TProductBoundItemsProps. Also use whenever the project's package.json
-  contains "antd-toolkit" or when import paths reference 'antd-toolkit/wp', 'antd-toolkit/refine'.
-  Do NOT search the web for antd-toolkit docs — use this skill instead.
+  antd-toolkit (j7-dev/antd-toolkit) v1.3.x — React component library wrapping
+  antd v5 with Refine integration helpers, WordPress / WooCommerce specific UI,
+  BlockNote-based rich-text editor, and a Bunny Stream media library. Use this
+  skill whenever code imports from 'antd-toolkit', 'antd-toolkit/wp', or
+  'antd-toolkit/refine', or when package.json contains "antd-toolkit". Triggers
+  include LocaleProvider, EnvProvider, ActionButton, ObjectTable, SimpleModal,
+  SimpleDrawer, BlockNote, MediaLibrary, BunnyProvider, dataProvider,
+  bunnyStreamDataProvider, useWoocommerce, ProductFilter, UserAvatarUpload,
+  notificationProvider, useColumnSearch, and the WP / WooCommerce constant sets
+  (POST_STATUS, ORDER_STATUS, PRODUCT_TYPES). Do NOT search the web for
+  antd-toolkit docs — use this skill instead.
 ---
 
 # antd-toolkit API Reference
