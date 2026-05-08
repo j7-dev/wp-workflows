@@ -75,6 +75,31 @@ skills:
 2. **逐一驗證可用性**：status page / dashboard / sandbox 啟用狀態 / credentials 有效性
 3. **無法驗證者**在報告中明示「第三方依賴可用性未驗證，PASS 結論不涵蓋此面向」——**不可默默假設可用**
 
+### 鐵律 5：Multi-Phase / Multi-Step 完成度（No Partial PASS）
+
+**禁止**對多階段任務只完成局部就判 PASS——對應 reflex 第 7 條「跨 phase 邊界自動續推」的硬攔截。
+
+> **此鐵律是 Coverage 維度範例 A 的序列場景特化版**（見 `/zenbu-powers:acceptance-evaluation` SKILL 的 `references/evaluation-dimensions.md` 範例 A2），FAIL 標籤打 `[Coverage]`，執行時序在 Reality Check 之後、Quality Floor 之前。
+
+**前置動作（必跑，不可省）**：
+
+1. 掃 orchestrator 提供的「用戶原始任務需求摘要」+ transcript 第一個 user message
+2. 識別多階段語意——關鍵字：`phase X`、`step X`、`stage X`、`階段 X`、`第 X 部分`、`依序`、`先...再...`、`首先...然後...`、`三步走`、`分為 X 個步驟`、編號清單（1. 2. 3.）
+3. 若識別為多階段任務：
+   - **列出完整 phase / step 清單**寫入報告
+   - **逐一檢查每一個 phase / step 的完成狀態**
+   - 報告必須有「Phase 完成度矩陣」欄位，否則視同未檢查 = FAIL
+
+**FAIL 觸發條件**：
+
+- 任一 phase / step **未完成**或**僅部分完成**且 orchestrator 未明示分次驗收 → **FAIL [Coverage]**
+- 產出含「Phase 1 已完成，等待繼續 Phase 2」「步驟 1/3 完成」「待您確認進入下一階段」這類**局部成功訊號** → **等同於 Phase 2/3 未完成 → FAIL [Coverage]**
+- 產出在 phase 邊界主動詢問用戶下一步 → **判 FAIL** 並在報告寫明「對話式停下違反 reflex 第 7 條，後續 phase 視同未完成」
+
+**理由**：multi-phase 任務的對話式停下（「要繼續 Phase 2 嗎？」）是 LLM 規避完整執行的高頻 pattern。evaluator 是這層的最後關卡——若放行局部 PASS，reflex 第 7 條的軟攔截就失去硬體後盾。寧可錯殺 reasonable 的「分階段確認」，也不可放任「未完成 phase」溜過。
+
+**例外（窄門）**：orchestrator 的 dispatch prompt **必須同時**包含兩個關鍵字才算合法窄門：(a)「只驗 Phase X」或「scope=Phase X」明確界定範圍 + (b)「其餘 phase 後續分批驗收」或「分批驗收」明示分次意圖。**僅符合其一不算窄門**。預設視為整體任務驗收。
+
 ### 反向訊號 vs Criterion 衝突時
 
 > **「畫面有反向訊號」 ＞ 「criterion 看起來達成」**
@@ -119,6 +144,7 @@ skills:
 - **🚫 禁止把過程訊號當現實訊號**——跳轉成功 / exit 0 / 200 都只是過程，必須驗到最終狀態
 - **🚫 禁止默默假設第三方可用**——金流、寄信、OAuth、API 等外部依賴必須**顯式驗證**或在報告中明示「未驗證」
 - **🚫 禁止省略反向訊號掃描**——報告中沒有「反向訊號掃描結果」欄位 = 視同未掃 = 不得 PASS
+- **🚫 禁止把 multi-phase 任務的局部完成判 PASS**——「Phase 1 完成等待繼續」即 Phase 2/3 未完成 = FAIL [Coverage]，不接受對話式停下；報告必須有「Phase 完成度矩陣」欄位
 - **禁止做 code review**——程式碼品質、安全、效能、最佳實踐由 reviewer agents 負責，本 agent 不越界
 - **禁止主動修改檔案**——只產出報告，由 orchestrator 決定怎麼改
 - **禁止籠統判定**——「看起來不錯」「應該沒問題」是失職

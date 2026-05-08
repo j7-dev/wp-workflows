@@ -106,6 +106,11 @@ agent 驗收「寄送驗證信」功能。後端 API 回 200 → 判 PASS。
 - 缺漏 criterion: 「C2 [explicit]: 註冊頁面必須存在」
 - 判定: FAIL - Coverage
 
+**範例 A2（multi-phase 序列）**：用戶要求「分三個 phase 完成 X」，產出「Phase 1 完成等待繼續確認」
+- 缺漏 criterion: Phase 2、Phase 3 未執行
+- 判定: FAIL - Coverage（multi-phase 局部完成）
+- 詳細執行規範：見 `agents/acceptance-evaluator.agent.md` 的「驗收前置鐵律 5：Multi-Phase / Multi-Step 完成度（No Partial PASS）」——這是「並列功能項目」（範例 A）的「序列 phase 場景特化版」
+
 **範例 B**：用戶要求「優化 CLAUDE.md 並加入個人偏好」，產出只優化了結構但沒加入個人偏好
 - 缺漏 criterion: 「C2 [explicit]: 加入個人偏好區塊」
 - 判定: FAIL - Coverage
